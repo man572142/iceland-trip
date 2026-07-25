@@ -2,6 +2,8 @@
 
 冰島 10 天行程 · 互動地圖 — a single-page, self-contained itinerary map.
 
+[點此前往](https://iceland-trip.man572142.workers.dev/)
+
 - `public/index.html` — the site (no build step, no dependencies)
 - `iceland_trip_itinerary.md` — the written plan (source notes, not deployed)
 
