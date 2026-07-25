@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>冰島 10 天行程 · 互動地圖</title>
+<style>
+  :root{
+    --bg:#0b0f14;
+    --bg-2:#111823;
+    --panel:#151d29;
+    --panel-2:#1b2534;
+    --line:#243044;
+    --text:#e6edf5;
+    --muted:#8b9bb0;
+    --accent:#4fd1c5;
+    --accent-2:#7c8cff;
+    --gold:#f0b429;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(124,140,255,.18), transparent 60%),
+      radial-gradient(900px 500px at 0% 0%, rgba(79,209,197,.14), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    padding:14px 22px;
+    border-bottom:1px solid var(--line);
+    background:rgba(11,15,20,.85);
+    backdrop-filter:blur(10px);
+    position:sticky;top:0;z-index:50;
+  }
+  header h1{
+    font-size:17px;margin:0;letter-spacing:.5px;font-weight:700;
+  }
+  header h1 span{color:var(--accent)}
+  .sub{color:var(--muted);font-size:12.5px}
+  .head-spacer{flex:1}
+  .legend{display:flex;gap:14px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+  /* ---------- Layout ---------- */
+  .wrap{
+    display:grid;
+    grid-template-columns: minmax(360px, 460px) 1fr;
+    gap:0;
+    height:calc(100vh - 57px);
+  }
+
+  /* ---------- Left: itinerary ---------- */
+  .itinerary{
+    overflow-y:auto;
+    border-right:1px solid var(--line);
+    padding:18px 16px 60px;
+    scrollbar-width:thin;
+    scrollbar-color:#2a374c transparent;
+  }
+  .itinerary::-webkit-scrollbar{width:9px}
+  .itinerary::-webkit-scrollbar-thumb{background:#2a374c;border-radius:9px}
+
+  .intro{
+    background:linear-gradient(160deg, rgba(79,209,197,.10), rgba(124,140,255,.06));
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:14px 16px;
+    margin-bottom:16px;
+    font-size:13px;line-height:1.75;color:#c6d3e2;
+  }
+  .intro b{color:var(--accent)}
+  .intro .tip{
+    margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);
+    color:var(--muted);font-size:12.5px;
+  }
+
+  .day{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    margin-bottom:12px;
+    overflow:hidden;
+    transition:border-color .2s;
+  }
+  .day.open{border-color:#33455f}
+  .day-head{
+    display:flex;align-items:center;gap:12px;
+    padding:13px 15px;cursor:pointer;
+    user-select:none;
+    transition:background .18s;
+  }
+  .day-head:hover{background:var(--panel-2)}
+  .day-no{
+    flex:0 0 auto;
+    font-size:11px;font-weight:700;letter-spacing:.8px;
+    color:#0b0f14;background:var(--accent);
+    padding:4px 8px;border-radius:6px;
+  }
+  .day-title{flex:1;font-size:14px;font-weight:600}
+  .day-stay{font-size:11.5px;color:var(--muted);white-space:nowrap}
+  .day-stay::before{content:"🛏 ";opacity:.7}
+  .chev{color:var(--muted);font-size:11px;transition:transform .2s}
+  .day.open .chev{transform:rotate(90deg)}
+
+  .day-body{display:none;padding:0 12px 12px}
+  .day.open .day-body{display:block}
+  .day-note{
+    font-size:12.5px;color:var(--muted);line-height:1.7;
+    padding:2px 4px 10px;
+  }
+
+  .spot{
+    display:flex;align-items:flex-start;gap:10px;
+    width:100%;text-align:left;
+    background:transparent;border:1px solid transparent;
+    color:var(--text);
+    padding:9px 10px;margin:3px 0;
+    border-radius:10px;cursor:pointer;
+    font-family:inherit;font-size:13.5px;
+    transition:background .15s, border-color .15s, transform .15s;
+  }
+  .spot:hover{background:var(--panel-2);border-color:var(--line);transform:translateX(2px)}
+  .spot.active{
+    background:linear-gradient(90deg, rgba(79,209,197,.18), rgba(79,209,197,.03));
+    border-color:rgba(79,209,197,.45);
+  }
+  .dot{
+    flex:0 0 auto;width:9px;height:9px;border-radius:50%;
+    background:var(--accent);margin-top:6px;
+    box-shadow:0 0 0 3px rgba(79,209,197,.15);
+  }
+  .spot.opt .dot{background:var(--muted);box-shadow:0 0 0 3px rgba(139,155,176,.12)}
+  .spot.city .dot{background:var(--accent-2);box-shadow:0 0 0 3px rgba(124,140,255,.15)}
+  .spot-txt{flex:1;min-width:0}
+  .spot-name{font-weight:600;line-height:1.4}
+  .spot-zh{font-size:11.5px;color:var(--muted);margin-top:1px}
+  .badge{
+    font-size:10px;padding:2px 6px;border-radius:5px;margin-left:6px;
+    vertical-align:middle;white-space:nowrap;
+  }
+  .badge.opt{background:rgba(139,155,176,.16);color:var(--muted)}
+
+  .day-actions{padding:6px 4px 0}
+  .route-btn{
+    display:inline-block;font-size:11.5px;color:var(--accent);
+    text-decoration:none;border:1px solid rgba(79,209,197,.3);
+    padding:5px 10px;border-radius:8px;transition:background .15s;
+  }
+  .route-btn:hover{background:rgba(79,209,197,.1)}
+
+  .tail{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:14px 16px;margin-top:16px;
+    font-size:12.5px;line-height:1.9;color:#c6d3e2;
+  }
+  .tail h3{margin:0 0 10px;font-size:13px;color:var(--accent)}
+  .tail table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .tail td{padding:5px 0;border-bottom:1px solid var(--line)}
+  .tail td:last-child{text-align:right;color:var(--muted)}
+  .tail tr:last-child td{border-bottom:none}
+
+  /* ---------- Right: map + info ---------- */
+  .stage{display:flex;flex-direction:column;min-width:0;height:100%}
+  .map-box{flex:1 1 55%;position:relative;background:#0e141c;min-height:260px}
+  .map-box iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.9)}
+  .map-toolbar{
+    position:absolute;top:12px;left:12px;z-index:5;
+    display:flex;gap:6px;background:rgba(11,15,20,.82);
+    border:1px solid var(--line);border-radius:10px;padding:5px;
+    backdrop-filter:blur(8px);
+  }
+  .map-toolbar button{
+    background:transparent;border:0;color:var(--muted);
+    font-family:inherit;font-size:12px;padding:5px 11px;
+    border-radius:7px;cursor:pointer;transition:.15s;
+  }
+  .map-toolbar button:hover{color:var(--text)}
+  .map-toolbar button.on{background:var(--accent);color:#0b0f14;font-weight:600}
+  .map-open{
+    position:absolute;bottom:12px;right:12px;z-index:5;
+    background:rgba(11,15,20,.85);border:1px solid var(--line);
+    color:var(--text);text-decoration:none;font-size:12px;
+    padding:7px 12px;border-radius:9px;backdrop-filter:blur(8px);
+  }
+  .map-open:hover{border-color:var(--accent);color:var(--accent)}
+
+  .info{
+    flex:0 0 45%;
+    border-top:1px solid var(--line);
+    background:var(--bg-2);
+    overflow-y:auto;padding:18px 22px 24px;
+    scrollbar-width:thin;scrollbar-color:#2a374c transparent;
+  }
+  .info::-webkit-scrollbar{width:9px}
+  .info::-webkit-scrollbar-thumb{background:#2a374c;border-radius:9px}
+
+  .info-empty{
+    height:100%;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;color:var(--muted);gap:8px;text-align:center;
+  }
+  .info-empty .big{font-size:30px;opacity:.5}
+
+  .i-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .i-head h2{margin:0;font-size:21px;letter-spacing:.3px}
+  .i-zh{color:var(--accent);font-size:14px}
+  .i-meta{color:var(--muted);font-size:12px;margin-bottom:10px}
+  .i-meta span{margin-right:14px}
+  .i-desc{font-size:13.5px;line-height:1.85;color:#c9d6e5;margin-bottom:14px;max-width:70ch}
+
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+  .ph{
+    position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;
+    background:var(--panel);border:1px solid var(--line);
+  }
+  .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+  .ph:hover img{transform:scale(1.06)}
+  .ph a.cred{
+    position:absolute;left:0;right:0;bottom:0;
+    background:linear-gradient(transparent,rgba(0,0,0,.8));
+    color:#cfe0f0;font-size:10px;padding:16px 8px 6px;
+    text-decoration:none;opacity:0;transition:opacity .2s;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .ph:hover a.cred{opacity:1}
+  .ph.skel{background:linear-gradient(90deg,#151d29,#1e2937,#151d29);background-size:200% 100%;animation:sh 1.2s infinite}
+  @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  .ph-note{color:var(--muted);font-size:11.5px;margin-top:10px}
+
+  .lightbox{
+    position:fixed;inset:0;z-index:200;background:rgba(5,8,12,.94);
+    display:none;align-items:center;justify-content:center;padding:30px;
+  }
+  .lightbox.on{display:flex}
+  .lightbox img{max-width:100%;max-height:100%;border-radius:10px}
+  .lightbox .x{position:absolute;top:18px;right:26px;color:#fff;font-size:30px;cursor:pointer;opacity:.7}
+
+  @media (max-width:940px){
+    .wrap{grid-template-columns:1fr;height:auto}
+    .itinerary{border-right:0;border-bottom:1px solid var(--line);max-height:none}
+    .stage{height:auto;position:sticky;top:57px;z-index:40;background:var(--bg)}
+    .map-box{height:44vh;flex:none}
+    .info{flex:none;max-height:44vh}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>冰島 10 天行程 <span>· 南岸 + 北冰島</span></h1>
+  <div class="sub">點擊左側景點 → 地圖定位 + 實景照片</div>
+  <div class="head-spacer"></div>
+  <div class="legend">
+    <span><i style="background:#4fd1c5"></i>景點</span>
+    <span><i style="background:#7c8cff"></i>城鎮 / 交通</span>
+    <span><i style="background:#8b9bb0"></i>可選</span>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- ============ LEFT ============ -->
+  <aside class="itinerary" id="itin">
+    <div class="intro">
+      <b>行程設計理念</b> — 不環島、不浪費時間在雷克雅維克、南岸濃縮成 3 天不犧牲代表性景點，北冰島保留完整兩天半。
+      <div class="tip">✈️ Day 7 搭國內線 <b>Reykjavík (RKV) → Akureyri (AEY)</b>，約 45 分鐘，比開車來回省下約 10 小時。</div>
+    </div>
+    <!-- days injected here -->
+    <div class="tail">
+      <h3>住宿建議</h3>
+      <table>
+        <tr><td>Reykjavík</td><td>3 晚</td></tr>
+        <tr><td>Vík</td><td>1 晚</td></tr>
+        <tr><td>Jökulsárlón / Höfn</td><td>1 晚</td></tr>
+        <tr><td>Selfoss</td><td>1 晚</td></tr>
+        <tr><td>Akureyri</td><td>3 晚</td></tr>
+      </table>
+    </div>
+  </aside>
+
+  <!-- ============ RIGHT ============ -->
+  <section class="stage">
+    <div class="map-box">
+      <div class="map-toolbar">
+        <button data-t="m" class="on">地圖</button>
+        <button data-t="k">衛星</button>
+        <button data-t="p">地形</button>
+        <button id="btnAll">全覽</button>
+      </div>
+      <iframe id="map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <a class="map-open" id="mapOpen" href="#" target="_blank" rel="noopener">在 Google 地圖開啟 ↗</a>
+    </div>
+    <div class="info" id="info">
+      <div class="info-empty">
+        <div class="big">🗺️</div>
+        <div>從左側點選任一景點</div>
+        <div style="font-size:12px">地圖會標示位置，並自動載入當地實景照片</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="lightbox" id="lb"><span class="x">&times;</span><img alt=""></div>
+
+<script>
+/* =========================================================
+   行程資料
+   opt: 可選  |  kind: city/spot
+   q:  用於 Wikimedia Commons 照片搜尋的關鍵字
+   ========================================================= */
+const DAYS = [
+  {
+    n:1, title:"抵達冰島", stay:"Reykjavík",
+    note:"抵達 KEF → 前往雷克雅維克 → Check-in → 市區散步。晚上若天氣好，第一次追極光。",
+    spots:[
+      {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
+       q:"Keflavik International Airport", desc:"冰島門戶機場，距離雷克雅維克約 50 分鐘車程。多數租車公司在此設點，建議一落地就取車。"},
+      {name:"Hallgrímskirkja", zh:"哈爾格林姆教堂", lat:64.1417, lng:-21.9266, z:16,
+       q:"Hallgrimskirkja", desc:"雷克雅維克地標，74.5 公尺高的混凝土教堂，外型靈感來自玄武岩柱。可搭電梯上塔頂俯瞰整片彩色屋頂市區。"},
+      {name:"Harpa Concert Hall", zh:"哈帕音樂廳", lat:64.1505, lng:-21.9325, z:16,
+       q:"Harpa Reykjavik", desc:"港邊的玻璃蜂巢建築，立面由 Olafur Eliasson 設計。夜晚燈光變化非常上鏡，內部可自由參觀。"},
+      {name:"Sólfar (Sun Voyager)", zh:"太陽航海者", lat:64.1475, lng:-21.9224, z:17,
+       q:"Sun Voyager Reykjavik", desc:"海邊的鋼製維京船骨架雕塑，面向 Esja 山。日落與極夜時分最美，走路即可從 Harpa 抵達。"}
+    ]
+  },
+  {
+    n:2, title:"Golden Circle + Husky Safari", stay:"Reykjavík",
+    note:"上午跑完黃金圈三景點，下午 Husky Safari。狗拉雪橇的基地就在黃金圈附近最順，不需要另外占用一天。",
+    spots:[
+      {name:"Þingvellir National Park", zh:"辛格韋德利國家公園", lat:64.2559, lng:-21.1300, z:14,
+       q:"Thingvellir", desc:"世界遺產，北美與歐亞板塊的交界裂谷，也是古代冰島議會所在地。Almannagjá 峽谷步道是必走路線。"},
+      {name:"Geysir / Strokkur", zh:"間歇泉", lat:64.3104, lng:-20.3024, z:16,
+       q:"Strokkur geyser", desc:"「Geyser（間歇泉）」一詞的語源地。老 Geysir 已少噴發，旁邊的 Strokkur 每 5–10 分鐘噴出 20–30 公尺水柱。"},
+      {name:"Gullfoss", zh:"黃金瀑布", lat:64.3271, lng:-20.1199, z:15,
+       q:"Gullfoss", desc:"分兩層落入 32 公尺深峽谷的巨瀑，水量驚人。冬季兩側結冰、水氣凝成霧凇，氣勢完全不同。"},
+      {name:"Husky Safari", zh:"哈士奇雪橇", kind:"city", lat:64.1730, lng:-21.4400, z:11, approx:true,
+       q:"dog sledding Iceland", desc:"雪橇犬體驗，基地多在 Mosfellsdalur 一帶（黃金圈回程路上）。4 月前後多為雪地或輪車型式，務必事先預約。地圖位置為該區域概略點。"},
+      {name:"Kerið Crater", zh:"克里德火山口湖", opt:true, lat:64.0411, lng:-20.8850, z:16,
+       q:"Kerid crater", desc:"3000 年歷史的火山口湖，紅黑色火山渣壁配上不透明的藍綠湖水。可繞口緣走一圈，也能下到湖畔。"}
+    ]
+  },
+  {
+    n:3, title:"南岸", stay:"Vík",
+    note:"一路往東，沿 1 號公路推進。瀑布之間車程都很短，可以慢慢拍。",
+    spots:[
+      {name:"Seljalandsfoss", zh:"塞里雅蘭瀑布", lat:63.6156, lng:-19.9928, z:16,
+       q:"Seljalandsfoss", desc:"少數可以繞到水簾後方的瀑布，60 公尺落差。步道濕滑且會被噴濕，務必穿防水外套。"},
+      {name:"Gljúfrabúi", zh:"峽谷居民瀑布", lat:63.6205, lng:-19.9866, z:17,
+       q:"Gljufrabui", desc:"藏在岩縫裡的秘境瀑布，距 Seljalandsfoss 步行約 5 分鐘。需涉水走進窄縫，內部像天井般開闊。"},
+      {name:"Skógafoss", zh:"斯科加瀑布", lat:63.5321, lng:-19.5114, z:16,
+       q:"Skogafoss", desc:"寬 25 公尺、高 60 公尺的方正大瀑布，晴天常出現雙彩虹。右側階梯可登上瀑頂接 Fimmvörðuháls 步道。"},
+      {name:"Kvernufoss", zh:"克維努瀑布", opt:true, lat:63.5305, lng:-19.4885, z:17,
+       q:"Kvernufoss", desc:"從 Skógar 博物館旁步行約 15 分鐘的小眾瀑布，同樣可以走到水簾後方，人潮遠少於 Skógafoss。"},
+      {name:"Sólheimajökull", zh:"索爾黑馬冰川", lat:63.5306, lng:-19.3689, z:14,
+       q:"Solheimajokull", desc:"Mýrdalsjökull 冰帽的外伸冰舌，是南岸最容易接近的冰川。停車場走到冰緣約 15 分鐘，冰川健行行程多從這裡出發。"},
+      {name:"Dyrhólaey", zh:"迪霍拉里海岬", lat:63.4020, lng:-19.1264, z:15,
+       q:"Dyrholaey", desc:"120 公尺高的海岬與巨大海蝕拱門，可俯瞰整條黑沙灘。5–8 月是海鸚棲息地，部分區域有季節性封閉。"},
+      {name:"Reynisfjara Black Sand Beach", zh:"雷尼斯黑沙灘", lat:63.4058, lng:-19.0448, z:15,
+       q:"Reynisfjara", desc:"玄武岩柱洞窟與外海的 Reynisdrangar 海蝕柱。⚠️ 這裡有致命的 sneaker wave，絕對不要靠近水線背對海面。"},
+      {name:"Vík í Mýrdal", zh:"維克鎮", kind:"city", lat:63.4187, lng:-19.0060, z:14,
+       q:"Vik i Myrdal", desc:"南岸唯一的補給小鎮，山丘上的紅頂教堂是明信片場景。今晚住這裡。"}
+    ]
+  },
+  {
+    n:4, title:"冰河潟湖", stay:"Jökulsárlón / Höfn 附近",
+    note:"可選加購冰川健行或 Zodiac Boat Tour（建議提前預約）。",
+    spots:[
+      {name:"Fjaðrárgljúfur Canyon", zh:"羽毛峽谷", lat:63.7714, lng:-18.1719, z:15,
+       q:"Fjadrargljufur", desc:"200 萬年歷史的蛇行峽谷，深 100 公尺、長 2 公里，苔蘚覆蓋的岩壁蜿蜒如巨獸脊背。峽谷上緣有觀景步道。"},
+      {name:"Skaftafell", zh:"斯卡夫塔山自然保護區", lat:64.0166, lng:-16.9662, z:13,
+       q:"Skaftafell", desc:"Vatnajökull 國家公園的核心區，步道網四通八達。經典路線是走到玄武岩柱環繞的 Svartifoss（黑瀑布），來回約 1.5 小時。"},
+      {name:"Jökulsárlón", zh:"傑古沙龍冰河潟湖", lat:64.0784, lng:-16.2306, z:14,
+       q:"Jokulsarlon", desc:"冰島最深的湖，Breiðamerkurjökull 崩落的藍白冰山漂浮其中並緩緩流向大海，常有海豹出沒。Zodiac 快艇能開到冰山之間。"},
+      {name:"Diamond Beach", zh:"鑽石沙灘", lat:64.0434, lng:-16.1794, z:15,
+       q:"Diamond Beach Iceland", desc:"潟湖出海口對面的黑沙灘，被浪打回岸上的冰塊在黑沙上像散落的鑽石。清晨低角度陽光最上鏡。"},
+      {name:"Höfn", zh:"霍芬鎮", kind:"city", opt:true, lat:64.2539, lng:-15.2082, z:14,
+       q:"Hofn Iceland", desc:"東南岸漁港小鎮，以龍蝦（langoustine）聞名，背景是 Vatnajökull 冰帽。若住這裡今晚可以吃一頓好的。"}
+    ]
+  },
+  {
+    n:5, title:"返回南部", stay:"Selfoss",
+    note:"慢慢往回走：補昨天沒玩到的景點、安排冰川活動、沿途拍照。下午回到 Selfoss 一帶。",
+    spots:[
+      {name:"Selfoss (town)", zh:"塞爾福斯鎮", kind:"city", lat:63.9330, lng:-20.9970, z:14,
+       q:"Selfoss town Iceland", desc:"南部最大的內陸城鎮，位在 Ölfusá 河畔，回雷克雅維克只要 45 分鐘。注意別跟 Day 9 北部的同名瀑布搞混。"},
+      {name:"Kerið Crater", zh:"克里德火山口湖", opt:true, lat:64.0411, lng:-20.8850, z:16,
+       q:"Kerid crater", desc:"若 Day 2 沒去，今天從 Selfoss 開車 15 分鐘就能補上。傍晚光線下火山渣壁的紅色特別濃。"}
+    ]
+  },
+  {
+    n:6, title:"雷克雅維克", stay:"Reykjavík",
+    note:"回到 Reykjavik，今天不排太滿：泡湯、咖啡店、市區散步、補給，隔天準備飛北冰島。",
+    spots:[
+      {name:"Sky Lagoon", zh:"天空潟湖", opt:true, lat:64.1197, lng:-21.9407, z:16,
+       q:"Sky Lagoon Iceland", desc:"Kópavogur 海邊的無邊際地熱溫泉，泡在池裡直接望向大西洋。七步驟的 Ritual 儀式是招牌，比藍湖更近市區。"},
+      {name:"Perlan", zh:"珍珠樓", opt:true, lat:64.1290, lng:-21.9190, z:16,
+       q:"Perlan Reykjavik", desc:"熱水儲槽改建的玻璃穹頂建築，內有人造冰洞與極光展，頂樓 360 度觀景台可俯瞰整個雷克雅維克。"},
+      {name:"Laugavegur", zh:"市區主街", opt:true, lat:64.1440, lng:-21.9270, z:16,
+       q:"Laugavegur Reykjavik", desc:"雷克雅維克主要購物街，咖啡店、書店與紀念品店集中在此。補給乾糧與羊毛衣（lopapeysa）的好地方。"}
+    ]
+  },
+  {
+    n:7, title:"飛往 Akureyri", stay:"Akureyri",
+    note:"上午搭國內線 Reykjavík → Akureyri（約 45 分鐘）。抵達後逛市區，下午前往 Goðafoss，晚上若天氣好可追極光。",
+    spots:[
+      {name:"Reykjavík Airport (RKV)", zh:"雷克雅維克國內機場", kind:"city", lat:64.1300, lng:-21.9406, z:14,
+       q:"Reykjavik Airport", desc:"市區內的國內線機場（非 KEF），走路就能從市中心抵達。Icelandair Connect 每日多班飛 Akureyri。"},
+      {name:"Akureyri Airport (AEY)", zh:"阿克雷里機場", kind:"city", lat:65.6600, lng:-18.0727, z:14,
+       q:"Akureyri Airport", desc:"跑道貼著 Eyjafjörður 峽灣，降落過程本身就是風景。機場到市區只要 5 分鐘，在此取北部租車。"},
+      {name:"Akureyrarkirkja", zh:"阿克雷里教堂", lat:65.6800, lng:-18.0894, z:16,
+       q:"Akureyrarkirkja", desc:"與哈爾格林姆教堂同一位建築師的作品，坐落在高台上，爬完階梯可俯瞰峽灣與市區。"},
+      {name:"Lystigarðurinn (Botanical Garden)", zh:"阿克雷里植物園", opt:true, lat:65.6779, lng:-18.0930, z:17,
+       q:"Lystigardurinn Akureyri", desc:"世界最北的植物園之一，收藏了幾乎所有冰島原生植物。4 月尚未完全甦醒，夏季最盛。"},
+      {name:"Akureyri Harbour", zh:"阿克雷里港", opt:true, lat:65.6835, lng:-18.0870, z:16,
+       q:"Akureyri harbour", desc:"峽灣邊的港區，遊輪與漁船停泊處，沿岸步道很適合傍晚散步。"},
+      {name:"Goðafoss", zh:"眾神瀑布", lat:65.6829, lng:-17.5500, z:15,
+       q:"Godafoss", desc:"寬 30 公尺的馬蹄形瀑布。西元 1000 年冰島改信基督教時，據說法律誦讀者將舊神神像丟入此瀑，因而得名。兩岸都有觀景點。"}
+    ]
+  },
+  {
+    n:8, title:"Lake Mývatn", stay:"Mývatn 或 Akureyri",
+    note:"北冰島精華，一整天都在火山與地熱地貌裡繞。下午泡 Mývatn Nature Baths 收尾。",
+    spots:[
+      {name:"Hverir (Hverarönd)", zh:"赫維爾地熱區", lat:65.6404, lng:-16.8093, z:16,
+       q:"Hverir Namafjall", desc:"橘紅色的無植被地熱荒原，沸騰泥漿池與硫磺蒸氣噴口遍布。氣味濃烈、地面滾燙，務必走在步道內 —— 全冰島最像外星球的地方。"},
+      {name:"Námafjall", zh:"納馬菲亞山", lat:65.6394, lng:-16.8194, z:15,
+       q:"Namafjall", desc:"Hverir 後方的硫磺山脊，可登上稜線俯瞰整片地熱區與 Mývatn 方向的熔岩原，來回約 40 分鐘。"},
+      {name:"Grjótagjá Cave", zh:"格約塔格亞洞穴", lat:65.6260, lng:-16.8830, z:17,
+       q:"Grjotagja", desc:"熔岩裂縫中的地熱溫泉洞（《權力遊戲》取景地）。水溫過高且屬私人土地，禁止下水，但洞內藍水配裂隙光線非常值得一看。"},
+      {name:"Dimmuborgir", zh:"黑色城堡熔岩地", lat:65.5906, lng:-16.9126, z:15,
+       q:"Dimmuborgir", desc:"字面意思是「黑暗城堡」，熔岩湖塌陷後留下的巨大黑色岩柱與拱門迷宮。步道分多種長度，Kirkjan（教堂）岩拱是必看。"},
+      {name:"Skútustaðagígar", zh:"斯庫圖斯塔泡狀假火山口", lat:65.5700, lng:-17.0330, z:15,
+       q:"Skutustadagigar", desc:"熔岩流過濕地時蒸氣爆炸形成的「偽火山口」群，環湖步道平緩好走，夏季是水鳥天堂。"},
+      {name:"Mývatn Nature Baths", zh:"米湖溫泉", lat:65.6318, lng:-16.8478, z:16,
+       q:"Myvatn Nature Baths", desc:"北部版藍湖，人少很多、視野開闊。乳藍色鹼性溫泉水約 36–40°C，傍晚泡湯還有機會直接看到極光。"}
+    ]
+  },
+  {
+    n:9, title:"Dettifoss + Húsavík", stay:"Akureyri",
+    note:"上午衝瀑布，下午到 Húsavík，可選賞鯨。傍晚返回 Akureyri。",
+    spots:[
+      {name:"Dettifoss", zh:"黛提瀑布", lat:65.8145, lng:-16.3844, z:15,
+       q:"Dettifoss", desc:"歐洲水量最大的瀑布，寬 100 公尺、落差 45 公尺，灰色冰川泥水轟然墜入峽谷。西岸（862 號公路）路況較好且視野正面，東岸能更靠近。"},
+      {name:"Selfoss (waterfall)", zh:"塞爾瀑布", lat:65.8070, lng:-16.3880, z:16,
+       q:"Selfoss waterfall Iceland", desc:"從 Dettifoss 沿步道往上游走約 15 分鐘，寬闊的階梯狀瀑布橫跨整個峽谷，遊客明顯少很多。"},
+      {name:"Húsavík", zh:"胡薩維克", kind:"city", lat:66.0449, lng:-17.3389, z:14,
+       q:"Husavik", desc:"歐洲賞鯨之都，Skjálfandi 灣可見座頭鯨、小鬚鯨與藍鯨。港邊的木造教堂與鯨魚博物館值得一逛（也是電影《歐洲歌唱大賽》場景）。"},
+      {name:"Whale Watching", zh:"賞鯨", opt:true, lat:66.0500, lng:-17.3480, z:12,
+       q:"whale watching Husavik", desc:"航程約 3 小時，多為傳統橡木船或 RIB 快艇。4 月起賞鯨季開始，出海很冷，船公司會提供連身保暖衣。"}
+    ]
+  },
+  {
+    n:10, title:"返回雷克雅維克、返程", stay:"—",
+    note:"上午搭國內線 Akureyri → Reykjavík，轉乘至 KEF 國際機場返程。建議國內線與國際線之間至少留 4 小時緩衝。",
+    spots:[
+      {name:"Akureyri Airport (AEY)", zh:"阿克雷里機場", kind:"city", lat:65.6600, lng:-18.0727, z:14,
+       q:"Akureyri Airport", desc:"還車後搭早班國內線回雷克雅維克。北部天氣多變，航班偶有延誤，別把時間抓太緊。"},
+      {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
+       q:"Keflavik International Airport", desc:"從 RKV 到 KEF 車程約 50 分鐘（Flybus 或計程車）。免稅店在出境後，退稅櫃檯記得預留時間。"}
+    ]
+  }
+];
+
+/* ================= 建立左側列表 ================= */
+const itin = document.getElementById('itin');
+const tailFirst = itin.querySelector('.tail');
+let uid = 0;
+const REG = {};   // id -> spot
+
+DAYS.forEach(day=>{
+  const el = document.createElement('div');
+  el.className = 'day' + (day.n===1 ? ' open' : '');
+  const dirUrl = 'https://www.google.com/maps/dir/' +
+    day.spots.map(s=>`${s.lat},${s.lng}`).join('/');
+
+  el.innerHTML = `
+    <div class="day-head">
+      <span class="day-no">DAY ${day.n}</span>
+      <span class="day-title">${day.title}</span>
+      ${day.stay!=='—' ? `<span class="day-stay">${day.stay}</span>` : ''}
+      <span class="chev">▶</span>
+    </div>
+    <div class="day-body">
+      <div class="day-note">${day.note}</div>
+      <div class="day-spots"></div>
+      ${day.spots.length>1 ? `<div class="day-actions"><a class="route-btn" href="${dirUrl}" target="_blank" rel="noopener">🚗 在 Google 地圖規劃當日路線</a></div>` : ''}
+    </div>`;
+
+  const list = el.querySelector('.day-spots');
+  day.spots.forEach(s=>{
+    const id = 's'+(uid++);
+    REG[id] = s;
+    const b = document.createElement('button');
+    b.className = 'spot' + (s.opt?' opt':'') + (s.kind==='city'?' city':'');
+    b.dataset.id = id;
+    b.innerHTML = `
+      <span class="dot"></span>
+      <span class="spot-txt">
+        <span class="spot-name">${s.name}${s.opt?'<span class="badge opt">可選</span>':''}</span>
+        <span class="spot-zh">${s.zh}</span>
+      </span>`;
+    b.addEventListener('click', ()=>select(id));
+    list.appendChild(b);
+  });
+
+  el.querySelector('.day-head').addEventListener('click', ()=> el.classList.toggle('open'));
+  itin.insertBefore(el, tailFirst);
+});
+
+/* ================= 地圖 ================= */
+const mapEl   = document.getElementById('map');
+const mapOpen = document.getElementById('mapOpen');
+let mapType = 'm';
+let current = null;
+
+function drawMap(){
+  let lat, lng, z;
+  if(current){ lat=current.lat; lng=current.lng; z=current.z||14; }
+  else { lat=64.90; lng=-18.60; z=6; }
+  // 經典 output=embed 端點：不需要 API key，q=座標 會自動放上圖釘
+  const q = current ? `${lat},${lng}(${encodeURIComponent(current.name)})` : `${lat},${lng}`;
+  mapEl.src = `https://www.google.com/maps?q=${q}&z=${z}&t=${mapType}&hl=zh-TW&output=embed`;
+  mapOpen.href = current
+    ? `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`
+    : `https://www.google.com/maps/@${lat},${lng},${z}z`;
+}
+
+document.querySelectorAll('.map-toolbar button[data-t]').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.map-toolbar button[data-t]').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    mapType = b.dataset.t;
+    drawMap();
+  });
+});
+document.getElementById('btnAll').addEventListener('click', ()=>{
+  current = null;
+  document.querySelectorAll('.spot.active').forEach(x=>x.classList.remove('active'));
+  drawMap();
+  document.getElementById('info').innerHTML =
+    `<div class="info-empty"><div class="big">🗺️</div><div>冰島全覽</div>
+     <div style="font-size:12px">從左側點選任一景點，載入定位與照片</div></div>`;
+});
+
+/* ================= 選取景點 ================= */
+const info = document.getElementById('info');
+let reqToken = 0;
+
+function select(id){
+  const s = REG[id];
+  current = s;
+  document.querySelectorAll('.spot').forEach(x=>x.classList.toggle('active', x.dataset.id===id));
+  drawMap();
+
+  const token = ++reqToken;
+  info.innerHTML = `
+    <div class="i-head">
+      <h2>${s.name}</h2><span class="i-zh">${s.zh}</span>
+    </div>
+    <div class="i-meta">
+      <span>📍 ${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}${s.approx?'（概略位置）':''}</span>
+      <span>${s.opt?'可選行程':''}</span>
+    </div>
+    <div class="i-desc">${s.desc}</div>
+    <div class="gallery" id="gal">
+      ${'<div class="ph skel"></div>'.repeat(3)}
+    </div>
+    <div class="ph-note" id="phNote">正在從 Wikimedia Commons 載入實景照片…</div>`;
+
+  loadPhotos(s, token);
+}
+
+/* ========== 從 Wikimedia Commons 抓實景照片（免 API key、CORS 開放） ========== */
+async function loadPhotos(s, token){
+  const gal  = document.getElementById('gal');
+  const note = document.getElementById('phNote');
+  const url = 'https://commons.wikimedia.org/w/api.php'
+    + '?action=query&format=json&origin=*'
+    + '&generator=search&gsrnamespace=6&gsrlimit=12'
+    + '&gsrsearch=' + encodeURIComponent(s.q)
+    + '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=800';
+
+  try{
+    const r = await fetch(url);
+    const j = await r.json();
+    if(token !== reqToken) return;                       // 已切換到別的景點
+
+    const pages = j?.query?.pages ? Object.values(j.query.pages) : [];
+    const imgs = pages
+      .map(p=>p.imageinfo?.[0])
+      .filter(i=> i && /\.(jpe?g|png)$/i.test(i.url))
+      .slice(0,6);
+
+    if(!imgs.length){ fallback(gal, note, s); return; }
+
+    gal.innerHTML = imgs.map(i=>{
+      const title = (i.extmetadata?.ObjectName?.value || '')
+        .replace(/<[^>]*>/g,'') || 'Wikimedia Commons';
+      const author = (i.extmetadata?.Artist?.value || '')
+        .replace(/<[^>]*>/g,'').slice(0,40);
+      return `<div class="ph">
+        <img src="${i.thumburl||i.url}" alt="${s.name}" loading="lazy" data-full="${i.url}">
+        <a class="cred" href="${i.descriptionurl}" target="_blank" rel="noopener">${title}${author?' · '+author:''}</a>
+      </div>`;
+    }).join('');
+
+    gal.querySelectorAll('img').forEach(im=>{
+      im.addEventListener('click', ()=> openLb(im.dataset.full));
+      im.addEventListener('error', ()=> im.closest('.ph')?.remove());
+    });
+    note.innerHTML = `照片來源：Wikimedia Commons（搜尋「${s.q}」）· 點圖可放大 · <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener" style="color:var(--accent)">看更多照片 ↗</a>`;
+  }catch(e){
+    if(token !== reqToken) return;
+    fallback(gal, note, s);
+  }
+}
+
+function fallback(gal, note, s){
+  gal.innerHTML = '';
+  note.innerHTML = `無法載入內嵌照片（可能是離線或網路被擋）。
+    <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener" style="color:var(--accent)">在 Google 圖片搜尋「${s.name}」↗</a>`;
+}
+
+/* ================= Lightbox ================= */
+const lb = document.getElementById('lb');
+function openLb(src){ lb.querySelector('img').src = src; lb.classList.add('on'); }
+lb.addEventListener('click', ()=> lb.classList.remove('on'));
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') lb.classList.remove('on'); });
+
+/* ================= 初始 ================= */
+drawMap();
+</script>
+</body>
+</html>
