@@ -208,14 +208,14 @@
   }
   .info-empty .big{font-size:30px;opacity:.5}
 
-  .i-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .i-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
   .i-head h2{margin:0;font-size:21px;letter-spacing:.3px}
   .i-zh{color:var(--accent);font-size:14px}
-  .i-meta{color:var(--muted);font-size:12px;margin-bottom:10px}
-  .i-meta span{margin-right:14px}
-  .i-desc{font-size:13.5px;line-height:1.85;color:#c9d6e5;margin-bottom:14px;max-width:70ch}
+  .i-photo-note{margin-left:auto;color:var(--muted);font-size:11.5px;white-space:nowrap}
+  .i-photo-note a{color:var(--accent);text-decoration:none}
+  .i-desc{font-size:13.5px;line-height:1.85;color:#c9d6e5;margin-bottom:14px}
 
-  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
   .ph{
     position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;
     background:var(--panel);border:1px solid var(--line);
@@ -232,7 +232,6 @@
   .ph:hover a.cred{opacity:1}
   .ph.skel{background:linear-gradient(90deg,#151d29,#1e2937,#151d29);background-size:200% 100%;animation:sh 1.2s infinite}
   @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
-  .ph-note{color:var(--muted);font-size:11.5px;margin-top:10px}
 
   .lightbox{
     position:fixed;inset:0;z-index:200;background:rgba(5,8,12,.94);
@@ -562,16 +561,14 @@ function select(id){
   info.innerHTML = `
     <div class="i-head">
       <h2>${s.name}</h2><span class="i-zh">${s.zh}</span>
-    </div>
-    <div class="i-meta">
-      <span>📍 ${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}${s.approx?'（概略位置）':''}</span>
-      <span>${s.opt?'可選行程':''}</span>
+      ${s.opt?'<span class="badge opt">可選行程</span>':''}
+      ${s.approx?'<span class="badge opt">概略位置</span>':''}
+      <span class="i-photo-note" id="photoNote"></span>
     </div>
     <div class="i-desc">${s.desc}</div>
     <div class="gallery" id="gal">
       ${'<div class="ph skel"></div>'.repeat(3)}
-    </div>
-    <div class="ph-note" id="phNote">正在從 Wikimedia Commons 載入實景照片…</div>`;
+    </div>`;
 
   loadPhotos(s, token);
 }
@@ -579,7 +576,7 @@ function select(id){
 /* ========== 從 Wikimedia Commons 抓實景照片（免 API key、CORS 開放） ========== */
 async function loadPhotos(s, token){
   const gal  = document.getElementById('gal');
-  const note = document.getElementById('phNote');
+  const note = document.getElementById('photoNote');
   const url = 'https://commons.wikimedia.org/w/api.php'
     + '?action=query&format=json&origin=*'
     + '&generator=search&gsrnamespace=6&gsrlimit=12'
@@ -595,7 +592,7 @@ async function loadPhotos(s, token){
     const imgs = pages
       .map(p=>p.imageinfo?.[0])
       .filter(i=> i && /\.(jpe?g|png)$/i.test(i.url))
-      .slice(0,6);
+      .slice(0,5);
 
     if(!imgs.length){ fallback(gal, note, s); return; }
 
@@ -614,7 +611,7 @@ async function loadPhotos(s, token){
       im.addEventListener('click', ()=> openLb(im.dataset.full));
       im.addEventListener('error', ()=> im.closest('.ph')?.remove());
     });
-    note.innerHTML = `照片來源：Wikimedia Commons（搜尋「${s.q}」）· 點圖可放大 · <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener" style="color:var(--accent)">看更多照片 ↗</a>`;
+    note.innerHTML = `點圖可放大 · <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener">看更多照片 ↗</a>`;
   }catch(e){
     if(token !== reqToken) return;
     fallback(gal, note, s);
@@ -623,8 +620,7 @@ async function loadPhotos(s, token){
 
 function fallback(gal, note, s){
   gal.innerHTML = '';
-  note.innerHTML = `無法載入內嵌照片（可能是離線或網路被擋）。
-    <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener" style="color:var(--accent)">在 Google 圖片搜尋「${s.name}」↗</a>`;
+  note.innerHTML = `<a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener">在 Google 圖片搜尋「${s.name}」↗</a>`;
 }
 
 /* ================= Lightbox ================= */
