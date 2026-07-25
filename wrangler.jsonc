@@ -1,7 +1,6 @@
 {
-  // Static site hosted on Cloudflare Workers static assets.
-  // No build step and no Worker script — `public/` is uploaded and served as-is,
-  // so `assets.directory` is the entry-point `wrangler deploy` looks for.
+  // Cloudflare Worker serving static assets only — there is no Worker script,
+  // just the contents of `public/` uploaded as-is. No build step.
   "name": "iceland-trip",
   "compatibility_date": "2026-07-25",
   "assets": {

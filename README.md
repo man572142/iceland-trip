@@ -7,20 +7,18 @@
 
 ## Deployment
 
-Hosted on Cloudflare Workers static assets, built from this repo by Workers
-Builds. Pushes to `main` publish to production; pushes to any other branch get a
-preview URL.
+Hosted on Cloudflare Workers as a **static-assets-only Worker**: there is no
+Worker script, just the contents of `public/` served directly. Pushes to `main`
+build and deploy automatically.
 
-There is no build command and no Worker script — the build just runs
-`wrangler deploy`, which uploads the `assets.directory` declared in
-[`wrangler.jsonc`](wrangler.jsonc). Nothing to configure in the dashboard beyond
-the initial Git connection.
+All config lives in [`wrangler.jsonc`](wrangler.jsonc). The `assets.directory`
+key is what makes this work — without it, `wrangler deploy` fails with
+"Missing entry-point to Worker script or to assets directory", because a Worker
+needs *either* a script (`main`) or an assets directory, and this project has
+only the latter.
 
-> This is **not** a Pages project. If you ever move it to Pages, swap
-> `assets.directory` back to `"pages_build_output_dir": "public"` — a Pages
-> config makes `wrangler deploy` fail with
-> `Missing entry-point to Worker script or to assets directory`, because Pages
-> projects deploy via `wrangler pages deploy` instead.
+Note this is Workers, not Pages. Pages is the older static-hosting product and
+uses a different key (`pages_build_output_dir`) that Workers ignores.
 
 ### Local preview
 
@@ -30,7 +28,7 @@ npx wrangler dev
 
 ### Manual deploy
 
-Not normally needed, but bypasses Git if you want to push a build directly:
+Not normally needed, since pushing to `main` deploys:
 
 ```sh
 npx wrangler deploy
