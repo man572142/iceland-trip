@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>冰島機票方案 · 新舊方案比較</title>
+<title>冰島機票方案</title>
 <style>
   :root{
     --bg:#0b0f14;
@@ -168,15 +168,6 @@
   }
   .book-btn.secondary:hover{color:var(--text);border-color:#33455f}
 
-  .caveat{
-    background:var(--panel);border:1px solid var(--line);
-    border-radius:var(--radius);padding:16px 18px;margin-top:8px;
-    font-size:12.5px;line-height:1.9;color:#c6d3e2;
-  }
-  .caveat h3{margin:0 0 8px;font-size:13px;color:var(--accent)}
-  .caveat ol{margin:0;padding-left:20px}
-  .caveat li{margin:4px 0}
-
   @media (max-width:640px){
     .seg{grid-template-columns:60px 1fr;grid-template-areas:"a p" "a t";row-gap:2px}
     .seg .airline{grid-area:a}
@@ -198,44 +189,77 @@
   .plan-btn.active{
     background:var(--accent);color:#0b0f14;border-color:var(--accent);
   }
+
+  details.more-info{margin-top:10px}
+  details.more-info summary{
+    cursor:pointer;font-size:12.5px;font-weight:700;color:var(--accent-2);
+    list-style:none;
+  }
+  details.more-info summary::-webkit-details-marker{display:none}
+  details.more-info summary::before{content:"▸ ";display:inline-block;transition:.15s}
+  details.more-info[open] summary::before{content:"▾ "}
+  details.more-info ul{margin:8px 0 0;padding-left:20px}
+  details.more-info li{margin:3px 0}
+
+  details.caveat{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:14px 18px;margin-top:8px;
+    font-size:12.5px;line-height:1.9;color:#c6d3e2;
+  }
+  details.caveat summary{
+    cursor:pointer;font-size:13px;font-weight:700;color:var(--accent);
+    list-style:none;
+  }
+  details.caveat summary::-webkit-details-marker{display:none}
+  details.caveat summary::before{content:"▸ ";display:inline-block;transition:.15s}
+  details.caveat[open] summary::before{content:"▾ "}
+  details.caveat ol{margin:10px 0 0;padding-left:20px}
+  details.caveat li{margin:4px 0}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>冰島機票方案 <span>· 新舊方案比較</span></h1>
-  <div class="sub" id="subLabel">桃園(TPE) ↔ 凱夫拉維克(KEF) · 經濟艙 · 4 人 · 12–14 天 · 10 組</div>
+  <h1>冰島機票方案</h1>
+  <div class="sub" id="subLabel">桃園(TPE) ↔ 凱夫拉維克(KEF) · 經濟艙 · 4 人</div>
   <div class="head-spacer"></div>
   <a class="nav-link" href="./index.html">🗺️ 回行程地圖</a>
 </header>
 
 <div class="page">
   <div class="intro">
-    <b>篩選條件</b> — 2027 年 3 月底–4 月中出發、總天數 10–14 天左右且需涵蓋 <b>4/3–4/6</b>；不接受在中國大陸轉機；抵達冰島時間不晚於晚上 7 點;偏好中華航空、長榮航空、國泰航空。
+    <b>篩選條件</b>
     <ul>
-      <li>下方提供「新」「舊」兩組方案:<b>新方案</b>(10 組,12–14 天)額外納入長榮航空、國泰航空的可行組合作為對照;<b>舊方案</b>(7 組,10–12 天為主)維持原先僅中華航空 + Icelandair 的篩選結果,不具「划算」條件的長榮、國泰組合原先未列入。</li>
-      <li>轉機點涵蓋布拉格(PRG)、法蘭克福(FRA)、羅馬(FCO)、阿姆斯特丹(AMS)、倫敦(LHR)、巴黎(CDG)、蘇黎世(ZRH)及香港(HKG,獨立關境,非中國大陸轉機),完全不經中國大陸。</li>
-      <li>票價為 2026 年 7 月查詢當下的指標性經濟艙總價(4 人);由於距出發日尚有 8 個月以上,航空公司通常僅提前約 11 個月釋出航班與票價,2027 年 3–4 月的實際航班目前尚無法查詢或訂位,以上數字為依現有航線網絡與同期票價水準推估的參考值,建議出發前 3–6 個月再次確認實際航班與票價。</li>
-      <li>2027 年復活節(Easter)為 <b>3/28</b>,部分方案中 3/25–3/29 前後出發的班機可能因連假需求而票價偏高。</li>
+      <li>出發時間:2027 年 3 月底–4 月中,需涵蓋 <b>4/3–4/6</b></li>
+      <li>轉機限制:不接受在中國大陸轉機</li>
+      <li>抵達時間:抵達冰島不晚於晚上 7 點</li>
+      <li>偏好航空公司:中華航空、長榮航空、國泰航空</li>
     </ul>
+    <details class="more-info">
+      <summary>補充說明</summary>
+      <ul>
+        <li>票價為 2026 年 7 月查詢當下的指標性經濟艙總價(4 人);由於距出發日尚有 8 個月以上,航空公司通常僅提前約 11 個月釋出航班與票價,2027 年 3–4 月的實際航班目前尚無法查詢或訂位,以上數字為依現有航線網絡與同期票價水準推估的參考值,建議出發前 3–6 個月再次確認實際航班與票價。</li>
+        <li>2027 年復活節(Easter)為 <b>3/28</b>,部分方案中 3/25–3/29 前後出發的班機可能因連假需求而票價偏高。</li>
+      </ul>
+    </details>
   </div>
 
   <div class="plan-toggle">
-    <button type="button" class="plan-btn active" id="btnNew">12–14 天方案(新・10 組)</button>
-    <button type="button" class="plan-btn" id="btnOld">10–12 天方案(舊・7 組)</button>
+    <button type="button" class="plan-btn active" id="btnNew">12–14 天方案(10 組)</button>
+    <button type="button" class="plan-btn" id="btnOld">10–12 天方案(7 組)</button>
   </div>
 
   <div id="cards"></div>
 
-  <div class="caveat">
-    <h3>訂票前必看</h3>
+  <details class="caveat">
+    <summary>訂票前必看</summary>
     <ol>
-      <li>每組行程都是<b>兩家不同航空公司分開開票</b>(主要承運航空 + Icelandair,新方案中主要承運航空可能為中華航空、長榮航空或國泰航空),不是同一張聯運票。訂票時請分別在兩家官網或同一個第三方比價網站(如 Google Flights)完成訂位,並自行確認轉機時間是否足夠、行李是否能直掛到底站。</li>
+      <li>每組行程都是<b>兩家不同航空公司分開開票</b>(主要承運航空 + Icelandair,主要承運航空可能為中華航空、長榮航空或國泰航空),不是同一張聯運票。訂票時請分別在兩家官網或同一個第三方比價網站(如 Google Flights)完成訂位,並自行確認轉機時間是否足夠、行李是否能直掛到底站。</li>
       <li>去程與回程在歐洲(或亞洲)轉機城市多安排了充裕的日間轉機時間,可考慮把轉機當成「順遊一天」,但仍建議保留至少 3 小時的安全緩衝,並留意當地機場是否需要重新過安檢;方案 10(國泰航空經香港轉蘇黎世)則是跨夜轉機,需另訂一晚住宿。</li>
-      <li>舊方案(10–12 天)中的方案 7 天數為 13 天,略超出 10–12 天的目標,但為最早出發、與方案 1 同為最低價的選項,適合想提早出發的人。</li>
+      <li>10–12 天方案中的方案 7 天數為 13 天,略超出 10–12 天的目標,但為最早出發、與方案 1 同為最低價的選項,適合想提早出發的人。</li>
       <li>點擊下方「Google Flights 查價」會帶入正確的日期與航線,可即時查看目前票價與可預訂的旅行社/官網連結;下方各航空公司官網按鈕會依該行程實際使用的承運航空自動列出,方便分開訂票。</li>
     </ol>
-  </div>
+  </details>
 </div>
 
 <script>
@@ -367,7 +391,7 @@ const NEW_FLIGHTS = [
       {flight:"CI62", airline:"CI", from:"法蘭克福 FRA", to:"桃園 TPE", dep:"04/08 21:15", arr:"04/09 17:00"}
     ],
     depDate:"2027-03-27", retDate:"2027-04-08",
-    note:"抵達 KEF 15:45,符合門檻;3/27 出發,10 組新方案中票價最低,天數 14 天。"
+    note:"抵達 KEF 15:45,符合門檻;3/27 出發,10 組方案中票價最低,天數 14 天。"
   },
   {
     rank:2, days:13,
@@ -397,7 +421,7 @@ const NEW_FLIGHTS = [
       {flight:"CI62", airline:"CI", from:"法蘭克福 FRA", to:"桃園 TPE", dep:"04/11 21:15", arr:"04/12 17:00"}
     ],
     depDate:"2027-04-01", retDate:"2027-04-11",
-    note:"12 天是新方案中最短天數,適合請假天數有限的人;仍完整涵蓋 4/3–4/6。"
+    note:"12 天是這組方案中最短天數,適合請假天數有限的人;仍完整涵蓋 4/3–4/6。"
   },
   {
     rank:4, days:13,
@@ -442,7 +466,7 @@ const NEW_FLIGHTS = [
       {flight:"CI62", airline:"CI", from:"法蘭克福 FRA", to:"桃園 TPE", dep:"04/07 21:15", arr:"04/08 17:00"}
     ],
     depDate:"2027-03-26", retDate:"2027-04-07",
-    note:"10 組新方案中最早出發(3/26),落在復活節連假前夕,票價略高於方案 1、2。"
+    note:"10 組方案中最早出發(3/26),落在復活節連假前夕,票價略高於方案 1、2。"
   },
   {
     rank:7, days:14,
@@ -504,7 +528,7 @@ const NEW_FLIGHTS = [
       {flight:"CX988", airline:"CX", from:"香港 HKG", to:"桃園 TPE", dep:"04/14 09:20", arr:"04/14 11:05"}
     ],
     depDate:"2027-04-01", retDate:"2027-04-12",
-    note:"國泰航空經香港轉機至蘇黎世(非中國大陸轉機,香港為獨立關境);去程在蘇黎世需過一夜銜接隔日航班,回程也建議安排一晚,符合『轉機地多待一天』的彈性,但額外住宿費用需自理,是 10 組新方案中票價最高者。"
+    note:"國泰航空經香港轉機至蘇黎世(非中國大陸轉機,香港為獨立關境);去程在蘇黎世需過一夜銜接隔日航班,回程也建議安排一晚,符合『轉機地多待一天』的彈性,但額外住宿費用需自理,是 10 組方案中票價最高者。"
   }
 ];
 
