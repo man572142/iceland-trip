@@ -137,6 +137,14 @@
   }
   .seg .time .d{display:block;font-size:10px;color:var(--muted)}
 
+  .layover{
+    display:flex;align-items:center;gap:8px;
+    margin:2px 0 6px 10px;padding:4px 10px;
+    font-size:11.5px;color:var(--gold);
+    border-left:2px dashed rgba(240,180,41,.5);
+  }
+  .layover.long{color:#ff8a65;border-left-color:rgba(255,138,101,.6)}
+
   .notes{
     margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);
     font-size:12px;color:var(--muted);line-height:1.7;
@@ -514,6 +522,32 @@ function segRow(s){
     </div>`;
 }
 
+// 將 "MM/DD HH:mm" 轉為 Date 物件(年份僅用於計算時間差,不影響顯示)
+function parseDT(str){
+  const [md, hm] = str.split(' ');
+  const [mo, da] = md.split('/').map(Number);
+  const [hh, mi] = hm.split(':').map(Number);
+  return new Date(2027, mo - 1, da, hh, mi);
+}
+
+function layoverRow(prev, next){
+  const mins = Math.round((parseDT(next.dep) - parseDT(prev.arr)) / 60000);
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  const durText = h > 0 ? `${h} 小時${m > 0 ? m + ' 分' : ''}` : `${m} 分`;
+  const overnight = mins >= 8 * 60 ? ' long' : '';
+  return `<div class="layover${overnight}">⏱ 轉機 ${durText}${overnight ? '(需過夜)' : ''}</div>`;
+}
+
+function legHTML(segs){
+  let html = '';
+  segs.forEach((s, i) => {
+    html += segRow(s);
+    if (i < segs.length - 1) html += layoverRow(s, segs[i + 1]);
+  });
+  return html;
+}
+
 function gfLink(dep, ret){
   const q = `Flights from TPE to KEF on ${dep} through ${ret}`;
   return `https://www.google.com/travel/flights?q=${encodeURIComponent(q)}`;
@@ -556,11 +590,11 @@ function renderCards(list){
     <div class="card-body">
       <div class="leg-block">
         <div class="leg-label">去程</div>
-        ${f.outbound.map(segRow).join('')}
+        ${legHTML(f.outbound)}
       </div>
       <div class="leg-block">
         <div class="leg-label">回程</div>
-        ${f.inbound.map(segRow).join('')}
+        ${legHTML(f.inbound)}
       </div>
       <div class="notes">${f.note}</div>
       ${bookRow(f)}
