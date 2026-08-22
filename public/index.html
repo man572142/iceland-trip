@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>冰島 10 天行程 · 互動地圖</title>
+<title>冰島 16 天行程 · 互動地圖</title>
 <style>
   :root{
     --bg:#0b0f14;
@@ -111,6 +111,7 @@
     padding:4px 8px;border-radius:6px;
   }
   .day-title{flex:1;font-size:14px;font-weight:600}
+  .day-date{font-size:11.5px;font-weight:500;color:var(--muted)}
   .day-stay{font-size:11.5px;color:var(--muted);white-space:nowrap}
   .day-stay::before{content:"🛏 ";opacity:.7}
   .chev{color:var(--muted);font-size:11px;transition:transform .2s}
@@ -259,7 +260,7 @@
 <body>
 
 <header>
-  <h1>冰島 10 天行程 <span>· 南岸 + 北冰島</span></h1>
+  <h1>冰島 16 天行程 <span>· 南岸 + 西部半島 + 北冰島</span></h1>
   <div class="sub">點擊左側景點 → 地圖定位 + 實景照片</div>
   <div class="head-spacer"></div>
   <div class="legend">
@@ -274,18 +275,20 @@
   <!-- ============ LEFT ============ -->
   <aside class="itinerary" id="itin">
     <div class="intro">
-      <b>行程設計理念</b> — 不環島、不浪費時間在雷克雅維克、南岸濃縮成 3 天不犧牲代表性景點，北冰島保留完整兩天半。
-      <div class="tip">✈️ Day 7 搭國內線 <b>Reykjavík (RKV) → Akureyri (AEY)</b>，約 45 分鐘，比開車來回省下約 10 小時。</div>
+      <b>行程設計理念</b> — 機票已確認，出發 <b>2027/4/29（四）夜間</b>、4/30 抵達冰島，回程 <b>2027/5/16（日）凌晨</b>飛離。不環島，把多出來的天數用來加深西部 Snæfellsnes 半島與北冰島，南岸與雷克雅維克步調也放慢，不再排 Husky Safari。
+      <div class="tip">✈️ Day 12 搭國內線 <b>Reykjavík (RKV) → Akureyri (AEY)</b>，約 45 分鐘，比開車來回省下約 10 小時。</div>
     </div>
     <!-- days injected here -->
     <div class="tail">
       <h3>住宿建議</h3>
       <table>
-        <tr><td>Reykjavík</td><td>3 晚</td></tr>
-        <tr><td>Vík</td><td>1 晚</td></tr>
-        <tr><td>Jökulsárlón / Höfn</td><td>1 晚</td></tr>
-        <tr><td>Selfoss</td><td>1 晚</td></tr>
-        <tr><td>Akureyri</td><td>3 晚</td></tr>
+        <tr><td>Reykjavík（Day1,2,3,5,11）</td><td>5 晚</td></tr>
+        <tr><td>Snæfellsnes（Day4）</td><td>1 晚</td></tr>
+        <tr><td>Vík（Day6,7）</td><td>2 晚</td></tr>
+        <tr><td>Jökulsárlón / Höfn（Day8,9）</td><td>2 晚</td></tr>
+        <tr><td>Selfoss（Day10）</td><td>1 晚</td></tr>
+        <tr><td>Akureyri（Day12–15）</td><td>4 晚</td></tr>
+        <tr><td>Day16 深夜航班，不需訂房</td><td>—</td></tr>
       </table>
     </div>
   </aside>
@@ -322,11 +325,11 @@
    ========================================================= */
 const DAYS = [
   {
-    n:1, title:"抵達冰島", stay:"Reykjavík",
-    note:"抵達 KEF → 前往雷克雅維克 → Check-in → 市區散步。晚上若天氣好，第一次追極光。",
+    n:1, title:"抵達冰島", date:"4/30（五）", stay:"Reykjavík",
+    note:"2027/4/29 深夜 23:30 從桃園出發（經布拉格轉機），4/30 15:55 抵達 KEF → 前往雷克雅維克 → Check-in → 市區散步。晚上若天氣好，第一次追極光。",
     spots:[
       {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
-       q:"Keflavik International Airport", desc:"冰島門戶機場，距離雷克雅維克約 50 分鐘車程。多數租車公司在此設點，建議一落地就取車。"},
+       q:"Keflavik International Airport", desc:"冰島門戶機場，距離雷克雅維克約 50 分鐘車程。多數租車公司在此設點，建議一落地就取車。此行搭乘 CI067（桃園→布拉格）轉 FI537（布拉格→KEF）。"},
       {name:"Hallgrímskirkja", zh:"哈爾格林姆教堂", lat:64.1417, lng:-21.9266, z:16,
        q:"Hallgrimskirkja", desc:"雷克雅維克地標，74.5 公尺高的混凝土教堂，外型靈感來自玄武岩柱。可搭電梯上塔頂俯瞰整片彩色屋頂市區。"},
       {name:"Harpa Concert Hall", zh:"哈帕音樂廳", lat:64.1505, lng:-21.9325, z:16,
@@ -336,8 +339,24 @@ const DAYS = [
     ]
   },
   {
-    n:2, title:"Golden Circle + Husky Safari", stay:"Reykjavík",
-    note:"上午跑完黃金圈三景點，下午 Husky Safari。狗拉雪橇的基地就在黃金圈附近最順，不需要另外占用一天。",
+    n:2, title:"Reykjanes 半島 + 藍湖", date:"5/1（六）", stay:"Reykjavík",
+    note:"從雷克雅維克出發的半日環線，繞完 Reykjanes 半島西端再回市區。傍晚安排 Blue Lagoon 泡湯（需事先預約），取代原本的 Husky Safari 時段。",
+    spots:[
+      {name:"Bridge Between Continents", zh:"大陸板塊橋", lat:63.8698, lng:-22.6817, z:15,
+       q:"Bridge Between Continents Iceland", desc:"跨在北美與歐亞板塊裂縫上的人行橋，象徵性地「一步跨過兩大洲」，橋短但拍照很有梗。"},
+      {name:"Gunnuhver", zh:"古努赫維地熱區", lat:63.8194, lng:-22.7005, z:16,
+       q:"Gunnuhver hot spring", desc:"冰島最大的泥漿噴泉之一，蒸氣終年不斷。步道緊鄰海崖，風大時建議抓緊帽子與相機。"},
+      {name:"Reykjanesviti & Valahnúkamöl", zh:"雷克雅內斯燈塔", lat:63.8154, lng:-22.7099, z:15,
+       q:"Reykjanesviti lighthouse", desc:"冰島最古老的燈塔，附近的 Valahnúkamöl 海崖可看海鳥棲息的柱狀玄武岩海蝕柱。"},
+      {name:"Brimketill", zh:"布林克提爾熔岩海蝕池", opt:true, lat:63.8323, lng:-22.6944, z:16,
+       q:"Brimketill Iceland", desc:"傳說中巨人女用來泡澡的天然熔岩池，浪大時海水會灌入池中，注意不要太靠近浪花區。"},
+      {name:"Blue Lagoon", zh:"藍湖溫泉", opt:true, lat:63.8804, lng:-22.4495, z:15,
+       q:"Blue Lagoon Iceland", desc:"世界知名的地熱溫泉度假村，乳白藍色矽泥溫泉水約 37–39°C。人氣極高，務必提前數週線上訂位。"}
+    ]
+  },
+  {
+    n:3, title:"Golden Circle", date:"5/2（日）", stay:"Reykjavík",
+    note:"黃金圈經典三景點，中午在 Friðheimar 番茄農場用餐，回程順路補 Kerið 火山口湖。",
     spots:[
       {name:"Þingvellir National Park", zh:"辛格韋德利國家公園", lat:64.2559, lng:-21.1300, z:14,
        q:"Thingvellir", desc:"世界遺產，北美與歐亞板塊的交界裂谷，也是古代冰島議會所在地。Almannagjá 峽谷步道是必走路線。"},
@@ -345,15 +364,41 @@ const DAYS = [
        q:"Strokkur geyser", desc:"「Geyser（間歇泉）」一詞的語源地。老 Geysir 已少噴發，旁邊的 Strokkur 每 5–10 分鐘噴出 20–30 公尺水柱。"},
       {name:"Gullfoss", zh:"黃金瀑布", lat:64.3271, lng:-20.1199, z:15,
        q:"Gullfoss", desc:"分兩層落入 32 公尺深峽谷的巨瀑，水量驚人。冬季兩側結冰、水氣凝成霧凇，氣勢完全不同。"},
-      {name:"Husky Safari", zh:"哈士奇雪橇", kind:"city", lat:64.1730, lng:-21.4400, z:11, approx:true,
-       q:"dog sledding Iceland", desc:"雪橇犬體驗，基地多在 Mosfellsdalur 一帶（黃金圈回程路上）。4 月前後多為雪地或輪車型式，務必事先預約。地圖位置為該區域概略點。"},
-      {name:"Kerið Crater", zh:"克里德火山口湖", opt:true, lat:64.0411, lng:-20.8850, z:16,
+      {name:"Friðheimar", zh:"番茄農場", opt:true, lat:64.1444, lng:-20.6423, z:16,
+       q:"Fridheimar tomato farm", desc:"地熱溫室番茄農場餐廳，招牌是番茄湯無限續碗。旺季建議事先訂位，是黃金圈上很受歡迎的午餐點。"},
+      {name:"Kerið Crater", zh:"克里德火山口湖", lat:64.0411, lng:-20.8850, z:16,
        q:"Kerid crater", desc:"3000 年歷史的火山口湖，紅黑色火山渣壁配上不透明的藍綠湖水。可繞口緣走一圈，也能下到湖畔。"}
     ]
   },
   {
-    n:3, title:"南岸", stay:"Vík",
-    note:"一路往東，沿 1 號公路推進。瀑布之間車程都很短，可以慢慢拍。",
+    n:4, title:"前往 Snæfellsnes 半島", date:"5/3（一）", stay:"Snæfellsnes（Arnarstapi 一帶）",
+    note:"沿 1 號公路往西北開，途中可順遊 Deildartunguhver 溫泉與 Grábrók 火山口。重點是半島最上鏡的 Kirkjufell，以及 Arnarstapi 的海崖步道。",
+    spots:[
+      {name:"Deildartunguhver", zh:"迪爾達通古溫泉", opt:true, lat:64.6664, lng:-21.4064, z:16,
+       q:"Deildartunguhver", desc:"歐洲流量最大的溫泉，每秒湧出約 180 公升接近沸騰的地熱水，是附近城鎮與雷克雅維克部分地熱供暖的水源之一。"},
+      {name:"Grábrók", zh:"格拉布羅克火山口", opt:true, lat:64.7920, lng:-21.3690, z:14,
+       q:"Grabrok crater", desc:"3000 年前噴發的小型火山渣錐，有木棧道可登頂，來回約 30 分鐘，能俯瞰周邊熔岩原與農田。"},
+      {name:"Kirkjufell & Kirkjufellsfoss", zh:"教會山與教會山瀑布", lat:64.9377, lng:-23.3080, z:15,
+       q:"Kirkjufell", desc:"冰島最上鏡的山峰，前景搭配 Kirkjufellsfoss 小瀑布幾乎是冰島明信片代名詞。日落與極光時段最推薦。"},
+      {name:"Arnarstapi", zh:"阿爾納斯塔皮", lat:64.7710, lng:-23.6260, z:15,
+       q:"Arnarstapi", desc:"半島南岸的漁村，沿海崖步道可走到 Hellnar，一路都是海蝕拱門與柱狀玄武岩，Snæfellsjökull 冰川火山當背景。"}
+    ]
+  },
+  {
+    n:5, title:"Snæfellsnes 半島 Day2", date:"5/4（二）", stay:"Reykjavík",
+    note:"上午收尾半島西端景點，中午前往 Stykkishólmur 小鎮，下午開車返回雷克雅維克（約 2.5 小時）。",
+    spots:[
+      {name:"Djúpalónssandur", zh:"迪尤帕蘿頌黑沙灘", lat:64.7726, lng:-23.9058, z:15,
+       q:"Djupalonssandur", desc:"半島最西端的黑卵石灘，散落著沉船殘骸鐵件與四顆傳統試力石，四周奇岩嶙峋。"},
+      {name:"Vatnshellir Cave", zh:"瓦特恩赫爾洞穴", opt:true, lat:64.7642, lng:-23.8834, z:16,
+       q:"Vatnshellir cave", desc:"8000 年前熔岩流形成的地下洞穴，需參加付費導覽（含頭燈與安全帽），可深入地底約 35 公尺。"},
+      {name:"Stykkishólmur", zh:"斯蒂基斯霍爾米", kind:"city", lat:65.0757, lng:-22.7262, z:14,
+       q:"Stykkisholmur", desc:"半島北岸最大的港口小鎮，彩色木屋與 Súgandisey 燈塔小島是熱門拍照點，也是往 Breiðafjörður 群島渡輪的起點。"}
+    ]
+  },
+  {
+    n:6, title:"南岸 Day1", date:"5/5（三）", stay:"Vík",
+    note:"從雷克雅維克一路往東，沿 1 號公路推進。瀑布之間車程都很短，可以慢慢拍。",
     spots:[
       {name:"Seljalandsfoss", zh:"塞里雅蘭瀑布", lat:63.6156, lng:-19.9928, z:16,
        q:"Seljalandsfoss", desc:"少數可以繞到水簾後方的瀑布，60 公尺落差。步道濕滑且會被噴濕，務必穿防水外套。"},
@@ -365,16 +410,24 @@ const DAYS = [
        q:"Kvernufoss", desc:"從 Skógar 博物館旁步行約 15 分鐘的小眾瀑布，同樣可以走到水簾後方，人潮遠少於 Skógafoss。"},
       {name:"Sólheimajökull", zh:"索爾黑馬冰川", lat:63.5306, lng:-19.3689, z:14,
        q:"Solheimajokull", desc:"Mýrdalsjökull 冰帽的外伸冰舌，是南岸最容易接近的冰川。停車場走到冰緣約 15 分鐘，冰川健行行程多從這裡出發。"},
-      {name:"Dyrhólaey", zh:"迪霍拉里海岬", lat:63.4020, lng:-19.1264, z:15,
-       q:"Dyrholaey", desc:"120 公尺高的海岬與巨大海蝕拱門，可俯瞰整條黑沙灘。5–8 月是海鸚棲息地，部分區域有季節性封閉。"},
-      {name:"Reynisfjara Black Sand Beach", zh:"雷尼斯黑沙灘", lat:63.4058, lng:-19.0448, z:15,
-       q:"Reynisfjara", desc:"玄武岩柱洞窟與外海的 Reynisdrangar 海蝕柱。⚠️ 這裡有致命的 sneaker wave，絕對不要靠近水線背對海面。"},
       {name:"Vík í Mýrdal", zh:"維克鎮", kind:"city", lat:63.4187, lng:-19.0060, z:14,
        q:"Vik i Myrdal", desc:"南岸唯一的補給小鎮，山丘上的紅頂教堂是明信片場景。今晚住這裡。"}
     ]
   },
   {
-    n:4, title:"冰河潟湖", stay:"Jökulsárlón / Höfn 附近",
+    n:7, title:"南岸 Day2（黑沙灘）", date:"5/6（四）", stay:"Vík",
+    note:"Vík 周邊的海岬與黑沙灘，步調放慢，下午可選加購冰川健行（需事先預約）。",
+    spots:[
+      {name:"Dyrhólaey", zh:"迪霍拉里海岬", lat:63.4020, lng:-19.1264, z:15,
+       q:"Dyrholaey", desc:"120 公尺高的海岬與巨大海蝕拱門，可俯瞰整條黑沙灘。5–8 月是海鸚棲息地，部分區域有季節性封閉。"},
+      {name:"Reynisfjara Black Sand Beach", zh:"雷尼斯黑沙灘", lat:63.4058, lng:-19.0448, z:15,
+       q:"Reynisfjara", desc:"玄武岩柱洞窟與外海的 Reynisdrangar 海蝕柱。⚠️ 這裡有致命的 sneaker wave，絕對不要靠近水線背對海面。"},
+      {name:"Glacier Hiking", zh:"冰川健行", opt:true, lat:63.5306, lng:-19.3689, z:14,
+       q:"glacier hiking Solheimajokull", desc:"從 Sólheimajökull 出發的付費嚮導行程，配發冰爪與冰斧，5 月初仍在雪季尾聲，建議出發前確認團況。"}
+    ]
+  },
+  {
+    n:8, title:"冰河潟湖", date:"5/7（五）", stay:"Jökulsárlón / Höfn 附近",
     note:"可選加購冰川健行或 Zodiac Boat Tour（建議提前預約）。",
     spots:[
       {name:"Fjaðrárgljúfur Canyon", zh:"羽毛峽谷", lat:63.7714, lng:-18.1719, z:15,
@@ -384,23 +437,29 @@ const DAYS = [
       {name:"Jökulsárlón", zh:"傑古沙龍冰河潟湖", lat:64.0784, lng:-16.2306, z:14,
        q:"Jokulsarlon", desc:"冰島最深的湖，Breiðamerkurjökull 崩落的藍白冰山漂浮其中並緩緩流向大海，常有海豹出沒。Zodiac 快艇能開到冰山之間。"},
       {name:"Diamond Beach", zh:"鑽石沙灘", lat:64.0434, lng:-16.1794, z:15,
-       q:"Diamond Beach Iceland", desc:"潟湖出海口對面的黑沙灘，被浪打回岸上的冰塊在黑沙上像散落的鑽石。清晨低角度陽光最上鏡。"},
-      {name:"Höfn", zh:"霍芬鎮", kind:"city", opt:true, lat:64.2539, lng:-15.2082, z:14,
-       q:"Hofn Iceland", desc:"東南岸漁港小鎮，以龍蝦（langoustine）聞名，背景是 Vatnajökull 冰帽。若住這裡今晚可以吃一頓好的。"}
+       q:"Diamond Beach Iceland", desc:"潟湖出海口對面的黑沙灘，被浪打回岸上的冰塊在黑沙上像散落的鑽石。清晨低角度陽光最上鏡。"}
     ]
   },
   {
-    n:5, title:"返回南部", stay:"Selfoss",
-    note:"慢慢往回走：補昨天沒玩到的景點、安排冰川活動、沿途拍照。下午回到 Selfoss 一帶。",
+    n:9, title:"Höfn + Vestrahorn", date:"5/8（六）", stay:"Höfn",
+    note:"上午收尾潟湖周邊，中午移動到 Höfn，下午拍 Vestrahorn，晚上吃龍蝦。",
+    spots:[
+      {name:"Vestrahorn / Stokksnes", zh:"維斯特拉山角", lat:64.2513, lng:-14.9752, z:14,
+       q:"Vestrahorn Stokksnes", desc:"黑沙灘、沙丘與尖銳山峰同框的經典構圖，冰島攝影師最愛的取景地之一，需付少額入場費（私人土地）。"},
+      {name:"Höfn", zh:"霍芬鎮", kind:"city", lat:64.2539, lng:-15.2082, z:14,
+       q:"Hofn Iceland", desc:"東南岸漁港小鎮，以龍蝦（langoustine）聞名，背景是 Vatnajökull 冰帽。今晚住這裡，吃一頓好的。"}
+    ]
+  },
+  {
+    n:10, title:"慢慢返回南部", date:"5/9（日）", stay:"Selfoss",
+    note:"慢慢往回走：補前幾天沒玩到的景點、沿途拍照，下午回到 Selfoss 一帶。",
     spots:[
       {name:"Selfoss (town)", zh:"塞爾福斯鎮", kind:"city", lat:63.9330, lng:-20.9970, z:14,
-       q:"Selfoss town Iceland", desc:"南部最大的內陸城鎮，位在 Ölfusá 河畔，回雷克雅維克只要 45 分鐘。注意別跟 Day 9 北部的同名瀑布搞混。"},
-      {name:"Kerið Crater", zh:"克里德火山口湖", opt:true, lat:64.0411, lng:-20.8850, z:16,
-       q:"Kerid crater", desc:"若 Day 2 沒去，今天從 Selfoss 開車 15 分鐘就能補上。傍晚光線下火山渣壁的紅色特別濃。"}
+       q:"Selfoss town Iceland", desc:"南部最大的內陸城鎮，位在 Ölfusá 河畔，回雷克雅維克只要 45 分鐘。注意別跟北部同名瀑布搞混。"}
     ]
   },
   {
-    n:6, title:"雷克雅維克", stay:"Reykjavík",
+    n:11, title:"雷克雅維克（整理日）", date:"5/10（一）", stay:"Reykjavík",
     note:"回到 Reykjavik，今天不排太滿：泡湯、咖啡店、市區散步、補給，隔天準備飛北冰島。",
     spots:[
       {name:"Sky Lagoon", zh:"天空潟湖", opt:true, lat:64.1197, lng:-21.9407, z:16,
@@ -412,7 +471,7 @@ const DAYS = [
     ]
   },
   {
-    n:7, title:"飛往 Akureyri", stay:"Akureyri",
+    n:12, title:"飛往 Akureyri", date:"5/11（二）", stay:"Akureyri",
     note:"上午搭國內線 Reykjavík → Akureyri（約 45 分鐘）。抵達後逛市區，下午前往 Goðafoss，晚上若天氣好可追極光。",
     spots:[
       {name:"Reykjavík Airport (RKV)", zh:"雷克雅維克國內機場", kind:"city", lat:64.1300, lng:-21.9406, z:14,
@@ -422,7 +481,7 @@ const DAYS = [
       {name:"Akureyrarkirkja", zh:"阿克雷里教堂", lat:65.6800, lng:-18.0894, z:16,
        q:"Akureyrarkirkja", desc:"與哈爾格林姆教堂同一位建築師的作品，坐落在高台上，爬完階梯可俯瞰峽灣與市區。"},
       {name:"Lystigarðurinn (Botanical Garden)", zh:"阿克雷里植物園", opt:true, lat:65.6779, lng:-18.0930, z:17,
-       q:"Lystigardurinn Akureyri", desc:"世界最北的植物園之一，收藏了幾乎所有冰島原生植物。4 月尚未完全甦醒，夏季最盛。"},
+       q:"Lystigardurinn Akureyri", desc:"世界最北的植物園之一，收藏了幾乎所有冰島原生植物。5 月初尚未完全甦醒，夏季最盛。"},
       {name:"Akureyri Harbour", zh:"阿克雷里港", opt:true, lat:65.6835, lng:-18.0870, z:16,
        q:"Akureyri harbour", desc:"峽灣邊的港區，遊輪與漁船停泊處，沿岸步道很適合傍晚散步。"},
       {name:"Goðafoss", zh:"眾神瀑布", lat:65.6829, lng:-17.5500, z:15,
@@ -430,7 +489,7 @@ const DAYS = [
     ]
   },
   {
-    n:8, title:"Lake Mývatn", stay:"Mývatn 或 Akureyri",
+    n:13, title:"Lake Mývatn", date:"5/12（三）", stay:"Mývatn 或 Akureyri",
     note:"北冰島精華，一整天都在火山與地熱地貌裡繞。下午泡 Mývatn Nature Baths 收尾。",
     spots:[
       {name:"Hverir (Hverarönd)", zh:"赫維爾地熱區", lat:65.6404, lng:-16.8093, z:16,
@@ -448,7 +507,7 @@ const DAYS = [
     ]
   },
   {
-    n:9, title:"Dettifoss + Húsavík", stay:"Akureyri",
+    n:14, title:"Dettifoss + Húsavík", date:"5/13（四）", stay:"Akureyri",
     note:"上午衝瀑布，下午到 Húsavík，可選賞鯨。傍晚返回 Akureyri。",
     spots:[
       {name:"Dettifoss", zh:"黛提瀑布", lat:65.8145, lng:-16.3844, z:15,
@@ -458,17 +517,29 @@ const DAYS = [
       {name:"Húsavík", zh:"胡薩維克", kind:"city", lat:66.0449, lng:-17.3389, z:14,
        q:"Husavik", desc:"歐洲賞鯨之都，Skjálfandi 灣可見座頭鯨、小鬚鯨與藍鯨。港邊的木造教堂與鯨魚博物館值得一逛（也是電影《歐洲歌唱大賽》場景）。"},
       {name:"Whale Watching", zh:"賞鯨", opt:true, lat:66.0500, lng:-17.3480, z:12,
-       q:"whale watching Husavik", desc:"航程約 3 小時，多為傳統橡木船或 RIB 快艇。4 月起賞鯨季開始，出海很冷，船公司會提供連身保暖衣。"}
+       q:"whale watching Husavik", desc:"航程約 3 小時，多為傳統橡木船或 RIB 快艇。5 月正值賞鯨季，出海很冷，船公司會提供連身保暖衣。"}
     ]
   },
   {
-    n:10, title:"返回雷克雅維克、返程", stay:"—",
-    note:"上午搭國內線 Akureyri → Reykjavík，轉乘至 KEF 國際機場返程。建議國內線與國際線之間至少留 4 小時緩衝。",
+    n:15, title:"Siglufjörður / Tröllaskagi 半島", date:"5/14（五）", stay:"Akureyri",
+    note:"新增的深度北冰島延伸：一路貼著峽灣開往冰島最北的城鎮之一 Siglufjörður，晚上返回 Akureyri。",
+    spots:[
+      {name:"Siglufjörður", zh:"錫格盧菲厄澤", kind:"city", lat:66.1517, lng:-18.9108, z:14,
+       q:"Siglufjordur", desc:"曾是全球鯡魚漁業重鎮的峽灣小鎮，四面環山、風景明信片等級。近年靠隧道連通後交通方便許多。"},
+      {name:"Síldarminjasafnið (Herring Era Museum)", zh:"鯡魚時代博物館", opt:true, lat:66.1505, lng:-18.9145, z:16,
+       q:"Herring Era Museum Siglufjordur", desc:"還原 20 世紀鯡魚榮景的港區博物館群，老船屋、工廠與職人宿舍原汁原味保留，是冰島評價最高的博物館之一。"},
+      {name:"Ólafsfjörður", zh:"歐拉夫斯菲厄澤", opt:true, lat:66.0653, lng:-18.6547, z:14,
+       q:"Olafsfjordur", desc:"往返 Siglufjörður 路上會經過的峽灣小鎮，沿線隧道與海岸公路景觀壯闊，適合中途停留拍照。"}
+    ]
+  },
+  {
+    n:16, title:"返回雷克雅維克、返程", date:"5/15（六）", stay:"—",
+    note:"上午搭國內線 Akureyri → Reykjavík，白天在市區做最後採買與補景點，晚上前往 KEF 機場。回程班機 5/16 凌晨 00:50 起飛（經法蘭克福轉機），5/17 06:15 抵達桃園。",
     spots:[
       {name:"Akureyri Airport (AEY)", zh:"阿克雷里機場", kind:"city", lat:65.6600, lng:-18.0727, z:14,
        q:"Akureyri Airport", desc:"還車後搭早班國內線回雷克雅維克。北部天氣多變，航班偶有延誤，別把時間抓太緊。"},
       {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
-       q:"Keflavik International Airport", desc:"從 RKV 到 KEF 車程約 50 分鐘（Flybus 或計程車）。免稅店在出境後，退稅櫃檯記得預留時間。"}
+       q:"Keflavik International Airport", desc:"回程班機為深夜 00:50 起飛（FI524 飛法蘭克福，轉中華航空回桃園），建議晚餐後直接從市區出發，留充裕時間辦理登機。"}
     ]
   }
 ];
@@ -488,7 +559,7 @@ DAYS.forEach(day=>{
   el.innerHTML = `
     <div class="day-head">
       <span class="day-no">DAY ${day.n}</span>
-      <span class="day-title">${day.title}</span>
+      <span class="day-title">${day.title}${day.date ? ` <span class="day-date">${day.date}</span>` : ''}</span>
       ${day.stay!=='—' ? `<span class="day-stay">${day.stay}</span>` : ''}
       <span class="chev">▶</span>
     </div>
