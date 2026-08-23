@@ -652,53 +652,92 @@ function select(id){
 }
 
 /* ========== 從 Wikimedia Commons 抓實景照片（免 API key、CORS 開放） ========== */
-async function loadPhotos(s, token){
-  const gal  = document.getElementById('gal');
-  const note = document.getElementById('photoNote');
-  const url = 'https://commons.wikimedia.org/w/api.php'
-    + '?action=query&format=json&origin=*'
-    + '&generator=search&gsrnamespace=6&gsrlimit=12'
-    + '&gsrsearch=' + encodeURIComponent(s.q)
-    + '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=800';
-
+async function fetchJson(url, timeoutMs){
+  const ctrl = new AbortController();
+  const t = setTimeout(()=>ctrl.abort(), timeoutMs);
   try{
-    const r = await fetch(url);
-    const j = await r.json();
-    if(token !== reqToken) return;                       // 已切換到別的景點
-
-    const pages = j?.query?.pages ? Object.values(j.query.pages) : [];
-    const imgs = pages
-      .map(p=>p.imageinfo?.[0])
-      .filter(i=> i && /\.(jpe?g|png)$/i.test(i.url))
-      .slice(0,5);
-
-    if(!imgs.length){ fallback(gal, note, s); return; }
-
-    gal.innerHTML = imgs.map(i=>{
-      const title = (i.extmetadata?.ObjectName?.value || '')
-        .replace(/<[^>]*>/g,'') || 'Wikimedia Commons';
-      const author = (i.extmetadata?.Artist?.value || '')
-        .replace(/<[^>]*>/g,'').slice(0,40);
-      return `<div class="ph">
-        <img src="${i.thumburl||i.url}" alt="${s.name}" loading="lazy" data-full="${i.url}">
-        <a class="cred" href="${i.descriptionurl}" target="_blank" rel="noopener">${title}${author?' · '+author:''}</a>
-      </div>`;
-    }).join('');
-
-    gal.querySelectorAll('img').forEach(im=>{
-      im.addEventListener('click', ()=> openLb(im.dataset.full));
-      im.addEventListener('error', ()=> im.closest('.ph')?.remove());
-    });
-    note.innerHTML = `點圖可放大 · <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener">看更多照片 ↗</a>`;
-  }catch(e){
-    if(token !== reqToken) return;
-    fallback(gal, note, s);
+    const r = await fetch(url, {signal:ctrl.signal});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return await r.json();
+  } finally {
+    clearTimeout(t);
   }
 }
 
-function fallback(gal, note, s){
+async function searchCommons(q){
+  const url = 'https://commons.wikimedia.org/w/api.php'
+    + '?action=query&format=json&origin=*'
+    + '&generator=search&gsrnamespace=6&gsrlimit=12'
+    + '&gsrsearch=' + encodeURIComponent(q)
+    + '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=800';
+  const j = await fetchJson(url, 6000);
+  const pages = j?.query?.pages ? Object.values(j.query.pages) : [];
+  return pages
+    .map(p=>p.imageinfo?.[0])
+    .filter(i=> i && /\.(jpe?g|png|webp)$/i.test(i.url))
+    .slice(0,5);
+}
+
+// Wikipedia 條目的主圖，命中率比 Commons 全文檢索高，當作備援單張照片
+async function fetchWikipediaThumb(name){
+  const url = 'https://en.wikipedia.org/api/rest_v1/page/summary/'
+    + encodeURIComponent(name) + '?redirect=true';
+  const j = await fetchJson(url, 6000);
+  const src = j?.originalimage?.source || j?.thumbnail?.source;
+  if(!src) return [];
+  return [{
+    thumburl: j.thumbnail?.source || src,
+    url: src,
+    descriptionurl: j.content_urls?.desktop?.page || url,
+    extmetadata: {}
+  }];
+}
+
+async function loadPhotos(s, token){
+  const gal  = document.getElementById('gal');
+  const note = document.getElementById('photoNote');
+
+  let imgs = [];
+  let failed = false;
+  try{
+    imgs = await searchCommons(s.q);
+  }catch(e){ failed = true; }
+  if(token !== reqToken) return;                       // 已切換到別的景點
+
+  if(!imgs.length){
+    try{
+      imgs = await fetchWikipediaThumb(s.name);
+      if(imgs.length) failed = false;
+    }catch(e){ /* 保留原本的 failed 狀態 */ }
+    if(token !== reqToken) return;
+  }
+
+  if(!imgs.length){ fallback(gal, note, s, failed); return; }
+
+  gal.innerHTML = imgs.map(i=>{
+    const title = (i.extmetadata?.ObjectName?.value || '')
+      .replace(/<[^>]*>/g,'') || 'Wikimedia';
+    const author = (i.extmetadata?.Artist?.value || '')
+      .replace(/<[^>]*>/g,'').slice(0,40);
+    return `<div class="ph">
+      <img src="${i.thumburl||i.url}" alt="${s.name}" loading="lazy" data-full="${i.url}">
+      <a class="cred" href="${i.descriptionurl}" target="_blank" rel="noopener">${title}${author?' · '+author:''}</a>
+    </div>`;
+  }).join('');
+
+  gal.querySelectorAll('img').forEach(im=>{
+    im.addEventListener('click', ()=> openLb(im.dataset.full));
+    im.addEventListener('error', ()=> im.closest('.ph')?.remove());
+  });
+  note.innerHTML = `點圖可放大 · <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener">看更多照片 ↗</a>`;
+}
+
+function fallback(gal, note, s, failed){
   gal.innerHTML = '';
-  note.innerHTML = `<a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener">在 Google 圖片搜尋「${s.name}」↗</a>`;
+  const msg = failed
+    ? '照片載入失敗（可能是網路連線或連不到 Wikimedia）。'
+    : '找不到符合的照片。';
+  note.innerHTML = `${msg} <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener">在 Google 圖片搜尋「${s.name}」↗</a>`;
 }
 
 /* ================= Lightbox ================= */
