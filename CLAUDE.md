@@ -23,9 +23,9 @@ Live site: https://iceland-trip.man572142.workers.dev/
   header nav on `index.html`. Same dark visual theme, independent data/script.
 - `public/_headers` — static response headers (Cloudflare Pages/Workers
   convention: `X-Content-Type-Options`, `Referrer-Policy`).
-- `iceland_trip_itinerary.md` — the source-of-truth written plan in Chinese
-  (day-by-day notes, lodging table, rationale). Not deployed; used as
-  reference when the itinerary data in `index.html` needs updating.
+- `iceland_trip_itinerary.md` — the canonical written plan in Chinese
+  (day-by-day notes, lodging table, rationale). Not deployed — see "Making
+  changes" below for how it relates to `index.html`.
 - `wrangler.jsonc` — Cloudflare Workers config. This is a **static-assets-only
   Worker** (no Worker script) — `assets.directory` points at `public/`. This
   is Workers, not Pages, despite the static-hosting look; don't add
