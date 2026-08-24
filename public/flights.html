@@ -61,11 +61,14 @@
     border-radius:var(--radius);
     padding:16px 18px;
     margin-bottom:20px;
-    font-size:13.5px;line-height:1.85;color:#c6d3e2;
+    font-size:14.5px;line-height:1.75;color:#c6d3e2;
+    max-width:42em;
   }
   .intro b{color:var(--accent)}
   .intro ul{margin:8px 0 0;padding-left:20px}
   .intro li{margin:3px 0}
+
+  #cards{list-style:none;margin:0;padding:0}
 
   .card{
     background:var(--panel);
@@ -83,7 +86,7 @@
     border-bottom:1px solid var(--line);
   }
   .rank{
-    flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.5px;
+    flex:0 0 auto;font-size:12.5px;font-weight:700;letter-spacing:.5px;
     color:#0b0f14;background:var(--accent);
     padding:4px 10px;border-radius:7px;
   }
@@ -99,7 +102,7 @@
     padding:2px 8px;border-radius:6px;letter-spacing:.3px;
   }
   .days-badge{
-    font-size:11px;color:var(--muted);border:1px solid var(--line);
+    font-size:11.5px;color:var(--muted);border:1px solid var(--line);
     padding:3px 9px;border-radius:7px;white-space:nowrap;
   }
 
@@ -117,11 +120,11 @@
     align-items:center;gap:10px;
     padding:8px 10px;border-radius:9px;
     background:var(--bg-2);border:1px solid var(--line);
-    margin-bottom:6px;font-size:13px;
+    margin-bottom:6px;font-size:12.5px;
   }
   .seg:last-child{margin-bottom:0}
   .seg .airline{
-    font-size:11px;font-weight:700;padding:3px 7px;border-radius:6px;
+    font-size:11.5px;font-weight:700;padding:3px 7px;border-radius:6px;
     text-align:center;white-space:nowrap;
   }
   .airline.ci{background:rgba(240,180,41,.16);color:var(--gold)}
@@ -135,19 +138,20 @@
   .seg .time{
     font-size:12.5px;color:#c6d3e2;white-space:nowrap;text-align:right;
   }
-  .seg .time .d{display:block;font-size:10px;color:var(--muted)}
+  .seg .time .d{display:block;font-size:10.5px;color:var(--muted)}
 
   .layover{
-    display:flex;align-items:center;gap:8px;
+    display:inline-flex;align-items:center;gap:6px;
     margin:2px 0 6px 10px;padding:4px 10px;
-    font-size:11.5px;color:var(--gold);
-    border-left:2px dashed rgba(240,180,41,.5);
+    font-size:11.5px;font-weight:600;color:var(--gold);
+    background:rgba(240,180,41,.12);border-radius:7px;
   }
-  .layover.long{color:#ff8a65;border-left-color:rgba(255,138,101,.6)}
+  .layover.long{color:#ff8a65;background:rgba(255,138,101,.14)}
 
   .notes{
     margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);
-    font-size:12px;color:var(--muted);line-height:1.7;
+    font-size:13.5px;color:var(--muted);line-height:1.7;
+    max-width:58em;
   }
 
   .book-row{
@@ -180,7 +184,7 @@
     display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;
   }
   .plan-btn{
-    font-size:13px;font-weight:700;letter-spacing:.3px;
+    font-size:13.5px;font-weight:700;letter-spacing:.3px;
     padding:9px 16px;border-radius:9px;
     background:var(--panel-2);border:1px solid var(--line);color:var(--muted);
     cursor:pointer;transition:.15s;
@@ -192,28 +196,28 @@
 
   details.more-info{margin-top:10px}
   details.more-info summary{
-    cursor:pointer;font-size:12.5px;font-weight:700;color:var(--accent-2);
+    cursor:pointer;font-size:13.5px;font-weight:700;color:var(--accent-2);
     list-style:none;
   }
   details.more-info summary::-webkit-details-marker{display:none}
   details.more-info summary::before{content:"▸ ";display:inline-block;transition:.15s}
   details.more-info[open] summary::before{content:"▾ "}
-  details.more-info ul{margin:8px 0 0;padding-left:20px}
-  details.more-info li{margin:3px 0}
+  details.more-info ul{margin:8px 0 0;padding-left:20px;font-size:13.5px;line-height:1.7;max-width:44em}
+  details.more-info li{margin:4px 0}
 
   details.caveat{
     background:var(--panel);border:1px solid var(--line);
     border-radius:var(--radius);padding:14px 18px;margin-top:8px;
-    font-size:12.5px;line-height:1.9;color:#c6d3e2;
+    font-size:13.5px;line-height:1.85;color:#c6d3e2;
   }
   details.caveat summary{
-    cursor:pointer;font-size:13px;font-weight:700;color:var(--accent);
+    cursor:pointer;font-size:13.5px;font-weight:700;color:var(--accent);
     list-style:none;
   }
   details.caveat summary::-webkit-details-marker{display:none}
   details.caveat summary::before{content:"▸ ";display:inline-block;transition:.15s}
   details.caveat[open] summary::before{content:"▾ "}
-  details.caveat ol{margin:10px 0 0;padding-left:20px}
+  details.caveat ol{margin:10px 0 0;padding-left:20px;max-width:44em}
   details.caveat li{margin:4px 0}
 </style>
 </head>
@@ -257,12 +261,12 @@
         </details>
       </div>
 
-      <div class="plan-toggle">
-        <button type="button" class="plan-btn active" id="btnNew">12–14 天方案(10 組)</button>
-        <button type="button" class="plan-btn" id="btnOld">10–12 天方案(7 組)</button>
+      <div class="plan-toggle" role="group" aria-label="選擇方案組別">
+        <button type="button" class="plan-btn active" id="btnNew" aria-pressed="true">12–14 天方案(10 組)</button>
+        <button type="button" class="plan-btn" id="btnOld" aria-pressed="false">10–12 天方案(7 組)</button>
       </div>
 
-      <div id="cards"></div>
+      <ul id="cards"></ul>
 
       <details class="caveat">
         <summary>訂票前必看</summary>
@@ -615,7 +619,7 @@ function bookRow(f){
 
 function renderCards(list){
   cardsEl.innerHTML = list.map(f => `
-  <div class="card${f.best ? ' best' : ''}">
+  <li class="card${f.best ? ' best' : ''}">
     <div class="card-head">
       <span class="rank">方案 ${f.rank}</span>
       <span class="route-name">${f.title}</span>
@@ -638,7 +642,7 @@ function renderCards(list){
       <div class="notes">${f.note}</div>
       ${bookRow(f)}
     </div>
-  </div>
+  </li>
 `).join('');
 }
 
@@ -649,14 +653,18 @@ const btnOld = document.getElementById('btnOld');
 
 function showNew(){
   btnNew.classList.add('active');
+  btnNew.setAttribute('aria-pressed', 'true');
   btnOld.classList.remove('active');
+  btnOld.setAttribute('aria-pressed', 'false');
   subLabelEl.textContent = "桃園(TPE) ↔ 凱夫拉維克(KEF) · 經濟艙 · 4 人 · 12–14 天 · 10 組";
   renderCards(NEW_FLIGHTS);
 }
 
 function showOld(){
   btnOld.classList.add('active');
+  btnOld.setAttribute('aria-pressed', 'true');
   btnNew.classList.remove('active');
+  btnNew.setAttribute('aria-pressed', 'false');
   subLabelEl.textContent = "桃園(TPE) ↔ 凱夫拉維克(KEF) · 經濟艙 · 4 人 · 10–12 天 · 7 組";
   renderCards(OLD_FLIGHTS);
 }
