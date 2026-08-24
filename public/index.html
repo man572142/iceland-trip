@@ -176,6 +176,7 @@
 
   /* ---------- Right: map + info ---------- */
   .stage{display:flex;flex-direction:column;min-width:0;height:100%}
+  .stage-handle{display:none}
   .map-box{flex:1 1 55%;position:relative;background:#0e141c;min-height:260px}
   .map-box iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.9)}
   .map-toolbar{
@@ -250,10 +251,49 @@
 
   @media (max-width:940px){
     .wrap{grid-template-columns:1fr;height:auto}
-    .itinerary{border-right:0;border-bottom:1px solid var(--line);max-height:none}
-    .stage{height:auto;position:sticky;top:57px;z-index:40;background:var(--bg)}
-    .map-box{height:44vh;flex:none}
-    .info{flex:none;max-height:44vh}
+    .itinerary{
+      border-right:0;border-bottom:0;max-height:none;
+      padding-bottom:calc(46vh + 20px);
+      transition:padding-bottom .28s cubic-bezier(.4,0,.2,1);
+    }
+    body.stage-collapsed .itinerary{padding-bottom:76px}
+
+    .stage{
+      position:fixed;left:0;right:0;bottom:0;z-index:60;
+      height:46vh;
+      background:var(--bg);
+      border-top:1px solid var(--line);
+      border-radius:16px 16px 0 0;
+      box-shadow:0 -16px 32px -14px rgba(0,0,0,.6);
+      overflow:hidden;
+      transition:height .28s cubic-bezier(.4,0,.2,1);
+    }
+    body.stage-collapsed .stage{height:52px}
+
+    .stage-handle{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      flex:0 0 auto;padding:9px 10px 9px 16px;
+      border-bottom:1px solid var(--line);
+      background:var(--bg-2);
+    }
+    .stage-cur{
+      font-size:12.5px;font-weight:600;color:var(--text);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    .stage-cur.empty{color:var(--muted);font-weight:400}
+    .collapse-btn{
+      flex:0 0 auto;font-size:11.5px;color:var(--muted);
+      background:var(--panel);border:1px solid var(--line);
+      padding:6px 10px;border-radius:8px;cursor:pointer;
+      display:flex;align-items:center;gap:5px;transition:.15s;
+      font-family:inherit;
+    }
+    .collapse-btn:hover{color:var(--text);border-color:#33455f}
+    .collapse-btn .arrow{display:inline-block;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+    body.stage-collapsed .collapse-btn .arrow{transform:rotate(180deg)}
+
+    .map-box{height:150px;flex:0 0 auto}
+    .info{flex:1 1 auto;max-height:none}
   }
 </style>
 </head>
@@ -298,6 +338,12 @@
 
   <!-- ============ RIGHT ============ -->
   <section class="stage">
+    <div class="stage-handle" id="stageHandle">
+      <span class="stage-cur empty" id="stageCur">尚未選擇景點</span>
+      <button class="collapse-btn" id="collapseBtn" aria-expanded="true">
+        <span class="arrow">▼</span><span id="collapseLabel">收合</span>
+      </button>
+    </div>
     <div class="map-box">
       <div class="map-toolbar">
         <button data-t="m" class="on">地圖</button>
@@ -630,6 +676,18 @@ document.getElementById('btnAll').addEventListener('click', ()=>{
   document.getElementById('info').innerHTML =
     `<div class="info-empty"><div class="big">🗺️</div><div>冰島全覽</div>
      <div style="font-size:12px">從左側點選任一景點，載入定位與照片</div></div>`;
+  stageCur.textContent = '尚未選擇景點';
+  stageCur.classList.add('empty');
+});
+
+/* ================= 行動版：底部面板收合 ================= */
+const stageCur = document.getElementById('stageCur');
+const collapseBtn = document.getElementById('collapseBtn');
+const collapseLabel = document.getElementById('collapseLabel');
+collapseBtn.addEventListener('click', ()=>{
+  const collapsed = document.body.classList.toggle('stage-collapsed');
+  collapseBtn.setAttribute('aria-expanded', String(!collapsed));
+  collapseLabel.textContent = collapsed ? '展開' : '收合';
 });
 
 /* ================= 選取景點 ================= */
@@ -641,6 +699,12 @@ function select(id){
   current = s;
   document.querySelectorAll('.spot').forEach(x=>x.classList.toggle('active', x.dataset.id===id));
   drawMap();
+
+  stageCur.textContent = s.name;
+  stageCur.classList.remove('empty');
+  document.body.classList.remove('stage-collapsed');
+  collapseBtn.setAttribute('aria-expanded', 'true');
+  collapseLabel.textContent = '收合';
 
   const token = ++reqToken;
   info.innerHTML = `
