@@ -451,45 +451,31 @@ const DAYS = [
     ]
   },
   {
-    n:10, title:"慢慢返回南部", date:"5/9（日）", stay:"Selfoss",
-    note:"慢慢往回走：補前幾天沒玩到的景點、沿途拍照，下午回到 Selfoss 一帶。",
+    n:10, title:"東部峽灣 Day1", date:"5/9（日）", stay:"Egilsstaðir",
+    note:"從 Höfn 沿 1 號公路貼著東部峽灣北上，經 Djúpivogur、Stöðvarfjörður，翻山抵達內陸樞紐 Egilsstaðir 過夜。",
     spots:[
-      {name:"Selfoss (town)", zh:"塞爾福斯鎮", kind:"city", lat:63.9330, lng:-20.9970, z:14,
-       q:"Selfoss town Iceland", desc:"南部最大的內陸城鎮，位在 Ölfusá 河畔，回雷克雅維克只要 45 分鐘。注意別跟北部同名瀑布搞混。"}
+      {name:"Djúpivogur", zh:"迪尤皮沃古爾", kind:"city", lat:64.6552, lng:-14.2884, z:14,
+       q:"Djupivogur Iceland", desc:"東部峽灣第一個漁村，港邊排列著 34 顆巨型石蛋雕塑（Eggin í Gleðivík），對應冰島各種鳥蛋。"},
+      {name:"Petra's Stone Collection", zh:"佩特拉石頭博物館", opt:true, lat:64.8173, lng:-13.8554, z:16,
+       q:"Petra's Stone Collection Stodvarfjordur", desc:"Stöðvarfjörður 小鎮上一位居民畢生撿拾的礦石與水晶收藏，庭院擺滿奇石，是東部峽灣公路上的經典小站。"},
+      {name:"Egilsstaðir", zh:"埃伊爾斯塔濟", kind:"city", lat:65.2669, lng:-14.3948, z:13,
+       q:"Egilsstadir Iceland", desc:"東冰島最大內陸城鎮，位在 Lagarfljót 湖畔，是東部峽灣與北冰島之間的補給與住宿樞紐。"}
     ]
   },
   {
-    n:11, title:"雷克雅維克（整理日）", date:"5/10（一）", stay:"Reykjavík",
-    note:"回到 Reykjavik，今天不排太滿：泡湯、咖啡店、市區散步、補給，隔天準備飛北冰島。",
+    n:11, title:"東部峽灣 Day2", date:"5/10（一）", stay:"Mývatn",
+    note:"上午繞去 Seyðisfjörður 看藍教堂與峽灣，可選走 Hengifoss 步道。下午沿 1 號公路經內陸高地 Möðrudalur，開往米湖過夜。",
     spots:[
-      {name:"Sky Lagoon", zh:"天空潟湖", opt:true, lat:64.1197, lng:-21.9407, z:16,
-       q:"Sky Lagoon Iceland", desc:"Kópavogur 海邊的無邊際地熱溫泉，泡在池裡直接望向大西洋。七步驟的 Ritual 儀式是招牌，比藍湖更近市區。"},
-      {name:"Perlan", zh:"珍珠樓", opt:true, lat:64.1290, lng:-21.9190, z:16,
-       q:"Perlan Reykjavik", desc:"熱水儲槽改建的玻璃穹頂建築，內有人造冰洞與極光展，頂樓 360 度觀景台可俯瞰整個雷克雅維克。"},
-      {name:"Laugavegur", zh:"市區主街", opt:true, lat:64.1440, lng:-21.9270, z:16,
-       q:"Laugavegur Reykjavik", desc:"雷克雅維克主要購物街，咖啡店、書店與紀念品店集中在此。補給乾糧與羊毛衣（lopapeysa）的好地方。"}
+      {name:"Seyðisfjörður", zh:"塞濟斯菲厴澤", kind:"city", lat:65.2637, lng:-14.0079, z:14,
+       q:"Seydisfjordur blue church", desc:"翻過 Fjarðarheiði 山口後藏在峽灣底的彩色小鎮，藍色木教堂與彩虹階梯是招牌畫面，也是渡輪往返丹麥的港口。"},
+      {name:"Hengifoss", zh:"亨吉瀑布", opt:true, lat:65.0761, lng:-14.6373, z:15,
+       q:"Hengifoss Iceland", desc:"冰島第三高瀑布（128 公尺），玄武岩層間夾著紅色黏土條紋。步道來回約 2.5 小時，是東部峽灣最值得的健行。"},
+      {name:"Möðrudalur", zh:"默茲呂達魯爾", kind:"city", lat:65.1973, lng:-16.2429, z:13,
+       q:"Modrudalur Iceland", desc:"冰島海拔最高的有人居住農場，黑色小教堂立在無邊荒原中，是往北冰島路上唯一的補給點。"}
     ]
   },
   {
-    n:12, title:"飛往 Akureyri", date:"5/11（二）", stay:"Akureyri",
-    note:"上午搭國內線 Reykjavík → Akureyri（約 45 分鐘）。抵達後逛市區，下午前往 Goðafoss，晚上若天氣好可追極光。",
-    spots:[
-      {name:"Reykjavík Airport (RKV)", zh:"雷克雅維克國內機場", kind:"city", lat:64.1300, lng:-21.9406, z:14,
-       q:"Reykjavik Airport", desc:"市區內的國內線機場（非 KEF），走路就能從市中心抵達。Icelandair Connect 每日多班飛 Akureyri。"},
-      {name:"Akureyri Airport (AEY)", zh:"阿克雷里機場", kind:"city", lat:65.6600, lng:-18.0727, z:14,
-       q:"Akureyri Airport", desc:"跑道貼著 Eyjafjörður 峽灣，降落過程本身就是風景。機場到市區只要 5 分鐘，在此取北部租車。"},
-      {name:"Akureyrarkirkja", zh:"阿克雷里教堂", lat:65.6800, lng:-18.0894, z:16,
-       q:"Akureyrarkirkja", desc:"與哈爾格林姆教堂同一位建築師的作品，坐落在高台上，爬完階梯可俯瞰峽灣與市區。"},
-      {name:"Lystigarðurinn (Botanical Garden)", zh:"阿克雷里植物園", opt:true, lat:65.6779, lng:-18.0930, z:17,
-       q:"Lystigardurinn Akureyri", desc:"世界最北的植物園之一，收藏了幾乎所有冰島原生植物。5 月初尚未完全甦醒，夏季最盛。"},
-      {name:"Akureyri Harbour", zh:"阿克雷里港", opt:true, lat:65.6835, lng:-18.0870, z:16,
-       q:"Akureyri harbour", desc:"峽灣邊的港區，遊輪與漁船停泊處，沿岸步道很適合傍晚散步。"},
-      {name:"Goðafoss", zh:"眾神瀑布", lat:65.6829, lng:-17.5500, z:15,
-       q:"Godafoss", desc:"寬 30 公尺的馬蹄形瀑布。西元 1000 年冰島改信基督教時，據說法律誦讀者將舊神神像丟入此瀑，因而得名。兩岸都有觀景點。"}
-    ]
-  },
-  {
-    n:13, title:"Lake Mývatn", date:"5/12（三）", stay:"Mývatn 或 Akureyri",
+    n:12, title:"Lake Mývatn", date:"5/11（二）", stay:"Mývatn 或 Akureyri",
     note:"北冰島精華，一整天都在火山與地熱地貌裡繞。下午泡 Mývatn Nature Baths 收尾。",
     spots:[
       {name:"Hverir (Hverarönd)", zh:"赫維爾地熱區", lat:65.6404, lng:-16.8093, z:16,
@@ -507,7 +493,7 @@ const DAYS = [
     ]
   },
   {
-    n:14, title:"Dettifoss + Húsavík", date:"5/13（四）", stay:"Akureyri",
+    n:13, title:"Dettifoss + Húsavík", date:"5/12（三）", stay:"Akureyri",
     note:"上午衝瀑布，下午到 Húsavík，可選賞鯨。傍晚返回 Akureyri。",
     spots:[
       {name:"Dettifoss", zh:"黛提瀑布", lat:65.8145, lng:-16.3844, z:15,
@@ -521,7 +507,7 @@ const DAYS = [
     ]
   },
   {
-    n:15, title:"Siglufjörður / Tröllaskagi 半島", date:"5/14（五）", stay:"Akureyri",
+    n:14, title:"Siglufjörður / Tröllaskagi 半島", date:"5/13（四）", stay:"Akureyri",
     note:"新增的深度北冰島延伸：一路貼著峽灣開往冰島最北的城鎮之一 Siglufjörður，晚上返回 Akureyri。",
     spots:[
       {name:"Siglufjörður", zh:"錫格盧菲厄澤", kind:"city", lat:66.1517, lng:-18.9108, z:14,
@@ -533,13 +519,29 @@ const DAYS = [
     ]
   },
   {
-    n:16, title:"返回雷克雅維克、返程", date:"5/15（六）", stay:"—",
-    note:"上午搭國內線 Akureyri → Reykjavík，白天在市區做最後採買與補景點，晚上前往 KEF 機場。回程班機 5/16 凌晨 00:50 起飛（經法蘭克福轉機），5/17 06:15 抵達桃園。",
+    n:15, title:"Akureyri → 雷克雅維克", date:"5/14（五）", stay:"Reykjavík",
+    note:"全程最長的一天：沿 1 號公路西南行，經 Varmahlíð、Blönduós、Borgarnes 返回雷克雅維克，車程約 5 小時。",
     spots:[
-      {name:"Akureyri Airport (AEY)", zh:"阿克雷里機場", kind:"city", lat:65.6600, lng:-18.0727, z:14,
-       q:"Akureyri Airport", desc:"還車後搭早班國內線回雷克雅維克。北部天氣多變，航班偶有延誤，別把時間抓太緊。"},
+      {name:"Víðimýrarkirkja", zh:"維濟米爾教堂", opt:true, lat:65.5252, lng:-19.4638, z:16,
+       q:"Vidimyrarkirkja turf church", desc:"1834 年建成的草皮教堂，冰島僅存幾座傳統草皮教堂之一，就在 1 號公路旁的 Varmahlíð 附近，順路停留 10 分鐘即可。"},
+      {name:"Borgarnes", zh:"博爾加內斯", kind:"city", lat:64.5388, lng:-21.9231, z:14,
+       q:"Borgarnes Iceland", desc:"回雷克雅維克前最後一個大鎮，跨海堤道邊有加油站與餐廳，適合中途休息用餐。"},
+      {name:"Reykjavík", zh:"雷克雅維克", kind:"city", lat:64.1466, lng:-21.9426, z:13,
+       q:"Reykjavik Iceland", desc:"環島回到起點，晚上還車或隔天再處理。今晚在市區好好休息一晚。"}
+    ]
+  },
+  {
+    n:16, title:"雷克雅維克（整理日）+ 返程", date:"5/15（六）", stay:"—",
+    note:"不排太滿：泡湯、咖啡店、市區散步、補給。晚上前往 KEF 機場，回程班機 5/16 凌晨 00:50 起飛（經法蘭克福轉機），5/17 06:15 抵達桃園。",
+    spots:[
+      {name:"Sky Lagoon", zh:"天空潟湖", opt:true, lat:64.1197, lng:-21.9407, z:16,
+       q:"Sky Lagoon Iceland", desc:"Kópavogur 海邊的無邊際地熱溫泉，泡在池裡直接望向大西洋。七步驟的 Ritual 儀式是招牌，比藍湖更近市區。"},
+      {name:"Perlan", zh:"珍珠樓", opt:true, lat:64.1290, lng:-21.9190, z:16,
+       q:"Perlan Reykjavik", desc:"熱水儲槽改建的玻璃穹頂建築，內有人造冰洞與極光展，頂樓 360 度觀景台可俯瞰整個雷克雅維克。"},
+      {name:"Laugavegur", zh:"市區主街", opt:true, lat:64.1440, lng:-21.9270, z:16,
+       q:"Laugavegur Reykjavik", desc:"雷克雅維克主要購物街，咖啡店、書店與紀念品店集中在此。補給乾糧與羊毛衣（lopapeysa）的好地方。"},
       {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
-       q:"Keflavik International Airport", desc:"回程班機為深夜 00:50 起飛（FI524 飛法蘭克福，轉中華航空回桃園），建議晚餐後直接從市區出發，留充裕時間辦理登機。"}
+       q:"Keflavik International Airport", desc:"回程班機為深夜 00:50 起飛（FI524 飛法蘭克福，轉中華航空回桃園），建議晚餐後直接從市區出發，留充裕時間辦理登機、還車。"}
     ]
   }
 ];

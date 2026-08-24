@@ -169,72 +169,39 @@
 
 ---
 
-# Day 10｜5/9（日）慢慢返回南部
+# Day 10｜5/9（日）東部峽灣 Day1
 
-慢慢往回走，補前幾天沒玩到的景點，沿途拍照。
+從 Höfn 沿 1 號公路貼著東部峽灣北上：
 
-下午：
+- Djúpivogur（石蛋雕塑）
+- Petra's Stone Collection（可選，Stöðvarfjörður）
 
-返回 Selfoss 一帶。
-
-住宿：
-
-**Selfoss**
-
----
-
-# Day 11｜5/10（一）雷克雅維克（整理日）
-
-回到 Reykjavik。
-
-今天不排太滿。
-
-可以選：
-
-- Sky Lagoon
-- Perlan
-- 咖啡店
-- 市區散步
-- 補給
-
-隔天準備飛北冰島。
+翻山抵達內陸樞紐 Egilsstaðir 過夜。
 
 住宿：
 
-**Reykjavík**
+**Egilsstaðir**
 
 ---
 
-# Day 12｜5/11（二）飛往 Akureyri
+# Day 11｜5/10（一）東部峽灣 Day2
 
 上午：
 
-搭國內線
-
-Reykjavík → Akureyri
-
-抵達後：
-
-- Akureyri 市區
-- Botanical Garden
-- 教堂
-- 港口
+- Seyðisfjörður（藍教堂、峽灣小鎮）
+- Hengifoss（可選，健行來回約 2.5 小時）
 
 下午：
 
-Goðafoss
-
-晚上：
-
-若天氣好可追極光。
+沿 1 號公路經內陸高地 Möðrudalur，開往米湖。
 
 住宿：
 
-**Akureyri**
+**Mývatn**
 
 ---
 
-# Day 13｜5/12（三）Lake Mývatn
+# Day 12｜5/11（二）Lake Mývatn
 
 北冰島精華。
 
@@ -256,7 +223,7 @@ Mývatn Nature Baths
 
 ---
 
-# Day 14｜5/13（四）Dettifoss + Húsavík
+# Day 13｜5/12（三）Dettifoss + Húsavík
 
 上午：
 
@@ -279,7 +246,7 @@ Húsavík
 
 ---
 
-# Day 15｜5/14（五）Siglufjörður / Tröllaskagi 半島
+# Day 14｜5/13（四）Siglufjörður / Tröllaskagi 半島
 
 新增的深度北冰島延伸：
 
@@ -295,15 +262,30 @@ Húsavík
 
 ---
 
-# Day 16｜5/15（六）返回雷克雅維克、返程
+# Day 15｜5/14（五）Akureyri → 雷克雅維克
 
-上午：
+全程最長的一天，沿 1 號公路西南行：
 
-Akureyri → Reykjavík（國內線）
+- Víðimýrarkirkja 草皮教堂（可選，Varmahlíð 附近）
+- Blönduós
+- Borgarnes
 
-白天：
+車程約 5 小時，返回雷克雅維克。
 
-市區最後採買、補景點
+住宿：
+
+**Reykjavík**
+
+---
+
+# Day 16｜5/15（六）雷克雅維克（整理日）+ 返程
+
+今天不排太滿：
+
+- Sky Lagoon
+- Perlan
+- 咖啡店、市區散步
+- 補給
 
 晚上：
 
@@ -315,12 +297,13 @@ Akureyri → Reykjavík（國內線）
 
 | 地區 | 晚數 |
 |------|------|
-| Reykjavík（Day1,2,3,5,11） | 5 |
+| Reykjavík（Day1,2,3,5,16） | 5 |
 | Snæfellsnes（Day4） | 1 |
 | Vík（Day6,7） | 2 |
 | Jökulsárlón / Höfn（Day8,9） | 2 |
-| Selfoss（Day10） | 1 |
-| Akureyri（Day12–15） | 4 |
+| Egilsstaðir（Day10） | 1 |
+| Mývatn（Day11,12） | 2 |
+| Akureyri（Day13,14） | 2 |
 | Day16 深夜航班 | 不需訂房 |
 
 ---
@@ -350,6 +333,10 @@ Akureyri → Reykjavík（國內線）
 ✅ Diamond Beach
 
 ✅ Vestrahorn
+
+✅ 東部峽灣（Djúpivogur、Seyðisfjörður）
+
+✅ Hengifoss
 
 ✅ Goðafoss
 
