@@ -11,6 +11,8 @@
 
 在冰島實際可用天數：**4/30 ～ 5/15，共 16 天**。
 
+行程走單一順時針環線：只有 Day1 抵達當天進出雷克雅維克市區，之後一路往南、往東、往北、再往西繞回來，不走回頭路。
+
 ---
 
 # Day 1｜4/30（五）抵達冰島
@@ -33,28 +35,7 @@
 
 ---
 
-# Day 2｜5/1（六）Reykjanes 半島 + 藍湖
-
-從雷克雅維克出發的半日環線：
-
-- Bridge Between Continents（大陸板塊橋）
-- Gunnuhver 地熱區
-- Reykjanesviti 燈塔 & Valahnúkamöl 海崖
-- Brimketill 熔岩海蝕池（可選）
-
-傍晚：
-
-- Blue Lagoon 藍湖溫泉（可選，需事先預約）
-
-住宿：
-
-**Reykjavík**
-
-> 這天取代了原本的 Husky Safari 時段。
-
----
-
-# Day 3｜5/2（日）Golden Circle
+# Day 2｜5/1（六）Golden Circle → 南岸方向
 
 上午：
 
@@ -70,47 +51,17 @@
 
 - Kerið Crater
 
-住宿：
-
-**Reykjavík**
-
----
-
-# Day 4｜5/3（一）前往 Snæfellsnes 半島
-
-沿路：
-
-- Deildartunguhver 溫泉（可選）
-- Grábrók 火山口（可選）
-
-半島：
-
-- Kirkjufell & Kirkjufellsfoss
-- Arnarstapi 海崖步道
+不返回雷克雅維克，直接住宿南岸方向的 Hvolsvöllur，銜接明天的瀑布行程。
 
 住宿：
 
-**Snæfellsnes（Arnarstapi 一帶）**
+**Hvolsvöllur 一帶**
 
 ---
 
-# Day 5｜5/4（二）Snæfellsnes 半島 Day2
+# Day 3｜5/2（日）南岸 Day1
 
-- Djúpalónssandur 黑沙灘
-- Vatnshellir Cave（可選，需預約洞穴導覽）
-- Stykkishólmur 小鎮
-
-下午開車返回雷克雅維克（約 2.5 小時）。
-
-住宿：
-
-**Reykjavík**
-
----
-
-# Day 6｜5/5（三）南岸 Day1
-
-一路往東：
+從 Hvolsvöllur 出發沿 1 號公路續往東：
 
 - Seljalandsfoss
 - Gljúfrabúi
@@ -124,7 +75,7 @@
 
 ---
 
-# Day 7｜5/6（四）南岸 Day2（黑沙灘）
+# Day 4｜5/3（一）南岸 Day2（黑沙灘）
 
 - Dyrhólaey
 - Reynisfjara Black Sand Beach
@@ -139,7 +90,7 @@
 
 ---
 
-# Day 8｜5/7（五）冰河潟湖
+# Day 5｜5/4（二）冰河潟湖
 
 景點：
 
@@ -158,7 +109,7 @@
 
 ---
 
-# Day 9｜5/8（六）Höfn + Vestrahorn
+# Day 6｜5/5（三）Höfn + Vestrahorn
 
 - Vestrahorn / Stokksnes
 - Höfn 小鎮（晚餐吃龍蝦）
@@ -169,7 +120,7 @@
 
 ---
 
-# Day 10｜5/9（日）東部峽灣 Day1
+# Day 7｜5/6（四）東部峽灣 Day1
 
 從 Höfn 沿 1 號公路貼著東部峽灣北上：
 
@@ -184,7 +135,7 @@
 
 ---
 
-# Day 11｜5/10（一）東部峽灣 Day2
+# Day 8｜5/7（五）東部峽灣 Day2
 
 上午：
 
@@ -201,7 +152,7 @@
 
 ---
 
-# Day 12｜5/11（二）Lake Mývatn
+# Day 9｜5/8（六）Lake Mývatn
 
 北冰島精華。
 
@@ -223,7 +174,7 @@ Mývatn Nature Baths
 
 ---
 
-# Day 13｜5/12（三）Dettifoss + Húsavík
+# Day 10｜5/9（日）Dettifoss + Húsavík
 
 上午：
 
@@ -246,9 +197,9 @@ Húsavík
 
 ---
 
-# Day 14｜5/13（四）Siglufjörður / Tröllaskagi 半島
+# Day 11｜5/10（一）Siglufjörður / Tröllaskagi 半島
 
-新增的深度北冰島延伸：
+北冰島深度延伸：
 
 - Siglufjörður
 - Síldarminjasafnið（鯡魚時代博物館，可選）
@@ -262,15 +213,47 @@ Húsavík
 
 ---
 
-# Day 15｜5/14（五）Akureyri → 雷克雅維克
+# Day 12｜5/11（二）Akureyri → Blönduós
 
-全程最長的一天，沿 1 號公路西南行：
+北冰島環線結束，沿 1 號公路西行返回西部：
 
 - Víðimýrarkirkja 草皮教堂（可選，Varmahlíð 附近）
 - Blönduós
-- Borgarnes
 
-車程約 5 小時，返回雷克雅維克。
+今晚在 Blönduós 過夜，把 Akureyri 到 Snæfellsnes 的長途車程分成兩天走，明天再深入半島。
+
+住宿：
+
+**Blönduós 一帶**
+
+---
+
+# Day 13｜5/12（三）前往 Snæfellsnes 半島
+
+沿路：
+
+- Borgarnes
+- Deildartunguhver 溫泉（可選）
+- Grábrók 火山口（可選）
+
+半島：
+
+- Kirkjufell & Kirkjufellsfoss
+- Arnarstapi 海崖步道
+
+住宿：
+
+**Snæfellsnes（Arnarstapi 一帶）**
+
+---
+
+# Day 14｜5/13（四）Snæfellsnes 半島 Day2
+
+- Djúpalónssandur 黑沙灘
+- Vatnshellir Cave（可選，需預約洞穴導覽）
+- Stykkishólmur 小鎮
+
+下午開車返回雷克雅維克（約 2.5 小時）。
 
 住宿：
 
@@ -278,7 +261,7 @@ Húsavík
 
 ---
 
-# Day 16｜5/15（六）雷克雅維克（整理日）+ 返程
+# Day 15｜5/14（五）雷克雅維克（整理日）
 
 今天不排太滿：
 
@@ -286,6 +269,27 @@ Húsavík
 - Perlan
 - 咖啡店、市區散步
 - 補給
+
+住宿：
+
+**Reykjavík**
+
+---
+
+# Day 16｜5/15（六）Reykjanes 半島 + 藍湖 → 返程
+
+從雷克雅維克出發的半日環線，繞完 Reykjanes 半島西端：
+
+- Bridge Between Continents（大陸板塊橋）
+- Gunnuhver 地熱區
+- Reykjanesviti 燈塔 & Valahnúkamöl 海崖
+- Brimketill 熔岩海蝕池（可選）
+
+傍晚：
+
+- Blue Lagoon 藍湖溫泉（可選，需事先預約）
+
+KEF 機場就在 Reykjanes 半島上，觀光後直接前往機場，不繞路。
 
 晚上：
 
@@ -297,13 +301,15 @@ Húsavík
 
 | 地區 | 晚數 |
 |------|------|
-| Reykjavík（Day1,2,3,5,16） | 5 |
-| Snæfellsnes（Day4） | 1 |
-| Vík（Day6,7） | 2 |
-| Jökulsárlón / Höfn（Day8,9） | 2 |
-| Egilsstaðir（Day10） | 1 |
-| Mývatn（Day11,12） | 2 |
-| Akureyri（Day13,14） | 2 |
+| Reykjavík（Day1,14,15） | 3 |
+| Hvolsvöllur（Day2） | 1 |
+| Vík（Day3,4） | 2 |
+| Jökulsárlón / Höfn（Day5,6） | 2 |
+| Egilsstaðir（Day7） | 1 |
+| Mývatn（Day8,9） | 2 |
+| Akureyri（Day10,11） | 2 |
+| Blönduós（Day12） | 1 |
+| Snæfellsnes（Day13） | 1 |
 | Day16 深夜航班 | 不需訂房 |
 
 ---
