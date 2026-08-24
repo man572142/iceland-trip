@@ -4,10 +4,14 @@ Guidance for Claude Code when working in this repository.
 
 ## What this is
 
-A static site for planning a 16-day Iceland trip (南岸 + 西部半島 + 北冰島).
-It renders the itinerary as an interactive map with real-world photos, plus a
-separate page comparing flight options. There is no build step, no framework,
-and no backend — everything is hand-written HTML/CSS/vanilla JS.
+A static site for planning an Iceland trip. It renders the itinerary as an
+interactive map with real-world photos, plus a separate page comparing
+flight options. There is no build step, no framework, and no backend —
+everything is hand-written HTML/CSS/vanilla JS.
+
+The trip's actual content (dates, day count, regions, stops) lives entirely
+in `public/index.html` / `iceland_trip_itinerary.md` — it changes often and
+is out of scope for this file.
 
 Live site: https://iceland-trip.man572142.workers.dev/
 
