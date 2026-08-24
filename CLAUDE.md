@@ -24,8 +24,8 @@ Live site: https://iceland-trip.man572142.workers.dev/
 - `public/_headers` — static response headers (Cloudflare Pages/Workers
   convention: `X-Content-Type-Options`, `Referrer-Policy`).
 - `iceland_trip_itinerary.md` — the canonical written plan in Chinese
-  (day-by-day notes, lodging table, rationale). Not deployed — see "Making
-  changes" below for how it relates to `index.html`.
+  (day-by-day notes, lodging table). Not deployed — see "Making changes"
+  below for how it relates to `index.html`.
 - `wrangler.jsonc` — Cloudflare Workers config. This is a **static-assets-only
   Worker** (no Worker script) — `assets.directory` points at `public/`. This
   is Workers, not Pages, despite the static-hosting look; don't add
@@ -83,3 +83,8 @@ other should match.
 - Content in this repo (itinerary notes, spot descriptions, UI text) is
   primarily in Traditional Chinese (zh-Hant) — match that when adding or
   editing user-facing text.
+- **Keep all writing concise, not explanatory** — this applies to the
+  itinerary (`iceland_trip_itinerary.md`, `index.html`), spot/day
+  descriptions, and this file. State dates, places, and facts directly;
+  don't add design-philosophy intros or "why this is better" rationale
+  sections. Open with the schedule, not an explanation of it.
