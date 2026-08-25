@@ -562,12 +562,14 @@
     body.stage-collapsed .collapse-btn .ico{transform:rotate(180deg)}
 
     .map-box{height:190px;flex:0 0 auto;min-height:0}
-    .info{padding:16px 16px 22px}
     .i-head h2{font-size:var(--t-lg)}
     .i-head{gap:8px}
     .i-photo-note{margin-left:0;flex:1 1 100%;white-space:normal}
     .i-desc{font-size:var(--t-md);line-height:1.85}
-    .gallery{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+    .info{padding:16px 14px 22px}
+    .gallery{grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+    /* the strip is illegible at thumbnail width — credit lives in the lightbox */
+    .ph .cred{display:none}
     .lb-prev{left:8px}
     .lb-next{right:8px}
     .lb-x{top:10px;right:10px}
@@ -1213,7 +1215,7 @@ async function loadPhotos(s, token){
     btn.addEventListener('click', ()=> openLb(Number(btn.dataset.i), btn));
   });
 
-  note.innerHTML = `點圖可放大 · <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">看更多照片</a>`;
+  note.innerHTML = `點圖可放大 · 圖片來自 Wikimedia Commons · <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">看更多照片</a>`;
 }
 
 function fallback(gal, note, s, failed){
