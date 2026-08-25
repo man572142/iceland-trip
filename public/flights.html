@@ -3,292 +3,506 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#070a0f">
 <title>冰島機票方案</title>
 <style>
   :root{
-    --bg:#0b0f14;
-    --bg-2:#111823;
-    --panel:#151d29;
-    --panel-2:#1b2534;
-    --line:#243044;
-    --text:#e6edf5;
-    --muted:#8b9bb0;
-    --accent:#4fd1c5;
-    --accent-2:#7c8cff;
-    --gold:#f0b429;
-    --radius:14px;
+    /* ---------- Basalt: cool volcanic neutrals（與行程頁共用） ---------- */
+    --ink-950:#070a0f;
+    --ink-900:#0c121a;
+    --ink-850:#111925;
+    --ink-800:#16202e;
+    --ink-750:#1c2838;
+    --ink-700:#243247;
+    --ink-600:#33455f;
+    --ink-400:#7e93ac;
+    --ink-300:#9aadc4;
+    --ink-200:#c2d1e2;
+    --ink-100:#e4ecf6;
+
+    --bg:var(--ink-950);
+    --sunken:var(--ink-900);
+    --surface:var(--ink-850);
+    --surface-2:var(--ink-800);
+    --surface-3:var(--ink-750);
+    --line:var(--ink-700);
+    --line-2:var(--ink-600);
+    --text:var(--ink-100);
+    --text-2:var(--ink-200);
+    --text-3:var(--ink-300);
+    --text-4:var(--ink-400);
+
+    --aurora:#45d9bd;
+    --aurora-hi:#8bf0dc;
+    --aurora-08:rgba(69,217,189,.08);
+    --aurora-14:rgba(69,217,189,.14);
+    --aurora-28:rgba(69,217,189,.28);
+    --aurora-45:rgba(69,217,189,.45);
+    --glacier:#8ab4ff;
+    --glacier-14:rgba(138,180,255,.14);
+    --sulphur:#f2b544;
+    --sulphur-14:rgba(242,181,68,.14);
+    --sulphur-45:rgba(242,181,68,.45);
+    --moss:#5fd08a;
+    --moss-13:rgba(95,208,138,.13);
+    --moss-40:rgba(95,208,138,.4);
+    --ember:#ff9166;
+    --ember-14:rgba(255,145,102,.14);
+    --on-aurora:#04140f;
+    --on-sulphur:#241703;
+
+    /* 航空公司識別色（本頁專用） */
+    --ci:var(--sulphur);
+    --fi:var(--glacier);
+    --br:var(--moss);
+    --cx:#5fb3e0;
+
+    /* ---------- Type scale ---------- */
+    --t-xs:11px;    /* meta, chips, credits, flight numbers */
+    --t-sm:13px;    /* secondary text, controls, dense tables */
+    --t-md:15px;    /* body, list titles, lede */
+    --t-lg:19px;    /* price, mobile headline */
+    --t-xl:24px;    /* selected-spot headline */
+
+    --r-sm:8px; --r-md:11px; --r-lg:16px;
+    --shadow-1:0 1px 2px rgba(0,0,0,.4), 0 6px 16px -10px rgba(0,0,0,.7);
+    --ease:cubic-bezier(.16,1,.3,1);
+    --dur:.34s;
   }
+
   *{box-sizing:border-box}
-  html,body{height:100%}
+  html{
+    color-scheme:dark;
+    caret-color:var(--aurora);
+    scrollbar-color:var(--line-2) transparent;
+  }
   body{
-    margin:0;
+    margin:0;min-height:100%;
     background:
-      radial-gradient(1200px 600px at 80% -10%, rgba(124,140,255,.18), transparent 60%),
-      radial-gradient(900px 500px at 0% 0%, rgba(79,209,197,.14), transparent 55%),
+      radial-gradient(1100px 520px at 82% -12%, rgba(138,180,255,.13), transparent 62%),
+      radial-gradient(880px 460px at -6% -4%, rgba(69,217,189,.11), transparent 58%),
       var(--bg);
+    background-attachment:fixed;
     color:var(--text);
     font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:var(--t-md);line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:var(--aurora-28);color:#fff}
+  :focus-visible{outline:2px solid var(--aurora-hi);outline-offset:2px}
+  body::-webkit-scrollbar{width:12px}
+  body::-webkit-scrollbar-track{background:transparent}
+  body::-webkit-scrollbar-thumb{
+    background:var(--line-2);border-radius:99px;
+    border:3px solid transparent;background-clip:content-box;
   }
 
+  .ico{
+    width:var(--ico,15px);height:var(--ico,15px);flex:none;display:block;
+    fill:none;stroke:currentColor;stroke-width:1.75;
+    stroke-linecap:round;stroke-linejoin:round;overflow:visible;
+  }
+  .sprite{position:absolute;width:0;height:0;overflow:hidden}
+
+  /* ---------- Header ---------- */
   header{
-    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
-    padding:14px 22px;
+    display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;
+    padding:12px 20px;
     border-bottom:1px solid var(--line);
-    background:rgba(11,15,20,.85);
-    backdrop-filter:blur(10px);
+    background:rgba(7,10,15,.78);
+    backdrop-filter:blur(14px) saturate(1.2);
+    -webkit-backdrop-filter:blur(14px) saturate(1.2);
     position:sticky;top:0;z-index:50;
   }
-  header h1{font-size:17px;margin:0;letter-spacing:.5px;font-weight:700}
-  header h1 span{color:var(--accent)}
-  .sub{color:var(--muted);font-size:12.5px}
-  .head-spacer{flex:1}
+  header h1{font-size:var(--t-md);margin:0;font-weight:700;letter-spacing:.01em;white-space:nowrap}
+  .sub{
+    color:var(--text-4);font-size:var(--t-sm);min-width:0;
+    font-variant-numeric:tabular-nums;
+  }
+  .head-spacer{flex:1 1 auto}
   .nav-link{
-    color:var(--muted);text-decoration:none;font-size:12.5px;
-    border:1px solid var(--line);padding:6px 12px;border-radius:9px;
-    transition:.15s;
+    display:inline-flex;align-items:center;gap:7px;flex:none;
+    color:var(--text-2);text-decoration:none;font-size:var(--t-sm);font-weight:500;
+    border:1px solid var(--line);padding:7px 13px;border-radius:var(--r-sm);
+    background:var(--surface);
+    transition:color .16s,border-color .16s,background .16s;
+    white-space:nowrap;
   }
-  .nav-link:hover{color:var(--accent);border-color:rgba(79,209,197,.4)}
+  .nav-link .ico{--ico:16px;color:var(--aurora)}
+  .nav-link:hover{color:var(--text);border-color:var(--line-2);background:var(--surface-2)}
 
-  .page{
-    max-width:980px;margin:0 auto;
-    padding:22px 18px 70px;
+  .page{max-width:1000px;margin:0 auto;padding:26px 18px 80px}
+
+  /* ---------- Lede: the confirmed booking ---------- */
+  .confirmed{
+    background:linear-gradient(158deg,var(--moss-13),transparent 62%),var(--surface);
+    border:1px solid var(--moss-40);
+    border-radius:var(--r-lg);
+    padding:20px 22px;margin-bottom:34px;
+    box-shadow:var(--shadow-1);
   }
+  .cf-head{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+  .cf-head .ico{--ico:20px;color:var(--moss)}
+  .cf-head h2{margin:0;font-size:var(--t-md);font-weight:700;letter-spacing:.01em;color:var(--text)}
 
-  .intro{
-    background:linear-gradient(160deg, rgba(79,209,197,.10), rgba(124,140,255,.06));
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:16px 18px;
-    margin-bottom:20px;
-    font-size:14.5px;line-height:1.75;color:#c6d3e2;
-    max-width:42em;
+  .cf-legs{margin:0;display:grid;gap:1px;background:var(--line);border-radius:var(--r-md);overflow:hidden}
+  .cf-legs>div{
+    display:grid;grid-template-columns:118px 1fr;gap:14px;
+    padding:11px 14px;background:var(--surface);align-items:baseline;
   }
-  .intro b{color:var(--accent)}
-  .intro ul{margin:8px 0 0;padding-left:20px}
-  .intro li{margin:3px 0}
+  .cf-legs dt{
+    font-size:var(--t-xs);font-weight:700;letter-spacing:.08em;
+    color:var(--moss);text-transform:uppercase;
+  }
+  .cf-legs dd{
+    margin:0;font-size:var(--t-sm);line-height:1.8;color:var(--text-2);
+    font-variant-numeric:tabular-nums;
+  }
+  .cf-legs b{color:var(--text);font-weight:600}
 
+  .cf-link{
+    display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+    font-size:var(--t-sm);font-weight:500;color:var(--aurora-hi);text-decoration:none;
+    border:1px solid var(--aurora-28);background:var(--aurora-08);
+    padding:7px 13px;border-radius:var(--r-sm);
+    transition:background .16s,border-color .16s;
+  }
+  .cf-link .ico{--ico:16px}
+  .cf-link:hover{background:var(--aurora-14);border-color:var(--aurora-45)}
+
+  /* ---------- Archive section (not a card — cards live inside it) ---------- */
+  .archive{border-top:1px solid var(--line);padding-top:22px}
+  .archive>summary{list-style:none;cursor:pointer;display:block}
+  .archive>summary::-webkit-details-marker{display:none}
+  .sec-head{display:flex;align-items:center;gap:10px}
+  .sec-head .ico{--ico:16px;color:var(--text-4);transition:transform var(--dur) var(--ease)}
+  .archive[open] .sec-head .ico{transform:rotate(90deg);color:var(--aurora)}
+  .sec-head h2{margin:0;font-size:var(--t-md);font-weight:700;color:var(--text-2)}
+  .sec-head .qual{font-size:var(--t-sm);color:var(--text-4)}
+  .archive>summary:hover .sec-head h2{color:var(--text)}
+  .archive>summary:focus-visible{outline:2px solid var(--aurora-hi);outline-offset:4px;border-radius:4px}
+  .archive-body{padding-top:20px;animation:rise .4s var(--ease) both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* Criteria: hairline block, deliberately not a card */
+  .criteria{
+    border-left:1px solid var(--line-2);
+    padding:2px 0 2px 16px;margin-bottom:18px;
+    max-width:46em;
+  }
+  .criteria h3{
+    margin:0 0 8px;font-size:var(--t-sm);font-weight:700;
+    letter-spacing:.08em;color:var(--text-4);text-transform:uppercase;
+  }
+  .criteria ul{margin:0;padding-left:18px;font-size:var(--t-sm);line-height:1.9;color:var(--text-2)}
+  .criteria li::marker{color:var(--line-2)}
+  .criteria b{color:var(--aurora-hi);font-weight:600}
+
+  details.more-info{margin-top:12px}
+  details.more-info summary{
+    cursor:pointer;font-size:var(--t-sm);font-weight:600;color:var(--text-3);
+    list-style:none;display:inline-flex;align-items:center;gap:6px;
+    transition:color .16s;
+  }
+  details.more-info summary:hover{color:var(--aurora-hi)}
+  details.more-info summary::-webkit-details-marker{display:none}
+  details.more-info summary .ico{--ico:13px;transition:transform var(--dur) var(--ease)}
+  details.more-info[open] summary .ico{transform:rotate(90deg)}
+  details.more-info ul{
+    margin:9px 0 0;padding-left:18px;
+    font-size:var(--t-sm);line-height:1.9;color:var(--text-4);max-width:46em;
+  }
+  details.more-info li{margin:5px 0}
+
+  /* ---------- Plan toggle ---------- */
+  .plan-toggle{
+    display:inline-flex;gap:3px;margin-bottom:20px;flex-wrap:wrap;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r-md);padding:4px;
+  }
+  .plan-btn{
+    font-family:inherit;font-size:var(--t-sm);font-weight:600;
+    padding:8px 15px;border-radius:var(--r-sm);
+    background:transparent;border:0;color:var(--text-3);
+    cursor:pointer;transition:color .16s,background .16s;
+    font-variant-numeric:tabular-nums;
+  }
+  .plan-btn:hover{color:var(--text);background:var(--surface-3)}
+  .plan-btn.active{background:var(--aurora);color:var(--on-aurora)}
+
+  /* ---------- Flight cards ---------- */
   #cards{list-style:none;margin:0;padding:0}
-
   .card{
-    background:var(--panel);
+    background:var(--surface);
     border:1px solid var(--line);
-    border-radius:var(--radius);
-    margin-bottom:18px;
-    overflow:hidden;
+    border-radius:var(--r-md);
+    margin-bottom:14px;overflow:hidden;
+    transition:border-color .2s;
   }
-  .card.best{border-color:rgba(240,180,41,.55)}
+  .card:hover{border-color:var(--line-2)}
+  .card.best{border-color:var(--sulphur-45)}
 
   .card-head{
     display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-    padding:14px 18px;
-    background:var(--panel-2);
+    padding:13px 17px;
+    background:var(--surface-2);
     border-bottom:1px solid var(--line);
   }
   .rank{
-    flex:0 0 auto;font-size:12.5px;font-weight:700;letter-spacing:.5px;
-    color:#0b0f14;background:var(--accent);
-    padding:4px 10px;border-radius:7px;
+    flex:0 0 auto;font-size:var(--t-xs);font-weight:700;letter-spacing:.06em;
+    color:var(--text-3);background:var(--surface-3);
+    border:1px solid var(--line-2);
+    padding:4px 10px;border-radius:var(--r-sm);
+    font-variant-numeric:tabular-nums;
   }
-  .card.best .rank{background:var(--gold)}
-  .route-name{font-size:14.5px;font-weight:700}
-  .price-tag{
-    margin-left:auto;text-align:right;
+  .card.best .rank{color:var(--on-sulphur);background:var(--sulphur);border-color:var(--sulphur)}
+  .route-name{font-size:var(--t-md);font-weight:700;color:var(--text)}
+  .chip{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:var(--t-xs);font-weight:600;line-height:1.7;
+    padding:1px 9px;border-radius:99px;white-space:nowrap;
+    border:1px solid var(--line-2);color:var(--text-4);
+    font-variant-numeric:tabular-nums;
   }
-  .price-tag .total{font-size:16px;font-weight:800;color:var(--accent)}
-  .price-tag .per{font-size:11.5px;color:var(--muted)}
-  .best-badge{
-    font-size:10.5px;font-weight:700;color:#0b0f14;background:var(--gold);
-    padding:2px 8px;border-radius:6px;letter-spacing:.3px;
+  .chip.best-badge{
+    background:var(--sulphur-14);color:var(--sulphur);border-color:var(--sulphur-45);
   }
-  .days-badge{
-    font-size:11.5px;color:var(--muted);border:1px solid var(--line);
-    padding:3px 9px;border-radius:7px;white-space:nowrap;
-  }
+  .price-tag{margin-left:auto;text-align:right;font-variant-numeric:tabular-nums}
+  .price-tag .total{font-size:var(--t-lg);font-weight:800;color:var(--aurora);letter-spacing:-.01em}
+  .card.best .price-tag .total{color:var(--sulphur)}
+  .price-tag .per{font-size:var(--t-xs);color:var(--text-4);margin-top:1px}
 
-  .card-body{padding:14px 18px 16px}
+  .card-body{padding:15px 17px 17px}
 
-  .leg-block{margin-bottom:12px}
-  .leg-block:last-child{margin-bottom:0}
+  .leg-block{margin-bottom:15px}
+  .leg-block:last-of-type{margin-bottom:0}
   .leg-label{
-    font-size:11.5px;font-weight:700;color:var(--accent-2);
-    letter-spacing:.5px;margin-bottom:6px;
+    display:flex;align-items:center;gap:7px;
+    font-size:var(--t-xs);font-weight:700;color:var(--text-4);
+    letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;
   }
+  .leg-label .ico{--ico:14px;color:var(--glacier);transform:rotate(90deg)}
+  .leg-label.back .ico{transform:rotate(-90deg)}
+
   .seg{
-    display:grid;
-    grid-template-columns: 74px 1fr auto;
-    align-items:center;gap:10px;
-    padding:8px 10px;border-radius:9px;
-    background:var(--bg-2);border:1px solid var(--line);
-    margin-bottom:6px;font-size:12.5px;
+    display:grid;grid-template-columns:96px 1fr auto;
+    align-items:center;gap:12px;
+    padding:9px 12px;border-radius:var(--r-sm);
+    background:var(--sunken);border:1px solid var(--line);
+    margin-bottom:5px;font-size:var(--t-sm);
   }
   .seg:last-child{margin-bottom:0}
   .seg .airline{
-    font-size:11.5px;font-weight:700;padding:3px 7px;border-radius:6px;
+    display:block;font-size:var(--t-xs);font-weight:700;
+    padding:3px 7px;border-radius:5px;
     text-align:center;white-space:nowrap;
   }
-  .airline.ci{background:rgba(240,180,41,.16);color:var(--gold)}
-  .airline.fi{background:rgba(124,140,255,.16);color:var(--accent-2)}
-  .airline.br{background:rgba(46,204,113,.16);color:#2ecc71}
-  .airline.cx{background:rgba(64,169,220,.16);color:#40a9dc}
-  .seg .flightno{font-size:10.5px;color:var(--muted);display:block;margin-top:2px;text-align:center}
-  .seg .path{min-width:0}
-  .seg .path b{font-weight:600}
-  .seg .path .arrow{color:var(--muted);margin:0 4px}
-  .seg .time{
-    font-size:12.5px;color:#c6d3e2;white-space:nowrap;text-align:right;
+  .airline.ci{background:var(--sulphur-14);color:var(--ci)}
+  .airline.fi{background:var(--glacier-14);color:var(--fi)}
+  .airline.br{background:var(--moss-13);color:var(--br)}
+  .airline.cx{background:rgba(95,179,224,.14);color:var(--cx)}
+  .seg .flightno{
+    display:block;font-size:var(--t-xs);color:var(--text-4);
+    margin-top:3px;text-align:center;font-variant-numeric:tabular-nums;
   }
-  .seg .time .d{display:block;font-size:10.5px;color:var(--muted)}
+  .seg .path{min-width:0;color:var(--text-2)}
+  .seg .path b{font-weight:600;color:var(--text)}
+  .seg .path .ico{
+    display:inline-block;vertical-align:-2px;--ico:14px;
+    color:var(--text-4);margin:0 5px;
+  }
+  .seg .time{
+    font-size:var(--t-sm);color:var(--text-2);white-space:nowrap;text-align:right;
+    font-variant-numeric:tabular-nums;
+  }
+  .seg .time .d{display:block;font-size:var(--t-xs);color:var(--text-4);margin-top:2px}
 
   .layover{
     display:inline-flex;align-items:center;gap:6px;
-    margin:2px 0 6px 10px;padding:4px 10px;
-    font-size:11.5px;font-weight:600;color:var(--gold);
-    background:rgba(240,180,41,.12);border-radius:7px;
+    margin:3px 0 5px 14px;padding:4px 10px;
+    font-size:var(--t-xs);font-weight:600;
+    color:var(--sulphur);background:var(--sulphur-14);
+    border-radius:99px;font-variant-numeric:tabular-nums;
   }
-  .layover.long{color:#ff8a65;background:rgba(255,138,101,.14)}
+  .layover .ico{--ico:14px}
+  .layover.long{color:var(--ember);background:var(--ember-14)}
 
   .notes{
-    margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);
-    font-size:13.5px;color:var(--muted);line-height:1.7;
-    max-width:58em;
+    margin-top:14px;padding-top:13px;border-top:1px solid var(--line);
+    font-size:var(--t-sm);color:var(--text-4);line-height:1.85;max-width:56em;
   }
 
-  .book-row{
-    display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;
-  }
+  .book-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
   .book-btn{
-    display:inline-flex;align-items:center;gap:6px;
-    font-size:12.5px;text-decoration:none;
-    padding:7px 13px;border-radius:9px;
-    transition:.15s;font-weight:600;
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:var(--t-sm);font-weight:600;text-decoration:none;
+    padding:8px 14px;border-radius:var(--r-sm);
+    transition:background .16s,border-color .16s,color .16s;
   }
-  .book-btn.primary{
-    background:var(--accent);color:#0b0f14;border:1px solid var(--accent);
-  }
-  .book-btn.primary:hover{filter:brightness(1.08)}
-  .book-btn.secondary{
-    background:transparent;color:var(--muted);border:1px solid var(--line);
-  }
-  .book-btn.secondary:hover{color:var(--text);border-color:#33455f}
+  .book-btn .ico{--ico:15px}
+  .book-btn.primary{background:var(--aurora);color:var(--on-aurora);border:1px solid var(--aurora)}
+  .book-btn.primary:hover{background:var(--aurora-hi);border-color:var(--aurora-hi)}
+  .book-btn.secondary{background:transparent;color:var(--text-3);border:1px solid var(--line)}
+  .book-btn.secondary:hover{color:var(--text);border-color:var(--line-2);background:var(--surface-2)}
 
-  @media (max-width:640px){
-    .seg{grid-template-columns:60px 1fr;grid-template-areas:"a p" "a t";row-gap:2px}
-    .seg .airline{grid-area:a}
+  /* ---------- Closing notice ---------- */
+  details.notice{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r-md);padding:15px 18px;margin-top:18px;
+  }
+  details.notice summary{
+    cursor:pointer;font-size:var(--t-sm);font-weight:700;color:var(--text-2);
+    list-style:none;display:flex;align-items:center;gap:8px;
+    transition:color .16s;
+  }
+  details.notice summary:hover{color:var(--text)}
+  details.notice summary::-webkit-details-marker{display:none}
+  details.notice summary .ico{--ico:16px;color:var(--sulphur);flex:none}
+  details.notice summary .caret{margin-left:auto;--ico:15px;color:var(--text-4);transition:transform var(--dur) var(--ease)}
+  details.notice[open] summary .caret{transform:rotate(90deg)}
+  details.notice ol{
+    margin:12px 0 0;padding-left:20px;max-width:52em;
+    font-size:var(--t-sm);line-height:1.9;color:var(--text-3);
+  }
+  details.notice li{margin:7px 0}
+  details.notice li::marker{color:var(--text-4)}
+  details.notice b{color:var(--text-2);font-weight:600}
+
+  /* ---------- Mobile ---------- */
+  @media (max-width:720px){
+    header{padding:10px 14px}
+    header h1{font-size:var(--t-md)}
+    .sub{flex:1 1 100%;order:3;font-size:var(--t-xs)}
+    .page{padding:20px 14px 64px}
+    .confirmed{padding:16px 16px;border-radius:var(--r-md)}
+    .cf-legs>div{grid-template-columns:1fr;gap:3px;padding:10px 13px}
+    .card-head{padding:12px 14px;gap:8px}
+    .card-body{padding:13px 14px 15px}
+    .price-tag{margin-left:0;width:100%;text-align:left}
+    .seg{grid-template-columns:88px 1fr;grid-template-areas:"a p" "a t";row-gap:4px;gap:10px}
+    .seg .ident{grid-area:a}
     .seg .path{grid-area:p}
     .seg .time{grid-area:t;text-align:left}
-    .price-tag{margin-left:0;width:100%;text-align:left}
+    .layover{margin-left:10px}
   }
 
-  .plan-toggle{
-    display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms!important;animation-iteration-count:1!important;
+      transition-duration:.01ms!important;scroll-behavior:auto!important;
+    }
   }
-  .plan-btn{
-    font-size:13.5px;font-weight:700;letter-spacing:.3px;
-    padding:9px 16px;border-radius:9px;
-    background:var(--panel-2);border:1px solid var(--line);color:var(--muted);
-    cursor:pointer;transition:.15s;
-  }
-  .plan-btn:hover{color:var(--text);border-color:#33455f}
-  .plan-btn.active{
-    background:var(--accent);color:#0b0f14;border-color:var(--accent);
-  }
-
-  details.more-info{margin-top:10px}
-  details.more-info summary{
-    cursor:pointer;font-size:13.5px;font-weight:700;color:var(--accent-2);
-    list-style:none;
-  }
-  details.more-info summary::-webkit-details-marker{display:none}
-  details.more-info summary::before{content:"▸ ";display:inline-block;transition:.15s}
-  details.more-info[open] summary::before{content:"▾ "}
-  details.more-info ul{margin:8px 0 0;padding-left:20px;font-size:13.5px;line-height:1.7;max-width:44em}
-  details.more-info li{margin:4px 0}
-
-  details.caveat{
-    background:var(--panel);border:1px solid var(--line);
-    border-radius:var(--radius);padding:14px 18px;margin-top:8px;
-    font-size:13.5px;line-height:1.85;color:#c6d3e2;
-  }
-  details.caveat summary{
-    cursor:pointer;font-size:13.5px;font-weight:700;color:var(--accent);
-    list-style:none;
-  }
-  details.caveat summary::-webkit-details-marker{display:none}
-  details.caveat summary::before{content:"▸ ";display:inline-block;transition:.15s}
-  details.caveat[open] summary::before{content:"▾ "}
-  details.caveat ol{margin:10px 0 0;padding-left:20px;max-width:44em}
-  details.caveat li{margin:4px 0}
 </style>
 </head>
 <body>
 
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="m9 4-6 2.8v13.1l6-2.8 6 2.8 6-2.8V4l-6 2.8z"/><path d="M9 4v13.1"/><path d="M15 6.8v13.1"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.3 2.6 2.6 5-5.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.2V12l3 1.9"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 4.4 2.7 17.6a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 4.4a2 2 0 0 0-3.4 0Z"/><path d="M12 9.6v4"/><path d="M12 17.2h.01"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.7-3.7"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7.5 16.5 16.5 7.5"/><path d="M9.2 7.5h7.3v7.3"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9.5 5.5 7 6.5-7 6.5"/></symbol>
+  <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M4 12h15"/><path d="m13.5 6.5 5.5 5.5-5.5 5.5"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M10.5 3.6a1.5 1.5 0 0 1 3 0v6.3l7.5 4.3v2.3l-7.5-2.3v3.9l2.5 1.9V22l-4-1.1-4 1.1v-1.9l2.5-1.9v-3.9L3 16.5v-2.3l7.5-4.3z"/></symbol>
+</defs></svg>
+
 <header>
   <h1>冰島機票方案</h1>
-  <div class="sub" id="subLabel">桃園(TPE) ↔ 凱夫拉維克(KEF) · 經濟艙 · 4 人 · 機票已確認</div>
+  <div class="sub" id="subLabel">桃園（TPE）↔ 凱夫拉維克（KEF）· 經濟艙 · 4 人 · 機票已確認</div>
   <div class="head-spacer"></div>
-  <a class="nav-link" href="./index.html">🗺️ 回行程地圖</a>
+  <a class="nav-link" href="./index.html">
+    <svg class="ico" aria-hidden="true"><use href="#i-map"/></svg>回行程地圖
+  </a>
 </header>
 
-<div class="page">
-  <div class="intro" style="border-color:rgba(46,204,113,.5)">
-    <b>✅ 機票已確認</b>
-    <ul>
-      <li>去程 <b>2027/4/29（四）23:30</b> 桃園出發，經布拉格轉機（CI 067 + FI 537），<b>2027/4/30（五）15:55</b> 抵達 KEF。</li>
-      <li>回程 <b>2027/5/16（日）00:50</b> KEF 出發，經法蘭克福轉機（FI 524 + 中華航空），<b>2027/5/17（一）06:15</b> 抵達桃園。</li>
-      <li>在冰島實際可用天數：4/30 ～ 5/15，共 <b>16 天</b>。</li>
-    </ul>
-    <div class="tip">行程地圖已依此更新 → <a href="./index.html" style="color:var(--accent)">🗺️ 冰島 16 天行程</a></div>
-  </div>
+<main class="page">
+  <section class="confirmed">
+    <div class="cf-head">
+      <svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>
+      <h2>機票已確認</h2>
+    </div>
+    <dl class="cf-legs">
+      <div>
+        <dt>去程</dt>
+        <dd><b>2027/4/29（四）23:30</b> 桃園出發，經布拉格轉機（CI 067 + FI 537），<b>2027/4/30（五）15:55</b> 抵達 KEF。</dd>
+      </div>
+      <div>
+        <dt>回程</dt>
+        <dd><b>2027/5/16（日）00:50</b> KEF 出發，經法蘭克福轉機（FI 524 + 中華航空），<b>2027/5/17（一）06:15</b> 抵達桃園。</dd>
+      </div>
+      <div>
+        <dt>可用天數</dt>
+        <dd>在冰島實際可用天數：4/30 ～ 5/15，共 <b>16 天</b>。</dd>
+      </div>
+    </dl>
+    <a class="cf-link" href="./index.html">
+      <svg class="ico" aria-hidden="true"><use href="#i-map"/></svg>行程地圖已依此更新 · 冰島 16 天行程
+    </a>
+  </section>
 
-  <details class="caveat">
-    <summary>訂票前的比價紀錄（僅供參考，已完成訂票）</summary>
-    <div style="margin-top:12px">
-      <div class="intro">
-        <b>當時的篩選條件</b>
+  <details class="archive">
+    <summary>
+      <span class="sec-head">
+        <svg class="ico" aria-hidden="true"><use href="#i-chev-r"/></svg>
+        <h2>訂票前的比價紀錄</h2>
+        <span class="qual">僅供參考，已完成訂票</span>
+      </span>
+    </summary>
+
+    <div class="archive-body">
+      <div class="criteria">
+        <h3>當時的篩選條件</h3>
         <ul>
-          <li>出發時間:2027 年 3 月底–4 月中,需涵蓋 <b>4/3–4/6</b></li>
-          <li>轉機限制:不接受在中國大陸轉機</li>
-          <li>抵達時間:抵達冰島不晚於晚上 7 點</li>
-          <li>偏好航空公司:中華航空、長榮航空、國泰航空</li>
+          <li>出發時間：2027 年 3 月底–4 月中，需涵蓋 <b>4/3–4/6</b></li>
+          <li>轉機限制：不接受在中國大陸轉機</li>
+          <li>抵達時間：抵達冰島不晚於晚上 7 點</li>
+          <li>偏好航空公司：中華航空、長榮航空、國泰航空</li>
         </ul>
         <details class="more-info">
-          <summary>補充說明</summary>
+          <summary><svg class="ico" aria-hidden="true"><use href="#i-chev-r"/></svg>補充說明</summary>
           <ul>
-            <li>票價為 2026 年 7 月查詢當下的指標性經濟艙總價(4 人);由於距出發日尚有 8 個月以上,航空公司通常僅提前約 11 個月釋出航班與票價,2027 年 3–4 月的實際航班目前尚無法查詢或訂位,以上數字為依現有航線網絡與同期票價水準推估的參考值,建議出發前 3–6 個月再次確認實際航班與票價。</li>
-            <li>2027 年復活節(Easter)為 <b>3/28</b>,部分方案中 3/25–3/29 前後出發的班機可能因連假需求而票價偏高。</li>
+            <li>票價為 2026 年 7 月查詢當下的指標性經濟艙總價（4 人）；由於距出發日尚有 8 個月以上，航空公司通常僅提前約 11 個月釋出航班與票價，2027 年 3–4 月的實際航班目前尚無法查詢或訂位，以上數字為依現有航線網絡與同期票價水準推估的參考值，建議出發前 3–6 個月再次確認實際航班與票價。</li>
+            <li>2027 年復活節（Easter）為 <b>3/28</b>，部分方案中 3/25–3/29 前後出發的班機可能因連假需求而票價偏高。</li>
           </ul>
         </details>
       </div>
 
       <div class="plan-toggle" role="group" aria-label="選擇方案組別">
-        <button type="button" class="plan-btn active" id="btnNew" aria-pressed="true">12–14 天方案(10 組)</button>
-        <button type="button" class="plan-btn" id="btnOld" aria-pressed="false">10–12 天方案(7 組)</button>
+        <button type="button" class="plan-btn active" id="btnNew" aria-pressed="true">12–14 天方案（10 組）</button>
+        <button type="button" class="plan-btn" id="btnOld" aria-pressed="false">10–12 天方案（7 組）</button>
       </div>
 
       <ul id="cards"></ul>
 
-      <details class="caveat">
-        <summary>訂票前必看</summary>
+      <details class="notice">
+        <summary>
+          <svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg>
+          訂票前必看
+          <svg class="ico caret" aria-hidden="true"><use href="#i-chev-r"/></svg>
+        </summary>
         <ol>
-          <li>每組行程都是<b>兩家不同航空公司分開開票</b>(主要承運航空 + Icelandair,主要承運航空可能為中華航空、長榮航空或國泰航空),不是同一張聯運票。訂票時請分別在兩家官網或同一個第三方比價網站(如 Google Flights)完成訂位,並自行確認轉機時間是否足夠、行李是否能直掛到底站。</li>
-          <li>去程與回程在歐洲(或亞洲)轉機城市多安排了充裕的日間轉機時間,可考慮把轉機當成「順遊一天」,但仍建議保留至少 3 小時的安全緩衝,並留意當地機場是否需要重新過安檢;方案 10(國泰航空經香港轉蘇黎世)則是跨夜轉機,需另訂一晚住宿。</li>
-          <li>10–12 天方案中的方案 7 天數為 13 天,略超出 10–12 天的目標,但為最早出發、與方案 1 同為最低價的選項,適合想提早出發的人。</li>
-          <li>點擊下方「Google Flights 查價」會帶入正確的日期與航線,可即時查看目前票價與可預訂的旅行社/官網連結;下方各航空公司官網按鈕會依該行程實際使用的承運航空自動列出,方便分開訂票。</li>
+          <li>每組行程都是<b>兩家不同航空公司分開開票</b>（主要承運航空 + Icelandair，主要承運航空可能為中華航空、長榮航空或國泰航空），不是同一張聯運票。訂票時請分別在兩家官網或同一個第三方比價網站（如 Google Flights）完成訂位，並自行確認轉機時間是否足夠、行李是否能直掛到底站。</li>
+          <li>去程與回程在歐洲（或亞洲）轉機城市多安排了充裕的日間轉機時間，可考慮把轉機當成「順遊一天」，但仍建議保留至少 3 小時的安全緩衝，並留意當地機場是否需要重新過安檢；方案 10（國泰航空經香港轉蘇黎世）則是跨夜轉機，需另訂一晚住宿。</li>
+          <li>10–12 天方案中的方案 7 天數為 13 天，略超出 10–12 天的目標，但為最早出發、與方案 1 同為最低價的選項，適合想提早出發的人。</li>
+          <li>點擊各方案的「Google Flights 查價」會帶入正確的日期與航線，可即時查看目前票價與可預訂的旅行社/官網連結；各航空公司官網按鈕會依該行程實際使用的承運航空自動列出，方便分開訂票。</li>
         </ol>
       </details>
     </div>
   </details>
-</div>
+</main>
 
 <script>
 /* =========================================================
-   舊方案:7 組機票方案資料(10–12 天為主)
+   舊方案：7 組機票方案資料（10–12 天為主）
    ========================================================= */
 const OLD_FLIGHTS = [
   {
     rank:1, best:true, days:11,
-    title:"經布拉格(PRG)轉機",
+    title:"經布拉格（PRG）轉機",
     total:202552, per:50638,
     outbound:[
       {flight:"CI67", airline:"CI", from:"桃園 TPE", to:"布拉格 PRG", dep:"04/01 23:30", arr:"04/02 06:45"},
@@ -299,11 +513,11 @@ const OLD_FLIGHTS = [
       {flight:"CI82", airline:"CI", from:"倫敦 LHR", to:"桃園 TPE", dep:"04/10 21:10", arr:"04/11 17:50"}
     ],
     depDate:"2027-04-01", retDate:"2027-04-10",
-    note:"抵達 KEF 15:55,符合晚上 7 點前的門檻;全程最低價之一,天數 11 天最貼近目標區間。"
+    note:"抵達 KEF 15:55，符合晚上 7 點前的門檻；全程最低價之一，天數 11 天最貼近目標區間。"
   },
   {
     rank:2, days:11,
-    title:"經法蘭克福(FRA)轉機",
+    title:"經法蘭克福（FRA）轉機",
     total:204148, per:51037,
     outbound:[
       {flight:"CI61", airline:"CI", from:"桃園 TPE", to:"法蘭克福 FRA", dep:"04/01 22:30", arr:"04/02 06:50"},
@@ -314,11 +528,11 @@ const OLD_FLIGHTS = [
       {flight:"CI82", airline:"CI", from:"倫敦 LHR", to:"桃園 TPE", dep:"04/10 21:10", arr:"04/11 17:50"}
     ],
     depDate:"2027-04-01", retDate:"2027-04-10",
-    note:"與方案 1 同一組出發/回程日期,改走法蘭克福轉機,抵達 KEF 15:45。"
+    note:"與方案 1 同一組出發/回程日期，改走法蘭克福轉機，抵達 KEF 15:45。"
   },
   {
     rank:3, days:11,
-    title:"經羅馬(FCO)轉機",
+    title:"經羅馬（FCO）轉機",
     total:208736, per:52184,
     outbound:[
       {flight:"CI75", airline:"CI", from:"桃園 TPE", to:"羅馬 FCO", dep:"03/27 23:25", arr:"03/28 08:05"},
@@ -329,11 +543,11 @@ const OLD_FLIGHTS = [
       {flight:"CI82", airline:"CI", from:"倫敦 LHR", to:"桃園 TPE", dep:"04/06 21:10", arr:"04/07 17:50"}
     ],
     depDate:"2027-03-27", retDate:"2027-04-06",
-    note:"3 月底出發的代表方案,抵達 KEF 18:40 是所有方案中最晚,但仍在晚上 7 點前。"
+    note:"3 月底出發的代表方案，抵達 KEF 18:40 是所有方案中最晚，但仍在晚上 7 點前。"
   },
   {
     rank:4, days:11,
-    title:"經法蘭克福(FRA)轉機",
+    title:"經法蘭克福（FRA）轉機",
     total:209548, per:52387,
     outbound:[
       {flight:"CI61", airline:"CI", from:"桃園 TPE", to:"法蘭克福 FRA", dep:"03/27 23:30", arr:"03/28 08:30"},
@@ -344,11 +558,11 @@ const OLD_FLIGHTS = [
       {flight:"CI82", airline:"CI", from:"倫敦 LHR", to:"桃園 TPE", dep:"04/06 21:10", arr:"04/07 17:50"}
     ],
     depDate:"2027-03-27", retDate:"2027-04-06",
-    note:"與方案 3 同一組出發/回程日期,改走法蘭克福轉機,抵達 KEF 15:45。"
+    note:"與方案 3 同一組出發/回程日期，改走法蘭克福轉機，抵達 KEF 15:45。"
   },
   {
     rank:5, days:11,
-    title:"經阿姆斯特丹(AMS)轉機",
+    title:"經阿姆斯特丹（AMS）轉機",
     total:212632, per:53158,
     outbound:[
       {flight:"CI73", airline:"CI", from:"桃園 TPE", to:"阿姆斯特丹 AMS", dep:"04/01 22:50", arr:"04/02 07:40"},
@@ -359,11 +573,11 @@ const OLD_FLIGHTS = [
       {flight:"CI82", airline:"CI", from:"倫敦 LHR", to:"桃園 TPE", dep:"04/10 21:10", arr:"04/11 17:50"}
     ],
     depDate:"2027-04-01", retDate:"2027-04-10",
-    note:"與方案 1、2 同一組出發/回程日期,改走阿姆斯特丹轉機,抵達 KEF 最早(15:25)。"
+    note:"與方案 1、2 同一組出發/回程日期，改走阿姆斯特丹轉機，抵達 KEF 最早（15:25）。"
   },
   {
     rank:6, days:12,
-    title:"經法蘭克福(FRA)轉機 · 較晚出發",
+    title:"經法蘭克福（FRA）轉機 · 較晚出發",
     total:215348, per:53837,
     outbound:[
       {flight:"CI61", airline:"CI", from:"桃園 TPE", to:"法蘭克福 FRA", dep:"04/02 22:30", arr:"04/03 06:50"},
@@ -374,11 +588,11 @@ const OLD_FLIGHTS = [
       {flight:"CI82", airline:"CI", from:"倫敦 LHR", to:"桃園 TPE", dep:"04/12 21:10", arr:"04/13 17:50"}
     ],
     depDate:"2027-04-02", retDate:"2027-04-12",
-    note:"出發最晚(4/2 才離台,4/3 抵達冰島),天數 12 天,適合想在台灣多留幾天再出發的人。"
+    note:"出發最晚（4/2 才離台，4/3 抵達冰島），天數 12 天，適合想在台灣多留幾天再出發的人。"
   },
   {
     rank:7, days:13,
-    title:"經布拉格(PRG)轉機 · 最早出發",
+    title:"經布拉格（PRG）轉機 · 最早出發",
     total:202552, per:50638,
     outbound:[
       {flight:"CI67", airline:"CI", from:"桃園 TPE", to:"布拉格 PRG", dep:"03/25 23:45", arr:"03/26 07:25"},
@@ -389,17 +603,17 @@ const OLD_FLIGHTS = [
       {flight:"CI82", airline:"CI", from:"倫敦 LHR", to:"桃園 TPE", dep:"04/06 21:10", arr:"04/07 17:50"}
     ],
     depDate:"2027-03-25", retDate:"2027-04-06",
-    note:"與方案 1 同價,是最早出發的選項,但天數達 13 天,略超出 10–12 天的目標,若不介意多一天可考慮。"
+    note:"與方案 1 同價，是最早出發的選項，但天數達 13 天，略超出 10–12 天的目標，若不介意多一天可考慮。"
   }
 ];
 
 /* =========================================================
-   新方案:10 組機票方案資料(12–14 天,含長榮/國泰對照組)
+   新方案：10 組機票方案資料（12–14 天，含長榮/國泰對照組）
    ========================================================= */
 const NEW_FLIGHTS = [
   {
     rank:1, best:true, days:14,
-    title:"經法蘭克福(FRA)轉機 · 3/27 出發",
+    title:"經法蘭克福（FRA）轉機 · 3/27 出發",
     total:206400, per:51600,
     outbound:[
       {flight:"CI61", airline:"CI", from:"桃園 TPE", to:"法蘭克福 FRA", dep:"03/27 23:20", arr:"03/28 06:50"},
@@ -410,11 +624,11 @@ const NEW_FLIGHTS = [
       {flight:"CI62", airline:"CI", from:"法蘭克福 FRA", to:"桃園 TPE", dep:"04/08 21:15", arr:"04/09 17:00"}
     ],
     depDate:"2027-03-27", retDate:"2027-04-08",
-    note:"抵達 KEF 15:45,符合門檻;3/27 出發,10 組方案中票價最低,天數 14 天。"
+    note:"抵達 KEF 15:45，符合門檻；3/27 出發，10 組方案中票價最低，天數 14 天。"
   },
   {
     rank:2, days:13,
-    title:"經法蘭克福(FRA)轉機 · 3/29 出發",
+    title:"經法蘭克福（FRA）轉機 · 3/29 出發",
     total:208600, per:52150,
     outbound:[
       {flight:"CI61", airline:"CI", from:"桃園 TPE", to:"法蘭克福 FRA", dep:"03/29 23:20", arr:"03/30 06:50"},
@@ -425,11 +639,11 @@ const NEW_FLIGHTS = [
       {flight:"CI62", airline:"CI", from:"法蘭克福 FRA", to:"桃園 TPE", dep:"04/09 21:15", arr:"04/10 17:00"}
     ],
     depDate:"2027-03-29", retDate:"2027-04-09",
-    note:"與方案 1 同航線,出發時間往後兩天,天數縮短為 13 天。"
+    note:"與方案 1 同航線，出發時間往後兩天，天數縮短為 13 天。"
   },
   {
     rank:3, days:12,
-    title:"經法蘭克福(FRA)轉機 · 4/1 出發(天數最短)",
+    title:"經法蘭克福（FRA）轉機 · 4/1 出發（天數最短）",
     total:209800, per:52450,
     outbound:[
       {flight:"CI61", airline:"CI", from:"桃園 TPE", to:"法蘭克福 FRA", dep:"04/01 23:20", arr:"04/02 06:50"},
@@ -440,11 +654,11 @@ const NEW_FLIGHTS = [
       {flight:"CI62", airline:"CI", from:"法蘭克福 FRA", to:"桃園 TPE", dep:"04/11 21:15", arr:"04/12 17:00"}
     ],
     depDate:"2027-04-01", retDate:"2027-04-11",
-    note:"12 天是這組方案中最短天數,適合請假天數有限的人;仍完整涵蓋 4/3–4/6。"
+    note:"12 天是這組方案中最短天數，適合請假天數有限的人；仍完整涵蓋 4/3–4/6。"
   },
   {
     rank:4, days:13,
-    title:"經阿姆斯特丹(AMS)轉機 · 3/29 出發",
+    title:"經阿姆斯特丹（AMS）轉機 · 3/29 出發",
     total:210200, per:52550,
     outbound:[
       {flight:"CI73", airline:"CI", from:"桃園 TPE", to:"阿姆斯特丹 AMS", dep:"03/29 23:10", arr:"03/30 07:35"},
@@ -455,11 +669,11 @@ const NEW_FLIGHTS = [
       {flight:"CI74", airline:"CI", from:"阿姆斯特丹 AMS", to:"桃園 TPE", dep:"04/09 21:40", arr:"04/10 16:55"}
     ],
     depDate:"2027-03-29", retDate:"2027-04-09",
-    note:"與方案 2 同出發/回程日期,改走阿姆斯特丹轉機,抵達 KEF 時間最早(15:25)。"
+    note:"與方案 2 同出發/回程日期，改走阿姆斯特丹轉機，抵達 KEF 時間最早（15:25）。"
   },
   {
     rank:5, days:13,
-    title:"經阿姆斯特丹(AMS)轉機 · 3/31 出發",
+    title:"經阿姆斯特丹（AMS）轉機 · 3/31 出發",
     total:212500, per:53125,
     outbound:[
       {flight:"CI73", airline:"CI", from:"桃園 TPE", to:"阿姆斯特丹 AMS", dep:"03/31 23:10", arr:"04/01 07:35"},
@@ -470,11 +684,11 @@ const NEW_FLIGHTS = [
       {flight:"CI74", airline:"CI", from:"阿姆斯特丹 AMS", to:"桃園 TPE", dep:"04/11 21:40", arr:"04/12 16:55"}
     ],
     depDate:"2027-03-31", retDate:"2027-04-11",
-    note:"4 月初出發,轉機阿姆斯特丹。"
+    note:"4 月初出發，轉機阿姆斯特丹。"
   },
   {
     rank:6, days:14,
-    title:"經法蘭克福(FRA)轉機 · 3/26 出發(最早出發)",
+    title:"經法蘭克福（FRA）轉機 · 3/26 出發（最早出發）",
     total:213100, per:53275,
     outbound:[
       {flight:"CI61", airline:"CI", from:"桃園 TPE", to:"法蘭克福 FRA", dep:"03/26 23:20", arr:"03/27 06:50"},
@@ -485,11 +699,11 @@ const NEW_FLIGHTS = [
       {flight:"CI62", airline:"CI", from:"法蘭克福 FRA", to:"桃園 TPE", dep:"04/07 21:15", arr:"04/08 17:00"}
     ],
     depDate:"2027-03-26", retDate:"2027-04-07",
-    note:"10 組方案中最早出發(3/26),落在復活節連假前夕,票價略高於方案 1、2。"
+    note:"10 組方案中最早出發（3/26），落在復活節連假前夕，票價略高於方案 1、2。"
   },
   {
     rank:7, days:14,
-    title:"經阿姆斯特丹(AMS)轉機 · 3/26 出發",
+    title:"經阿姆斯特丹（AMS）轉機 · 3/26 出發",
     total:214600, per:53650,
     outbound:[
       {flight:"CI73", airline:"CI", from:"桃園 TPE", to:"阿姆斯特丹 AMS", dep:"03/26 23:10", arr:"03/27 07:35"},
@@ -500,11 +714,11 @@ const NEW_FLIGHTS = [
       {flight:"CI74", airline:"CI", from:"阿姆斯特丹 AMS", to:"桃園 TPE", dep:"04/07 21:40", arr:"04/08 16:55"}
     ],
     depDate:"2027-03-26", retDate:"2027-04-07",
-    note:"與方案 6 同出發/回程日期,改走阿姆斯特丹轉機。"
+    note:"與方案 6 同出發/回程日期，改走阿姆斯特丹轉機。"
   },
   {
     rank:8, days:14,
-    title:"經倫敦(LHR)轉機 · 長榮航空",
+    title:"經倫敦（LHR）轉機 · 長榮航空",
     total:224800, per:56200,
     outbound:[
       {flight:"BR71", airline:"BR", from:"桃園 TPE", to:"倫敦 LHR", dep:"03/27 21:15", arr:"03/28 06:35"},
@@ -515,11 +729,11 @@ const NEW_FLIGHTS = [
       {flight:"BR72", airline:"BR", from:"倫敦 LHR", to:"桃園 TPE", dep:"04/08 21:10", arr:"04/09 17:40"}
     ],
     depDate:"2027-03-27", retDate:"2027-04-08",
-    note:"改搭長榮航空(倫敦轉機),票價高於中華航空組合,適合偏好長榮的人。"
+    note:"改搭長榮航空（倫敦轉機），票價高於中華航空組合，適合偏好長榮的人。"
   },
   {
     rank:9, days:13,
-    title:"經巴黎(CDG)轉機 · 長榮航空",
+    title:"經巴黎（CDG）轉機 · 長榮航空",
     total:227300, per:56825,
     outbound:[
       {flight:"BR87", airline:"BR", from:"桃園 TPE", to:"巴黎 CDG", dep:"03/31 23:45", arr:"04/01 07:05"},
@@ -530,11 +744,11 @@ const NEW_FLIGHTS = [
       {flight:"BR88", airline:"BR", from:"巴黎 CDG", to:"桃園 TPE", dep:"04/11 22:00", arr:"04/12 17:15"}
     ],
     depDate:"2027-03-31", retDate:"2027-04-11",
-    note:"長榮航空巴黎轉機,適合想順遊巴黎的人;是長榮組合中票價較低者。"
+    note:"長榮航空巴黎轉機，適合想順遊巴黎的人；是長榮組合中票價較低者。"
   },
   {
     rank:10, days:14,
-    title:"經蘇黎世(ZRH)轉機 · 國泰航空(香港可多留一晚)",
+    title:"經蘇黎世（ZRH）轉機 · 國泰航空（香港可多留一晚）",
     total:236900, per:59225,
     outbound:[
       {flight:"CX468", airline:"CX", from:"桃園 TPE", to:"香港 HKG", dep:"04/01 08:15", arr:"04/01 10:05"},
@@ -547,25 +761,28 @@ const NEW_FLIGHTS = [
       {flight:"CX988", airline:"CX", from:"香港 HKG", to:"桃園 TPE", dep:"04/14 09:20", arr:"04/14 11:05"}
     ],
     depDate:"2027-04-01", retDate:"2027-04-12",
-    note:"國泰航空經香港轉機至蘇黎世(非中國大陸轉機,香港為獨立關境);去程在蘇黎世需過一夜銜接隔日航班,回程也建議安排一晚,符合『轉機地多待一天』的彈性,但額外住宿費用需自理,是 10 組方案中票價最高者。"
+    note:"國泰航空經香港轉機至蘇黎世（非中國大陸轉機，香港為獨立關境）；去程在蘇黎世需過一夜銜接隔日航班，回程也建議安排一晚，符合『轉機地多待一天』的彈性，但額外住宿費用需自理，是 10 組方案中票價最高者。"
   }
 ];
 
 const AIRLINE_NAME = { CI:"中華航空", FI:"Icelandair", BR:"長榮航空", CX:"國泰航空" };
 
+const icon = (id, cls='') =>
+  `<svg class="ico${cls?' '+cls:''}" aria-hidden="true"><use href="#${id}"/></svg>`;
+
 function segRow(s){
   return `
     <div class="seg">
-      <div>
+      <div class="ident">
         <span class="airline ${s.airline.toLowerCase()}">${AIRLINE_NAME[s.airline]}</span>
         <span class="flightno">${s.flight}</span>
       </div>
-      <div class="path"><b>${s.from}</b><span class="arrow">→</span><b>${s.to}</b></div>
+      <div class="path"><b>${s.from}</b>${icon('i-arrow-r')}<b>${s.to}</b></div>
       <div class="time">${s.dep}<span class="d">抵達 ${s.arr}</span></div>
     </div>`;
 }
 
-// 將 "MM/DD HH:mm" 轉為 Date 物件(年份僅用於計算時間差,不影響顯示)
+// 將 "MM/DD HH:mm" 轉為 Date 物件（年份僅用於計算時間差，不影響顯示）
 function parseDT(str){
   const [md, hm] = str.split(' ');
   const [mo, da] = md.split('/').map(Number);
@@ -577,9 +794,11 @@ function layoverRow(prev, next){
   const mins = Math.round((parseDT(next.dep) - parseDT(prev.arr)) / 60000);
   const h = Math.floor(mins / 60);
   const m = mins % 60;
-  const durText = h > 0 ? `${h} 小時${m > 0 ? m + ' 分' : ''}` : `${m} 分`;
-  const overnight = mins >= 8 * 60 ? ' long' : '';
-  return `<div class="layover${overnight}">⏱ 轉機 ${durText}${overnight ? '(需過夜)' : ''}</div>`;
+  const durText = h > 0 ? `${h} 小時${m > 0 ? ' ' + m + ' 分' : ''}` : `${m} 分`;
+  const overnight = mins >= 8 * 60;
+  return `<div class="layover${overnight ? ' long' : ''}">`
+    + icon(overnight ? 'i-alert' : 'i-clock')
+    + `轉機 ${durText}${overnight ? '（需過夜）' : ''}</div>`;
 }
 
 function legHTML(segs){
@@ -604,15 +823,15 @@ const AIRLINE_SITE = {
 };
 
 function bookRow(f){
-  // 依此行程實際出現的航空公司,動態列出官網連結(去程主要承運航空 + Icelandair)
+  // 依此行程實際出現的航空公司，動態列出官網連結（去程主要承運航空 + Icelandair）
   const carriers = [...new Set(f.outbound.map(s => s.airline).concat(f.inbound.map(s => s.airline)))];
   const siteLinks = carriers
     .filter(code => AIRLINE_SITE[code])
-    .map(code => `<a class="book-btn secondary" href="${AIRLINE_SITE[code].url}" target="_blank" rel="noopener">${AIRLINE_SITE[code].name}</a>`)
+    .map(code => `<a class="book-btn secondary" href="${AIRLINE_SITE[code].url}" target="_blank" rel="noopener">${AIRLINE_SITE[code].name}${icon('i-ext')}</a>`)
     .join('');
   return `
       <div class="book-row">
-        <a class="book-btn primary" href="${gfLink(f.depDate, f.retDate)}" target="_blank" rel="noopener">🔎 Google Flights 查價 / 訂票</a>
+        <a class="book-btn primary" href="${gfLink(f.depDate, f.retDate)}" target="_blank" rel="noopener">${icon('i-search')}Google Flights 查價 / 訂票</a>
         ${siteLinks}
       </div>`;
 }
@@ -623,8 +842,8 @@ function renderCards(list){
     <div class="card-head">
       <span class="rank">方案 ${f.rank}</span>
       <span class="route-name">${f.title}</span>
-      ${f.best ? '<span class="best-badge">最低價</span>' : ''}
-      <span class="days-badge">${f.days} 天</span>
+      ${f.best ? '<span class="chip best-badge">最低價</span>' : ''}
+      <span class="chip">${f.days} 天</span>
       <div class="price-tag">
         <div class="total">NT$ ${f.total.toLocaleString()}</div>
         <div class="per">4 人總價 · 約 NT$ ${f.per.toLocaleString()}/人</div>
@@ -632,11 +851,11 @@ function renderCards(list){
     </div>
     <div class="card-body">
       <div class="leg-block">
-        <div class="leg-label">去程</div>
+        <div class="leg-label">${icon('i-plane')}去程</div>
         ${legHTML(f.outbound)}
       </div>
       <div class="leg-block">
-        <div class="leg-label">回程</div>
+        <div class="leg-label back">${icon('i-plane')}回程</div>
         ${legHTML(f.inbound)}
       </div>
       <div class="notes">${f.note}</div>
@@ -656,7 +875,7 @@ function showNew(){
   btnNew.setAttribute('aria-pressed', 'true');
   btnOld.classList.remove('active');
   btnOld.setAttribute('aria-pressed', 'false');
-  subLabelEl.textContent = "桃園(TPE) ↔ 凱夫拉維克(KEF) · 經濟艙 · 4 人 · 12–14 天 · 10 組";
+  subLabelEl.textContent = "桃園（TPE）↔ 凱夫拉維克（KEF）· 經濟艙 · 4 人 · 12–14 天 · 10 組";
   renderCards(NEW_FLIGHTS);
 }
 
@@ -665,14 +884,14 @@ function showOld(){
   btnOld.setAttribute('aria-pressed', 'true');
   btnNew.classList.remove('active');
   btnNew.setAttribute('aria-pressed', 'false');
-  subLabelEl.textContent = "桃園(TPE) ↔ 凱夫拉維克(KEF) · 經濟艙 · 4 人 · 10–12 天 · 7 組";
+  subLabelEl.textContent = "桃園（TPE）↔ 凱夫拉維克（KEF）· 經濟艙 · 4 人 · 10–12 天 · 7 組";
   renderCards(OLD_FLIGHTS);
 }
 
 btnNew.addEventListener('click', showNew);
 btnOld.addEventListener('click', showOld);
 
-// 預設顯示新方案(12–14 天 · 10 組)
+// 預設顯示新方案（12–14 天 · 10 組）
 renderCards(NEW_FLIGHTS);
 </script>
 </body>

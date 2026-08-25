@@ -3,335 +3,634 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#070a0f">
 <title>冰島 16 天行程 · 互動地圖</title>
 <style>
   :root{
-    --bg:#0b0f14;
-    --bg-2:#111823;
-    --panel:#151d29;
-    --panel-2:#1b2534;
-    --line:#243044;
-    --text:#e6edf5;
-    --muted:#8b9bb0;
-    --accent:#4fd1c5;
-    --accent-2:#7c8cff;
-    --gold:#f0b429;
-    --radius:14px;
+    /* ---------- Basalt: cool volcanic neutrals ---------- */
+    --ink-950:#070a0f;
+    --ink-900:#0c121a;
+    --ink-850:#111925;
+    --ink-800:#16202e;
+    --ink-750:#1c2838;
+    --ink-700:#243247;
+    --ink-600:#33455f;
+    --ink-400:#7e93ac;
+    --ink-300:#9aadc4;
+    --ink-200:#c2d1e2;
+    --ink-100:#e4ecf6;
+
+    /* ---------- Semantic surfaces & text ---------- */
+    --bg:var(--ink-950);
+    --sunken:var(--ink-900);
+    --surface:var(--ink-850);
+    --surface-2:var(--ink-800);
+    --surface-3:var(--ink-750);
+    --line:var(--ink-700);
+    --line-2:var(--ink-600);
+    --text:var(--ink-100);
+    --text-2:var(--ink-200);
+    --text-3:var(--ink-300);
+    --text-4:var(--ink-400);
+
+    /* ---------- Iceland accents ---------- */
+    --aurora:#45d9bd;                      /* 景點 */
+    --aurora-hi:#8bf0dc;
+    --aurora-08:rgba(69,217,189,.08);
+    --aurora-14:rgba(69,217,189,.14);
+    --aurora-28:rgba(69,217,189,.28);
+    --aurora-45:rgba(69,217,189,.45);
+    --glacier:#8ab4ff;                     /* 城鎮 / 交通 */
+    --glacier-14:rgba(138,180,255,.14);
+    --sulphur:#f2b544;
+    --ember:#ff9166;
+    --on-aurora:#04140f;
+
+    /* ---------- Scale ---------- */
+    /* ---------- Type scale ---------- */
+    --t-xs:11px;    /* meta, chips, credits, flight numbers */
+    --t-sm:13px;    /* secondary text, controls, dense tables */
+    --t-md:15px;    /* body, list titles, lede */
+    --t-lg:19px;    /* price, mobile headline */
+    --t-xl:24px;    /* selected-spot headline */
+
+    --r-sm:8px; --r-md:11px; --r-lg:16px;
+    --shadow-1:0 1px 2px rgba(0,0,0,.4), 0 6px 16px -10px rgba(0,0,0,.7);
+    --shadow-2:0 2px 6px rgba(0,0,0,.35), 0 14px 32px -16px rgba(0,0,0,.75);
+    --shadow-sheet:0 -2px 8px rgba(0,0,0,.3), 0 -22px 48px -22px rgba(0,0,0,.85);
+
+    --ease:cubic-bezier(.16,1,.3,1);
+    --dur:.34s;
+    --header-h:58px;
   }
+
   *{box-sizing:border-box}
-  html,body{height:100%}
+  html{
+    height:100%;
+    color-scheme:dark;
+    caret-color:var(--aurora);
+    scrollbar-color:var(--line-2) transparent;
+  }
   body{
+    height:100%;
     margin:0;
     background:
-      radial-gradient(1200px 600px at 80% -10%, rgba(124,140,255,.18), transparent 60%),
-      radial-gradient(900px 500px at 0% 0%, rgba(79,209,197,.14), transparent 55%),
+      radial-gradient(1100px 520px at 82% -12%, rgba(138,180,255,.13), transparent 62%),
+      radial-gradient(880px 460px at -6% -4%, rgba(69,217,189,.11), transparent 58%),
       var(--bg);
+    background-attachment:fixed;
     color:var(--text);
     font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:var(--t-md);
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
   }
+  ::selection{background:var(--aurora-28);color:#fff}
+  :focus-visible{outline:2px solid var(--aurora-hi);outline-offset:2px}
+
+  /* ---------- Icons: one 24px grid, one stroke weight ---------- */
+  .ico{
+    width:var(--ico,15px);height:var(--ico,15px);flex:none;display:block;
+    fill:none;stroke:currentColor;stroke-width:1.75;
+    stroke-linecap:round;stroke-linejoin:round;
+    overflow:visible;
+  }
+  .sprite{position:absolute;width:0;height:0;overflow:hidden}
+
+  /* ---------- Scrollbars ---------- */
+  .scroller{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+  .scroller::-webkit-scrollbar{width:10px;height:10px}
+  .scroller::-webkit-scrollbar-track{background:transparent}
+  .scroller::-webkit-scrollbar-thumb{
+    background:var(--line-2);border-radius:99px;
+    border:3px solid transparent;background-clip:content-box;
+  }
+  .scroller::-webkit-scrollbar-thumb:hover{background:#405672;background-clip:content-box}
 
   /* ---------- Header ---------- */
   header{
-    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
-    padding:14px 22px;
+    display:flex;align-items:center;gap:18px;
+    height:var(--header-h);
+    padding:0 20px;
     border-bottom:1px solid var(--line);
-    background:rgba(11,15,20,.85);
-    backdrop-filter:blur(10px);
+    background:rgba(7,10,15,.78);
+    backdrop-filter:blur(14px) saturate(1.2);
+    -webkit-backdrop-filter:blur(14px) saturate(1.2);
     position:sticky;top:0;z-index:50;
   }
   header h1{
-    font-size:17px;margin:0;letter-spacing:.5px;font-weight:700;
+    font-size:var(--t-md);margin:0;font-weight:700;letter-spacing:.01em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  header h1 span{color:var(--accent)}
-  .head-spacer{flex:1}
-  .legend{display:flex;gap:14px;font-size:12px;color:var(--muted);flex-wrap:wrap}
-  .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+  header h1 .region{color:var(--text-3);font-weight:500}
+  .head-spacer{flex:1 1 auto;min-width:0}
+  .legend{display:flex;gap:14px;font-size:var(--t-sm);color:var(--text-4);white-space:nowrap}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:8px;height:8px;border-radius:50%}
   .nav-link{
-    color:var(--muted);text-decoration:none;font-size:12.5px;
-    border:1px solid var(--line);padding:6px 12px;border-radius:9px;
-    transition:.15s;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:7px;flex:none;
+    color:var(--text-2);text-decoration:none;font-size:var(--t-sm);font-weight:500;
+    border:1px solid var(--line);padding:7px 13px;border-radius:var(--r-sm);
+    background:var(--surface);
+    transition:color .16s,border-color .16s,background .16s;
+    white-space:nowrap;
   }
-  .nav-link:hover{color:var(--accent);border-color:rgba(79,209,197,.4)}
+  .nav-link .ico{--ico:16px;color:var(--aurora)}
+  .nav-link:hover{color:var(--text);border-color:var(--line-2);background:var(--surface-2)}
 
   /* ---------- Layout ---------- */
   .wrap{
     display:grid;
-    grid-template-columns: minmax(360px, 460px) 1fr;
-    gap:0;
-    height:calc(100vh - 57px);
+    grid-template-columns:minmax(360px,440px) 1fr;
+    height:calc(100vh - var(--header-h));
+    height:calc(100dvh - var(--header-h));
   }
 
   /* ---------- Left: itinerary ---------- */
   .itinerary{
     overflow-y:auto;
     border-right:1px solid var(--line);
-    padding:18px 16px 60px;
-    scrollbar-width:thin;
-    scrollbar-color:#2a374c transparent;
+    padding:16px 14px 64px;
   }
-  .itinerary::-webkit-scrollbar{width:9px}
-  .itinerary::-webkit-scrollbar-thumb{background:#2a374c;border-radius:9px}
 
   .intro{
-    background:linear-gradient(160deg, rgba(79,209,197,.10), rgba(124,140,255,.06));
+    display:flex;gap:11px;
+    background:linear-gradient(158deg,var(--aurora-08),rgba(138,180,255,.05));
     border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:14px 16px;
-    margin-bottom:16px;
-    font-size:14px;line-height:1.75;color:#c6d3e2;
+    border-radius:var(--r-md);
+    padding:13px 15px;
+    margin-bottom:14px;
+    font-size:var(--t-sm);line-height:1.8;color:var(--text-2);
   }
-  .intro b{color:var(--accent)}
+  .intro .ico{--ico:17px;color:var(--aurora);margin-top:2px}
+  .intro b{color:var(--aurora-hi);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .list-bar{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:0 4px 9px;
+  }
+  .list-bar .count{font-size:var(--t-xs);color:var(--text-4);letter-spacing:.04em}
+  .ghost-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:inherit;font-size:var(--t-sm);font-weight:500;
+    color:var(--text-3);background:transparent;
+    border:1px solid var(--line);border-radius:var(--r-sm);
+    padding:5px 10px;cursor:pointer;
+    transition:color .16s,border-color .16s,background .16s;
+  }
+  .ghost-btn:hover{color:var(--text);border-color:var(--line-2);background:var(--surface-2)}
+  .ghost-btn .ico{--ico:14px;transition:transform var(--dur) var(--ease)}
+  .ghost-btn.all-open .ico{transform:rotate(180deg)}
 
   .day-list{list-style:none;margin:0;padding:0}
 
   .day{
-    background:var(--panel);
+    background:var(--surface);
     border:1px solid var(--line);
-    border-radius:var(--radius);
-    margin-bottom:12px;
-    overflow:hidden;
-    transition:border-color .2s;
+    border-radius:var(--r-md);
+    margin-bottom:9px;
+    transition:border-color .2s,background .2s;
   }
-  .day.open{border-color:#33455f}
+  .day:hover{border-color:var(--line-2)}
+  .day.open{background:var(--surface-2);border-color:var(--line-2)}
+
   .day-head{
-    display:flex;align-items:center;gap:12px;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;column-gap:12px;
     width:100%;
-    padding:13px 15px;cursor:pointer;
-    user-select:none;text-align:left;
-    background:transparent;border:0;color:inherit;font-family:inherit;
-    transition:background .18s;
+    padding:11px 13px;
+    cursor:pointer;user-select:none;text-align:left;
+    background:transparent;border:0;border-radius:var(--r-md);
+    color:inherit;font-family:inherit;
+    transition:background .16s;
   }
-  .day-head:hover{background:var(--panel-2)}
-  .day-head:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+  .day-head:hover{background:var(--aurora-08)}
+  .day-head:focus-visible{outline:2px solid var(--aurora-hi);outline-offset:-2px}
   .day-no{
-    flex:0 0 auto;
-    font-size:11px;font-weight:700;letter-spacing:.8px;
-    color:#0b0f14;background:var(--accent);
-    padding:4px 8px;border-radius:6px;
+    min-width:52px;text-align:center;
+    font-size:var(--t-xs);font-weight:700;letter-spacing:.09em;
+    font-variant-numeric:tabular-nums;
+    color:var(--text-3);background:var(--surface-3);
+    border:1px solid var(--line-2);
+    padding:5px 7px;border-radius:var(--r-sm);
+    transition:color .2s,background .2s,border-color .2s;
   }
-  .day-title{flex:1;font-size:15px;font-weight:600}
-  .day-date{font-size:11.5px;font-weight:500;color:var(--muted)}
-  .day-stay{font-size:11.5px;color:var(--muted);white-space:nowrap}
-  .day-stay::before{content:"🛏 ";opacity:.7}
-  .chev{color:var(--muted);font-size:11px;transition:transform .2s}
-  .day.open .chev{transform:rotate(90deg)}
+  .day.open .day-no{color:var(--on-aurora);background:var(--aurora);border-color:var(--aurora)}
+  .day-main{min-width:0}
+  .day-title{
+    display:block;font-size:var(--t-md);font-weight:600;line-height:1.35;color:var(--text);
+  }
+  .day-meta{
+    display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+    margin-top:3px;font-size:var(--t-xs);color:var(--text-4);
+    font-variant-numeric:tabular-nums;
+  }
+  .day-stay{display:inline-flex;align-items:center;gap:5px;min-width:0}
+  .day-stay .ico{--ico:13px;opacity:.8}
+  .day-stay span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .day-meta .sep{width:1px;height:10px;background:var(--line-2)}
+  .chev{--ico:16px;color:var(--text-4);transition:transform var(--dur) var(--ease),color .2s}
+  .day.open .chev{transform:rotate(90deg);color:var(--aurora)}
 
-  .day-body{display:none;padding:0 12px 12px}
-  .day.open .day-body{display:block}
+  /* Accordion: animates from 0fr to 1fr */
+  .day-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows var(--dur) var(--ease)}
+  .day.open .day-body{grid-template-rows:1fr}
+  .day-body-inner{overflow:hidden;min-height:0}
+  .day-body-pad{padding:0 12px 12px}
+
   .day-note{
-    font-size:13.5px;color:var(--muted);line-height:1.75;
-    margin:0;padding:2px 4px 12px;
+    font-size:var(--t-sm);color:var(--text-3);line-height:1.85;
+    margin:0 0 10px;padding:0 2px;
   }
 
-  .day-spots{list-style:none;margin:0;padding:0}
+  /* Spot list: a rail connects the day's stops in driving order */
+  .day-spots{list-style:none;margin:0;padding:0;position:relative}
+  .day-spots::before{
+    content:"";position:absolute;left:16px;top:22px;bottom:22px;width:1px;
+    background:linear-gradient(var(--line-2),var(--line));
+  }
   .day-spots li{margin:0;padding:0}
 
   .spot{
-    display:flex;align-items:flex-start;gap:10px;
+    display:flex;align-items:flex-start;gap:11px;
     width:100%;text-align:left;
     background:transparent;border:1px solid transparent;
     color:var(--text);
-    padding:9px 10px;margin:3px 0;
-    border-radius:10px;cursor:pointer;
-    font-family:inherit;font-size:14px;
-    transition:background .15s, border-color .15s, transform .15s;
+    padding:8px 10px;margin:1px 0;
+    border-radius:var(--r-sm);cursor:pointer;
+    font-family:inherit;font-size:var(--t-md);
+    transition:background .16s,border-color .16s;
   }
-  .spot:hover{background:var(--panel-2);border-color:var(--line);transform:translateX(2px)}
-  .spot.active{
-    background:linear-gradient(90deg, rgba(79,209,197,.18), rgba(79,209,197,.03));
-    border-color:rgba(79,209,197,.45);
-  }
-  .dot{
-    flex:0 0 auto;width:9px;height:9px;border-radius:50%;
-    background:var(--accent);margin-top:6px;
-    box-shadow:0 0 0 3px rgba(79,209,197,.15);
-  }
-  .spot.opt .dot{background:var(--muted);box-shadow:0 0 0 3px rgba(139,155,176,.12)}
-  .spot.city .dot{background:var(--accent-2);box-shadow:0 0 0 3px rgba(124,140,255,.15)}
-  .spot-txt{flex:1;min-width:0}
-  .spot-name{font-weight:600;line-height:1.4}
-  .spot-zh{font-size:11.5px;color:var(--muted);margin-top:1px}
-  .badge{
-    font-size:10.5px;padding:2px 6px;border-radius:5px;margin-left:6px;
-    vertical-align:middle;white-space:nowrap;
-  }
-  .badge.opt{background:rgba(139,155,176,.16);color:var(--muted)}
+  .spot:focus-visible{outline:2px solid var(--aurora-hi);outline-offset:-2px}
+  .spot:hover{background:var(--surface-3);border-color:var(--line)}
+  .spot.active{background:var(--aurora-14);border-color:var(--aurora-45)}
 
-  .day-actions{padding:6px 4px 0}
-  .route-btn{
-    display:inline-block;font-size:12px;color:var(--accent);
-    text-decoration:none;border:1px solid rgba(79,209,197,.3);
-    padding:5px 10px;border-radius:8px;transition:background .15s;
+  .dot{
+    position:relative;z-index:1;
+    flex:0 0 auto;width:10px;height:10px;border-radius:50%;
+    background:var(--aurora);margin-top:6px;
+    outline:3px solid var(--aurora-14);
+    transition:outline-color .16s;
   }
-  .route-btn:hover{background:rgba(79,209,197,.1)}
+  .spot.opt .dot{background:var(--text-4);outline-color:rgba(126,147,172,.16)}
+  .spot.city .dot{background:var(--glacier);outline-color:var(--glacier-14)}
+  .spot.active .dot{outline-color:var(--aurora-28)}
+  /* the rail must not show through the marker */
+  .spot .dot{box-shadow:0 0 0 3px var(--surface)}
+  .day.open .spot .dot{box-shadow:0 0 0 3px var(--surface-2)}
+
+  .spot-txt{flex:1;min-width:0}
+  .spot-name{font-weight:600;line-height:1.45;color:var(--text)}
+  .spot-zh{display:block;font-size:var(--t-xs);color:var(--text-4);margin-top:1px}
+
+  .badge{
+    display:inline-flex;align-items:center;
+    font-size:var(--t-xs);font-weight:600;line-height:1.6;
+    padding:1px 7px;border-radius:99px;margin-left:7px;
+    vertical-align:1px;white-space:nowrap;
+    background:rgba(126,147,172,.16);color:var(--text-3);
+    border:1px solid rgba(126,147,172,.24);
+  }
+
+  .day-actions{padding:9px 2px 0}
+  .route-btn{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:var(--t-sm);font-weight:500;color:var(--aurora-hi);
+    text-decoration:none;border:1px solid var(--aurora-28);
+    background:var(--aurora-08);
+    padding:6px 11px;border-radius:var(--r-sm);
+    transition:background .16s,border-color .16s;
+  }
+  .route-btn .ico{--ico:15px}
+  .route-btn:hover{background:var(--aurora-14);border-color:var(--aurora-45)}
 
   .tail{
-    background:var(--panel);border:1px solid var(--line);
-    border-radius:var(--radius);padding:14px 16px;margin-top:16px;
-    font-size:12.5px;line-height:1.9;color:#c6d3e2;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r-md);padding:14px 16px;margin-top:16px;
   }
-  .tail h3{margin:0 0 10px;font-size:14px;font-weight:700;color:var(--accent)}
-  .tail table{width:100%;border-collapse:collapse;font-size:12.5px}
-  .tail td{padding:5px 0;border-bottom:1px solid var(--line)}
-  .tail td:last-child{text-align:right;color:var(--muted)}
-  .tail tr:last-child td{border-bottom:none}
+  .tail h2{
+    display:flex;align-items:center;gap:8px;
+    margin:0 0 10px;font-size:var(--t-sm);font-weight:700;color:var(--text-2);
+    letter-spacing:.02em;
+  }
+  .tail h2 .ico{--ico:16px;color:var(--aurora)}
+  .tail table{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
+  .tail td{padding:6px 0;border-bottom:1px solid var(--line);color:var(--text-2)}
+  .tail td:last-child{
+    text-align:right;color:var(--text-4);white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  .tail tr:last-child td{border-bottom:none;color:var(--text-4)}
 
   /* ---------- Right: map + info ---------- */
   .stage{
     display:flex;flex-direction:column;min-width:0;height:100%;
-    overflow-y:auto;
-    scrollbar-width:thin;scrollbar-color:#2a374c transparent;
+    overflow-y:auto;background:var(--sunken);
   }
-  .stage::-webkit-scrollbar{width:9px}
-  .stage::-webkit-scrollbar-thumb{background:#2a374c;border-radius:9px}
   .stage-handle{display:none}
-  .map-box{flex:0 0 55%;position:relative;background:#0e141c;min-height:260px}
-  .map-box iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.9)}
+
+  .map-box{
+    flex:0 0 54%;position:relative;min-height:280px;
+    background:
+      repeating-linear-gradient(135deg,transparent 0 14px,rgba(255,255,255,.012) 14px 28px),
+      var(--ink-900);
+  }
+  .map-ph{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:8px;
+    color:var(--text-4);font-size:var(--t-sm);pointer-events:none;
+  }
+  .map-ph{transition:opacity .35s var(--ease)}
+  .map-ph .ico{--ico:26px;opacity:.55}
+  .map-box iframe{
+    position:relative;width:100%;height:100%;border:0;display:block;
+    filter:saturate(.92) contrast(1.03);
+  }
   .map-toolbar{
     position:absolute;top:12px;left:12px;z-index:5;
-    display:flex;gap:6px;background:rgba(11,15,20,.82);
-    border:1px solid var(--line);border-radius:10px;padding:5px;
-    backdrop-filter:blur(8px);
+    display:flex;align-items:center;gap:3px;
+    background:rgba(7,10,15,.82);
+    border:1px solid var(--line);border-radius:var(--r-sm);padding:4px;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    box-shadow:var(--shadow-1);
   }
   .map-toolbar button{
-    background:transparent;border:0;color:var(--muted);
-    font-family:inherit;font-size:12px;padding:5px 11px;
-    border-radius:7px;cursor:pointer;transition:.15s;
+    background:transparent;border:0;color:var(--text-3);
+    font-family:inherit;font-size:var(--t-sm);font-weight:500;padding:5px 11px;
+    border-radius:6px;cursor:pointer;
+    transition:color .16s,background .16s;
   }
-  .map-toolbar button:hover{color:var(--text)}
-  .map-toolbar button.on{background:var(--accent);color:#0b0f14;font-weight:600}
+  .map-toolbar button:hover{color:var(--text);background:rgba(255,255,255,.05)}
+  .map-toolbar button.on{background:var(--aurora);color:var(--on-aurora);font-weight:600}
+  .map-toolbar .divider{width:1px;height:18px;background:var(--line);margin:0 2px}
+  .map-toolbar #btnAll{display:inline-flex;align-items:center;gap:6px}
+  .map-toolbar #btnAll .ico{--ico:14px}
   .map-open{
     position:absolute;bottom:12px;right:12px;z-index:5;
-    background:rgba(11,15,20,.85);border:1px solid var(--line);
-    color:var(--text);text-decoration:none;font-size:12px;
-    padding:7px 12px;border-radius:9px;backdrop-filter:blur(8px);
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(7,10,15,.85);border:1px solid var(--line);
+    color:var(--text-2);text-decoration:none;font-size:var(--t-sm);font-weight:500;
+    padding:7px 12px;border-radius:var(--r-sm);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    box-shadow:var(--shadow-1);
+    transition:color .16s,border-color .16s;
   }
-  .map-open:hover{border-color:var(--accent);color:var(--accent)}
+  .map-open .ico{--ico:14px}
+  .map-open:hover{border-color:var(--aurora-45);color:var(--aurora-hi)}
 
   .info{
     flex:1 1 auto;
     border-top:1px solid var(--line);
-    background:var(--bg-2);
-    padding:18px 22px 24px;
+    background:var(--sunken);
+    padding:20px 24px 28px;
   }
 
   .info-empty{
-    height:100%;display:flex;flex-direction:column;align-items:center;
-    justify-content:center;color:var(--muted);gap:8px;text-align:center;
+    min-height:220px;height:100%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:9px;text-align:center;color:var(--text-4);
   }
-  .info-empty .big{font-size:30px;opacity:.5}
+  .info-empty .ico{--ico:34px;color:var(--line-2)}
+  .info-empty .lead{font-size:var(--t-md);color:var(--text-3);font-weight:500}
+  .info-empty .hint{font-size:var(--t-sm);max-width:34em}
 
-  .i-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-  .i-head h2{margin:0;font-size:22px;letter-spacing:.3px}
-  .i-zh{color:var(--accent);font-size:14px}
-  .i-photo-note{margin-left:auto;color:var(--muted);font-size:11.5px;white-space:nowrap}
-  .i-photo-note a{color:var(--accent);text-decoration:none}
-  .i-desc{font-size:14.5px;line-height:1.8;color:#c9d6e5;margin-bottom:14px;max-width:68ch}
+  /* The one authored moment: a selected spot rises into place */
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .rise{animation:rise .52s var(--ease) both}
+  .rise-2{animation-delay:.05s}
+  .rise-3{animation-delay:.1s}
 
-  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+  .i-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .i-head h2{margin:0;font-size:var(--t-xl);font-weight:700;letter-spacing:-.01em;line-height:1.25}
+  .i-zh{color:var(--aurora);font-size:var(--t-md);font-weight:500}
+  .i-photo-note{
+    margin-left:auto;color:var(--text-4);font-size:var(--t-xs);white-space:nowrap;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .i-photo-note a{
+    color:var(--text-3);text-decoration:none;
+    border-bottom:1px solid var(--line-2);
+    transition:color .16s,border-color .16s;
+  }
+  .i-photo-note a:hover{color:var(--aurora-hi);border-color:var(--aurora-45)}
+  .i-desc{
+    font-size:var(--t-md);line-height:1.9;color:var(--text-2);
+    margin:0 0 16px;max-width:36em;
+  }
+
+  .gallery{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:12px;max-width:1120px;
+  }
   .ph{
-    position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;
-    background:var(--panel);border:1px solid var(--line);
+    position:relative;aspect-ratio:4/3;border-radius:var(--r-sm);overflow:hidden;
+    background:var(--surface);border:1px solid var(--line);
   }
-  .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
-  .ph:hover img{transform:scale(1.06)}
-  .ph a.cred{
+  .ph button.shot{
+    display:block;width:100%;height:100%;padding:0;border:0;
+    background:transparent;cursor:zoom-in;
+  }
+  .ph button.shot:focus-visible{outline:2px solid var(--aurora-hi);outline-offset:-3px}
+  .ph img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    opacity:0;transition:opacity .5s var(--ease),transform .45s var(--ease);
+  }
+  .ph img.ready{opacity:1}
+  .ph:hover img.ready{transform:scale(1.05)}
+  .ph .cred{
     position:absolute;left:0;right:0;bottom:0;
-    background:linear-gradient(transparent,rgba(0,0,0,.75));
-    color:#cfe0f0;font-size:10.5px;padding:14px 8px 6px;
-    text-decoration:none;transition:color .2s;
+    background:linear-gradient(transparent,rgba(4,7,11,.86));
+    color:var(--ink-200);font-size:var(--t-xs);padding:18px 9px 7px;
+    text-decoration:none;transition:color .18s;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  .ph a.cred:hover{color:#fff}
-  .ph.skel{background:linear-gradient(90deg,#151d29,#1e2937,#151d29);background-size:200% 100%;animation:sh 1.2s infinite}
-  @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  .ph .cred:hover{color:#fff}
+  .ph.skel{
+    background:linear-gradient(100deg,var(--surface) 30%,var(--surface-3) 50%,var(--surface) 70%);
+    background-size:220% 100%;animation:sh 1.4s var(--ease) infinite;
+  }
+  @keyframes sh{from{background-position:180% 0}to{background-position:-80% 0}}
 
+  .gal-msg{
+    grid-column:1/-1;display:flex;gap:12px;align-items:flex-start;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r-md);padding:15px 17px;max-width:44em;
+  }
+  .gal-msg .ico{--ico:20px;color:var(--text-4);margin-top:2px}
+  .gal-msg b{display:block;font-size:var(--t-sm);color:var(--text-2);margin-bottom:3px}
+  .gal-msg p{margin:0 0 10px;font-size:var(--t-sm);color:var(--text-4);line-height:1.7}
+  .gal-msg a{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:var(--t-sm);font-weight:500;color:var(--aurora-hi);text-decoration:none;
+    border:1px solid var(--aurora-28);background:var(--aurora-08);
+    padding:6px 11px;border-radius:var(--r-sm);
+    transition:background .16s,border-color .16s;
+  }
+  .gal-msg a:hover{background:var(--aurora-14);border-color:var(--aurora-45)}
+  .gal-msg a .ico{--ico:14px;color:inherit;margin:0}
+
+  /* ---------- Lightbox ---------- */
   .lightbox{
-    position:fixed;inset:0;z-index:200;background:rgba(5,8,12,.94);
-    display:none;align-items:center;justify-content:center;padding:30px;
+    position:fixed;inset:0;z-index:200;
+    background:rgba(4,6,10,.93);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;
+    padding:clamp(16px,4vw,44px);
   }
-  .lightbox.on{display:flex}
-  .lightbox img{max-width:100%;max-height:100%;border-radius:10px}
-  .lightbox .x{
-    position:absolute;top:18px;right:26px;
-    background:transparent;border:0;color:#fff;
-    font-size:30px;line-height:1;cursor:pointer;opacity:.7;
-    padding:6px;font-family:inherit;transition:opacity .15s;
+  .lightbox.on{display:flex;animation:fade .28s var(--ease) both}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .lb-fig{
+    margin:0;display:flex;flex-direction:column;align-items:center;gap:11px;
+    max-width:100%;max-height:100%;
   }
-  .lightbox .x:hover,.lightbox .x:focus-visible{opacity:1}
+  .lb-fig img{
+    max-width:100%;max-height:calc(100dvh - 150px);min-height:0;object-fit:contain;
+    border-radius:var(--r-sm);box-shadow:var(--shadow-2);
+    animation:rise .4s var(--ease) both;
+  }
+  .lb-cap{
+    font-size:var(--t-sm);color:var(--text-3);text-align:center;max-width:60ch;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
+  }
+  .lb-cap a{color:var(--aurora-hi);text-decoration:none;border-bottom:1px solid var(--aurora-28)}
+  .lb-cap .n{color:var(--text-4);font-variant-numeric:tabular-nums}
+  .lb-btn{
+    position:absolute;z-index:2;
+    display:flex;align-items:center;justify-content:center;
+    width:42px;height:42px;padding:0;
+    background:rgba(17,25,37,.8);border:1px solid var(--line);
+    color:var(--text-2);border-radius:50%;cursor:pointer;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    transition:color .16s,border-color .16s,background .16s;
+  }
+  .lb-btn .ico{--ico:20px}
+  .lb-btn:hover{color:var(--text);background:var(--surface-3);border-color:var(--line-2)}
+  .lb-x{top:18px;right:18px}
+  .lb-prev{left:16px;top:50%;transform:translateY(-50%)}
+  .lb-next{right:16px;top:50%;transform:translateY(-50%)}
+  .lb-btn[hidden]{display:none}
 
+  /* ---------- Mobile ---------- */
   @media (max-width:940px){
+    header{
+      height:auto;padding:10px 14px;gap:10px 14px;flex-wrap:wrap;
+    }
+    header h1{font-size:var(--t-md);white-space:normal;flex:1 1 100%;order:1}
+    .head-spacer{display:none}
+    .legend{order:2;font-size:var(--t-xs);gap:11px;flex:1 1 auto}
+    .nav-link{order:3;padding:6px 11px;font-size:var(--t-sm)}
+
     .wrap{grid-template-columns:1fr;height:auto}
     .itinerary{
-      border-right:0;border-bottom:0;max-height:none;
-      padding-bottom:calc(46vh + 20px);
-      transition:padding-bottom .28s cubic-bezier(.4,0,.2,1);
+      border-right:0;padding:14px 12px calc(48vh + 24px);
     }
-    body.stage-collapsed .itinerary{padding-bottom:76px}
+    body.stage-collapsed .itinerary{padding-bottom:84px}
 
     .stage{
       position:fixed;left:0;right:0;bottom:0;z-index:60;
-      height:46vh;
+      height:48vh;
       background:var(--bg);
-      border-top:1px solid var(--line);
-      border-radius:16px 16px 0 0;
-      box-shadow:0 -16px 32px -14px rgba(0,0,0,.6);
-      overflow-y:auto;
-      transition:height .28s cubic-bezier(.4,0,.2,1);
+      border-top:1px solid var(--line-2);
+      border-radius:var(--r-lg) var(--r-lg) 0 0;
+      box-shadow:var(--shadow-sheet);
+      transition:transform var(--dur) var(--ease);
     }
-    body.stage-collapsed .stage{height:52px;overflow:hidden}
+    body.stage-collapsed .stage{transform:translateY(calc(48vh - 56px))}
 
     .stage-handle{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      display:flex;align-items:center;gap:10px;
       flex:0 0 auto;padding:9px 10px 9px 16px;
       border-bottom:1px solid var(--line);
-      background:var(--bg-2);
+      background:var(--surface);
+      border-radius:var(--r-lg) var(--r-lg) 0 0;
       position:sticky;top:0;z-index:2;
     }
+    .stage-handle::before{
+      content:"";position:absolute;top:5px;left:50%;transform:translateX(-50%);
+      width:34px;height:3px;border-radius:99px;background:var(--line-2);
+    }
     .stage-cur{
-      font-size:12.5px;font-weight:600;color:var(--text);
+      flex:1;min-width:0;font-size:var(--t-sm);font-weight:600;color:var(--text);
       white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     }
-    .stage-cur.empty{color:var(--muted);font-weight:400}
-    .collapse-btn{
-      flex:0 0 auto;font-size:11.5px;color:var(--muted);
-      background:var(--panel);border:1px solid var(--line);
-      padding:6px 10px;border-radius:8px;cursor:pointer;
-      display:flex;align-items:center;gap:5px;transition:.15s;
-      font-family:inherit;
-    }
-    .collapse-btn:hover{color:var(--text);border-color:#33455f}
-    .collapse-btn .arrow{display:inline-block;transition:transform .28s cubic-bezier(.4,0,.2,1)}
-    body.stage-collapsed .collapse-btn .arrow{transform:rotate(180deg)}
+    .stage-cur.empty{color:var(--text-4);font-weight:400}
+    .collapse-btn{flex:0 0 auto}
+    .collapse-btn .ico{transition:transform var(--dur) var(--ease)}
+    body.stage-collapsed .collapse-btn .ico{transform:rotate(180deg)}
 
-    .map-box{height:150px;flex:0 0 auto}
-    .info{flex:1 1 auto;max-height:none}
+    .map-box{height:190px;flex:0 0 auto;min-height:0}
+    .info{padding:16px 16px 22px}
+    .i-head h2{font-size:var(--t-lg)}
+    .i-head{gap:8px}
+    .i-photo-note{margin-left:0;flex:1 1 100%;white-space:normal}
+    .i-desc{font-size:var(--t-md);line-height:1.85}
+    .gallery{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+    .lb-prev{left:8px}
+    .lb-next{right:8px}
+    .lb-x{top:10px;right:10px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms!important;animation-iteration-count:1!important;
+      transition-duration:.01ms!important;scroll-behavior:auto!important;
+    }
   }
 </style>
 </head>
 <body>
 
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M10.5 3.6a1.5 1.5 0 0 1 3 0v6.3l7.5 4.3v2.3l-7.5-2.3v3.9l2.5 1.9V22l-4-1.1-4 1.1v-1.9l2.5-1.9v-3.9L3 16.5v-2.3l7.5-4.3z"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9.5 5.5 7 6.5-7 6.5"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m5.5 9 6.5 7 6.5-7"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="m14.5 5.5-7 6.5 7 6.5"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.6"/><circle cx="18" cy="5" r="2.6"/><path d="M8.6 19h8.9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7h8.9"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10.2c0 5.6-8 11.8-8 11.8s-8-6.2-8-11.8a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.8"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="m9 4-6 2.8v13.1l6-2.8 6 2.8 6-2.8V4l-6 2.8z"/><path d="M9 4v13.1"/><path d="M15 6.8v13.1"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7.5 16.5 16.5 7.5"/><path d="M9.2 7.5h7.3v7.3"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11"/><path d="m17.5 6.5-11 11"/></symbol>
+  <symbol id="i-image-off" viewBox="0 0 24 24"><path d="m3 3 18 18"/><path d="M21 15.5V6a2 2 0 0 0-2-2H8.5"/><path d="M3 7.5V18a2 2 0 0 0 2 2h11"/><path d="m3.5 17.5 4.5-4.5 2.5 2.5"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.4 8.6-1.9 4.9-4.9 1.9 1.9-4.9z"/></symbol>
+</defs></svg>
+
 <header>
-  <h1>冰島 16 天行程 <span>· 南岸 + 西部半島 + 北冰島</span></h1>
+  <h1>冰島 16 天行程 <span class="region">· 南岸 + 西部半島 + 北冰島</span></h1>
   <div class="head-spacer"></div>
-  <div class="legend">
-    <span><i style="background:#4fd1c5"></i>景點</span>
-    <span><i style="background:#7c8cff"></i>城鎮 / 交通</span>
-    <span><i style="background:#8b9bb0"></i>可選</span>
+  <div class="legend" aria-label="圖例">
+    <span><i style="background:var(--aurora)"></i>景點</span>
+    <span><i style="background:var(--glacier)"></i>城鎮 / 交通</span>
+    <span><i style="background:var(--ink-400)"></i>可選</span>
   </div>
-  <a class="nav-link" href="./flights.html">✈️ 機票方案</a>
+  <a class="nav-link" href="./flights.html">
+    <svg class="ico" aria-hidden="true"><use href="#i-plane"/></svg>機票方案
+  </a>
 </header>
 
 <div class="wrap">
   <!-- ============ LEFT ============ -->
-  <aside class="itinerary" id="itin">
-    <div class="intro">
-      出發 <b>2027/4/29（四）夜間</b>，4/30 抵達冰島；回程 <b>2027/5/16（日）凌晨</b>飛離。
+  <aside class="itinerary scroller" id="itin">
+    <p class="intro">
+      <svg class="ico" aria-hidden="true"><use href="#i-plane"/></svg>
+      <span>出發 <b>2027/4/29（四）夜間</b>，4/30 抵達冰島；回程 <b>2027/5/16（日）凌晨</b>飛離。</span>
+    </p>
+
+    <div class="list-bar">
+      <span class="count" id="dayCount"></span>
+      <button type="button" class="ghost-btn" id="toggleAll" aria-expanded="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-chev-d"/></svg>
+        <span id="toggleAllLabel">全部展開</span>
+      </button>
     </div>
+
     <ol class="day-list" id="dayList"></ol>
-    <div class="tail">
-      <h3>住宿建議</h3>
+
+    <section class="tail">
+      <h2><svg class="ico" aria-hidden="true"><use href="#i-bed"/></svg>住宿建議</h2>
       <table>
         <tr><td>Reykjavík（Day1,14,15）</td><td>3 晚</td></tr>
         <tr><td>Hvolsvöllur（Day2）</td><td>1 晚</td></tr>
@@ -344,40 +643,60 @@
         <tr><td>Snæfellsnes（Day13）</td><td>1 晚</td></tr>
         <tr><td>Day16 深夜航班，不需訂房</td><td>—</td></tr>
       </table>
-    </div>
+    </section>
   </aside>
 
   <!-- ============ RIGHT ============ -->
-  <section class="stage">
+  <section class="stage scroller" aria-label="地圖與景點資訊">
     <div class="stage-handle" id="stageHandle">
       <span class="stage-cur empty" id="stageCur">尚未選擇景點</span>
-      <button class="collapse-btn" id="collapseBtn" aria-expanded="true">
-        <span class="arrow">▼</span><span id="collapseLabel">收合</span>
+      <button class="ghost-btn collapse-btn" id="collapseBtn" aria-expanded="true">
+        <svg class="ico" aria-hidden="true"><use href="#i-chev-d"/></svg>
+        <span id="collapseLabel">收合</span>
       </button>
     </div>
     <div class="map-box">
-      <div class="map-toolbar">
+      <div class="map-ph" aria-hidden="true">
+        <svg class="ico"><use href="#i-map"/></svg>
+        <span>地圖載入中…</span>
+      </div>
+      <div class="map-toolbar" role="group" aria-label="地圖檢視">
         <button type="button" data-t="m" class="on" aria-pressed="true">地圖</button>
         <button type="button" data-t="k" aria-pressed="false">衛星</button>
         <button type="button" data-t="p" aria-pressed="false">地形</button>
-        <button type="button" id="btnAll">全覽</button>
+        <span class="divider" aria-hidden="true"></span>
+        <button type="button" id="btnAll">
+          <svg class="ico" aria-hidden="true"><use href="#i-compass"/></svg>全覽
+        </button>
       </div>
-      <iframe id="map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-      <a class="map-open" id="mapOpen" href="#" target="_blank" rel="noopener">在 Google 地圖開啟 ↗</a>
+      <iframe id="map" title="景點位置地圖" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <a class="map-open" id="mapOpen" href="#" target="_blank" rel="noopener">
+        在 Google 地圖開啟<svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg>
+      </a>
     </div>
     <div class="info" id="info" aria-live="polite">
       <div class="info-empty">
-        <div class="big">🗺️</div>
-        <div>從左側點選任一景點</div>
-        <div style="font-size:12px">地圖會標示位置，並自動載入當地實景照片</div>
+        <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+        <p class="lead">從左側點選任一景點</p>
+        <p class="hint">地圖會標示位置，並自動載入當地實景照片</p>
       </div>
     </div>
   </section>
 </div>
 
 <div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="放大檢視照片">
-  <button type="button" class="x" aria-label="關閉">&times;</button>
-  <img alt="">
+  <button type="button" class="lb-btn lb-x" id="lbClose" aria-label="關閉">
+    <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+  </button>
+  <button type="button" class="lb-btn lb-prev" id="lbPrev" aria-label="上一張">
+    <svg class="ico" aria-hidden="true"><use href="#i-chev-l"/></svg>
+  </button>
+  <figure class="lb-fig" id="lbFig">
+    <figcaption class="lb-cap" id="lbCap"></figcaption>
+  </figure>
+  <button type="button" class="lb-btn lb-next" id="lbNext" aria-label="下一張">
+    <svg class="ico" aria-hidden="true"><use href="#i-chev-r"/></svg>
+  </button>
 </div>
 
 <script>
@@ -616,24 +935,38 @@ const dayList = document.getElementById('dayList');
 let uid = 0;
 const REG = {};   // id -> spot
 
+const icon = id => `<svg class="ico" aria-hidden="true"><use href="#${id}"/></svg>`;
+
 DAYS.forEach(day=>{
   const el = document.createElement('li');
   const open = day.n===1;
   el.className = 'day' + (open ? ' open' : '');
+  const bodyId = 'dayBody' + day.n;
   const dirUrl = 'https://www.google.com/maps/dir/' +
     day.spots.map(s=>`${s.lat},${s.lng}`).join('/');
+  const hasStay = day.stay !== '—';
 
   el.innerHTML = `
-    <button type="button" class="day-head" aria-expanded="${open}">
-      <span class="day-no">DAY ${day.n}</span>
-      <span class="day-title">${day.title}${day.date ? ` <span class="day-date">${day.date}</span>` : ''}</span>
-      ${day.stay!=='—' ? `<span class="day-stay">${day.stay}</span>` : ''}
-      <span class="chev" aria-hidden="true">▶</span>
-    </button>
-    <div class="day-body">
-      <p class="day-note">${day.note}</p>
-      <ul class="day-spots"></ul>
-      ${day.spots.length>1 ? `<div class="day-actions"><a class="route-btn" href="${dirUrl}" target="_blank" rel="noopener">🚗 在 Google 地圖規劃當日路線</a></div>` : ''}
+    <h2 style="margin:0;font-size:inherit;font-weight:inherit">
+      <button type="button" class="day-head" aria-expanded="${open}" aria-controls="${bodyId}">
+        <span class="day-no">DAY ${day.n}</span>
+        <span class="day-main">
+          <span class="day-title">${day.title}</span>
+          <span class="day-meta">
+            ${day.date ? `<span class="day-date">${day.date}</span>` : ''}
+            ${day.date && hasStay ? '<span class="sep" aria-hidden="true"></span>' : ''}
+            ${hasStay ? `<span class="day-stay">${icon('i-bed')}<span>${day.stay}</span></span>` : ''}
+          </span>
+        </span>
+        ${icon('i-chev-r').replace('class="ico"','class="ico chev"')}
+      </button>
+    </h2>
+    <div class="day-body" id="${bodyId}">
+      <div class="day-body-inner"><div class="day-body-pad">
+        <p class="day-note">${day.note}</p>
+        <ul class="day-spots"></ul>
+        ${day.spots.length>1 ? `<div class="day-actions"><a class="route-btn" href="${dirUrl}" target="_blank" rel="noopener">${icon('i-route')}在 Google 地圖規劃當日路線</a></div>` : ''}
+      </div></div>
     </div>`;
 
   const list = el.querySelector('.day-spots');
@@ -648,7 +981,7 @@ DAYS.forEach(day=>{
     b.innerHTML = `
       <span class="dot" aria-hidden="true"></span>
       <span class="spot-txt">
-        <span class="spot-name">${s.name}${s.opt?'<span class="badge opt">可選</span>':''}</span>
+        <span class="spot-name">${s.name}${s.opt?'<span class="badge">可選</span>':''}</span>
         <span class="spot-zh">${s.zh}</span>
       </span>`;
     b.addEventListener('click', ()=>select(id));
@@ -658,17 +991,46 @@ DAYS.forEach(day=>{
 
   const head = el.querySelector('.day-head');
   head.addEventListener('click', ()=>{
-    const isOpen = el.classList.toggle('open');
-    head.setAttribute('aria-expanded', String(isOpen));
+    setDayOpen(el, !el.classList.contains('open'));
+    syncToggleAll();
   });
   dayList.appendChild(el);
 });
 
+document.getElementById('dayCount').textContent =
+  `${DAYS.length} 天 · ${Object.keys(REG).length} 個地點`;
+
+function setDayOpen(el, open){
+  el.classList.toggle('open', open);
+  el.querySelector('.day-head').setAttribute('aria-expanded', String(open));
+}
+
+/* ---------- 全部展開 / 收合 ---------- */
+const toggleAll = document.getElementById('toggleAll');
+const toggleAllLabel = document.getElementById('toggleAllLabel');
+const allDays = () => Array.from(dayList.children);
+
+function syncToggleAll(){
+  const allOpen = allDays().every(d=>d.classList.contains('open'));
+  toggleAll.classList.toggle('all-open', allOpen);
+  toggleAll.setAttribute('aria-expanded', String(allOpen));
+  toggleAllLabel.textContent = allOpen ? '全部收合' : '全部展開';
+}
+toggleAll.addEventListener('click', ()=>{
+  const open = !allDays().every(d=>d.classList.contains('open'));
+  allDays().forEach(d=>setDayOpen(d, open));
+  syncToggleAll();
+});
+syncToggleAll();
+
 /* ================= 地圖 ================= */
 const mapEl   = document.getElementById('map');
 const mapOpen = document.getElementById('mapOpen');
+const mapPh   = document.querySelector('.map-ph');
 let mapType = 'm';
 let current = null;
+
+mapEl.addEventListener('load', ()=>{ mapPh.style.opacity = '0'; });
 
 function drawMap(){
   let lat, lng, z;
@@ -694,18 +1056,24 @@ document.querySelectorAll('.map-toolbar button[data-t]').forEach(b=>{
     drawMap();
   });
 });
+
 document.getElementById('btnAll').addEventListener('click', ()=>{
   current = null;
+  PHOTOS = [];
   document.querySelectorAll('.spot.active').forEach(x=>x.classList.remove('active'));
   drawMap();
-  document.getElementById('info').innerHTML =
-    `<div class="info-empty"><div class="big">🗺️</div><div>冰島全覽</div>
-     <div style="font-size:12px">從左側點選任一景點，載入定位與照片</div></div>`;
+  info.innerHTML = `
+    <div class="info-empty">
+      ${icon('i-map')}
+      <p class="lead">冰島全覽</p>
+      <p class="hint">從左側點選任一景點，載入定位與實景照片</p>
+    </div>`;
   stageCur.textContent = '尚未選擇景點';
   stageCur.classList.add('empty');
 });
 
 /* ================= 行動版：底部面板收合 ================= */
+const stage = document.querySelector('.stage');
 const stageCur = document.getElementById('stageCur');
 const collapseBtn = document.getElementById('collapseBtn');
 const collapseLabel = document.getElementById('collapseLabel');
@@ -730,17 +1098,18 @@ function select(id){
   document.body.classList.remove('stage-collapsed');
   collapseBtn.setAttribute('aria-expanded', 'true');
   collapseLabel.textContent = '收合';
+  stage.scrollTo({top:0, behavior:'smooth'});
 
   const token = ++reqToken;
+  PHOTOS = [];
   info.innerHTML = `
-    <div class="i-head">
+    <div class="i-head rise">
       <h2>${s.name}</h2><span class="i-zh">${s.zh}</span>
-      ${s.opt?'<span class="badge opt">可選行程</span>':''}
-      ${s.approx?'<span class="badge opt">概略位置</span>':''}
+      ${s.opt?'<span class="badge">可選行程</span>':''}
       <span class="i-photo-note" id="photoNote"></span>
     </div>
-    <div class="i-desc">${s.desc}</div>
-    <div class="gallery" id="gal">
+    <p class="i-desc rise rise-2">${s.desc}</p>
+    <div class="gallery rise rise-3" id="gal">
       ${'<div class="ph skel"></div>'.repeat(3)}
     </div>`;
 
@@ -789,6 +1158,12 @@ async function fetchWikipediaThumb(name){
   }];
 }
 
+const esc = str => String(str).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const imgSearchUrl = name =>
+  'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(name + ' Iceland');
+
 async function loadPhotos(s, token){
   const gal  = document.getElementById('gal');
   const note = document.getElementById('photoNote');
@@ -810,37 +1185,128 @@ async function loadPhotos(s, token){
 
   if(!imgs.length){ fallback(gal, note, s, failed); return; }
 
-  gal.innerHTML = imgs.map(i=>{
-    const title = (i.extmetadata?.ObjectName?.value || '')
-      .replace(/<[^>]*>/g,'') || 'Wikimedia';
-    const author = (i.extmetadata?.Artist?.value || '')
-      .replace(/<[^>]*>/g,'').slice(0,40);
+  PHOTOS = imgs.map((i, n)=>({
+    full: i.url,
+    page: i.descriptionurl,
+    title: (i.extmetadata?.ObjectName?.value || '').replace(/<[^>]*>/g,'') || 'Wikimedia Commons',
+    author: (i.extmetadata?.Artist?.value || '').replace(/<[^>]*>/g,'').slice(0,40),
+    alt: `${s.name} 實景照片 ${n+1}`
+  }));
+
+  gal.innerHTML = imgs.map((i, n)=>{
+    const p = PHOTOS[n];
+    const cred = esc(p.title) + (p.author ? ' · ' + esc(p.author) : '');
     return `<div class="ph">
-      <img src="${i.thumburl||i.url}" alt="${s.name}" loading="lazy" data-full="${i.url}">
-      <a class="cred" href="${i.descriptionurl}" target="_blank" rel="noopener">${title}${author?' · '+author:''}</a>
+      <button type="button" class="shot" data-i="${n}" aria-label="放大檢視：${esc(p.alt)}">
+        <img src="${esc(i.thumburl||i.url)}" alt="${esc(p.alt)}" loading="lazy">
+      </button>
+      <a class="cred" href="${esc(p.page)}" target="_blank" rel="noopener">${cred}</a>
     </div>`;
   }).join('');
 
-  gal.querySelectorAll('img').forEach(im=>{
-    im.addEventListener('click', ()=> openLb(im.dataset.full));
+  gal.querySelectorAll('.ph img').forEach(im=>{
+    if(im.complete && im.naturalWidth) im.classList.add('ready');
+    else im.addEventListener('load', ()=> im.classList.add('ready'), {once:true});
     im.addEventListener('error', ()=> im.closest('.ph')?.remove());
   });
-  note.innerHTML = `點圖可放大 · <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener">看更多照片 ↗</a>`;
+  gal.querySelectorAll('.shot').forEach(btn=>{
+    btn.addEventListener('click', ()=> openLb(Number(btn.dataset.i), btn));
+  });
+
+  note.innerHTML = `點圖可放大 · <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">看更多照片</a>`;
 }
 
 function fallback(gal, note, s, failed){
-  gal.innerHTML = '';
-  const msg = failed
-    ? '照片載入失敗（可能是網路連線或連不到 Wikimedia）。'
-    : '找不到符合的照片。';
-  note.innerHTML = `${msg} <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.name+' Iceland')}" target="_blank" rel="noopener">在 Google 圖片搜尋「${s.name}」↗</a>`;
+  note.textContent = '';
+  gal.innerHTML = `
+    <div class="gal-msg">
+      ${icon('i-image-off')}
+      <div>
+        <b>${failed ? '照片載入失敗' : '找不到這個地點的照片'}</b>
+        <p>${failed
+          ? '可能是網路連線不穩，或目前連不到 Wikimedia。稍後重新整理即可再試一次。'
+          : 'Wikimedia Commons 上沒有符合的圖片，可以直接到 Google 圖片搜尋。'}</p>
+        <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">
+          在 Google 圖片搜尋「${esc(s.name)}」${icon('i-ext')}
+        </a>
+      </div>
+    </div>`;
 }
 
 /* ================= Lightbox ================= */
-const lb = document.getElementById('lb');
-function openLb(src){ lb.querySelector('img').src = src; lb.classList.add('on'); }
-lb.addEventListener('click', ()=> lb.classList.remove('on'));
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') lb.classList.remove('on'); });
+let PHOTOS = [];
+let lbIndex = 0;
+let lbOpener = null;
+
+const lb      = document.getElementById('lb');
+const lbFig   = document.getElementById('lbFig');
+let   lbImg   = null;
+const lbCap   = document.getElementById('lbCap');
+const lbPrev  = document.getElementById('lbPrev');
+const lbNext  = document.getElementById('lbNext');
+const lbClose = document.getElementById('lbClose');
+
+function renderLb(){
+  const p = PHOTOS[lbIndex];
+  if(!p) return;
+  if(!lbImg){ lbImg = document.createElement('img'); lbFig.prepend(lbImg); }
+  lbImg.src = p.full;
+  lbImg.alt = p.alt;
+  lbCap.innerHTML = `<a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.title)}</a>`
+    + (p.author ? ` <span>· ${esc(p.author)}</span>` : '')
+    + (PHOTOS.length>1 ? ` <span class="n">${lbIndex+1} / ${PHOTOS.length}</span>` : '');
+  const many = PHOTOS.length > 1;
+  lbPrev.hidden = !many;
+  lbNext.hidden = !many;
+}
+
+function openLb(i, opener){
+  lbIndex = i;
+  lbOpener = opener || null;
+  renderLb();
+  lb.classList.add('on');
+  document.body.style.overflow = 'hidden';
+  lbClose.focus();
+}
+
+function closeLb(){
+  if(!lb.classList.contains('on')) return;
+  lb.classList.remove('on');
+  lbImg?.remove();
+  lbImg = null;
+  document.body.style.overflow = '';
+  lbOpener?.focus();
+  lbOpener = null;
+}
+
+function stepLb(d){
+  if(PHOTOS.length < 2) return;
+  lbIndex = (lbIndex + d + PHOTOS.length) % PHOTOS.length;
+  renderLb();
+}
+
+lbClose.addEventListener('click', closeLb);
+lbPrev.addEventListener('click', ()=>stepLb(-1));
+lbNext.addEventListener('click', ()=>stepLb(1));
+// 只有點在背景才關閉，點圖片本身不會關
+lb.addEventListener('click', e=>{ if(e.target === lb) closeLb(); });
+
+document.addEventListener('keydown', e=>{
+  if(!lb.classList.contains('on')) return;
+  if(e.key === 'Escape'){ closeLb(); return; }
+  if(e.key === 'ArrowLeft'){ stepLb(-1); return; }
+  if(e.key === 'ArrowRight'){ stepLb(1); return; }
+  if(e.key === 'Tab'){
+    // 焦點鎖在燈箱內
+    const items = [lbClose, lbPrev, lbNext].filter(b=>!b.hidden);
+    const i = items.indexOf(document.activeElement);
+    const next = e.shiftKey
+      ? items[(i<=0 ? items.length : i) - 1]
+      : items[(i + 1) % items.length];
+    next.focus();
+    e.preventDefault();
+  }
+});
 
 /* ================= 初始 ================= */
 drawMap();
