@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>照片來源診斷</title>
+<style>
+  :root{
+    --bg:#070a0f; --surface:#111925; --surface-2:#16202e; --line:#243247; --line-2:#33455f;
+    --text:#e4ecf6; --text-2:#c2d1e2; --text-3:#9aadc4; --text-4:#7e93ac;
+    --ok:#5fd08a; --bad:#ff9166; --warn:#f2b544; --accent:#45d9bd;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;padding:24px 18px 60px;background:var(--bg);color:var(--text);
+    font-family:"Noto Sans TC","PingFang TC",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15px;line-height:1.6;
+  }
+  .page{max-width:1000px;margin:0 auto}
+  h1{font-size:19px;margin:0 0 6px}
+  .lede{color:var(--text-3);font-size:13px;margin:0 0 20px;max-width:60em}
+  .lede code{background:var(--surface-2);padding:1px 5px;border-radius:4px;font-size:12px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  button{
+    font-family:inherit;font-size:13px;font-weight:600;padding:9px 15px;border-radius:8px;
+    background:var(--accent);color:#04140f;border:1px solid var(--accent);cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--text-2);border-color:var(--line)}
+  button:disabled{opacity:.5;cursor:default}
+  h2{font-size:14px;margin:24px 0 10px;color:var(--text-2)}
+  pre{
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow-x:auto;font-size:12px;line-height:1.75;
+    color:var(--text-2);white-space:pre;margin:0 0 16px;
+  }
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--text-4);font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+  td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .ok{color:var(--ok)} .bad{color:var(--bad)} .warn{color:var(--warn)} .dim{color:var(--text-4)}
+  #prog{font-size:12.5px;color:var(--text-4);margin-bottom:10px;font-variant-numeric:tabular-nums}
+  img.probe{width:96px;height:72px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>照片來源診斷</h1>
+  <p class="lede">
+    這頁會從<b>你的瀏覽器</b>直接呼叫維基百科 API，把每一步的實際結果印出來。
+    這是為了確認照片抓不到的原因（是連不上、被擋、還是條目本身沒有圖片），
+    請按下方按鈕後把結果複製給我。這是暫時的除錯工具，問題解決後就會刪掉。
+  </p>
+
+  <div class="row">
+    <button id="btnConn">1. 測試連線</button>
+    <button id="btnSample" class="ghost">2. 測試 12 個代表景點</button>
+    <button id="btnAll" class="ghost">3. 測試全部景點（較久）</button>
+    <button id="btnCopy" class="ghost">複製結果</button>
+  </div>
+
+  <h2>連線測試</h2>
+  <pre id="conn">尚未執行。</pre>
+
+  <h2>各景點結果</h2>
+  <div id="prog"></div>
+  <div id="out"><p class="dim" style="font-size:13px">尚未執行。</p></div>
+</div>
+
+<script>
+const WIKI    = 'https://en.wikipedia.org/w/api.php';
+const COMMONS = 'https://commons.wikimedia.org/w/api.php';
+const PHOTO_EXT = /\.(jpe?g|png|webp)$/i;
+const SKIP = /(^(File:)?(Flag|Coat[ _]of[ _]arms|Icon|Symbol|Commons-logo|Wikidata|OOjs|Ambox|Question[ _]book)\b|location[ _]map|locator|relief[ _]map|blank[ _]map|_pog\.|\.svg$|\.gif$)/i;
+
+const api = (base, params) => base + '?' + new URLSearchParams({format:'json', origin:'*', ...params});
+const norm = t => t.replace(/^File:/i,'').replace(/_/g,' ').trim();
+
+// 回傳 {ok, status, ms, json, err} —— 不丟例外，方便把失敗原因印出來
+async function probe(url, timeoutMs=12000){
+  const ctrl = new AbortController();
+  const t = setTimeout(()=>ctrl.abort(), timeoutMs);
+  const t0 = performance.now();
+  try{
+    const r = await fetch(url, {signal:ctrl.signal});
+    const ms = Math.round(performance.now()-t0);
+    let json = null, err = null;
+    try{ json = await r.json(); }catch(e){ err = 'JSON 解析失敗'; }
+    return {ok:r.ok, status:r.status, ms, json, err};
+  }catch(e){
+    return {ok:false, status:0, ms:Math.round(performance.now()-t0), json:null,
+            err:(e.name === 'AbortError' ? '逾時' : (e.message || '網路錯誤')) };
+  } finally { clearTimeout(t); }
+}
+
+function titleCandidates(name){
+  const out = [];
+  name.split(' / ').map(t=>t.trim()).filter(Boolean).forEach(n=>{
+    const m = n.match(/^(.*?)\s*\(([^)]+)\)$/);
+    if(m){ const a=m[1].trim(), b=m[2].trim(); out.push(...(a.length>=b.length?[a,b]:[b,a])); }
+    else out.push(n);
+  });
+  return [...new Set(out.filter(Boolean))];
+}
+
+/* ---------- 1. 連線 ---------- */
+const connEl = document.getElementById('conn');
+async function testConn(){
+  connEl.textContent = '測試中…';
+  const lines = [];
+  lines.push('瀏覽器  : ' + navigator.userAgent);
+  lines.push('頁面來源: ' + location.origin);
+  lines.push('');
+
+  const a = await probe(api(WIKI, {action:'query', meta:'siteinfo'}));
+  lines.push(`en.wikipedia.org Action API : ${a.ok?'OK':'失敗'}  status=${a.status}  ${a.ms}ms  ${a.err||''}`);
+
+  const c = await probe(api(COMMONS, {action:'query', meta:'siteinfo'}));
+  lines.push(`commons.wikimedia.org API   : ${c.ok?'OK':'失敗'}  status=${c.status}  ${c.ms}ms  ${c.err||''}`);
+
+  // upload.wikimedia.org 用 <img> 測，不受 CORS 影響
+  const upOk = await new Promise(res=>{
+    const im = new Image();
+    const to = setTimeout(()=>res(false), 12000);
+    im.onload  = ()=>{ clearTimeout(to); res(true); };
+    im.onerror = ()=>{ clearTimeout(to); res(false); };
+    im.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Gullfoss%2C_an_iconic_waterfall_of_Iceland.jpg/320px-Gullfoss%2C_an_iconic_waterfall_of_Iceland.jpg';
+  });
+  lines.push(`upload.wikimedia.org 圖片    : ${upOk?'OK':'失敗（圖片載不進來）'}`);
+
+  // 已退役的舊端點，確認一下
+  const old = await probe('https://en.wikipedia.org/api/rest_v1/page/media-list/Gullfoss');
+  lines.push(`(舊) rest_v1 media-list      : status=${old.status}  ${old.err||''}`);
+
+  if(a.ok && a.json?.query?.general?.sitename)
+    lines.push('\nAction API 回應正常：' + a.json.query.general.sitename);
+  connEl.textContent = lines.join('\n');
+}
+
+/* ---------- 2. 逐景點 ---------- */
+async function spotReport(spot){
+  const r = {name:spot.name, q:spot.q, tried:[], article:null, files:0, photos:0, source:'-', note:''};
+
+  for(const t of titleCandidates(spot.name)){
+    const res = await probe(api(WIKI, {action:'parse', page:t, prop:'images', redirects:'1'}));
+    r.tried.push(`${t}→${res.status}${res.err?'/'+res.err:''}${res.json?.error?'/'+res.json.error.code:''}`);
+    if(res.ok && res.json && !res.json.error){
+      r.article = res.json.parse?.title || t;
+      r.files = (res.json.parse?.images || []).length;
+      r._files = res.json.parse?.images || [];
+      break;
+    }
+  }
+
+  if(!r.article){
+    const se = await probe(api(WIKI, {action:'query', list:'search', srnamespace:'0', srlimit:'1', srsearch:spot.q}));
+    const hit = se.json?.query?.search?.[0]?.title;
+    r.tried.push(`search(${spot.q})→${hit||'無結果'}`);
+    if(hit){
+      const res = await probe(api(WIKI, {action:'parse', page:hit, prop:'images', redirects:'1'}));
+      if(res.ok && res.json && !res.json.error){
+        r.article = res.json.parse?.title || hit;
+        r.files = (res.json.parse?.images || []).length;
+        r._files = res.json.parse?.images || [];
+      }
+    }
+  }
+
+  if(r.article){
+    const files = (r._files||[]).filter(f=>PHOTO_EXT.test(f) && !SKIP.test(f)).slice(0,8);
+    if(files.length){
+      const res = await probe(api(WIKI, {
+        action:'query', titles:files.map(f=>'File:'+f).join('|'),
+        prop:'imageinfo', iiprop:'url|extmetadata', iiurlwidth:'640', iiextmetadatafilter:'Artist|ObjectName'
+      }));
+      const pages = Object.values(res.json?.query?.pages || {});
+      const withThumb = pages.filter(p=>p.imageinfo?.[0]?.thumburl);
+      r.photos = withThumb.length;
+      r.source = r.photos ? '條目圖片' : 'imageinfo 無縮圖';
+      r.sample = withThumb[0]?.imageinfo?.[0]?.thumburl || '';
+      if(!res.ok) r.note = `imageinfo status=${res.status} ${res.err||''}`;
+    } else {
+      r.source = '條目內無可用照片';
+    }
+  }
+
+  if(!r.photos && r.article){
+    const li = await probe(api(WIKI, {action:'query', titles:r.article, redirects:'1',
+      prop:'pageimages', piprop:'original|thumbnail', pithumbsize:'640'}));
+    const p = Object.values(li.json?.query?.pages || {})[0];
+    const src = p?.thumbnail?.source || p?.original?.source;
+    if(src){ r.photos = 1; r.source = '條目主圖'; r.sample = src; }
+  }
+
+  if(!r.photos){
+    const cs = await probe(api(COMMONS, {action:'query', generator:'search', gsrnamespace:'6',
+      gsrlimit:'20', gsrsearch:spot.q, prop:'imageinfo', iiprop:'url', iiurlwidth:'640'}));
+    const pages = Object.values(cs.json?.query?.pages || {})
+      .filter(p=>!SKIP.test(p.title||'') && PHOTO_EXT.test(p.imageinfo?.[0]?.url||''));
+    if(pages.length){ r.photos = pages.length; r.source = 'Commons 搜尋'; r.sample = pages[0].imageinfo[0].thumburl; }
+    else r.note += ` commons=${cs.status}${cs.err?'/'+cs.err:''}`;
+  }
+  return r;
+}
+
+const outEl = document.getElementById('out'), progEl = document.getElementById('prog');
+let RESULTS = [];
+
+function render(){
+  const rows = RESULTS.map(r=>{
+    const cls = r.photos >= 3 ? 'ok' : r.photos >= 1 ? 'warn' : 'bad';
+    return `<tr>
+      <td>${r.name}</td>
+      <td class="dim">${r.article || '<span class="bad">找不到條目</span>'}</td>
+      <td class="n ${cls}">${r.photos}</td>
+      <td class="dim">${r.source}</td>
+      <td class="dim" style="font-size:11px">${r.tried.join('<br>')}${r.note?'<br><span class="bad">'+r.note+'</span>':''}</td>
+      <td>${r.sample?`<img class="probe" src="${r.sample}" alt="">`:''}</td>
+    </tr>`;
+  }).join('');
+  const n = RESULTS.length, good = RESULTS.filter(r=>r.photos>=3).length,
+        one = RESULTS.filter(r=>r.photos>0&&r.photos<3).length, zero = RESULTS.filter(r=>!r.photos).length;
+  outEl.innerHTML = `<p style="font-size:13px" class="dim">
+      ${n} 個景點：<span class="ok">${good} 個 ≥3 張</span> ·
+      <span class="warn">${one} 個 1–2 張</span> · <span class="bad">${zero} 個 0 張</span></p>
+    <table><thead><tr><th>景點</th><th>條目</th><th>張數</th><th>來源</th><th>嘗試過程</th><th>樣本</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+}
+
+async function loadSpots(){
+  // 直接從 index.html 取 DAYS，避免資料重複維護
+  const html = await (await fetch('./index.html')).text();
+  const m = html.match(/const DAYS = (\[[\s\S]*?\n\]);/);
+  if(!m) throw new Error('在 index.html 裡找不到 DAYS');
+  const DAYS = new Function('return ' + m[1])();
+  return DAYS.flatMap(d=>d.spots);
+}
+
+async function runSpots(limit){
+  const btns = document.querySelectorAll('button');
+  btns.forEach(b=>b.disabled = true);
+  RESULTS = [];
+  try{
+    let spots = await loadSpots();
+    if(limit) spots = spots.filter((_,i)=> i % Math.ceil(spots.length/limit) === 0).slice(0, limit);
+    for(let i=0;i<spots.length;i++){
+      progEl.textContent = `測試中 ${i+1} / ${spots.length} … ${spots[i].name}`;
+      RESULTS.push(await spotReport(spots[i]));
+      render();
+    }
+    progEl.textContent = `完成：${spots.length} 個景點`;
+  }catch(e){
+    progEl.innerHTML = `<span class="bad">失敗：${e.message}</span>`;
+  }
+  btns.forEach(b=>b.disabled = false);
+}
+
+document.getElementById('btnConn').addEventListener('click', testConn);
+document.getElementById('btnSample').addEventListener('click', ()=>runSpots(12));
+document.getElementById('btnAll').addEventListener('click', ()=>runSpots(0));
+document.getElementById('btnCopy').addEventListener('click', ()=>{
+  const txt = connEl.textContent + '\n\n' + RESULTS.map(r=>
+    `${r.name} | 條目=${r.article||'無'} | 張數=${r.photos} | 來源=${r.source} | ${r.tried.join(' ; ')} ${r.note}`
+  ).join('\n');
+  navigator.clipboard.writeText(txt).then(
+    ()=>{ const b=document.getElementById('btnCopy'); b.textContent='已複製'; setTimeout(()=>b.textContent='複製結果',1500); },
+    ()=>alert('複製失敗，請手動選取')
+  );
+});
+</script>
+</body>
+</html>
