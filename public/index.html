@@ -1116,12 +1116,25 @@ function select(id){
   loadPhotos(s, token);
 }
 
-/* ========== 從 Wikimedia Commons 抓實景照片（免 API key、CORS 開放） ========== */
+/* ========== 實景照片：以維基條目裡的圖片為主（免 API key、CORS 開放） ==========
+   條目裡的圖片是編輯者為這個地點挑過的，相關性與命中率都遠高於 Commons 全文檢索；
+   全文檢索很慢，且會混進地圖、圖表、SVG，常常一張可用的都篩不出來。
+   主要路徑只用 en.wikipedia.org 與 upload.wikimedia.org。 */
+
+const WIKI    = 'https://en.wikipedia.org';
+const COMMONS = 'https://commons.wikimedia.org';
+
+// 地圖、旗幟、圖示等非實景檔案
+const SKIP = /(^File:(Flag|Coat of arms|Icon|Symbol|Commons-logo|Wikidata|OOjs)\b|location[ _]map|locator|relief[ _]map|blank[ _]map|_pog\.|\.svg$|\.gif$)/i;
+
+let netOk = false;      // 這次載入有沒有真的連上 Wikimedia（用來分辨「找不到」與「連不上」）
+
 async function fetchJson(url, timeoutMs){
   const ctrl = new AbortController();
   const t = setTimeout(()=>ctrl.abort(), timeoutMs);
   try{
     const r = await fetch(url, {signal:ctrl.signal});
+    netOk = true;         // 收到任何回應（含 404）就代表連得上
     if(!r.ok) throw new Error('HTTP '+r.status);
     return await r.json();
   } finally {
@@ -1129,33 +1142,95 @@ async function fetchJson(url, timeoutMs){
   }
 }
 
-async function searchCommons(q){
-  const url = 'https://commons.wikimedia.org/w/api.php'
-    + '?action=query&format=json&origin=*'
-    + '&generator=search&gsrnamespace=6&gsrlimit=12'
-    + '&gsrsearch=' + encodeURIComponent(q)
-    + '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=800';
-  const j = await fetchJson(url, 6000);
-  const pages = j?.query?.pages ? Object.values(j.query.pages) : [];
-  return pages
-    .map(p=>p.imageinfo?.[0])
-    .filter(i=> i && /\.(jpe?g|png|webp)$/i.test(i.url))
-    .slice(0,5);
+// "Sólfar (Sun Voyager)" → ["Sun Voyager","Sólfar"]；"Geysir / Strokkur" → ["Geysir","Strokkur"]
+// 括號裡外取較長的那個當首選，避免把 "(KEF)" 這種縮寫拿去查條目。
+function titleCandidates(s){
+  const out = [];
+  s.name.split(' / ').map(t=>t.trim()).filter(Boolean).forEach(n=>{
+    const m = n.match(/^(.*?)\s*\(([^)]+)\)$/);
+    if(m){
+      const a = m[1].trim(), b = m[2].trim();
+      out.push(...(a.length >= b.length ? [a,b] : [b,a]));
+    } else out.push(n);
+  });
+  return [...new Set(out.filter(Boolean))];
 }
 
-// Wikipedia 條目的主圖，命中率比 Commons 全文檢索高，當作備援單張照片
-async function fetchWikipediaThumb(name){
-  const url = 'https://en.wikipedia.org/api/rest_v1/page/summary/'
-    + encodeURIComponent(name) + '?redirect=true';
-  const j = await fetchJson(url, 6000);
-  const src = j?.originalimage?.source || j?.thumbnail?.source;
-  if(!src) return [];
-  return [{
-    thumburl: j.thumbnail?.source || src,
-    url: src,
-    descriptionurl: j.content_urls?.desktop?.page || url,
-    extmetadata: {}
-  }];
+async function wikiSummary(title){
+  const j = await fetchJson(
+    `${WIKI}/api/rest_v1/page/summary/${encodeURIComponent(title)}?redirect=true`, 8000);
+  if(!j || j.type === 'disambiguation' || !j.titles?.canonical) return null;
+  return j;
+}
+
+// 找出這個景點對應的維基條目；名稱查不到就用 q 全文搜尋
+async function resolveArticle(s){
+  for(const t of titleCandidates(s)){
+    try{ const j = await wikiSummary(t); if(j) return j; }catch(e){ /* 換下一個候選 */ }
+  }
+  try{
+    const j = await fetchJson(`${WIKI}/w/api.php?action=query&format=json&origin=*`
+      + '&list=search&srnamespace=0&srlimit=1&srsearch=' + encodeURIComponent(s.q), 8000);
+    const hit = j?.query?.search?.[0]?.title;
+    if(hit) return await wikiSummary(hit);
+  }catch(e){ /* 交給呼叫端處理 */ }
+  return null;
+}
+
+// Wikimedia 縮圖網址可以直接改寬度
+function atWidth(src, w){
+  const u = src.startsWith('//') ? 'https:' + src : src;
+  return u.includes('/thumb/') ? u.replace(/\/\d+px-([^/]+)$/, `/${w}px-$1`) : u;
+}
+
+const filePage  = title => `${COMMONS}/wiki/${encodeURIComponent(title)}`;
+const fileLabel = title => title.replace(/^File:/,'').replace(/\.[a-z0-9]+$/i,'').replace(/_/g,' ');
+
+// 條目內的圖片，維持條目裡的先後順序
+async function articleImages(canonical, s){
+  const j = await fetchJson(
+    `${WIKI}/api/rest_v1/page/media-list/${encodeURIComponent(canonical)}?redirect=true`, 8000);
+  return (j?.items || [])
+    .filter(it => it.type === 'image' && it.showInGallery !== false)
+    .filter(it => Array.isArray(it.srcset) && it.srcset.length && it.srcset[0]?.src)
+    .filter(it => !SKIP.test(it.title || ''))
+    .slice(0, 6)
+    .map((it, n) => ({
+      thumb : atWidth(it.srcset[0].src, 640),
+      full  : atWidth(it.srcset[0].src, 1600),
+      page  : filePage(it.title),
+      title : fileLabel(it.title),
+      author: '',
+      file  : it.title,
+      alt   : `${s.name} 實景照片 ${n+1}`
+    }));
+}
+
+// 最後手段：Commons 全文檢索。保留搜尋相關性排序（generator 結果要照 index 排）。
+async function searchCommons(q, s){
+  const j = await fetchJson(`${COMMONS}/w/api.php?action=query&format=json&origin=*`
+    + '&generator=search&gsrnamespace=6&gsrlimit=20'
+    + '&gsrsearch=' + encodeURIComponent(q)
+    + '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=640', 9000);
+  const pages = j?.query?.pages ? Object.values(j.query.pages) : [];
+  return pages
+    .sort((a,b)=>(a.index||0)-(b.index||0))
+    .filter(p => !SKIP.test(p.title||''))
+    .map(p => {
+      const i = p.imageinfo?.[0];
+      if(!i || !/\.(jpe?g|png|webp)$/i.test(i.url)) return null;
+      return {
+        thumb : i.thumburl || i.url,
+        full  : i.url,
+        page  : i.descriptionurl || filePage(p.title),
+        title : (i.extmetadata?.ObjectName?.value || '').replace(/<[^>]*>/g,'') || fileLabel(p.title),
+        author: (i.extmetadata?.Artist?.value || '').replace(/<[^>]*>/g,'').slice(0,40),
+        file  : p.title,
+        alt   : `${s.name} 實景照片`
+      };
+    })
+    .filter(Boolean)
+    .slice(0, 6);
 }
 
 const esc = str => String(str).replace(/[&<>"']/g, c =>
@@ -1168,41 +1243,52 @@ async function loadPhotos(s, token){
   const gal  = document.getElementById('gal');
   const note = document.getElementById('photoNote');
 
-  let imgs = [];
-  let failed = false;
-  try{
-    imgs = await searchCommons(s.q);
-  }catch(e){ failed = true; }
+  let photos = [];
+  netOk = false;
+
+  let article = null;
+  try{ article = await resolveArticle(s); }catch(e){ /* 交給下面的備援 */ }
   if(token !== reqToken) return;                       // 已切換到別的景點
 
-  if(!imgs.length){
+  if(article){
     try{
-      imgs = await fetchWikipediaThumb(s.name);
-      if(imgs.length) failed = false;
-    }catch(e){ /* 保留原本的 failed 狀態 */ }
+      photos = await articleImages(article.titles.canonical, s);
+    }catch(e){ /* 退回條目主圖 */ }
+    if(token !== reqToken) return;
+
+    // 條目沒有圖庫時，至少還有主圖
+    if(!photos.length){
+      const src = article.originalimage?.source || article.thumbnail?.source;
+      if(src) photos = [{
+        thumb : article.thumbnail?.source || src,
+        full  : src,
+        page  : article.content_urls?.desktop?.page || WIKI,
+        title : article.titles.normalized || s.name,
+        author: '', file: '', alt: `${s.name} 實景照片`
+      }];
+    }
+  }
+
+  if(!photos.length){
+    try{ photos = await searchCommons(s.q, s); }catch(e){ /* 全部失敗 */ }
     if(token !== reqToken) return;
   }
 
-  if(!imgs.length){ fallback(gal, note, s, failed); return; }
+  if(!photos.length){ fallback(gal, note, s, !netOk); return; }
 
-  PHOTOS = imgs.map((i, n)=>({
-    full: i.url,
-    page: i.descriptionurl,
-    title: (i.extmetadata?.ObjectName?.value || '').replace(/<[^>]*>/g,'') || 'Wikimedia Commons',
-    author: (i.extmetadata?.Artist?.value || '').replace(/<[^>]*>/g,'').slice(0,40),
-    alt: `${s.name} 實景照片 ${n+1}`
-  }));
+  PHOTOS = photos;
+  renderGallery(gal, note, s, photos);
+  enrichCredits(photos, token);                        // 非阻塞，失敗就維持檔名
+}
 
-  gal.innerHTML = imgs.map((i, n)=>{
-    const p = PHOTOS[n];
-    const cred = esc(p.title) + (p.author ? ' · ' + esc(p.author) : '');
-    return `<div class="ph">
+function renderGallery(gal, note, s, photos){
+  gal.innerHTML = photos.map((p, n) => `
+    <div class="ph">
       <button type="button" class="shot" data-i="${n}" aria-label="放大檢視：${esc(p.alt)}">
-        <img src="${esc(i.thumburl||i.url)}" alt="${esc(p.alt)}" loading="lazy">
+        <img src="${esc(p.thumb)}" alt="${esc(p.alt)}" loading="lazy">
       </button>
-      <a class="cred" href="${esc(p.page)}" target="_blank" rel="noopener">${cred}</a>
-    </div>`;
-  }).join('');
+      <a class="cred" data-i="${n}" href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.title)}${p.author ? ' · ' + esc(p.author) : ''}</a>
+    </div>`).join('');
 
   gal.querySelectorAll('.ph img').forEach(im=>{
     if(im.complete && im.naturalWidth) im.classList.add('ready');
@@ -1216,6 +1302,33 @@ async function loadPhotos(s, token){
   note.innerHTML = `點圖可放大 · <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">看更多照片</a>`;
 }
 
+// 補上作者與正式圖名；Commons 連不上就沿用檔名，不影響已顯示的照片
+async function enrichCredits(photos, token){
+  const files = photos.filter(p => p.file && !p.author).map(p => p.file);
+  if(!files.length) return;
+  let pages;
+  try{
+    const j = await fetchJson(`${COMMONS}/w/api.php?action=query&format=json&origin=*`
+      + '&prop=imageinfo&iiprop=extmetadata&iiextmetadatafilter=Artist|ObjectName'
+      + '&titles=' + encodeURIComponent(files.slice(0,10).join('|')), 8000);
+    pages = j?.query?.pages;
+  }catch(e){ return; }
+  if(!pages || token !== reqToken) return;
+
+  const meta = {};
+  Object.values(pages).forEach(p=>{ meta[p.title] = p.imageinfo?.[0]?.extmetadata || {}; });
+  photos.forEach((p, n)=>{
+    const md = meta[p.file];
+    if(!md) return;
+    const objName = (md.ObjectName?.value || '').replace(/<[^>]*>/g,'').trim();
+    const author  = (md.Artist?.value || '').replace(/<[^>]*>/g,'').trim().slice(0,40);
+    if(objName) p.title = objName;
+    if(author)  p.author = author;
+    const el = document.querySelector(`.ph .cred[data-i="${n}"]`);
+    if(el) el.textContent = p.title + (p.author ? ' · ' + p.author : '');
+  });
+}
+
 function fallback(gal, note, s, failed){
   note.textContent = '';
   gal.innerHTML = `
@@ -1225,7 +1338,7 @@ function fallback(gal, note, s, failed){
         <b>${failed ? '照片載入失敗' : '找不到這個地點的照片'}</b>
         <p>${failed
           ? '可能是網路連線不穩，或目前連不到 Wikimedia。稍後重新整理即可再試一次。'
-          : 'Wikimedia Commons 上沒有符合的圖片，可以直接到 Google 圖片搜尋。'}</p>
+          : '維基百科上沒有這個地點的圖片，可以直接到 Google 圖片搜尋。'}</p>
         <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">
           在 Google 圖片搜尋「${esc(s.name)}」${icon('i-ext')}
         </a>
