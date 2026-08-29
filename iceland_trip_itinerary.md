@@ -27,7 +27,7 @@
 
 晚上：
 
-- 若天氣好，第一次追極光
+- 日落近 22:00，晚餐後仍可散步（此季節永晝，無極光）
 
 住宿：
 
@@ -80,7 +80,7 @@
 
 上午：
 
-- Dyrhólaey
+- Dyrhólaey（5/1–6/25 鳥類管制，上部 Háey 常在 5/1–5/12 封閉，出發前查 ust.is）
 - Reynisfjara Black Sand Beach
 
 下午（往西 30 分鐘）：
@@ -96,28 +96,38 @@
 
 ---
 
-# Day 5｜5/4（二）冰河潟湖
+# Day 5｜5/4（二）Skaftafell 國家公園
 
 景點：
 
 - Fjaðrárgljúfur Canyon
-- Skaftafell
+- Kirkjubæjarklaustur（補給、Kirkjugólf 玄武岩露頭）
+- Skaftafell —— Svartifoss + Sjónarnípa 環線，約 3 小時
+- Hofskirkja 草皮教堂（住宿地旁）
+
+潟湖留到明天早上拍晨光。
+
+住宿：
+
+**Skaftafell / Hof 一帶**
+
+---
+
+# Day 6｜5/5（三）冰河潟湖 + Vestrahorn
+
+上午：
+
+- Fjallsárlón
 - Jökulsárlón
 - Diamond Beach
 
 可選：
 
-- Zodiac Boat Tour（建議提前預約）
+- Zodiac Boat Tour（通常 5/1 開航，5 月初班次少，務必先訂）
 
-住宿：
+下午：
 
-**Jökulsárlón / Höfn 附近**
-
----
-
-# Day 6｜5/5（三）Höfn + Vestrahorn
-
-- Vestrahorn / Stokksnes
+- Vestrahorn / Stokksnes（黃昏）
 - Höfn 小鎮（晚餐吃龍蝦）
 
 住宿：
@@ -133,7 +143,9 @@
 - Djúpivogur（石蛋雕塑）
 - Petra's Stone Collection（可選，Stöðvarfjörður）
 
-翻山抵達內陸樞紐 Egilsstaðir 過夜。
+翻山抵達 Egilsstaðir 放行李。傍晚走 94 號公路來回 Hafnarhólmi（約 3 小時）：
+
+- Hafnarhólmi 海鸚棲地（Borgarfjörður eystri）—— 海鸚 4 月中抵達，18:00–22:00 最活躍
 
 住宿：
 
@@ -176,7 +188,7 @@ Mývatn Nature Baths
 
 住宿：
 
-**Mývatn 或 Akureyri**
+**Mývatn**
 
 ---
 
@@ -195,7 +207,9 @@ Húsavík
 
 - Whale Watching
 
-返回 Akureyri。
+沿 1 號公路返回 Akureyri，順路：
+
+- Goðafoss
 
 住宿：
 
@@ -315,7 +329,8 @@ KEF 機場就在 Reykjanes 半島上，觀光後直接前往機場，不繞路�
 | Reykjavík（Day1,14,15） | 3 |
 | Hvolsvöllur（Day2） | 1 |
 | Vík（Day3,4） | 2 |
-| Jökulsárlón / Höfn（Day5,6） | 2 |
+| Skaftafell / Hof（Day5） | 1 |
+| Höfn（Day6） | 1 |
 | Egilsstaðir（Day7） | 1 |
 | Mývatn（Day8,9） | 2 |
 | Akureyri（Day10） | 1 |
@@ -348,11 +363,15 @@ KEF 機場就在 Reykjanes 半島上，觀光後直接前往機場，不繞路�
 
 ✅ Jökulsárlón
 
+✅ Fjallsárlón
+
 ✅ Diamond Beach
 
 ✅ Vestrahorn
 
 ✅ 東部峽灣（Djúpivogur、Seyðisfjörður）
+
+✅ Hafnarhólmi 海鸚棲地
 
 ✅ Hengifoss
 
