@@ -51,7 +51,11 @@ maintaining an image library.
   view time (no stored images, no API key) — requires network access to
   render.
 - Map is a Google Maps `output=embed` iframe, no API key.
-- No accounts, no persistence, no analytics.
+- Itinerary exports to KML/CSV for Google 我的地圖 and reads a My Maps
+  KML/CSV/GPX export back; My Maps has no API, so the round trip is by file,
+  not sync.
+- No accounts, no analytics. The only stored state is a `localStorage`
+  copy of places imported back from Google 我的地圖.
 
 ## Brand Commitments
 

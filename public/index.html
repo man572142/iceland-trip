@@ -295,7 +295,7 @@
     border:1px solid rgba(126,147,172,.24);
   }
 
-  .day-actions{padding:9px 2px 0}
+  .day-actions{padding:9px 2px 0;display:flex;flex-wrap:wrap;gap:8px}
   .route-btn{
     display:inline-flex;align-items:center;gap:7px;
     font-size:var(--t-sm);font-weight:500;color:var(--aurora-hi);
@@ -306,6 +306,11 @@
   }
   .route-btn .ico{--ico:15px}
   .route-btn:hover{background:var(--aurora-14);border-color:var(--aurora-45)}
+  .route-btn.gap-btn{
+    color:var(--text-3);border-color:var(--line);
+    background:transparent;
+  }
+  .route-btn.gap-btn:hover{background:var(--surface-2);border-color:var(--text-4)}
 
   .tail{
     background:var(--surface);border:1px solid var(--line);
@@ -513,6 +518,96 @@
   .lb-next{right:16px;top:50%;transform:translateY(-50%)}
   .lb-btn[hidden]{display:none}
 
+  /* ---------- Google 我的地圖：匯出 / 匯回 ---------- */
+  button.nav-link{font-family:inherit;cursor:pointer}
+
+  .sheet-bg{
+    position:fixed;inset:0;z-index:210;
+    background:rgba(4,6,10,.86);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    display:flex;align-items:center;justify-content:center;
+    padding:clamp(12px,4vw,42px);
+    animation:fade .24s var(--ease) both;
+  }
+  .sheet-bg[hidden]{display:none}
+  .sheet{
+    display:flex;flex-direction:column;
+    width:min(600px,100%);max-height:100%;
+    background:var(--surface);
+    border:1px solid var(--line-2);border-radius:var(--r-lg);
+    box-shadow:var(--shadow-2);
+    animation:rise .32s var(--ease) both;
+  }
+  .sheet-head{
+    display:flex;align-items:center;gap:10px;
+    padding:15px 17px;border-bottom:1px solid var(--line);
+  }
+  .sheet-head h2{margin:0;font-size:var(--t-md);font-weight:700}
+  .sheet-head .ico{--ico:17px;color:var(--aurora)}
+  .sheet-x{position:static;width:32px;height:32px;margin-left:auto;border-radius:var(--r-sm)}
+  .sheet-x .ico{--ico:16px}
+  .sheet-body{overflow-y:auto;padding:0 17px 17px}
+
+  .sync-sec{padding:15px 0;border-bottom:1px solid var(--line)}
+  .sync-sec:last-child{border-bottom:0;padding-bottom:2px}
+  .sync-sec h3{
+    display:flex;align-items:center;gap:7px;
+    margin:0 0 7px;font-size:var(--t-sm);font-weight:700;color:var(--text);
+  }
+  .sync-sec h3 .ico{--ico:15px;color:var(--aurora)}
+  .sync-note{margin:0 0 12px;font-size:var(--t-sm);line-height:1.85;color:var(--text-3)}
+  .sync-note a{color:var(--aurora-hi);text-decoration:none;border-bottom:1px solid var(--aurora-28)}
+  .sync-row{display:flex;flex-wrap:wrap;gap:8px}
+
+  .cta{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:inherit;font-size:var(--t-sm);font-weight:600;
+    padding:8px 14px;border-radius:var(--r-sm);cursor:pointer;
+    background:var(--aurora);color:var(--on-aurora);border:1px solid var(--aurora);
+    transition:background .16s,border-color .16s,color .16s;
+  }
+  .cta:hover{background:var(--aurora-hi);border-color:var(--aurora-hi)}
+  .cta .ico{--ico:15px}
+  .cta.ghost{background:var(--surface-2);color:var(--text-2);border-color:var(--line-2)}
+  .cta.ghost:hover{background:var(--surface-3);color:var(--text)}
+  .cta.quiet{
+    background:transparent;color:var(--text-4);border-color:var(--line);
+    font-weight:500;padding:6px 11px;
+  }
+  .cta.quiet:hover{color:var(--text-2);border-color:var(--line-2);background:var(--surface-2)}
+
+  .sync-hints{margin:11px 0 0;padding-left:17px;font-size:var(--t-xs);line-height:1.95;color:var(--text-4)}
+  .sync-hints code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.94em;
+    background:var(--surface-3);border:1px solid var(--line);
+    padding:1px 5px;border-radius:5px;color:var(--text-3);
+  }
+
+  .imp-sum{
+    margin:13px 0 0;padding:10px 12px;
+    background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm);
+    font-size:var(--t-sm);line-height:1.85;color:var(--text-2);
+  }
+  .imp-sum b{color:var(--aurora-hi);font-variant-numeric:tabular-nums}
+  .imp-sum.bad{color:var(--ember);border-color:rgba(255,145,102,.3)}
+  .imp-list{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+  .imp-list button{
+    font-family:inherit;font-size:var(--t-xs);color:var(--text-2);
+    background:var(--surface-3);border:1px solid var(--line-2);
+    padding:4px 10px;border-radius:99px;cursor:pointer;
+    transition:color .16s,border-color .16s;
+  }
+  .imp-list button:hover{color:var(--text);border-color:var(--aurora-45)}
+  .imp-miss{margin:9px 0 0;font-size:var(--t-xs);line-height:1.9;color:var(--text-4)}
+  .imp-code{
+    display:block;width:100%;margin:10px 0 0;padding:10px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:var(--t-xs);line-height:1.7;
+    background:var(--sunken);color:var(--text-3);
+    border:1px solid var(--line);border-radius:var(--r-sm);
+    resize:vertical;min-height:96px;
+  }
+  .imp-code[hidden]{display:none}
+
   /* ---------- Mobile ---------- */
   @media (max-width:940px){
     header{
@@ -596,6 +691,11 @@
   <symbol id="i-x" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11"/><path d="m17.5 6.5-11 11"/></symbol>
   <symbol id="i-image-off" viewBox="0 0 24 24"><path d="m3 3 18 18"/><path d="M21 15.5V6a2 2 0 0 0-2-2H8.5"/><path d="M3 7.5V18a2 2 0 0 0 2 2h11"/><path d="m3.5 17.5 4.5-4.5 2.5 2.5"/></symbol>
   <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.4 8.6-1.9 4.9-4.9 1.9 1.9-4.9z"/></symbol>
+  <symbol id="i-sync" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3l2.2 2.2"/><path d="M19.5 4.6V9h-4.4"/><path d="M19.5 12a7.5 7.5 0 0 1-12.8 5.3l-2.2-2.2"/><path d="M4.5 19.4V15h4.4"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3.5v11.5"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M4.5 19.5h15"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20.5V9"/><path d="m7.5 13.5 4.5-4.5 4.5 4.5"/><path d="M4.5 4.5h15"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11.5" height="11.5" rx="2.2"/><path d="M15 6.5V5.6A2.1 2.1 0 0 0 12.9 3.5H5.6A2.1 2.1 0 0 0 3.5 5.6v7.3A2.1 2.1 0 0 0 5.6 15h.9"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 6.5h15"/><path d="M9.5 6.5V5.1c0-.7.6-1.3 1.3-1.3h2.4c.7 0 1.3.6 1.3 1.3v1.4"/><path d="M6.6 6.5 7.5 19a1.5 1.5 0 0 0 1.5 1.4h6a1.5 1.5 0 0 0 1.5-1.4l.9-12.5"/></symbol>
 </defs></svg>
 
 <header>
@@ -606,6 +706,9 @@
     <span><i style="background:var(--glacier)"></i>城鎮 / 交通</span>
     <span><i style="background:var(--ink-400)"></i>可選</span>
   </div>
+  <button type="button" class="nav-link" id="syncBtn" aria-haspopup="dialog">
+    <svg class="ico" aria-hidden="true"><use href="#i-sync"/></svg>我的地圖
+  </button>
   <a class="nav-link" href="./flights.html">
     <svg class="ico" aria-hidden="true"><use href="#i-plane"/></svg>機票方案
   </a>
@@ -683,6 +786,62 @@
       </div>
     </div>
   </section>
+</div>
+
+<div class="sheet-bg" id="sync" role="dialog" aria-modal="true" aria-labelledby="syncTitle" hidden>
+  <div class="sheet">
+    <div class="sheet-head">
+      <svg class="ico" aria-hidden="true"><use href="#i-sync"/></svg>
+      <h2 id="syncTitle">Google 我的地圖</h2>
+      <button type="button" class="lb-btn sheet-x" id="syncClose" aria-label="關閉">
+        <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+
+    <div class="sheet-body scroller">
+      <section class="sync-sec">
+        <h3><svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>匯出到我的地圖</h3>
+        <p class="sync-note">
+          下載後開啟
+          <a href="https://www.google.com/mymaps" target="_blank" rel="noopener">Google 我的地圖</a>
+          → 建立新地圖 → 匯入 → 選檔案。
+        </p>
+        <div class="sync-row">
+          <button type="button" class="cta" id="dlCsv">
+            <svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>CSV（單一圖層）
+          </button>
+          <button type="button" class="cta ghost" id="dlKml">
+            <svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>KML（依天分資料夾）
+          </button>
+        </div>
+        <ul class="sync-hints">
+          <li>CSV 匯入時，定位欄位選 <code>lat</code> 與 <code>lng</code>，標題欄位選 <code>name_zh</code>；再用「依據下列欄位設定樣式 → day」讓每天不同顏色。這是 16 天塞進一張地圖最順的做法。</li>
+          <li>KML 每天一個資料夾，但我的地圖每張地圖上限 10 個圖層，16 天會有幾天併不進去；要分天圖層就拆成兩張地圖匯入。KML 也可以直接開在 Google 地球。</li>
+        </ul>
+      </section>
+
+      <section class="sync-sec">
+        <h3><svg class="ico" aria-hidden="true"><use href="#i-up"/></svg>從我的地圖匯回</h3>
+        <p class="sync-note">
+          我的地圖 → 右上角 <b>⋮</b> →「匯出成 KML/KMZ」，勾選<b>「匯出成 KML 而非 KMZ」</b>後選擇檔案。
+          也接受圖層匯出的 CSV 與 GPX。匯回的地點會加到左側清單，只存在這台瀏覽器。
+        </p>
+        <div class="sync-row">
+          <button type="button" class="cta ghost" id="pickFile">
+            <svg class="ico" aria-hidden="true"><use href="#i-up"/></svg>選擇檔案…
+          </button>
+          <input type="file" id="syncFile" accept=".kml,.csv,.tsv,.gpx,.txt" hidden>
+        </div>
+        <div id="syncResult"></div>
+      </section>
+
+      <section class="sync-sec">
+        <p class="sync-note">
+          我的地圖沒有公開 API，無法真正雙向自動同步；上面的檔案往返是目前唯一的路。
+        </p>
+      </section>
+    </div>
+  </div>
 </div>
 
 <div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="放大檢視照片">
@@ -950,19 +1109,24 @@ const REG = {};   // id -> spot
 
 const icon = id => `<svg class="ico" aria-hidden="true"><use href="#${id}"/></svg>`;
 
-DAYS.forEach(day=>{
+function renderDay(day, dayIdx){
   const el = document.createElement('li');
-  const open = day.n===1;
+  const open = day.open || day.n===1;
   el.className = 'day' + (open ? ' open' : '');
-  const bodyId = 'dayBody' + day.n;
+  const bodyId = 'dayBody' + (day.key || day.n);
   const dirUrl = 'https://www.google.com/maps/dir/' +
     day.spots.map(s=>`${s.lat},${s.lng}`).join('/');
   const hasStay = day.stay !== '—';
 
+  const nextDay = DAYS[dayIdx+1];
+  const gapUrl = nextDay ? 'https://www.google.com/maps/dir/' +
+    `${day.spots[day.spots.length-1].lat},${day.spots[day.spots.length-1].lng}` +
+    '/' + `${nextDay.spots[0].lat},${nextDay.spots[0].lng}` : '';
+
   el.innerHTML = `
     <h2 style="margin:0;font-size:inherit;font-weight:inherit">
       <button type="button" class="day-head" aria-expanded="${open}" aria-controls="${bodyId}">
-        <span class="day-no">DAY ${day.n}</span>
+        <span class="day-no">${day.label || `DAY ${day.n}`}</span>
         <span class="day-main">
           <span class="day-title">${day.title}</span>
           <span class="day-meta">
@@ -978,7 +1142,10 @@ DAYS.forEach(day=>{
       <div class="day-body-inner"><div class="day-body-pad">
         <p class="day-note">${day.note}</p>
         <ul class="day-spots"></ul>
-        ${day.spots.length>1 ? `<div class="day-actions"><a class="route-btn" href="${dirUrl}" target="_blank" rel="noopener">${icon('i-route')}在 Google 地圖規劃當日路線</a></div>` : ''}
+        ${day.spots.length>1 || nextDay ? `<div class="day-actions">
+          ${day.spots.length>1 ? `<a class="route-btn" href="${dirUrl}" target="_blank" rel="noopener">${icon('i-route')}在 Google 地圖規劃當日路線</a>` : ''}
+          ${nextDay ? `<a class="route-btn gap-btn" href="${gapUrl}" target="_blank" rel="noopener">${icon('i-route')}前往 Day ${nextDay.n} 的移動路線與車程</a>` : ''}
+        </div>` : ''}
       </div></div>
     </div>`;
 
@@ -1008,10 +1175,13 @@ DAYS.forEach(day=>{
     syncToggleAll();
   });
   dayList.appendChild(el);
-});
+  return el;
+}
+
+DAYS.forEach(renderDay);
 
 document.getElementById('dayCount').textContent =
-  `${DAYS.length} 天 · ${Object.keys(REG).length} 個地點`;
+  `${DAYS.length} 天 · ${DAYS.reduce((n,d)=>n+d.spots.length,0)} 個地點`;
 
 function setDayOpen(el, open){
   el.classList.toggle('open', open);
@@ -1441,6 +1611,428 @@ document.addEventListener('keydown', e=>{
     e.preventDefault();
   }
 });
+
+/* =========================================================
+   Google 我的地圖：匯出 KML / CSV，匯回 KML / CSV / GPX
+   我的地圖沒有公開 API（Maps Engine API 已於 2016 關閉），
+   無法自動同步，只能走檔案往返。匯回的地點存在 localStorage，
+   要寫進行程請用「複製 DAYS 片段」貼回本檔的 DAYS。
+   ========================================================= */
+const SYNC_KEY = 'iceland-trip:mymaps:v1';
+
+const syncBtn    = document.getElementById('syncBtn');
+const sheet      = document.getElementById('sync');
+const syncClose  = document.getElementById('syncClose');
+const syncFile   = document.getElementById('syncFile');
+const syncResult = document.getElementById('syncResult');
+
+/* ---------- 開關 ---------- */
+function openSheet(){
+  sheet.hidden = false;
+  document.body.style.overflow = 'hidden';
+  syncClose.focus();
+}
+function closeSheet(){
+  if(sheet.hidden) return;
+  sheet.hidden = true;
+  document.body.style.overflow = '';
+  syncBtn.focus();
+}
+syncBtn.addEventListener('click', openSheet);
+syncClose.addEventListener('click', closeSheet);
+sheet.addEventListener('click', e=>{ if(e.target === sheet) closeSheet(); });
+// 掛在 document 上：清除按鈕消失後焦點會退回 body，Esc 仍要能關
+document.addEventListener('keydown', e=>{
+  if(sheet.hidden) return;
+  if(e.key === 'Escape'){ closeSheet(); return; }
+  if(e.key !== 'Tab') return;
+  // 焦點鎖在對話框內
+  const items = Array.from(sheet.querySelectorAll('button, a[href], textarea'))
+    .filter(el => !el.disabled && el.offsetParent !== null);
+  if(!items.length) return;
+  const i = items.indexOf(document.activeElement);
+  const next = e.shiftKey ? items[(i<=0 ? items.length : i) - 1] : items[(i + 1) % items.length];
+  next.focus();
+  e.preventDefault();
+});
+
+/* ---------- 共用 ---------- */
+const mapsUrl = s => 'https://www.google.com/maps/search/?api=1&query=' +
+  encodeURIComponent(placeQuery(s));
+
+function download(name, text, mime){
+  const url = URL.createObjectURL(new Blob([text], {type:mime}));
+  const a = Object.assign(document.createElement('a'), {href:url, download:name});
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 2000);
+}
+
+/* ================= 匯出：KML ================= */
+// KML 顏色是 aabbggrr，與 CSS 的 #rrggbb 相反
+const KML_STYLES = {spot:'ffbdd945', city:'ffffb48a', opt:'ffac937e'};
+const styleOf = s => s.opt ? 'opt' : (s.kind === 'city' ? 'city' : 'spot');
+const xesc  = v => String(v ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const cdata = v => `<![CDATA[${String(v ?? '').replace(/]]>/g, ']]&gt;')}]]>`;
+
+function kmlDesc(day, s){
+  const meta = [`DAY ${day.n}`, day.date, day.stay !== '—' ? `住 ${day.stay}` : ''].filter(Boolean).join(' · ');
+  return [
+    `<p><b>${xesc(s.name)}</b></p>`,
+    s.desc ? `<p>${xesc(s.desc)}</p>` : '',
+    `<p>${xesc(meta)}${s.opt ? ' · 可選' : ''}</p>`,
+    `<p><a href="${xesc(mapsUrl(s))}">在 Google 地圖開啟</a></p>`
+  ].filter(Boolean).join('');
+}
+
+function buildKml(){
+  const styles = Object.entries(KML_STYLES).map(([id, color]) => `  <Style id="${id}">
+    <IconStyle>
+      <color>${color}</color><scale>1.1</scale>
+      <Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon>
+      <hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+    </IconStyle>
+    <LabelStyle><color>${color}</color></LabelStyle>
+  </Style>`).join('\n');
+
+  const folders = DAYS.map(day => {
+    const marks = day.spots.map((s, i) => `      <Placemark>
+        <name>${xesc(s.zh || s.name)}</name>
+        <styleUrl>#${styleOf(s)}</styleUrl>
+        <description>${cdata(kmlDesc(day, s))}</description>
+        <ExtendedData>
+          <Data name="day"><value>${day.n}</value></Data>
+          <Data name="date"><value>${xesc(day.date)}</value></Data>
+          <Data name="order"><value>${i + 1}</value></Data>
+          <Data name="name_en"><value>${xesc(s.name)}</value></Data>
+          <Data name="type"><value>${s.kind === 'city' ? 'city' : 'spot'}</value></Data>
+          <Data name="optional"><value>${s.opt ? 'yes' : ''}</value></Data>
+          <Data name="stay"><value>${xesc(day.stay)}</value></Data>
+        </ExtendedData>
+        <Point><coordinates>${s.lng},${s.lat},0</coordinates></Point>
+      </Placemark>`).join('\n');
+
+    return `    <Folder>
+      <name>DAY ${day.n} · ${xesc(day.title)}${day.date ? ` · ${xesc(day.date)}` : ''}</name>
+      <description>${cdata(`<p>${xesc(day.note)}</p>`)}</description>
+${marks}
+    </Folder>`;
+  }).join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <name>${xesc(document.title)}</name>
+  <description>${cdata('<p>由行程網站匯出。</p>')}</description>
+${styles}
+${folders}
+</Document>
+</kml>
+`;
+}
+
+/* ================= 匯出：CSV ================= */
+const csvCell = v => {
+  const t = String(v ?? '');
+  return /[",\r\n]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t;
+};
+
+function buildCsv(){
+  const rows = [['day','date','order','name_zh','name_en','type','optional','stay','lat','lng','desc','maps_url']];
+  DAYS.forEach(day => day.spots.forEach((s, i) => rows.push([
+    day.n, day.date, i + 1, s.zh, s.name,
+    s.kind === 'city' ? 'city' : 'spot',
+    s.opt ? 'yes' : '',
+    day.stay === '—' ? '' : day.stay,
+    s.lat, s.lng, s.desc, mapsUrl(s)
+  ])));
+  // BOM：Excel 與試算表才會把中文讀成 UTF-8
+  return '\uFEFF' + rows.map(r => r.map(csvCell).join(',')).join('\r\n') + '\r\n';
+}
+
+const stamp = () => new Date().toISOString().slice(0, 10);
+document.getElementById('dlKml').addEventListener('click', ()=>
+  download(`iceland-trip-${stamp()}.kml`, buildKml(), 'application/vnd.google-earth.kml+xml'));
+document.getElementById('dlCsv').addEventListener('click', ()=>
+  download(`iceland-trip-${stamp()}.csv`, buildCsv(), 'text/csv;charset=utf-8'));
+
+/* ================= 匯回：解析 ================= */
+const childText = (el, tag) => {
+  const c = Array.from(el.children).find(x => x.localName === tag);
+  return c ? c.textContent.trim() : '';
+};
+// DOMParser 產生的文件是惰性的：不執行 script、不載入圖片
+const stripHtml = html =>
+  new DOMParser().parseFromString(String(html || ''), 'text/html').body.textContent.replace(/\s+/g, ' ').trim();
+
+function parseKml(text){
+  const doc = new DOMParser().parseFromString(text, 'application/xml');
+  if(doc.getElementsByTagName('parsererror').length) throw new Error('這個檔案不是有效的 KML。');
+  const out = [];
+  Array.from(doc.getElementsByTagNameNS('*', 'Placemark')).forEach(pm => {
+    const co = pm.getElementsByTagNameNS('*', 'coordinates')[0];
+    if(!co) return;
+    // 線段 / 多邊形取第一個點
+    const [lng, lat] = co.textContent.trim().split(/\s+/)[0].split(',').map(Number);
+    if(!isFinite(lat) || !isFinite(lng)) return;
+    let layer = '';
+    for(let p = pm.parentElement; p && !layer; p = p.parentElement){
+      if(p.localName === 'Folder' || p.localName === 'Document') layer = childText(p, 'name');
+    }
+    out.push({name: childText(pm, 'name'), lat, lng, layer, desc: stripHtml(childText(pm, 'description'))});
+  });
+  return out;
+}
+
+function parseGpx(text){
+  const doc = new DOMParser().parseFromString(text, 'application/xml');
+  if(doc.getElementsByTagName('parsererror').length) throw new Error('這個檔案不是有效的 GPX。');
+  return Array.from(doc.getElementsByTagNameNS('*', 'wpt')).map(w => ({
+    name: childText(w, 'name'),
+    lat: Number(w.getAttribute('lat')),
+    lng: Number(w.getAttribute('lon')),
+    layer: '',
+    desc: stripHtml(childText(w, 'desc'))
+  })).filter(p => isFinite(p.lat) && isFinite(p.lng));
+}
+
+function splitRows(text, delim){
+  const rows = [];
+  let row = [], cell = '', quoted = false;
+  for(let i = 0; i < text.length; i++){
+    const c = text[i];
+    if(quoted){
+      if(c !== '"'){ cell += c; }
+      else if(text[i+1] === '"'){ cell += '"'; i++; }
+      else quoted = false;
+    }
+    else if(c === '"') quoted = true;
+    else if(c === delim){ row.push(cell); cell = ''; }
+    else if(c === '\n'){ row.push(cell); rows.push(row); row = []; cell = ''; }
+    else if(c !== '\r') cell += c;
+  }
+  if(cell !== '' || row.length){ row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(v => v.trim() !== ''));
+}
+
+function parseCsv(text){
+  const t = text.replace(/^\uFEFF/, '');
+  const head1 = t.slice(0, t.indexOf('\n') + 1 || t.length);
+  const delim = head1.split('\t').length > head1.split(',').length ? '\t' : ',';
+  const rows = splitRows(t, delim);
+  if(rows.length < 2) throw new Error('這個 CSV 沒有資料列。');
+
+  const head = rows[0].map(h => h.trim().toLowerCase());
+  const at = (...names) => head.findIndex(h => names.includes(h));
+  const iLat  = at('lat', 'latitude', 'y', '緯度');
+  const iLng  = at('lng', 'lon', 'long', 'longitude', 'x', '經度');
+  const iWkt  = head.findIndex(h => h.includes('wkt'));
+  const iDesc = at('desc', 'description', 'note', '說明', '備註');
+  let iName = at('name_zh', 'name', 'title', '名稱', '地點', '標題');
+  if(iName < 0) iName = head.findIndex((h, i) => i !== iLat && i !== iLng && i !== iWkt && i !== iDesc);
+  if(iLat < 0 && iWkt < 0) throw new Error('CSV 找不到座標欄（需要 lat / lng 或 WKT 欄）。');
+
+  return rows.slice(1).map(r => {
+    let lat, lng;
+    if(iLat >= 0 && iLng >= 0){ lat = Number(r[iLat]); lng = Number(r[iLng]); }
+    else {
+      // 我的地圖圖層匯出的 WKT：POINT (-21.9266 64.1417)
+      const m = /(-?\d+(?:\.\d+)?)[\s,]+(-?\d+(?:\.\d+)?)/.exec(r[iWkt] || '');
+      if(m){ lng = Number(m[1]); lat = Number(m[2]); }
+    }
+    return {name: r[iName] || '', lat, lng, layer: '', desc: iDesc >= 0 ? r[iDesc] : ''};
+  }).filter(p => isFinite(p.lat) && isFinite(p.lng));
+}
+
+function parseFile(name, text){
+  const ext = name.toLowerCase().split('.').pop();
+  if(ext === 'kmz') throw new Error('讀不了 KMZ（壓縮檔）。匯出時請勾選「匯出成 KML 而非 KMZ」。');
+  if(ext === 'gpx') return parseGpx(text);
+  if(ext === 'csv' || ext === 'tsv') return parseCsv(text);
+  if(ext === 'kml' || /<kml[\s>]/i.test(text.slice(0, 800))) return parseKml(text);
+  return parseCsv(text);
+}
+
+/* ================= 匯回：比對 ================= */
+const ALL_SPOTS = DAYS.flatMap(d => d.spots);
+const nkey = v => String(v || '').toLowerCase().normalize('NFKC')
+  .replace(/[\s·・.,，、;；:：()（）'"''""\-–—/\\]+/g, '');
+
+function metres(a, b){
+  const k = Math.PI / 180;
+  const x = (a.lng - b.lng) * k * 6371000 * Math.cos((a.lat + b.lat) / 2 * k);
+  const y = (a.lat - b.lat) * k * 6371000;
+  return Math.hypot(x, y);
+}
+
+function matchSpot(p){
+  const key = nkey(p.name);
+  return (key && ALL_SPOTS.find(s => nkey(s.name) === key || nkey(s.zh) === key))
+      || ALL_SPOTS.find(s => metres(s, p) < 300)
+      || null;
+}
+
+// 匯入的字串直接進 innerHTML，先拿掉角括號
+const clean = v => String(v || '').replace(/[<>]/g, '').trim();
+
+function toSpot(p){
+  const name = clean(p.name) || `${p.lat.toFixed(4)}, ${p.lng.toFixed(4)}`;
+  return {
+    name,
+    zh: clean(p.layer) || `${p.lat.toFixed(4)}, ${p.lng.toFixed(4)}`,
+    lat: Number(p.lat.toFixed(6)),
+    lng: Number(p.lng.toFixed(6)),
+    z: 15,
+    q: `${name} Iceland`,
+    desc: clean(p.desc) || '從 Google 我的地圖匯回的地點，尚未寫進行程。'
+  };
+}
+
+/* ================= 匯回：左側清單 ================= */
+let imported = [];
+let impEl = null;
+
+function renderImported(){
+  impEl?.remove();
+  impEl = null;
+  if(!imported.length) return;
+  impEl = renderDay({
+    key: 'imp', label: '匯入', open: true,
+    title: '從我的地圖匯回', date: '', stay: '—',
+    note: `${imported.length} 個地點只存在這台瀏覽器，重整仍在，但不在行程檔案裡。`,
+    spots: imported
+  });
+}
+
+function saveImported(){
+  try{
+    imported.length
+      ? localStorage.setItem(SYNC_KEY, JSON.stringify(imported))
+      : localStorage.removeItem(SYNC_KEY);
+  }catch(e){ /* 無痕模式等情況：這次瀏覽仍可用 */ }
+}
+
+function loadImported(){
+  try{
+    const v = JSON.parse(localStorage.getItem(SYNC_KEY) || '[]');
+    return Array.isArray(v) ? v.filter(s => isFinite(s?.lat) && isFinite(s?.lng)) : [];
+  }catch(e){ return []; }
+}
+
+function focusImported(i){
+  const b = impEl?.querySelectorAll('.spot')[i];
+  if(!b) return;
+  closeSheet();
+  b.click();
+  b.scrollIntoView({block:'center', behavior:'smooth'});
+}
+
+/* ================= 匯回：結果面板 ================= */
+function snippetFor(spots){
+  return spots.map(s =>
+`      {name:${JSON.stringify(s.name)}, zh:${JSON.stringify(s.zh)}, lat:${s.lat}, lng:${s.lng}, z:${s.z},
+       q:${JSON.stringify(s.q)}, desc:${JSON.stringify(s.desc)}},`).join('\n');
+}
+
+function showError(msg){
+  syncResult.innerHTML = `<p class="imp-sum bad">${esc(msg)}</p>`;
+}
+
+function showResult(stat){
+  const parts = [
+    `讀到 <b>${stat.total}</b> 個地點：已在行程 <b>${stat.matched}</b> 個`,
+    stat.fresh ? `，新的 <b>${stat.fresh}</b> 個` : '，沒有新的地點',
+    '。'
+  ].join('');
+  const miss = stat.missing.length
+    ? `<p class="imp-miss">行程裡有、這張地圖上沒有的 ${stat.missing.length} 個：${
+        esc(stat.missing.slice(0, 12).map(s => s.zh || s.name).join('、'))}${
+        stat.missing.length > 12 ? ' …' : ''}</p>`
+    : '';
+  const list = imported.length
+    ? `<ul class="imp-list">${imported.map((s, i) =>
+        `<li><button type="button" data-i="${i}">${esc(s.name)}</button></li>`).join('')}</ul>`
+    : '';
+  const actions = imported.length
+    ? `<div class="sync-row" style="margin-top:11px">
+         <button type="button" class="cta ghost" id="impCopy">
+           <svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg><span>複製 DAYS 片段</span>
+         </button>
+         <button type="button" class="cta quiet" id="impClear">
+           <svg class="ico" aria-hidden="true"><use href="#i-trash"/></svg>清除匯回的地點
+         </button>
+       </div>
+       <textarea class="imp-code" id="impCode" readonly hidden aria-label="DAYS 片段"></textarea>`
+    : '';
+
+  syncResult.innerHTML = `<p class="imp-sum">${parts}</p>${miss}${list}${actions}`;
+
+  syncResult.querySelectorAll('.imp-list button').forEach(b =>
+    b.addEventListener('click', ()=>focusImported(Number(b.dataset.i))));
+
+  const code = document.getElementById('impCode');
+  document.getElementById('impCopy')?.addEventListener('click', async e => {
+    const text = snippetFor(imported);
+    const label = e.currentTarget.querySelector('span');
+    try{
+      await navigator.clipboard.writeText(text);
+      label.textContent = '已複製';
+      setTimeout(()=>{ label.textContent = '複製 DAYS 片段'; }, 1600);
+    }catch(err){
+      // 沒有剪貼簿權限就把片段攤開讓人自己選取
+      code.value = text;
+      code.hidden = false;
+      code.select();
+    }
+  });
+  document.getElementById('impClear')?.addEventListener('click', ()=>{
+    imported = [];
+    saveImported();
+    renderImported();
+    syncResult.innerHTML = '<p class="imp-sum">已清除匯回的地點。</p>';
+  });
+}
+
+/* ================= 匯回：讀檔 ================= */
+document.getElementById('pickFile').addEventListener('click', ()=>syncFile.click());
+
+syncFile.addEventListener('change', async ()=>{
+  const file = syncFile.files?.[0];
+  if(!file) return;
+  syncFile.value = '';   // 同一個檔案再選一次也要觸發
+  try{
+    const points = parseFile(file.name, await file.text());
+    if(!points.length){ showError('檔案裡沒有找到任何地點。'); return; }
+
+    const matched = new Set();
+    const seen = new Set();
+    const fresh = [];
+    points.forEach(p => {
+      const hit = matchSpot(p);
+      if(hit){ matched.add(hit); return; }
+      const k = `${p.lat.toFixed(4)},${p.lng.toFixed(4)}`;
+      if(seen.has(k)) return;
+      seen.add(k);
+      fresh.push(toSpot(p));
+    });
+
+    imported = fresh;
+    saveImported();
+    renderImported();
+    showResult({
+      total: points.length,
+      matched: matched.size,
+      fresh: fresh.length,
+      missing: ALL_SPOTS.filter(s => !matched.has(s))
+    });
+  }catch(err){
+    showError(err.message || '讀不了這個檔案。');
+  }
+});
+
+imported = loadImported();
+renderImported();
 
 /* ================= 初始 ================= */
 drawMap();

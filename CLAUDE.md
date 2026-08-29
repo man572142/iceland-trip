@@ -55,6 +55,15 @@ Commons returns nothing. This means the page needs network access to show
 images, and photo quality/relevance depends on tuning the `q` search string
 per spot, not on any local asset.
 
+**Google My Maps round-trip lives in `index.html`** (header button 「我的地圖」).
+My Maps has no public API, so there is no live sync — only files. Export
+builds KML (one `<Folder>` per day, `ExtendedData` columns) and CSV from
+`DAYS`; import parses KML/CSV/GPX in the browser, matches each point against
+`DAYS` by normalised name or 300 m proximity, lists unmatched ones as an
+extra 「匯入」 group in the left column (kept in `localStorage`, key
+`iceland-trip:mymaps:v1`), and can copy them as a `DAYS` snippet to paste
+into this file. KMZ is not supported — export as KML.
+
 **Map is a Google Maps `output=embed` iframe**, built from `lat`/`lng`/`z`,
 no API key required. Map type (road/satellite/terrain) is toggled by
 rewriting the iframe `src`.
