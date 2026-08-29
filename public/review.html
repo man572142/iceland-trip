@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="冰島 16 天行程（2027/4/30–5/15）尚未解決的項目：車程負荷、缺席景點、同質性與深度。">
+<style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>冰島 16 天行程體檢</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  /* ground & ink — warm stone, green-biased near-black */
+  --ground:#F5F4F0;
+  --surface:#FCFCFB;
+  --surface-2:#EFEDE7;
+  --ink:#16201E;
+  --ink-2:#55635F;
+  --ink-3:#7E8B86;
+  --rule:#E0DDD5;
+  --rule-2:#CFCBC1;
+
+  /* accents — glacial teal + low-sun ochre */
+  --accent:#1F6F6B;
+  --accent-ink:#175451;
+  --accent-soft:rgba(31,111,107,.10);
+  --accent-line:rgba(31,111,107,.28);
+  --sun:#B4762A;
+  --sun-soft:rgba(180,118,42,.12);
+
+  /* status — validated, light mode */
+  --ok:#2F7D52;
+  --slack:#3E6FA8;
+  --over:#A63D2F;
+  --ok-soft:rgba(47,125,82,.12);
+  --slack-soft:rgba(62,111,168,.12);
+  --over-soft:rgba(166,61,47,.12);
+
+  --shadow:0 1px 2px rgba(22,32,30,.05), 0 8px 24px -16px rgba(22,32,30,.28);
+
+  --serif:"Newsreader","Noto Serif TC",Georgia,"Times New Roman",serif;
+  --sans:"Noto Sans TC",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#141817;
+    --surface:#1A1F1E;
+    --surface-2:#212726;
+    --ink:#E6E9E6;
+    --ink-2:#A3AEAA;
+    --ink-3:#7C8783;
+    --rule:#2B3231;
+    --rule-2:#3A4241;
+
+    --accent:#4FB3A8;
+    --accent-ink:#7FCCC3;
+    --accent-soft:rgba(79,179,168,.12);
+    --accent-line:rgba(79,179,168,.30);
+    --sun:#D99A45;
+    --sun-soft:rgba(217,154,69,.14);
+
+    --ok:#3E9E68;
+    --slack:#4E90D9;
+    --over:#D75F4A;
+    --ok-soft:rgba(62,158,104,.16);
+    --slack-soft:rgba(78,144,217,.16);
+    --over-soft:rgba(215,95,74,.16);
+
+    --shadow:0 1px 2px rgba(0,0,0,.30), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+
+:root[data-theme="dark"]{
+  --ground:#141817;
+  --surface:#1A1F1E;
+  --surface-2:#212726;
+  --ink:#E6E9E6;
+  --ink-2:#A3AEAA;
+  --ink-3:#7C8783;
+  --rule:#2B3231;
+  --rule-2:#3A4241;
+
+  --accent:#4FB3A8;
+  --accent-ink:#7FCCC3;
+  --accent-soft:rgba(79,179,168,.12);
+  --accent-line:rgba(79,179,168,.30);
+  --sun:#D99A45;
+  --sun-soft:rgba(217,154,69,.14);
+
+  --ok:#3E9E68;
+  --slack:#4E90D9;
+  --over:#D75F4A;
+  --ok-soft:rgba(62,158,104,.16);
+  --slack-soft:rgba(78,144,217,.16);
+  --over-soft:rgba(215,95,74,.16);
+
+  --shadow:0 1px 2px rgba(0,0,0,.30), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.78;
+  -webkit-font-smoothing:antialiased;
+  letter-spacing:.005em;
+}
+
+.wrap{
+  max-width:820px;
+  margin:0 auto;
+  padding:0 24px 96px;
+}
+
+/* ---------- header ---------- */
+.masthead{
+  padding:72px 0 40px;
+  border-bottom:1px solid var(--rule);
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11.5px;
+  font-weight:500;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--sun);
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 14px;
+  align-items:center;
+}
+.eyebrow span::after{content:"";}
+h1{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:clamp(34px,6.2vw,52px);
+  line-height:1.14;
+  letter-spacing:-.015em;
+  margin:0;
+  text-wrap:balance;
+}
+.standfirst{
+  font-family:var(--serif);
+  font-size:clamp(17px,2.3vw,20px);
+  line-height:1.62;
+  color:var(--ink-2);
+  margin:0;
+  max-width:62ch;
+  text-wrap:pretty;
+}
+
+/* ---------- verdict strip ---------- */
+.verdicts{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;
+  background:var(--rule);
+  border:1px solid var(--rule);
+  border-radius:3px;
+  overflow:hidden;
+  margin:40px 0 8px;
+}
+.vcard{
+  background:var(--surface);
+  padding:18px 18px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.vcard .vq{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+}
+.vcard .vtitle{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:17px;
+  line-height:1.3;
+  color:var(--ink);
+}
+.vcard .vbody{
+  font-size:13.5px;
+  line-height:1.62;
+  color:var(--ink-2);
+}
+.vscore{
+  display:inline-flex;
+  align-items:baseline;
+  gap:5px;
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.02em;
+  padding:2px 8px;
+  border-radius:2px;
+  align-self:flex-start;
+}
+.s-ok{color:var(--ok);background:var(--ok-soft)}
+.s-slack{color:var(--slack);background:var(--slack-soft)}
+.s-over{color:var(--over);background:var(--over-soft)}
+
+/* ---------- sections ---------- */
+section{
+  padding-top:64px;
+  scroll-margin-top:24px;
+}
+.sechead{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  margin-bottom:8px;
+  padding-bottom:14px;
+  border-bottom:2px solid var(--accent-line);
+}
+.secnum{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.1em;
+  color:var(--accent);
+  padding-top:4px;
+  flex:none;
+}
+h2{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:clamp(24px,3.6vw,31px);
+  line-height:1.25;
+  letter-spacing:-.01em;
+  margin:0;
+  text-wrap:balance;
+}
+h3{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:19px;
+  line-height:1.4;
+  margin:38px 0 2px;
+  text-wrap:balance;
+}
+h4{
+  font-family:var(--sans);
+  font-weight:700;
+  font-size:14.5px;
+  line-height:1.5;
+  margin:26px 0 -4px;
+  color:var(--ink);
+}
+p{margin:14px 0;max-width:68ch;text-wrap:pretty}
+a{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid var(--accent-line)}
+a:hover{border-bottom-color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+strong{font-weight:700;color:var(--ink)}
+em{font-style:normal;background:var(--sun-soft);padding:1px 4px;border-radius:2px}
+code,.num{font-family:var(--mono);font-size:.88em;font-variant-numeric:tabular-nums}
+.place{font-family:var(--serif);font-style:italic;font-size:1.02em}
+
+ul,ol{margin:14px 0;padding-left:20px;max-width:68ch}
+li{margin:7px 0;padding-left:3px}
+li::marker{color:var(--accent);font-size:.9em}
+ul ul{margin:6px 0}
+
+/* ---------- callout ---------- */
+.callout{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-left:3px solid var(--over);
+  border-radius:3px;
+  padding:22px 24px;
+  margin:26px 0;
+  box-shadow:var(--shadow);
+}
+.callout.warn{border-left-color:var(--sun)}
+.callout.good{border-left-color:var(--ok)}
+.callout > :first-child{margin-top:0}
+.callout > :last-child{margin-bottom:0}
+.callout h4{margin-top:20px}
+.callout h4:first-child{margin-top:0}
+.ctag{
+  font-family:var(--mono);
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--over);
+  display:block;
+  margin-bottom:8px;
+}
+.callout.warn .ctag{color:var(--sun)}
+.callout.good .ctag{color:var(--ok)}
+
+/* ---------- tables ---------- */
+.tablewrap{
+  overflow-x:auto;
+  margin:26px 0;
+  border:1px solid var(--rule);
+  border-radius:3px;
+  background:var(--surface);
+  box-shadow:var(--shadow);
+}
+table{
+  border-collapse:collapse;
+  width:100%;
+  min-width:620px;
+  font-size:14px;
+}
+thead th{
+  font-family:var(--mono);
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  text-align:left;
+  padding:12px 14px;
+  border-bottom:1px solid var(--rule-2);
+  background:var(--surface-2);
+  white-space:nowrap;
+}
+tbody td{
+  padding:9px 14px;
+  border-bottom:1px solid var(--rule);
+  vertical-align:middle;
+  line-height:1.5;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--accent-soft)}
+.tday{
+  font-family:var(--mono);
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--ink-2);
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.troute{min-width:190px}
+.tnum{
+  font-family:var(--mono);
+  font-variant-numeric:tabular-nums;
+  font-size:13px;
+  text-align:right;
+  white-space:nowrap;
+  color:var(--ink-2);
+}
+
+/* load meter — single-series magnitude, one hue, baseline-anchored */
+.meter{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:160px;
+}
+.track{
+  flex:1;
+  height:8px;
+  background:var(--surface-2);
+  border-radius:2px;
+  overflow:hidden;
+  min-width:76px;
+}
+.bar{
+  height:100%;
+  background:var(--accent);
+  border-radius:0 4px 4px 0;
+  width:var(--w);
+}
+.meter .mval{
+  font-family:var(--mono);
+  font-variant-numeric:tabular-nums;
+  font-size:12.5px;
+  font-weight:500;
+  color:var(--ink-2);
+  width:40px;
+  text-align:right;
+  flex:none;
+}
+.chip{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.04em;
+  padding:2.5px 8px;
+  border-radius:2px;
+  white-space:nowrap;
+}
+.c-ok{color:var(--ok);background:var(--ok-soft)}
+.c-slack{color:var(--slack);background:var(--slack-soft)}
+.c-over{color:var(--over);background:var(--over-soft)}
+.tnote{font-size:12.5px;color:var(--ink-3);line-height:1.5}
+
+.caption{
+  font-size:12.5px;
+  color:var(--ink-3);
+  line-height:1.6;
+  margin:-14px 0 26px;
+  max-width:68ch;
+}
+
+/* ---------- tally ---------- */
+.tally{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;
+  background:var(--rule);
+  border:1px solid var(--rule);
+  border-radius:3px;
+  overflow:hidden;
+  margin:24px 0;
+}
+.tally div{
+  background:var(--surface);
+  padding:16px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.tally .tn{
+  font-family:var(--mono);
+  font-size:27px;
+  font-weight:500;
+  line-height:1.1;
+  color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.tally .tl{font-size:13px;color:var(--ink-2);line-height:1.5}
+
+/* ---------- score ---------- */
+.scorebox{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  flex-wrap:wrap;
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:3px;
+  padding:24px 26px;
+  margin:26px 0;
+  box-shadow:var(--shadow);
+}
+.scoren{
+  font-family:var(--mono);
+  font-size:46px;
+  font-weight:500;
+  line-height:1;
+  letter-spacing:-.02em;
+  color:var(--sun);
+  font-variant-numeric:tabular-nums;
+  flex:none;
+}
+.scoren small{font-size:19px;color:var(--ink-3);font-weight:400}
+.scoretext{
+  font-family:var(--serif);
+  font-size:18px;
+  line-height:1.5;
+  color:var(--ink);
+  flex:1;
+  min-width:220px;
+  text-wrap:pretty;
+}
+
+/* ---------- footer ---------- */
+footer{
+  margin-top:72px;
+  padding-top:28px;
+  border-top:1px solid var(--rule);
+  font-size:13px;
+  color:var(--ink-3);
+  line-height:1.7;
+}
+footer p{max-width:68ch;margin:8px 0}
+footer a{color:var(--ink-2)}
+
+@media (max-width:560px){
+  .wrap{padding:0 18px 72px}
+  .masthead{padding:48px 0 32px}
+  body{font-size:15.5px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+
+.done{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--ok);
+  background:var(--ok-soft);
+  padding:2px 7px;
+  border-radius:2px;
+  margin-left:8px;
+  vertical-align:2px;
+  white-space:nowrap;
+}
+.done.todo{color:var(--sun);background:var(--sun-soft)}
+.callout.good h4 .done{margin-left:6px}
+tbody td .done{margin-left:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="eyebrow">
+    <span>2027 / 04 / 30 → 05 / 15</span>
+    <span>·</span>
+    <span>16 天</span>
+    <span>·</span>
+    <span>順時針環島</span>
+    <span>·</span>
+    <span>待辦清單</span>
+  </div>
+  <h1>冰島 16 天行程體檢</h1>
+  <p class="standfirst">路線骨架很強——單向環線、零回頭路、住宿點都押在對的位置。以下只列還沒解決的事：四天車程過重、六個缺席景點、兩個同質性熱點，以及一批出發前必須重新確認的開季日期。</p>
+</header>
+
+<div class="callout good">
+  <span class="ctag">已修正 · 別改回去</span>
+  <ul>
+    <li><strong>這個季節沒有極光。</strong>4/30–5/15 在北緯 64° 沒有天文暗夜（午夜太陽高度約 <span class="num">−10°</span> 至 <span class="num">−7°</span>），極光季是 9 月初到 4 月中。三處文案已移除，別再加回來——真正的資產是日落近 22:00 的低角度長光。</li>
+    <li><strong>Day 9 住 Mývatn。</strong>改住 Akureyri 會讓 Day 10 多開約 <span class="num">145</span> 公里，而 Day 10 本來就過重。</li>
+    <li><strong>海鸚在 Hafnarhólmi，不在 Dyrhólaey。</strong>Dyrhólaey 每年 5/1–6/25 管制、上部 Háey 常在 5/1–5/12 封閉，且海鸚 5 月中才在那裡定居。</li>
+  </ul>
+</div>
+
+<div class="verdicts">
+  <div class="vcard">
+    <div class="vq">Q1 — 季節</div>
+    <div class="vtitle">選季正確，剩開季日期要查</div>
+    <span class="vscore s-slack">5 項待確認</span>
+    <div class="vbody">避開高地與冰洞季、抓到永晝與海鸚回歸都對。剩下的是船班、道路與博物館的開季時間。</div>
+  </div>
+  <div class="vcard">
+    <div class="vq">Q2 — 路線</div>
+    <div class="vtitle">骨架好，負荷仍不均</div>
+    <span class="vscore s-over">4 天過重</span>
+    <div class="vbody">Day 7、8、10、13 都超過 4 小時淨車程；Day 3、4 則各只開約 100 km。</div>
+  </div>
+  <div class="vcard">
+    <div class="vq">Q3 — 經典覆蓋</div>
+    <div class="vtitle">覆蓋率高，還缺六處</div>
+    <span class="vscore s-slack">缺 6 處</span>
+    <div class="vbody">Stuðlagil、Ásbyrgi、Ytri-Tunga 等；其中四個會隨路線調整 C／D 一起進來。</div>
+  </div>
+  <div class="vcard">
+    <div class="vq">Q4 — 同質性</div>
+    <div class="vtitle">兩個重複熱點</div>
+    <span class="vscore s-slack">瀑布 ×11</span>
+    <div class="vbody">Day 3 一天四座瀑布、Day 11 一天五個漁村。兩天都有大量餘裕可以換氣。</div>
+  </div>
+  <div class="vcard">
+    <div class="vq">Q5 — 深度</div>
+    <div class="vtitle">骨架深，內容偏精選集</div>
+    <span class="vscore s-slack">7.0 / 10</span>
+    <div class="vbody">目前只有一段長時間活動是寫死的，其餘深度項目全部還標「可選」。</div>
+  </div>
+</div>
+
+<section id="s1">
+  <div class="sechead">
+    <span class="secnum">01</span>
+    <h2>季節適配性</h2>
+  </div>
+
+  <p>4/30–5/15 是<strong>晚春／初夏的肩季</strong>，這個窗口選得好：人潮遠少於 6–8 月、住宿便宜、多數服務已開季，而且環島公路與所有半島道路（711、76、574、54）全開，完全不需要 F 道。</p>
+
+  <div class="tally">
+    <div><span class="tn">17→18.5</span><span class="tl">每日日照小時數（5/1 → 5/15）</span></div>
+    <div><span class="tn">22:00+</span><span class="tl">日落時間，5/15 接近 22:40</span></div>
+    <div><span class="tn">0</span><span class="tl">天文暗夜小時數</span></div>
+  </div>
+
+  <p>永晝是這趟行程最大的隱藏資產：<strong>完全沒有「天黑前要趕到」的限制</strong>，傍晚 18:00 之後還有 4–5 小時的可用光線，而且是低角度的金色光。排任何新行程時都可以把它算進去。</p>
+
+  <h3>出發前必須重新確認</h3>
+  <p>以下都是逐年變動的開季日期與路況，2027 年的班表要等接近出發才會公布：</p>
+  <ul>
+    <li><strong>Jökulsárlón 船班</strong>（Day 6 早上）：Zodiac 與兩棲船通常 <span class="num">5/1</span> 開航，5/5 仍是開季頭幾天，班次少且容易因冰況取消。先訂並留備案——潟湖岸邊本身免費，衝擊力不減。</li>
+    <li><strong>Dyrhólaey</strong>（Day 4）：5/1–6/25 鳥類管制，上部 Háey 常在 5/1–5/12 封閉。行程排 5/3，出發前查 ust.is；下部 Lágey 通常仍開放。</li>
+    <li><strong>Dettifoss 西岸 862 號</strong>（Day 10）：偶有春季封閉，查 road.is。東岸 864 號通常要 6 月才開，別排。</li>
+    <li><strong>博物館類</strong>（Petra 石頭博物館、鯡魚時代博物館、Glaumbær）：多數 5 月中才進入夏季全時營運，5 月上旬可能縮短時段或僅平日開放。</li>
+    <li><strong>Drangey 島船班</strong>（Sauðárkrókur）：通常 5 月中開季，Day 11（5/11）大概剛好錯過。</li>
+  </ul>
+
+  <h3>不要為了「湊齊」而改的東西</h3>
+  <p>天然冰洞是 11–3 月限定；高地 F 道（Landmannalaugar、Þórsmörk、Askja）與西峽灣主要景觀道路（60 號 Dynjandisheiði、612 號 Látrabjarg）5 月多半未開；魯冰花 6 月才開；Krafla / Víti 火山口（863 號）5 月初常仍積雪。這些行程正確地避開了，別回頭補。想要冰洞的話：Vík 出發的 Katla 冰洞全年運作，Perlan 有人造冰洞。</p>
+</section>
+
+<section id="s2">
+  <div class="sechead">
+    <span class="secnum">02</span>
+    <h2>自駕路線流暢度與平均度</h2>
+  </div>
+
+  <p><strong>路線架構是這份行程最強的地方</strong>：單一順時針環線、零回頭路，而且住宿點的判斷很老練——Day 2 不繞回雷克雅維克而住 Hvolsvöllur、Day 12 選 Hvammstangi 而非 Blönduós、Day 11 直接穿過 Tröllaskagi 而非折返 Akureyri，這三個決定各省下 40–90 分鐘的無效車程。</p>
+
+  <p>目前的每日負荷：</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>路線</th>
+          <th>里程</th>
+          <th>淨車程</th>
+          <th>負荷</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="tday">1</td><td class="troute">KEF → 雷克雅維克</td><td><span class="meter"><span class="track"><span class="bar" style="--w:12%"></span></span><span class="mval">50</span></span></td><td class="tnum">0.7 h</td><td><span class="chip c-ok">抵達日</span></td></tr>
+        <tr><td class="tday">2</td><td class="troute">黃金圈 → Hvolsvöllur</td><td><span class="meter"><span class="track"><span class="bar" style="--w:59%"></span></span><span class="mval">235</span></span></td><td class="tnum">3.3 h</td><td><span class="chip c-ok">適中</span></td></tr>
+        <tr><td class="tday">3</td><td class="troute">南岸瀑布 → Vík</td><td><span class="meter"><span class="track"><span class="bar" style="--w:24%"></span></span><span class="mval">95</span></span></td><td class="tnum">1.4 h</td><td><span class="chip c-slack">過輕</span></td></tr>
+        <tr><td class="tday">4</td><td class="troute">Vík 周邊 + 冰川（折返）</td><td><span class="meter"><span class="track"><span class="bar" style="--w:25%"></span></span><span class="mval">100</span></span></td><td class="tnum">1.7 h</td><td><span class="chip c-slack">過輕</span></td></tr>
+        <tr><td class="tday">5</td><td class="troute">→ Fjaðrárgljúfur → Skaftafell → Hof</td><td><span class="meter"><span class="track"><span class="bar" style="--w:42%"></span></span><span class="mval">170</span></span></td><td class="tnum">2.4 h</td><td><span class="chip c-ok">適中</span></td></tr>
+        <tr><td class="tday">6</td><td class="troute">潟湖晨光 → Höfn → Vestrahorn</td><td><span class="meter"><span class="track"><span class="bar" style="--w:41%"></span></span><span class="mval">165</span></span></td><td class="tnum">2.3 h</td><td><span class="chip c-ok">適中</span></td></tr>
+        <tr><td class="tday">7</td><td class="troute">→ 東峽灣 → Egilsstaðir → 海鸚岩</td><td><span class="meter"><span class="track"><span class="bar" style="--w:99%"></span></span><span class="mval">395</span></span></td><td class="tnum">5.4 h</td><td><span class="chip c-over">過重</span></td></tr>
+        <tr><td class="tday">8</td><td class="troute">Seyðisfjörður + Hengifoss → 米湖</td><td><span class="meter"><span class="track"><span class="bar" style="--w:72%"></span></span><span class="mval">290</span></span></td><td class="tnum">4.2 h</td><td><span class="chip c-over">過重</span></td></tr>
+        <tr><td class="tday">9</td><td class="troute">米湖環線</td><td><span class="meter"><span class="track"><span class="bar" style="--w:15%"></span></span><span class="mval">60</span></span></td><td class="tnum">1.0 h</td><td><span class="chip c-ok">景點密</span></td></tr>
+        <tr><td class="tday">10</td><td class="troute">Dettifoss + Húsavík + Goðafoss</td><td><span class="meter"><span class="track"><span class="bar" style="--w:76%"></span></span><span class="mval">305</span></span></td><td class="tnum">4.0 h</td><td><span class="chip c-over">過重</span></td></tr>
+        <tr><td class="tday">11</td><td class="troute">Tröllaskagi 半島</td><td><span class="meter"><span class="track"><span class="bar" style="--w:48%"></span></span><span class="mval">190</span></span></td><td class="tnum">3.0 h</td><td><span class="chip c-ok">適中</span></td></tr>
+        <tr><td class="tday">12</td><td class="troute">Vatnsnes 環半島</td><td><span class="meter"><span class="track"><span class="bar" style="--w:52%"></span></span><span class="mval">210</span></span></td><td class="tnum">3.5 h</td><td><span class="chip c-ok">含礫石</span></td></tr>
+        <tr><td class="tday">13</td><td class="troute">→ Snæfellsnes 半島</td><td><span class="meter"><span class="track"><span class="bar" style="--w:96%"></span></span><span class="mval">385</span></span></td><td class="tnum">5.0 h</td><td><span class="chip c-over">過重</span></td></tr>
+        <tr><td class="tday">14</td><td class="troute">半島西端 → 雷克雅維克</td><td><span class="meter"><span class="track"><span class="bar" style="--w:59%"></span></span><span class="mval">235</span></span></td><td class="tnum">3.3 h</td><td><span class="chip c-ok">適中</span></td></tr>
+        <tr><td class="tday">15</td><td class="troute">雷克雅維克市區</td><td><span class="meter"><span class="track"><span class="bar" style="--w:5%"></span></span><span class="mval">20</span></span></td><td class="tnum">—</td><td><span class="chip c-ok">緩衝日</span></td></tr>
+        <tr><td class="tday">16</td><td class="troute">Reykjanes → KEF</td><td><span class="meter"><span class="track"><span class="bar" style="--w:32%"></span></span><span class="mval">130</span></span></td><td class="tnum">2.0 h</td><td><span class="chip c-ok">適中</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="caption">里程為含景點繞行的估算值，淨車程不含停留時間。Day 1 與 Day 15 的輕量是刻意設計（抵達日、緩衝日），不算問題。</p>
+
+  <div class="callout warn">
+    <span class="ctag">先決定這一個</span>
+    <h4>Day 7 是現在最重的一天（<span class="num">395</span> km）</h4>
+    <p>其中 <span class="num">140</span> km 是 Egilsstaðir 放完行李後往返 Hafnarhólmi 的傍晚車程。好消息是它在 22:00 日落的全日照下開，性質跟「天黑前要趕到」的長途完全不同，而且 18:00–22:00 正是海鸚最活躍的時段；Petra 石頭博物館仍標可選，是現成的洩壓閥。<strong>如果覺得不划算，把 Hafnarhólmi 改成可選即可</strong>——但那大概等於放棄這趟唯一穩定看得到海鸚的機會。</p>
+  </div>
+
+  <h3>三個還沒做的調整</h3>
+
+  <h4>B — 換掉全程唯一的回頭路<span class="done todo">待決定</span></h4>
+  <p>Day 3 和 Day 4 都只開約 <span class="num">100</span> km，而 Day 4 為了 Sólheimajökull 往西開 35 km 再折回。把 Sólheimajökull 挪到 Day 3 下午（它本來就在 Skógafoss → Vík 的路上）就能消掉，順便稀釋 Day 3 的四座瀑布（見 §4）。純屬錦上添花，不做也行。</p>
+
+  <h4>C — Day 10 改走 862 北段接 85 號，不折返<span class="done todo">待決定</span></h4>
+  <p>現況是米湖 → Dettifoss → <strong>原路折返回 1 號</strong> → Húsavík → Akureyri。改成 Dettifoss 之後<strong>繼續沿 862 北上</strong>（已鋪柏油）到 <span class="place">Ásbyrgi</span>，順路 <span class="place">Hljóðaklettar</span>，再接 85 號到 Húsavík。</p>
+  <p>里程從 <span class="num">305</span> 降到約 <span class="num">255</span> km，<strong>而且白撿兩個一級景點</strong>。唯一注意：862 北段偶有春季封閉，出發前查 road.is。</p>
+
+  <h4>D — Day 13 別橫切半島兩次<span class="done todo">待決定</span></h4>
+  <p>現況是 Borgarnes → <strong>北岸</strong> Kirkjufell → <strong>南岸</strong> Arnarstapi，等於橫越 Snæfellsnes 兩次，<span class="num">385</span> km。改成逆時針一圈：</p>
+  <ul>
+    <li><strong>Day 13</strong>：Hvammstangi → Grábrók → Borgarnes → 走 54 號<strong>南岸</strong>：<span class="place">Ytri-Tunga</span> 海豹灘 → <span class="place">Búðakirkja</span> 黑教堂 → Arnarstapi–Hellnar 海崖步道 → 住 Arnarstapi（Deildartunguhver 可捨）</li>
+    <li><strong>Day 14</strong>：Djúpalónssandur → <span class="place">Lóndrangar</span> → <span class="place">Saxhóll</span> 火山口 → Vatnshellir → <strong>北岸</strong> Kirkjufell → Stykkishólmur → 雷克雅維克</li>
+  </ul>
+  <p>不再橫切兩次，而且順路撿到三個目前缺席的 Snæfellsnes 經典。Day 14 雖然變長，但最後 <span class="num">175</span> km 是沒有停點的高速段。</p>
+</section>
+
+<section id="s3">
+  <div class="sechead">
+    <span class="secnum">03</span>
+    <h2>還缺的經典景點</h2>
+  </div>
+
+  <p>覆蓋率本來就很高——南岸、冰河潟湖、東部峽灣、米湖、Dettifoss、Tröllaskagi、Vatnsnes、Snæfellsnes、黃金圈、Reykjanes 全中，而且刻意排進了多數初訪者會跳過的區域。還缺這六處：</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>景點</th><th>可插入</th><th>為什麼該補</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Stuðlagil Canyon</strong></td><td class="tday">Day 8</td><td class="tnote">近十年冰島最紅的新景點；青綠河水配柱狀玄武岩，東部無可取代。但 Day 8 已過重，要進來得先拿掉 Hengifoss</td></tr>
+        <tr><td><strong>Ásbyrgi + Hljóðaklettar</strong></td><td class="tday">Day 10</td><td class="tnote">馬蹄形冰川峽谷與「回音岩」；走調整 C 就順路，零繞路成本</td></tr>
+        <tr><td><strong>Ytri-Tunga</strong></td><td class="tday">Day 13</td><td class="tnote">5–7 月最穩定的陸上海豹觀察點；隨調整 D 一起進來</td></tr>
+        <tr><td><strong>Búðakirkja + Lóndrangar</strong></td><td class="tday">Day 13–14</td><td class="tnote">黑教堂與海上玄武岩尖塔，半島兩張招牌照；隨調整 D 一起進來</td></tr>
+        <tr><td><strong>Vök Baths</strong></td><td class="tday">Day 7</td><td class="tnote">東部唯一地熱溫泉，就在住宿地，漂浮在湖面上。但 Day 7 加了海鸚後已滿</td></tr>
+        <tr><td><strong>Reykjadalur 溫泉河</strong></td><td class="tday">Day 2 / 15</td><td class="tnote">走 3 km 進山谷泡一整條溫泉河；免費，5 月可走。同時也是 §5 的深度解方</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>合理地沒排、不用補的</h4>
+  <p>西峽灣（5 月路未全開，且需 4 天以上）、Landmannalaugar／Þórsmörk／Askja（F 道 6 月才開）、Vestmannaeyjar 與 Grímsey 北極圈（各需一整天加船班）。這些取捨都是對的。</p>
+</section>
+
+<section id="s4">
+  <div class="sechead">
+    <span class="secnum">04</span>
+    <h2>同質性與替代方案</h2>
+  </div>
+
+  <p>把 16 天的景點依體驗類型分類後，重複度最高的三類：</p>
+
+  <div class="tally">
+    <div><span class="tn">11</span><span class="tl">瀑布</span></div>
+    <div><span class="tn">16</span><span class="tl">漁村／補給小鎮</span></div>
+    <div><span class="tn">5</span><span class="tl">黑沙灘與海蝕地形</span></div>
+  </div>
+
+  <p>瀑布雖然數量多，但性格差異夠大（可繞到水簾後的、水量歐洲第一的、峽谷型的），而且分散在不同區域，不算大問題。真正的重複熱點只有兩個，剛好都在有大量餘裕的日子——所以很好解。</p>
+
+  <h3>熱點一 — Day 3：一天四座瀑布</h3>
+  <p>Seljalandsfoss、Gljúfrabúi、Skógafoss、Kvernufoss，四個都是「停車 → 走 10 分鐘 → 拍照 → 上車」的同一種節奏，而全天只開 <span class="num">95</span> km。到第三座就開始鈍化了。這天有大把時間，任選一個換氣：</p>
+  <ul>
+    <li><strong>Sólheimajökull 冰川挪到今天下午</strong>——順路，而且同時解掉 Day 4 的回頭路（就是 §2 的調整 B）。最划算的一個。</li>
+    <li><strong>Skógasafn 史高加民俗博物館</strong>（就在 Skógafoss 旁）——草皮屋、老漁船、農具，冰島最好的地方博物館之一。</li>
+    <li><strong>Seljavallalaug</strong>——1923 年藏在山谷裡的舊泳池，停車後走 20 分鐘，免費、無人管理。跟藍湖是光譜的兩端。</li>
+    <li><strong>LAVA Centre</strong>（Hvolsvöllur，Day 2 的住宿地）——火山與地震互動展，出發前花一小時，之後看到的每一片熔岩原都會有意義。</li>
+  </ul>
+
+  <h3>熱點二 — Day 11：一天五個漁村</h3>
+  <p>Dalvík → Ólafsfjörður → Siglufjörður → Hofsós → Sauðárkrókur。這是<strong>全程同質性最高的一天</strong>。Siglufjörður（鯡魚博物館）和 Hofsós（懸崖無邊際泳池）各有明確賣點，但 Dalvík、Ólafsfjörður、Sauðárkrókur 基本上是同一種港灣風景重複三次。建議留下前兩個，其餘換成：</p>
+  <ul>
+    <li><strong>騎冰島馬</strong>——<em>這是全程最大的體驗空缺</em>。16 天的冰島行程完全沒有冰島馬，而 Skagafjörður 正是冰島馬的原鄉，你們當晚就睡在那裡。1–2 小時的 tölt 騎乘，全年可預約。</li>
+    <li><strong>Hólar í Hjaltadal</strong>（Route 76 旁，Hofsós 南 20 km）——冰島最古老的石造教堂（1763）、中世紀主教座、冰島馬歷史中心。</li>
+    <li><strong>Glaumbær 草皮農場博物館</strong>（Varmahlíð 附近）——冰島保存最完整的草皮農舍群，比 Day 12 那個標為可選的 Víðimýrarkirkja 完整太多。5 月上旬營業時間需先查。</li>
+  </ul>
+
+  <h3>其他值得補的異質性</h3>
+  <ul>
+    <li><strong>飲食</strong>：目前只有 Friðheimar 番茄湯和 Höfn 龍蝦兩個。可加 Efstidalur 農場冰淇淋（黃金圈，就在牛舍旁）、Vogafjós（米湖的牛棚餐廳）。</li>
+    <li><strong>薩迦文學</strong>：除了 Þingvellir 之外掛零。Borgarnes 的 <span class="place">Landnámssetur</span> 定居展覽館（Egil's Saga）已經在 Day 13 路線上，加一小時即可。</li>
+    <li><strong>與人的接觸</strong>：整趟行程仍可以完全不跟冰島人講到一句話。馬場、農場民宿、在地嚮導任一個都能改變這件事。</li>
+  </ul>
+</section>
+
+<section id="s5">
+  <div class="sechead">
+    <span class="secnum">05</span>
+    <h2>旅遊深度</h2>
+  </div>
+
+  <div class="scorebox">
+    <span class="scoren">7.0<small> / 10</small></span>
+    <span class="scoretext">骨架是深度旅行，內容仍偏精選集。Skaftafell 的 3 小時環線是目前唯一寫死的長時間活動，其餘深度項目全部還標「可選」。</span>
+  </div>
+
+  <h3>深度做得好的地方</h3>
+  <ul>
+    <li>16 天遠超一般 8–10 天環島，有真正的餘裕。</li>
+    <li>Vík、Mývatn 排 2 晚，避開了「每天早上打包」的疲勞。</li>
+    <li>排進了多數初訪者會跳過的區域：東部峽灣、Tröllaskagi、Vatnsnes。<strong>這一點明顯高於觀光標準線。</strong></li>
+    <li>Day 15 緩衝日的位置正確——前面任何一天的天候延誤都能在這裡吸收。</li>
+  </ul>
+
+  <h3>還沒解決的深度問題</h3>
+
+  <h4>「可選」太多</h4>
+  <p>冰川健行、Zodiac、賞鯨、Hengifoss、Vatnshellir 洞穴、藍湖、Sky Lagoon——<strong>全部還是可選</strong>。經驗上，行程一緊，可選項會第一個被砍掉。深度目前不是被排出來的，是被推遲的。</p>
+
+  <h4>只有一段長健行被確定下來</h4>
+  <p>冰島的回報在腳上。5 月確實封掉了高地路線（Landmannalaugar、Fimmvörðuháls，Glymur 的木橋通常也要 6 月才架），但仍然開放的有 Reykjadalur 溫泉河（來回 3 小時，終點是可以躺進去的天然溫泉河），以及已在行程內但目前只當拍照點的 Arnarstapi–Hellnar 海崖。</p>
+
+  <h4>文化面仍然很薄</h4>
+  <p>跟人有關的只有 Hofskirkja（唯一非可選的一個）、Petra 石頭博物館、鯡魚博物館、Víðimýrarkirkja，後三個全是可選。冰島有薩迦、有 1100 年的草皮建築傳統、有全歐洲最獨特的馬。</p>
+
+  <h4>沒有一晚住在真正偏遠的地方</h4>
+  <p>Day 5 住 Hof 一帶算是往這個方向動了一點（Öræfi 是南岸最空曠的一段），但整體仍以有服務的城鎮為主。</p>
+
+  <h3>把 7.0 拉到 8 的三個動作</h3>
+  <p>都不動路線骨架、不加天數：</p>
+  <ol>
+    <li><strong>把四個「可選」變成現在就訂的「確定」</strong>：Sólheimajökull 冰川健行、Húsavík 賞鯨、Jökulsárlón Zodiac、藍湖或 Sky Lagoon 二選一。<em>這一步邊際效益最高</em>——不改任何行程，只是把深度從「也許」變成「一定」。</li>
+    <li><strong>加一次與人的接觸</strong>：Skagafjörður 騎冰島馬（Day 11 或 12），或東部／西北部住一晚農場民宿。</li>
+    <li><strong>再加一個文化錨點</strong>：Skógasafn（Day 3）或 Glaumbær（Day 11–12）選一個，讓那十一座瀑布之間有一次換氣。</li>
+  </ol>
+  <p>做完這三件事，行程就從「把冰島看過一遍」變成「在冰島待過 16 天」。</p>
+</section>
+
+<footer>
+  <p><a href="https://iceland-trip.man572142.workers.dev/">← 回到行程地圖</a></p>
+  <p>體檢對象：<code>iceland_trip_itinerary.md</code> 與 <code>public/index.html</code> 的 <code>DAYS</code> 陣列（16 天、74 個景點）。里程與車程為含景點繞行的估算值。</p>
+  <p>季節性資料來源：<a href="https://ust.is/english/visiting-iceland/protected-areas/south/dyrholaey/access-and-management/">Umhverfisstofnun — Dyrhólaey 進出管理</a>、<a href="https://www.east.is/en/place/hafnarholmi">Visit Austurland — Hafnarhólmi</a>、<a href="https://icelagoon.is/">Jökulsárlón 船班</a>。開季日期與營業時間逐年變動，2027 年班表公布後請重新確認；道路狀況出發前查 <a href="https://www.road.is/">road.is</a>。</p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -868,7 +868,7 @@
 const DAYS = [
   {
     n:1, title:"抵達冰島", date:"4/30（五）", stay:"Reykjavík",
-    note:"2027/4/29 深夜 23:30 從桃園出發（經布拉格轉機），4/30 15:55 抵達 KEF → 前往雷克雅維克 → Check-in → 市區散步。晚上若天氣好，第一次追極光。",
+    note:"2027/4/29 深夜 23:30 從桃園出發（經布拉格轉機），4/30 15:55 抵達 KEF → 前往雷克雅維克 → Check-in → 市區散步。5 月上旬日落近 22:00，晚餐後仍有充足光線；此季節永晝無暗夜，看不到極光。",
     spots:[
       {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
        q:"Keflavik International Airport", desc:"冰島門戶機場，距離雷克雅維克約 50 分鐘車程。多數租車公司在此設點，建議一落地就取車。此行搭乘 CI067（桃園→布拉格）轉 FI537（布拉格→KEF）。"},
@@ -919,7 +919,7 @@ const DAYS = [
     note:"上午 Vík 周邊的海岬與黑沙灘，下午往西 30 分鐘到 Sólheimajökull 走冰川。全程唯一一次冰川健行安排在今天。",
     spots:[
       {name:"Dyrhólaey", zh:"迪霍拉里海岬", lat:63.4020, lng:-19.1264, z:15,
-       q:"Dyrholaey", desc:"120 公尺高的海岬與巨大海蝕拱門，可俯瞰整條黑沙灘。5–8 月是海鸚棲息地，部分區域有季節性封閉。"},
+       q:"Dyrholaey", desc:"120 公尺高的海岬與巨大海蝕拱門，可俯瞰整條黑沙灘。⚠️ 5/1–6/25 為保護鳥類管制進出，上部 Háey（燈塔、拱門觀景台）常在 5/1–5/12 封閉，出發前查 ust.is。海鸚要 5 月中才在此定居，改到 Day 7 的 Hafnarhólmi 看。"},
       {name:"Reynisfjara Black Sand Beach", zh:"雷尼斯黑沙灘", lat:63.4058, lng:-19.0448, z:15,
        q:"Reynisfjara", desc:"玄武岩柱洞窟與外海的 Reynisdrangar 海蝕柱。⚠️ 這裡有致命的 sneaker wave，絕對不要靠近水線背對海面。"},
       {name:"Sólheimajökull", zh:"索爾黑馬冰川", lat:63.5306, lng:-19.3689, z:14,
@@ -927,39 +927,47 @@ const DAYS = [
     ]
   },
   {
-    n:5, title:"冰河潟湖", date:"5/4（二）", stay:"Jökulsárlón / Höfn 附近",
-    note:"從 Vík 一路往東進 Vatnajökull 國家公園，潟湖是今天的重頭戲。Zodiac 快艇行程建議提前預約。",
+    n:5, title:"Skaftafell 國家公園", date:"5/4（二）", stay:"Skaftafell / Hof 一帶",
+    note:"從 Vík 往東進 Vatnajökull 國家公園。重點是 Skaftafell 的 Svartifoss + Sjónarnípa 完整環線（約 3 小時）。今晚住 Skaftafell / Hof 一帶，把潟湖留到明天早上拍晨光。",
     spots:[
       {name:"Fjaðrárgljúfur Canyon", zh:"羽毛峽谷", lat:63.7714, lng:-18.1719, z:15,
        q:"Fjadrargljufur", desc:"200 萬年歷史的蛇行峽谷，深 100 公尺、長 2 公里，苔蘚覆蓋的岩壁蜿蜒如巨獸脊背。峽谷上緣有觀景步道。"},
+      {name:"Kirkjubæjarklaustur", zh:"教堂鎮", kind:"city", lat:63.7906, lng:-18.0594, z:14,
+       q:"Kirkjubaejarklaustur", desc:"Vík 與 Skaftafell 之間唯一的補給小鎮，有加油站與超市。鎮旁的 Kirkjugólf「教堂地板」是被冰河磨平的柱狀玄武岩露頭，走 10 分鐘即到。"},
       {name:"Skaftafell", zh:"斯卡夫塔山自然保護區", lat:64.0166, lng:-16.9662, z:13,
-       q:"Skaftafell", desc:"Vatnajökull 國家公園的核心區，步道網四通八達。經典路線是走到玄武岩柱環繞的 Svartifoss（黑瀑布），來回約 1.5 小時。"},
-      {name:"Jökulsárlón", zh:"傑古沙龍冰河潟湖", lat:64.0784, lng:-16.2306, z:14,
-       q:"Jokulsarlon", desc:"冰島最深的湖，Breiðamerkurjökull 崩落的藍白冰山漂浮其中並緩緩流向大海，常有海豹出沒。Zodiac 快艇能開到冰山之間。"},
-      {name:"Diamond Beach", zh:"鑽石沙灘", lat:64.0434, lng:-16.1794, z:15,
-       q:"Diamond Beach Iceland", desc:"潟湖出海口對面的黑沙灘，被浪打回岸上的冰塊在黑沙上像散落的鑽石。清晨低角度陽光最上鏡。"}
+       q:"Skaftafell", desc:"Vatnajökull 國家公園的核心區，步道網四通八達。走到玄武岩柱環繞的 Svartifoss（黑瀑布）來回約 1.5 小時；接上 Sjónarnípa 稜線環線約 3 小時，可俯瞰 Skaftafellsjökull 冰舌，是全程最值得的一段健行。"},
+      {name:"Hofskirkja", zh:"霍夫草皮教堂", lat:63.9276, lng:-16.7003, z:16,
+       q:"Hofskirkja turf church", desc:"1884 年建成，冰島最後一批傳統草皮教堂之一，草皮屋頂與周圍墓塚都長滿青草。就在今晚住宿的 Hof 村，傍晚散步可到。"}
     ]
   },
   {
-    n:6, title:"Höfn + Vestrahorn", date:"5/5（三）", stay:"Höfn",
-    note:"上午收尾潟湖周邊，中午移動到 Höfn，下午拍 Vestrahorn，晚上吃龍蝦。",
+    n:6, title:"冰河潟湖 + Vestrahorn", date:"5/5（三）", stay:"Höfn",
+    note:"一早到潟湖拍晨光 —— 人最少、光最好，Zodiac 也是早班。順路看安靜的 Fjallsárlón，下午移動到 Höfn，黃昏拍 Vestrahorn，晚上吃龍蝦。",
     spots:[
+      {name:"Fjallsárlón", zh:"菲亞德爾冰河湖", lat:64.0128, lng:-16.3808, z:15,
+       q:"Fjallsarlon", desc:"Jökulsárlón 西邊 10 公里的小型冰河湖，遊客少很多，而且能直接望見 Fjallsjökull 冰舌本體，冰山離岸也更近。"},
+      {name:"Jökulsárlón", zh:"傑古沙龍冰河潟湖", lat:64.0784, lng:-16.2306, z:14,
+       q:"Jokulsarlon", desc:"冰島最深的湖，Breiðamerkurjökull 崩落的藍白冰山漂浮其中並緩緩流向大海，常有海豹出沒。Zodiac 快艇能開到冰山之間 —— 船班通常 5/1 開航，5 月初班次少且易因冰況取消，務必先訂並留備案。"},
+      {name:"Diamond Beach", zh:"鑽石沙灘", lat:64.0434, lng:-16.1794, z:15,
+       q:"Diamond Beach Iceland", desc:"潟湖出海口對面的黑沙灘，被浪打回岸上的冰塊在黑沙上像散落的鑽石。清晨低角度陽光最上鏡，今天正好排在早上。"},
       {name:"Vestrahorn / Stokksnes", zh:"維斯特拉山角", lat:64.2513, lng:-14.9752, z:14,
-       q:"Vestrahorn Stokksnes", desc:"黑沙灘、沙丘與尖銳山峰同框的經典構圖，冰島攝影師最愛的取景地之一，需付少額入場費（私人土地）。"},
+       q:"Vestrahorn Stokksnes", desc:"黑沙灘、沙丘與尖銳山峰同框的經典構圖，冰島攝影師最愛的取景地之一，需付少額入場費（私人土地）。5 月日落近 22:00，黃昏光線最好。"},
       {name:"Höfn", zh:"霍芬鎮", kind:"city", lat:64.2539, lng:-15.2082, z:14,
        q:"Hofn Iceland", desc:"東南岸漁港小鎮，以龍蝦（langoustine）聞名，背景是 Vatnajökull 冰帽。今晚住這裡，吃一頓好的。"}
     ]
   },
   {
     n:7, title:"東部峽灣 Day1", date:"5/6（四）", stay:"Egilsstaðir",
-    note:"從 Höfn 沿 1 號公路貼著東部峽灣北上，經 Djúpivogur、Stöðvarfjörður，翻山抵達內陸樞紐 Egilsstaðir 過夜。",
+    note:"從 Höfn 沿 1 號公路貼著東部峽灣北上，翻山抵達 Egilsstaðir 放行李，傍晚再開 94 號公路去 Hafnarhólmi 看海鸚 —— 18:00–22:00 正是海鸚最活躍的時段，而 5 月日落近 22:00，時間完全夠。",
     spots:[
       {name:"Djúpivogur", zh:"迪尤皮沃古爾", kind:"city", lat:64.6552, lng:-14.2884, z:14,
        q:"Djupivogur Iceland", desc:"東部峽灣第一個漁村，港邊排列著 34 顆巨型石蛋雕塑（Eggin í Gleðivík），對應冰島各種鳥蛋。"},
       {name:"Petra's Stone Collection", zh:"佩特拉石頭博物館", opt:true, lat:64.8173, lng:-13.8554, z:16,
        q:"Petra's Stone Collection Stodvarfjordur", desc:"Stöðvarfjörður 小鎮上一位居民畢生撿拾的礦石與水晶收藏，庭院擺滿奇石，是東部峽灣公路上的經典小站。"},
       {name:"Egilsstaðir", zh:"埃伊爾斯塔濟", kind:"city", lat:65.2669, lng:-14.3948, z:13,
-       q:"Egilsstadir Iceland", desc:"東冰島最大內陸城鎮，位在 Lagarfljót 湖畔，是東部峽灣與北冰島之間的補給與住宿樞紐。"}
+       q:"Egilsstadir Iceland", desc:"東冰島最大內陸城鎮，位在 Lagarfljót 湖畔，是東部峽灣與北冰島之間的補給與住宿樞紐。"},
+      {name:"Hafnarhólmi", zh:"海鸚岩（Borgarfjörður eystri）", lat:65.5340, lng:-13.7480, z:15,
+       q:"Hafnarholmi puffin colony", desc:"全冰島最好接近的海鸚棲地，木棧觀景平台離巢穴只有幾公尺。海鸚 4 月中就抵達（2025 年首見 4/8），整個 5 月都在。從 Egilsstaðir 走 94 號公路約 70 公里（已鋪柏油），來回含停留約 3 小時。"}
     ]
   },
   {
@@ -975,7 +983,7 @@ const DAYS = [
     ]
   },
   {
-    n:9, title:"Lake Mývatn", date:"5/8（六）", stay:"Mývatn 或 Akureyri",
+    n:9, title:"Lake Mývatn", date:"5/8（六）", stay:"Mývatn",
     note:"北冰島精華，一整天都在火山與地熱地貌裡繞。下午泡 Mývatn Nature Baths 收尾。",
     spots:[
       {name:"Hverir (Hverarönd)", zh:"赫維爾地熱區", lat:65.6404, lng:-16.8093, z:16,
@@ -989,12 +997,12 @@ const DAYS = [
       {name:"Skútustaðagígar", zh:"斯庫圖斯塔泡狀假火山口", lat:65.5700, lng:-17.0330, z:15,
        q:"Skutustadagigar", desc:"熔岩流過濕地時蒸氣爆炸形成的「偽火山口」群，環湖步道平緩好走，夏季是水鳥天堂。"},
       {name:"Mývatn Nature Baths", zh:"米湖溫泉", lat:65.6318, lng:-16.8478, z:16,
-       q:"Myvatn Nature Baths", desc:"北部版藍湖，人少很多、視野開闊。乳藍色鹼性溫泉水約 36–40°C，傍晚泡湯還有機會直接看到極光。"}
+       q:"Myvatn Nature Baths", desc:"北部版藍湖，人少很多、視野開闊。乳藍色鹼性溫泉水約 36–40°C，5 月日落近 22:00，傍晚可以一路泡到落日。"}
     ]
   },
   {
     n:10, title:"Dettifoss + Húsavík", date:"5/9（日）", stay:"Akureyri",
-    note:"上午衝瀑布，下午到 Húsavík，可選賞鯨。傍晚返回 Akureyri。",
+    note:"上午衝瀑布，下午到 Húsavík，可選賞鯨。傍晚沿 1 號公路返回 Akureyri，順路停 Goðafoss。",
     spots:[
       {name:"Dettifoss", zh:"黛提瀑布", lat:65.8145, lng:-16.3844, z:15,
        q:"Dettifoss", desc:"歐洲水量最大的瀑布，寬 100 公尺、落差 45 公尺，灰色冰川泥水轟然墜入峽谷。西岸（862 號公路）路況較好且視野正面，東岸能更靠近。"},
@@ -1003,7 +1011,9 @@ const DAYS = [
       {name:"Húsavík", zh:"胡薩維克", kind:"city", lat:66.0449, lng:-17.3389, z:14,
        q:"Husavik", desc:"歐洲賞鯨之都，Skjálfandi 灣可見座頭鯨、小鬚鯨與藍鯨。港邊的木造教堂與鯨魚博物館值得一逛（也是電影《歐洲歌唱大賽》場景）。"},
       {name:"Whale Watching", zh:"賞鯨", opt:true, lat:66.0500, lng:-17.3480, z:12,
-       q:"whale watching Husavik", desc:"航程約 3 小時，多為傳統橡木船或 RIB 快艇。5 月正值賞鯨季，出海很冷，船公司會提供連身保暖衣。"}
+       q:"whale watching Husavik", desc:"航程約 3 小時，多為傳統橡木船或 RIB 快艇。5 月正值賞鯨季，出海很冷，船公司會提供連身保暖衣。"},
+      {name:"Goðafoss", zh:"眾神瀑布", lat:65.6828, lng:-17.5500, z:15,
+       q:"Godafoss", desc:"西元 1000 年冰島改信基督教時，法律宣講者將舊神像投入此瀑，因而得名。寬 30 公尺的馬蹄形瀑布就在 1 號公路旁，兩岸都有步道，回 Akureyri 順路停 20 分鐘。"}
     ]
   },
   {
@@ -1053,7 +1063,7 @@ const DAYS = [
       {name:"Grábrók", zh:"格拉布羅克火山口", opt:true, lat:64.7920, lng:-21.3690, z:14,
        q:"Grabrok crater", desc:"3000 年前噴發的小型火山渣錐，有木棧道可登頂，來回約 30 分鐘，能俯瞰周邊熔岩原與農田。"},
       {name:"Kirkjufell & Kirkjufellsfoss", zh:"教會山與教會山瀑布", lat:64.9377, lng:-23.3080, z:15,
-       q:"Kirkjufell", desc:"冰島最上鏡的山峰，前景搭配 Kirkjufellsfoss 小瀑布幾乎是冰島明信片代名詞。日落與極光時段最推薦。"},
+       q:"Kirkjufell", desc:"冰島最上鏡的山峰，前景搭配 Kirkjufellsfoss 小瀑布幾乎是冰島明信片代名詞。5 月日落在 22:00 之後，傍晚低角度光線最推薦。"},
       {name:"Arnarstapi", zh:"阿爾納斯塔皮", lat:64.7710, lng:-23.6260, z:15,
        q:"Arnarstapi", desc:"半島南岸的漁村，沿海崖步道可走到 Hellnar，一路都是海蝕拱門與柱狀玄武岩，Snæfellsjökull 冰川火山當背景。"}
     ]
