@@ -900,7 +900,7 @@ const DAYS = [
   },
   {
     n:3, title:"南岸 Day1", date:"5/2（日）", stay:"Vík",
-    note:"從 Hvolsvöllur 出發沿 1 號公路續往東，瀑布之間車程都很短，可以慢慢拍。冰川留到明天一次走完。",
+    note:"從 Hvolsvöllur 出發沿 1 號公路續往東，四座瀑布之間車程都很短。下午順路走 Sólheimajökull 冰川——它本來就在 Skógafoss → Vík 的路上，排今天可以消掉 Day 4 往西的折返。全天約 110 公里。",
     spots:[
       {name:"Seljalandsfoss", zh:"塞里雅蘭瀑布", lat:63.6156, lng:-19.9928, z:16,
        q:"Seljalandsfoss", desc:"少數可以繞到水簾後方的瀑布，60 公尺落差。步道濕滑且會被噴濕，務必穿防水外套。"},
@@ -910,20 +910,20 @@ const DAYS = [
        q:"Skogafoss", desc:"寬 25 公尺、高 60 公尺的方正大瀑布，晴天常出現雙彩虹。右側階梯可登上瀑頂接 Fimmvörðuháls 步道。"},
       {name:"Kvernufoss", zh:"克維努瀑布", opt:true, lat:63.5305, lng:-19.4885, z:17,
        q:"Kvernufoss", desc:"從 Skógar 博物館旁步行約 15 分鐘的小眾瀑布，同樣可以走到水簾後方，人潮遠少於 Skógafoss。"},
+      {name:"Sólheimajökull", zh:"索爾黑馬冰川", lat:63.5306, lng:-19.3689, z:14,
+       q:"Solheimajokull", desc:"Mýrdalsjökull 冰帽的外伸冰舌，南岸最容易接近的冰川。停車場走到冰緣約 15 分鐘（免費）；嚮導冰川健行也從這裡出發，配發冰爪與冰斧，約 3 小時，需事先預約並確認 5 月初團況。"},
       {name:"Vík í Mýrdal", zh:"維克鎮", kind:"city", lat:63.4187, lng:-19.0060, z:14,
        q:"Vik i Myrdal", desc:"南岸唯一的補給小鎮，山丘上的紅頂教堂是明信片場景。今晚住這裡。"}
     ]
   },
   {
     n:4, title:"南岸 Day2（黑沙灘）", date:"5/3（一）", stay:"Vík",
-    note:"上午 Vík 周邊的海岬與黑沙灘，下午往西 30 分鐘到 Sólheimajökull 走冰川。全程唯一一次冰川健行安排在今天。",
+    note:"冰川已移到 Day 3，今天只剩 Vík 周邊約 40 公里，是刻意留白的半日：Dyrhólaey 上部 5 月初常封閉、Reynisfjara 要看浪況，天候有變也吸收得掉。",
     spots:[
       {name:"Dyrhólaey", zh:"迪霍拉里海岬", lat:63.4020, lng:-19.1264, z:15,
        q:"Dyrholaey", desc:"120 公尺高的海岬與巨大海蝕拱門，可俯瞰整條黑沙灘。⚠️ 5/1–6/25 為保護鳥類管制進出，上部 Háey（燈塔、拱門觀景台）常在 5/1–5/12 封閉，出發前查 ust.is。海鸚要 5 月中才在此定居，改到 Day 7 的 Hafnarhólmi 看。"},
       {name:"Reynisfjara Black Sand Beach", zh:"雷尼斯黑沙灘", lat:63.4058, lng:-19.0448, z:15,
-       q:"Reynisfjara", desc:"玄武岩柱洞窟與外海的 Reynisdrangar 海蝕柱。⚠️ 這裡有致命的 sneaker wave，絕對不要靠近水線背對海面。"},
-      {name:"Sólheimajökull", zh:"索爾黑馬冰川", lat:63.5306, lng:-19.3689, z:14,
-       q:"Solheimajokull", desc:"Mýrdalsjökull 冰帽的外伸冰舌，南岸最容易接近的冰川。停車場走到冰緣約 15 分鐘（免費）；嚮導冰川健行也從這裡出發，配發冰爪與冰斧，約 3 小時，需事先預約並確認 5 月初團況。"}
+       q:"Reynisfjara", desc:"玄武岩柱洞窟與外海的 Reynisdrangar 海蝕柱。⚠️ 這裡有致命的 sneaker wave，絕對不要靠近水線背對海面。"}
     ]
   },
   {
@@ -1001,13 +1001,17 @@ const DAYS = [
     ]
   },
   {
-    n:10, title:"Dettifoss + Húsavík", date:"5/9（日）", stay:"Akureyri",
-    note:"上午衝瀑布，下午到 Húsavík，可選賞鯨。傍晚沿 1 號公路返回 Akureyri，順路停 Goðafoss。",
+    n:10, title:"Dettifoss + Ásbyrgi + Húsavík", date:"5/9（日）", stay:"Akureyri",
+    note:"上午 Dettifoss，之後不折返：續沿 862 號北上經 Hljóðaklettar、Ásbyrgi，接 85 號到 Húsavík（可選賞鯨），傍晚回 Akureyri 順路停 Goðafoss，約 255 公里。⚠️ 862 北段（Dettifoss→Ásbyrgi）是礫石路、冬季不維護，通常 5 月下旬才開，出發前務必查 road.is；未開就原路折返回 1 號（約 305 公里，捨這兩個點）。",
     spots:[
       {name:"Dettifoss", zh:"黛提瀑布", lat:65.8145, lng:-16.3844, z:15,
        q:"Dettifoss", desc:"歐洲水量最大的瀑布，寬 100 公尺、落差 45 公尺，灰色冰川泥水轟然墜入峽谷。西岸（862 號公路）路況較好且視野正面，東岸能更靠近。"},
       {name:"Selfoss (waterfall)", zh:"塞爾瀑布", lat:65.8070, lng:-16.3880, z:16,
        q:"Selfoss waterfall Iceland", desc:"從 Dettifoss 沿步道往上游走約 15 分鐘，寬闊的階梯狀瀑布橫跨整個峽谷，遊客明顯少很多。"},
+      {name:"Hljóðaklettar", zh:"回音岩", opt:true, lat:65.9300, lng:-16.5050, z:15,
+       q:"Hljodaklettar Vesturdalur", desc:"Vesturdalur 谷中的柱狀玄武岩群，是被河水侵蝕掉的火山口殘骸，岩柱扭成蜂巢與扇形，谷壁把水聲反射回來因而得名。環狀步道約 1 小時。位在 862 北段礫石路上，通常 5 月下旬才開。"},
+      {name:"Ásbyrgi", zh:"阿斯匹爾吉峽谷", opt:true, lat:66.0250, lng:-16.5100, z:14,
+       q:"Asbyrgi canyon", desc:"1 公里寬、100 公尺高崖壁圍成的馬蹄形峽谷，由冰河潰決洪水切出，傳說是奧丁座騎 Sleipnir 的蹄印。谷底是罕見的樺木林，走到底端 Botnstjörn 池畔約 30 分鐘。從 85 號公路那側全年可進入。"},
       {name:"Húsavík", zh:"胡薩維克", kind:"city", lat:66.0449, lng:-17.3389, z:14,
        q:"Husavik", desc:"歐洲賞鯨之都，Skjálfandi 灣可見座頭鯨、小鬚鯨與藍鯨。港邊的木造教堂與鯨魚博物館值得一逛（也是電影《歐洲歌唱大賽》場景）。"},
       {name:"Whale Watching", zh:"賞鯨", opt:true, lat:66.0500, lng:-17.3480, z:12,
@@ -1053,29 +1057,35 @@ const DAYS = [
     ]
   },
   {
-    n:13, title:"前往 Snæfellsnes 半島", date:"5/12（三）", stay:"Snæfellsnes（Arnarstapi 一帶）",
-    note:"從 Hvammstangi 沿 1 號公路南下，經 Borgarnes 後轉入半島，沿路可順遊 Deildartunguhver 溫泉與 Grábrók 火山口。重點是半島最上鏡的 Kirkjufell，以及 Arnarstapi 的海崖步道。",
+    n:13, title:"Snæfellsnes 半島 Day1（南岸）", date:"5/12（三）", stay:"Snæfellsnes（Arnarstapi 一帶）",
+    note:"從 Hvammstangi 沿 1 號公路南下，經 Grábrók、Borgarnes 後轉 54 號走半島南岸：Ytri-Tunga 海豹灘 → Búðakirkja 黑教堂 → Arnarstapi 海崖步道。半島走逆時針一圈，南岸進、北岸出，不橫切，全天約 275 公里。",
     spots:[
+      {name:"Grábrók", zh:"格拉布羅克火山口", opt:true, lat:64.7920, lng:-21.3690, z:14,
+       q:"Grabrok crater", desc:"3000 年前噴發的小型火山渣錐，就在 1 號公路旁，有木棧道可登頂，來回約 30 分鐘，能俯瞰周邊熔岩原與農田。"},
       {name:"Borgarnes", zh:"博爾加內斯", kind:"city", lat:64.5388, lng:-21.9231, z:14,
        q:"Borgarnes Iceland", desc:"轉往半島前最後一個大鎮，跨海堤道邊有加油站與餐廳，適合中途休息用餐。"},
-      {name:"Deildartunguhver", zh:"迪爾達通古溫泉", opt:true, lat:64.6664, lng:-21.4064, z:16,
-       q:"Deildartunguhver", desc:"歐洲流量最大的溫泉，每秒湧出約 180 公升接近沸騰的地熱水，是附近城鎮與雷克雅維克部分地熱供暖的水源之一。"},
-      {name:"Grábrók", zh:"格拉布羅克火山口", opt:true, lat:64.7920, lng:-21.3690, z:14,
-       q:"Grabrok crater", desc:"3000 年前噴發的小型火山渣錐，有木棧道可登頂，來回約 30 分鐘，能俯瞰周邊熔岩原與農田。"},
-      {name:"Kirkjufell & Kirkjufellsfoss", zh:"教會山與教會山瀑布", lat:64.9377, lng:-23.3080, z:15,
-       q:"Kirkjufell", desc:"冰島最上鏡的山峰，前景搭配 Kirkjufellsfoss 小瀑布幾乎是冰島明信片代名詞。5 月日落在 22:00 之後，傍晚低角度光線最推薦。"},
+      {name:"Ytri-Tunga", zh:"伊特里通加海豹灘", lat:64.8036, lng:-23.0982, z:15,
+       q:"Ytri Tunga seal beach Snaefellsnes", desc:"半島南岸農場旁的金沙海灘，5–7 月是海豹上岸高峰，退潮時常有一群趴在近岸礁石上。停車後走 5 分鐘，免費，請保持 50 公尺距離。"},
+      {name:"Búðakirkja", zh:"布迪爾黑教堂", lat:64.8215, lng:-23.3846, z:16,
+       q:"Budakirkja black church", desc:"1848 年重建的黑色木教堂，孤立在 Búðahraun 熔岩原上，背景是 Snæfellsjökull 冰川火山。四周熔岩野地有步道，是半島最常入鏡的畫面之一。"},
       {name:"Arnarstapi", zh:"阿爾納斯塔皮", lat:64.7710, lng:-23.6260, z:15,
-       q:"Arnarstapi", desc:"半島南岸的漁村，沿海崖步道可走到 Hellnar，一路都是海蝕拱門與柱狀玄武岩，Snæfellsjökull 冰川火山當背景。"}
+       q:"Arnarstapi", desc:"半島南岸的漁村，今晚住這裡。海崖步道走到 Hellnar 單程 2.5 公里、約 1 小時，一路是海蝕拱門 Gatklettur 與柱狀玄武岩，Snæfellsjökull 當背景。傍晚光線最好，日落近 22:00。"}
     ]
   },
   {
-    n:14, title:"Snæfellsnes 半島 Day2", date:"5/13（四）", stay:"Reykjavík",
-    note:"上午收尾半島西端景點，中午前往 Stykkishólmur 小鎮，下午開車返回雷克雅維克（約 2.5 小時）。",
+    n:14, title:"Snæfellsnes 半島 Day2（西端 → 北岸）", date:"5/13（四）", stay:"Reykjavík",
+    note:"沿 574 號繞半島西端一圈：Lóndrangar、Vatnshellir、Djúpalónssandur、Saxhóll，再轉到北岸看 Kirkjufell，經 Stykkishólmur 返回雷克雅維克。約 295 公里，但最後 175 公里是沒有停點的高速段。",
     spots:[
-      {name:"Djúpalónssandur", zh:"迪尤帕蘿頌黑沙灘", lat:64.7726, lng:-23.9058, z:15,
-       q:"Djupalonssandur", desc:"半島最西端的黑卵石灘，散落著沉船殘骸鐵件與四顆傳統試力石，四周奇岩嶙峋。"},
+      {name:"Lóndrangar", zh:"隆德朗加玄武岩塔", lat:64.7350, lng:-23.7840, z:15,
+       q:"Londrangar", desc:"75 與 61 公尺高的兩根玄武岩尖塔，是火山頸被海侵蝕後剩下的殘骸，海鳥在上頭築巢。崖頂觀景台與 Malarrif 燈塔各有一個角度，也有步道可以走近。"},
       {name:"Vatnshellir Cave", zh:"瓦特恩赫爾洞穴", opt:true, lat:64.7642, lng:-23.8834, z:16,
        q:"Vatnshellir cave", desc:"8000 年前熔岩流形成的地下洞穴，需參加付費導覽（含頭燈與安全帽），可深入地底約 35 公尺。"},
+      {name:"Djúpalónssandur", zh:"迪尤帕蘿頌黑沙灘", lat:64.7726, lng:-23.9058, z:15,
+       q:"Djupalonssandur", desc:"半島最西端的黑卵石灘，散落著沉船殘骸鐵件與四顆傳統試力石，四周奇岩嶙峋。"},
+      {name:"Saxhóll Crater", zh:"薩克斯霍爾火山口", lat:64.8547, lng:-23.8140, z:15,
+       q:"Saxholl crater", desc:"半島西北側的紅色火山渣錐，鐵製階梯直上口緣，來回只要 20 分鐘，頂上可俯瞰 Neshraun 熔岩原一路鋪到海邊。"},
+      {name:"Kirkjufell & Kirkjufellsfoss", zh:"教會山與教會山瀑布", lat:64.9377, lng:-23.3080, z:15,
+       q:"Kirkjufell", desc:"冰島最上鏡的山峰，前景搭配 Kirkjufellsfoss 小瀑布幾乎是冰島明信片代名詞。5 月日落在 22:00 之後，傍晚低角度光線最推薦。"},
       {name:"Stykkishólmur", zh:"斯蒂基斯霍爾米", kind:"city", lat:65.0757, lng:-22.7262, z:14,
        q:"Stykkisholmur", desc:"半島北岸最大的港口小鎮，彩色木屋與 Súgandisey 燈塔小島是熱門拍照點，也是往 Breiðafjörður 群島渡輪的起點。"}
     ]
