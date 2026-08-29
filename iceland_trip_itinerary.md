@@ -59,7 +59,7 @@
 
 ---
 
-# Day 3｜5/2（日）南岸 Day1
+# Day 3｜5/2（日）南岸 Day1（瀑布 + 冰川）
 
 從 Hvolsvöllur 出發沿 1 號公路續往東：
 
@@ -68,7 +68,12 @@
 - Skógafoss
 - Kvernufoss（可選）
 
-冰川留到明天一次走完。
+下午順路：
+
+- Sólheimajökull —— 停車場走到冰緣約 15 分鐘（免費）
+- 冰川健行（可選）：嚮導行程從同一停車場出發，約 3 小時，需事先預約
+
+冰川本來就在 Skógafoss → Vík 路上，排今天可消掉 Day 4 往西 35 km 的折返。全天約 110 公里。
 
 住宿：
 
@@ -76,19 +81,12 @@
 
 ---
 
-# Day 4｜5/3（一）南岸 Day2（黑沙灘 + 冰川）
-
-上午：
+# Day 4｜5/3（一）南岸 Day2（黑沙灘）
 
 - Dyrhólaey（5/1–6/25 鳥類管制，上部 Háey 常在 5/1–5/12 封閉，出發前查 ust.is）
 - Reynisfjara Black Sand Beach
 
-下午（往西 30 分鐘）：
-
-- Sólheimajökull —— 停車場走到冰緣約 15 分鐘（免費）
-- 冰川健行（可選）：嚮導行程從同一停車場出發，約 3 小時，需事先預約
-
-全程唯一一次冰川健行安排在今天。
+只剩 Vík 周邊約 40 公里，刻意留白的半日：上述兩處都可能因鳥類管制或浪況受限，天候有變也吸收得掉。
 
 住宿：
 
@@ -253,18 +251,20 @@ Húsavík
 
 ---
 
-# Day 13｜5/12（三）前往 Snæfellsnes 半島
+# Day 13｜5/12（三）Snæfellsnes 半島 Day1（南岸）
 
 從 Hvammstangi 沿 1 號公路南下。沿路：
 
-- Borgarnes
-- Deildartunguhver 溫泉（可選）
 - Grábrók 火山口（可選）
+- Borgarnes
 
-半島：
+轉 54 號走半島南岸：
 
-- Kirkjufell & Kirkjufellsfoss
-- Arnarstapi 海崖步道
+- Ytri-Tunga 海豹灘
+- Búðakirkja 黑教堂
+- Arnarstapi—Hellnar 海崖步道（單程 2.5 公里、約 1 小時）
+
+半島走逆時針一圈，南岸進、北岸出，不橫切。全天約 275 公里。
 
 住宿：
 
@@ -272,13 +272,21 @@ Húsavík
 
 ---
 
-# Day 14｜5/13（四）Snæfellsnes 半島 Day2
+# Day 14｜5/13（四）Snæfellsnes 半島 Day2（西端 → 北岸）
 
-- Djúpalónssandur 黑沙灘
+沿 574 號繞半島西端：
+
+- Lóndrangar 玄武岩塔
 - Vatnshellir Cave（可選，需預約洞穴導覽）
+- Djúpalónssandur 黑沙灘
+- Saxhóll 火山口
+
+轉北岸：
+
+- Kirkjufell & Kirkjufellsfoss
 - Stykkishólmur 小鎮
 
-下午開車返回雷克雅維克（約 2.5 小時）。
+下午返回雷克雅維克。全天約 295 公里，最後 175 公里是沒有停點的高速段。
 
 住宿：
 
@@ -350,6 +358,10 @@ KEF 機場就在 Reykjanes 半島上，觀光後直接前往機場，不繞路�
 ✅ 藍湖溫泉
 
 ✅ Kirkjufell / Snæfellsnes 半島
+
+✅ Búðakirkja 黑教堂 / Lóndrangar
+
+✅ Ytri-Tunga 海豹灘
 
 ✅ Seljalandsfoss
 
