@@ -21,8 +21,10 @@ Live site: https://iceland-trip.man572142.workers.dev/
   Google Maps embed and photo gallery (right). This is the site.
 - `public/flights.html` — flight option comparison page, linked from the
   header nav on `index.html`. Same dark visual theme, independent data/script.
-- `public/review.html` — 行程體檢報告（季節適配、每日車程負荷、經典景點覆蓋、
-  同質性、深度評估）。自成一頁，不共用 `index.html` 的樣式，也未從導覽列連入。
+- `public/review.html` — 行程體檢報告，只列尚未解決的項目（車程負荷、缺席景點、
+  同質性、深度）。頂部有一段防回歸註記（無極光、Day 9 住 Mývatn、海鸚在
+  Hafnarhólmi）——修行程時先看那段。自成一頁，不共用 `index.html` 的樣式，
+  也未從導覽列連入。
 - `public/_headers` — static response headers (Cloudflare Pages/Workers
   convention: `X-Content-Type-Options`, `Referrer-Policy`).
 - `iceland_trip_itinerary.md` — the canonical written plan in Chinese
