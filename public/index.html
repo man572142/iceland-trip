@@ -599,7 +599,7 @@
 </defs></svg>
 
 <header>
-  <h1>冰島 16 天行程 <span class="region">· 南岸 + 西部半島 + 北冰島</span></h1>
+  <h1>冰島 16 天行程 <span class="region">· 南岸 + 東部峽灣 + 北冰島 + 西北部 + 西部半島</span></h1>
   <div class="head-spacer"></div>
   <div class="legend" aria-label="圖例">
     <span><i style="background:var(--aurora)"></i>景點</span>
@@ -638,8 +638,9 @@
         <tr><td>Jökulsárlón / Höfn（Day5,6）</td><td>2 晚</td></tr>
         <tr><td>Egilsstaðir（Day7）</td><td>1 晚</td></tr>
         <tr><td>Mývatn（Day8,9）</td><td>2 晚</td></tr>
-        <tr><td>Akureyri（Day10,11）</td><td>2 晚</td></tr>
-        <tr><td>Blönduós（Day12）</td><td>1 晚</td></tr>
+        <tr><td>Akureyri（Day10）</td><td>1 晚</td></tr>
+        <tr><td>Sauðárkrókur（Day11）</td><td>1 晚</td></tr>
+        <tr><td>Hvammstangi（Day12）</td><td>1 晚</td></tr>
         <tr><td>Snæfellsnes（Day13）</td><td>1 晚</td></tr>
         <tr><td>Day16 深夜航班，不需訂房</td><td>—</td></tr>
       </table>
@@ -740,7 +741,7 @@ const DAYS = [
   },
   {
     n:3, title:"南岸 Day1", date:"5/2（日）", stay:"Vík",
-    note:"從 Hvolsvöllur 出發沿 1 號公路續往東，瀑布之間車程都很短，可以慢慢拍。",
+    note:"從 Hvolsvöllur 出發沿 1 號公路續往東，瀑布之間車程都很短，可以慢慢拍。冰川留到明天一次走完。",
     spots:[
       {name:"Seljalandsfoss", zh:"塞里雅蘭瀑布", lat:63.6156, lng:-19.9928, z:16,
        q:"Seljalandsfoss", desc:"少數可以繞到水簾後方的瀑布，60 公尺落差。步道濕滑且會被噴濕，務必穿防水外套。"},
@@ -750,27 +751,25 @@ const DAYS = [
        q:"Skogafoss", desc:"寬 25 公尺、高 60 公尺的方正大瀑布，晴天常出現雙彩虹。右側階梯可登上瀑頂接 Fimmvörðuháls 步道。"},
       {name:"Kvernufoss", zh:"克維努瀑布", opt:true, lat:63.5305, lng:-19.4885, z:17,
        q:"Kvernufoss", desc:"從 Skógar 博物館旁步行約 15 分鐘的小眾瀑布，同樣可以走到水簾後方，人潮遠少於 Skógafoss。"},
-      {name:"Sólheimajökull", zh:"索爾黑馬冰川", lat:63.5306, lng:-19.3689, z:14,
-       q:"Solheimajokull", desc:"Mýrdalsjökull 冰帽的外伸冰舌，是南岸最容易接近的冰川。停車場走到冰緣約 15 分鐘，冰川健行行程多從這裡出發。"},
       {name:"Vík í Mýrdal", zh:"維克鎮", kind:"city", lat:63.4187, lng:-19.0060, z:14,
        q:"Vik i Myrdal", desc:"南岸唯一的補給小鎮，山丘上的紅頂教堂是明信片場景。今晚住這裡。"}
     ]
   },
   {
     n:4, title:"南岸 Day2（黑沙灘）", date:"5/3（一）", stay:"Vík",
-    note:"Vík 周邊的海岬與黑沙灘，步調放慢，下午可選加購冰川健行（需事先預約）。",
+    note:"上午 Vík 周邊的海岬與黑沙灘，下午往西 30 分鐘到 Sólheimajökull 走冰川。全程唯一一次冰川健行安排在今天。",
     spots:[
       {name:"Dyrhólaey", zh:"迪霍拉里海岬", lat:63.4020, lng:-19.1264, z:15,
        q:"Dyrholaey", desc:"120 公尺高的海岬與巨大海蝕拱門，可俯瞰整條黑沙灘。5–8 月是海鸚棲息地，部分區域有季節性封閉。"},
       {name:"Reynisfjara Black Sand Beach", zh:"雷尼斯黑沙灘", lat:63.4058, lng:-19.0448, z:15,
        q:"Reynisfjara", desc:"玄武岩柱洞窟與外海的 Reynisdrangar 海蝕柱。⚠️ 這裡有致命的 sneaker wave，絕對不要靠近水線背對海面。"},
-      {name:"Glacier Hiking", zh:"冰川健行", opt:true, lat:63.5306, lng:-19.3689, z:14,
-       q:"glacier hiking Solheimajokull", desc:"從 Sólheimajökull 出發的付費嚮導行程，配發冰爪與冰斧，5 月初仍在雪季尾聲，建議出發前確認團況。"}
+      {name:"Sólheimajökull", zh:"索爾黑馬冰川", lat:63.5306, lng:-19.3689, z:14,
+       q:"Solheimajokull", desc:"Mýrdalsjökull 冰帽的外伸冰舌，南岸最容易接近的冰川。停車場走到冰緣約 15 分鐘（免費）；嚮導冰川健行也從這裡出發，配發冰爪與冰斧，約 3 小時，需事先預約並確認 5 月初團況。"}
     ]
   },
   {
     n:5, title:"冰河潟湖", date:"5/4（二）", stay:"Jökulsárlón / Höfn 附近",
-    note:"可選加購冰川健行或 Zodiac Boat Tour（建議提前預約）。",
+    note:"從 Vík 一路往東進 Vatnajökull 國家公園，潟湖是今天的重頭戲。Zodiac 快艇行程建議提前預約。",
     spots:[
       {name:"Fjaðrárgljúfur Canyon", zh:"羽毛峽谷", lat:63.7714, lng:-18.1719, z:15,
        q:"Fjadrargljufur", desc:"200 萬年歷史的蛇行峽谷，深 100 公尺、長 2 公里，苔蘚覆蓋的岩壁蜿蜒如巨獸脊背。峽谷上緣有觀景步道。"},
@@ -849,30 +848,44 @@ const DAYS = [
     ]
   },
   {
-    n:11, title:"Siglufjörður / Tröllaskagi 半島", date:"5/10（一）", stay:"Akureyri",
-    note:"新增的深度北冰島延伸：一路貼著峽灣開往冰島最北的城鎮之一 Siglufjörður，晚上返回 Akureyri。",
+    n:11, title:"Tröllaskagi 半島（巨魔半島）", date:"5/10（一）", stay:"Sauðárkrókur",
+    note:"沿 82／76 號公路穿隧道繞完整個 Tröllaskagi 半島，不折返 Akureyri，直接翻到西側的 Skagafjörður 過夜。全程約 190 公里、淨車程 3 小時。",
     spots:[
+      {name:"Dalvík", zh:"達爾維克", kind:"city", lat:65.9711, lng:-18.5286, z:14,
+       q:"Dalvik Iceland", desc:"Eyjafjörður 西岸的漁港小鎮，是往 Grímsey 島與賞鯨船的出發港。半島公路上第一個補給點。"},
+      {name:"Ólafsfjörður", zh:"歐拉夫斯菲厄澤", lat:66.0653, lng:-18.6547, z:14,
+       q:"Olafsfjordur", desc:"穿過 3.4 公里的 Múlagöng 隧道後抵達的峽灣小鎮，三面陡峭山壁夾著一潭湖水，接著再穿 Héðinsfjarðargöng 往 Siglufjörður。"},
       {name:"Siglufjörður", zh:"錫格盧菲厄澤", kind:"city", lat:66.1517, lng:-18.9108, z:14,
-       q:"Siglufjordur", desc:"曾是全球鯡魚漁業重鎮的峽灣小鎮，四面環山、風景明信片等級。近年靠隧道連通後交通方便許多。"},
+       q:"Siglufjordur", desc:"曾是全球鯡魚漁業重鎮的峽灣小鎮，四面環山、風景明信片等級。冰島本島最北的城鎮，港邊餐廳適合午餐。"},
       {name:"Síldarminjasafnið (Herring Era Museum)", zh:"鯡魚時代博物館", opt:true, lat:66.1505, lng:-18.9145, z:16,
        q:"Herring Era Museum Siglufjordur", desc:"還原 20 世紀鯡魚榮景的港區博物館群，老船屋、工廠與職人宿舍原汁原味保留，是冰島評價最高的博物館之一。"},
-      {name:"Ólafsfjörður", zh:"歐拉夫斯菲厄澤", opt:true, lat:66.0653, lng:-18.6547, z:14,
-       q:"Olafsfjordur", desc:"往返 Siglufjörður 路上會經過的峽灣小鎮，沿線隧道與海岸公路景觀壯闊，適合中途停留拍照。"}
+      {name:"Hofsós", zh:"霍夫索斯", lat:65.8944, lng:-19.4147, z:15,
+       q:"Hofsos Iceland", desc:"Skagafjörður 東岸的小村，招牌是懸在海崖上的無邊際泳池，泡在池裡直接望向峽灣與 Drangey 島。港邊還有一小段柱狀玄武岩海岸。"},
+      {name:"Sauðárkrókur", zh:"紹達克羅屈爾", kind:"city", lat:65.7461, lng:-19.6394, z:14,
+       q:"Saudarkrokur Iceland", desc:"Skagafjörður 灣底的西北部第一大鎮，冰島馬產區的中心。今晚住這裡，明天接 Vatnsnes 半島。"}
     ]
   },
   {
-    n:12, title:"Akureyri → Blönduós", date:"5/11（二）", stay:"Blönduós 一帶",
-    note:"北冰島環線結束，沿 1 號公路西行返回西部，順遊維濟米爾草皮教堂，今晚在 Blönduós 過夜，把 Akureyri 到 Snæfellsnes 的長途車程分成兩天走。",
+    n:12, title:"Vatnsnes 半島（西北部）", date:"5/11（二）", stay:"Hvammstangi 一帶",
+    note:"西北部整天：先看草皮教堂，再繞 711 號環半島礫石路看 Hvítserkur 海蝕岩與野生海豹。今晚住 Hvammstangi，比原本的 Blönduós 更靠近明天的半島行程。",
     spots:[
       {name:"Víðimýrarkirkja", zh:"維濟米爾教堂", opt:true, lat:65.5252, lng:-19.4638, z:16,
        q:"Vidimyrarkirkja turf church", desc:"1834 年建成的草皮教堂，冰島僅存幾座傳統草皮教堂之一，就在 1 號公路旁的 Varmahlíð 附近，順路停留 10 分鐘即可。"},
-      {name:"Blönduós", zh:"布倫迪歐斯", kind:"city", lat:65.6603, lng:-20.2996, z:14,
-       q:"Blonduos Iceland", desc:"位在 Blanda 河出海口的西北部補給小鎮，今晚在此過夜，明天再續走去 Snæfellsnes 半島。"}
+      {name:"Hvítserkur", zh:"犀牛石", lat:65.6061, lng:-20.6383, z:16,
+       q:"Hvitserkur", desc:"矗立在 Húnaflói 灣淺灘上的 15 公尺玄武岩海蝕柱，兩個岩洞讓它看起來像一頭低頭喝水的犀牛或巨龍。退潮可走下黑沙灘靠近，漲潮時從崖上觀景台拍。"},
+      {name:"Illugastaðir", zh:"伊魯加斯塔濟海豹棲地", opt:true, lat:65.5525, lng:-20.9628, z:15,
+       q:"Vatnsnes peninsula", desc:"半島西岸的農場海岸，是冰島最容易從陸上看到野生海豹的地點之一。木棧道走到礁石觀景點約 15 分鐘，5 月正值海豹上岸曬太陽的季節。"},
+      {name:"Hvammstangi", zh:"赫維姆斯唐吉", kind:"city", lat:65.3958, lng:-20.9403, z:14,
+       q:"Hvammstangi Iceland", desc:"Vatnsnes 半島的門戶小鎮，港邊有 Icelandic Seal Center（海豹中心），館內說明去哪一段海岸、什麼潮汐看得到海豹。今晚在此過夜。"},
+      {name:"Borgarvirki", zh:"博爾加維爾基堡壘", opt:true, lat:65.4694, lng:-20.7469, z:15,
+       q:"Borgarvirki", desc:"10 公尺高的玄武岩柱狀岩台，維京時代被改建成天然要塞，頂上有 360 度視野可俯瞰兩座峽灣與湖泊。從停車場走上去只要 5 分鐘。"},
+      {name:"Kolugljúfur", zh:"科盧峽谷", opt:true, lat:65.3617, lng:-20.4517, z:15,
+       q:"Kolugljufur", desc:"Víðidalsá 切出的深邃峽谷，Kolufossar 瀑布分段墜入谷底，傳說是女巨人 Kola 的住處。就在 1 號公路旁 5 公里處，適合當天進來或明天出發時順路。"}
     ]
   },
   {
     n:13, title:"前往 Snæfellsnes 半島", date:"5/12（三）", stay:"Snæfellsnes（Arnarstapi 一帶）",
-    note:"從 Blönduós 續往西南，經 Borgarnes 後轉入半島，沿路可順遊 Deildartunguhver 溫泉與 Grábrók 火山口。重點是半島最上鏡的 Kirkjufell，以及 Arnarstapi 的海崖步道。",
+    note:"從 Hvammstangi 沿 1 號公路南下，經 Borgarnes 後轉入半島，沿路可順遊 Deildartunguhver 溫泉與 Grábrók 火山口。重點是半島最上鏡的 Kirkjufell，以及 Arnarstapi 的海崖步道。",
     spots:[
       {name:"Borgarnes", zh:"博爾加內斯", kind:"city", lat:64.5388, lng:-21.9231, z:14,
        q:"Borgarnes Iceland", desc:"轉往半島前最後一個大鎮，跨海堤道邊有加油站與餐廳，適合中途休息用餐。"},
