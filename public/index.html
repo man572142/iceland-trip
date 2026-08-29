@@ -1369,6 +1369,8 @@ function renderLb(){
   const p = PHOTOS[lbIndex];
   if(!p) return;
   if(!lbImg){ lbImg = document.createElement('img'); lbFig.prepend(lbImg); }
+  // 大圖網址偶爾載入失敗（如維基媒體放大失敗），退回已知可用的縮圖
+  lbImg.onerror = () => { if(lbImg.src !== p.thumb) lbImg.src = p.thumb; };
   lbImg.src = p.full;
   lbImg.alt = p.alt;
   lbCap.innerHTML = `<a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.title)}</a>`
