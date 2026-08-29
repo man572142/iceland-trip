@@ -1,4 +1,4 @@
-# 冰島 16 天行程（南岸 + 西部半島 + 北冰島）
+# 冰島 16 天行程（南岸 + 東部峽灣 + 北冰島 + 西北部 + 西部半島）
 
 ---
 
@@ -67,7 +67,8 @@
 - Gljúfrabúi
 - Skógafoss
 - Kvernufoss（可選）
-- Sólheimajökull
+
+冰川留到明天一次走完。
 
 住宿：
 
@@ -75,14 +76,19 @@
 
 ---
 
-# Day 4｜5/3（一）南岸 Day2（黑沙灘）
+# Day 4｜5/3（一）南岸 Day2（黑沙灘 + 冰川）
+
+上午：
 
 - Dyrhólaey
 - Reynisfjara Black Sand Beach
 
-可選：
+下午（往西 30 分鐘）：
 
-- 冰川健行（Sólheimajökull 出發，需事先預約）
+- Sólheimajökull —— 停車場走到冰緣約 15 分鐘（免費）
+- 冰川健行（可選）：嚮導行程從同一停車場出發，約 3 小時，需事先預約
+
+全程唯一一次冰川健行安排在今天。
 
 住宿：
 
@@ -101,7 +107,7 @@
 
 可選：
 
-- Zodiac Boat Tour
+- Zodiac Boat Tour（建議提前預約）
 
 住宿：
 
@@ -197,40 +203,45 @@ Húsavík
 
 ---
 
-# Day 11｜5/10（一）Siglufjörður / Tröllaskagi 半島
+# Day 11｜5/10（一）Tröllaskagi 半島（巨魔半島）
 
-北冰島深度延伸：
+沿 82／76 號公路穿隧道繞完整個半島，不折返 Akureyri，直接翻到西側的 Skagafjörður 過夜。全程約 190 公里、淨車程 3 小時。
 
-- Siglufjörður
+- Dalvík
+- Ólafsfjörður（Múlagöng、Héðinsfjarðargöng 兩條隧道）
+- Siglufjörður（午餐）
 - Síldarminjasafnið（鯡魚時代博物館，可選）
-- Ólafsfjörður（可選，沿路停留）
-
-晚上返回 Akureyri。
+- Hofsós（懸崖無邊際泳池）
+- Sauðárkrókur
 
 住宿：
 
-**Akureyri**
+**Sauðárkrókur**
 
 ---
 
-# Day 12｜5/11（二）Akureyri → Blönduós
+# Day 12｜5/11（二）Vatnsnes 半島（西北部）
 
-北冰島環線結束，沿 1 號公路西行返回西部：
+西北部整天。沿 1 號公路西行後轉入 711 號環半島礫石路：
 
 - Víðimýrarkirkja 草皮教堂（可選，Varmahlíð 附近）
-- Blönduós
+- Hvítserkur 犀牛石
+- Illugastaðir 海豹棲地（可選）
+- Hvammstangi（Icelandic Seal Center 海豹中心）
+- Borgarvirki 玄武岩堡壘（可選）
+- Kolugljúfur 峽谷（可選，1 號公路旁 5 公里，今天進來或明天出發時順路都行）
 
-今晚在 Blönduós 過夜，把 Akureyri 到 Snæfellsnes 的長途車程分成兩天走，明天再深入半島。
+住 Hvammstangi 而非原本的 Blönduós，明天到 Borgarnes 少開 40 分鐘。
 
 住宿：
 
-**Blönduós 一帶**
+**Hvammstangi 一帶**
 
 ---
 
 # Day 13｜5/12（三）前往 Snæfellsnes 半島
 
-沿路：
+從 Hvammstangi 沿 1 號公路南下。沿路：
 
 - Borgarnes
 - Deildartunguhver 溫泉（可選）
@@ -307,8 +318,9 @@ KEF 機場就在 Reykjanes 半島上，觀光後直接前往機場，不繞路�
 | Jökulsárlón / Höfn（Day5,6） | 2 |
 | Egilsstaðir（Day7） | 1 |
 | Mývatn（Day8,9） | 2 |
-| Akureyri（Day10,11） | 2 |
-| Blönduós（Day12） | 1 |
+| Akureyri（Day10） | 1 |
+| Sauðárkrókur（Day11） | 1 |
+| Hvammstangi（Day12） | 1 |
 | Snæfellsnes（Day13） | 1 |
 | Day16 深夜航班 | 不需訂房 |
 
@@ -356,4 +368,10 @@ KEF 機場就在 Reykjanes 半島上，觀光後直接前往機場，不繞路�
 
 ✅ Húsavík
 
-✅ Siglufjörður
+✅ Siglufjörður / Tröllaskagi 半島
+
+✅ Hofsós 懸崖泳池
+
+✅ Hvítserkur 犀牛石
+
+✅ Vatnsnes 半島野生海豹
