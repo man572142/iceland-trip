@@ -190,21 +190,20 @@ Mývatn Nature Baths
 
 ---
 
-# Day 10｜5/9（日）Dettifoss + Ásbyrgi + Húsavík
+# Day 10｜5/9（日）Dettifoss + Húsavík
 
 上午：
 
 - Dettifoss
 - Selfoss（瀑布）
 
-之後不折返，續沿 862 號北上接 85 號（約 255 公里）：
+下午：
 
-- Hljóðaklettar 回音岩（Vesturdalur）
-- Ásbyrgi 馬蹄形峽谷
-- Húsavík
-- Whale Watching（可選）
+Húsavík
 
-⚠️ 862 北段（Dettifoss→Ásbyrgi）是礫石路、冬季不維護，通常 5 月下旬才開，出發前查 road.is。未開就原路折返回 1 號（約 305 公里，捨這兩個點）。
+可選：
+
+- Whale Watching
 
 沿 1 號公路返回 Akureyri，順路：
 
@@ -397,8 +396,6 @@ KEF 機場就在 Reykjanes 半島上，觀光後直接前往機場，不繞路�
 ✅ Dimmuborgir
 
 ✅ Dettifoss
-
-✅ Ásbyrgi 峽谷 / Hljóðaklettar
 
 ✅ Húsavík
 
