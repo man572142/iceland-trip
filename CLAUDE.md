@@ -57,8 +57,9 @@ differently from a sightseeing spot).
 plan, so beyond `desc`（這是什麼）a spot may carry `hook`（看點：你會經歷什麼）,
 `dwell` (minutes), `walk`, `fee`, `book` (a string; presence marks the spot
 待決定), `may`（5 月初的開放實況）and `tradeoff`（純事實的排程約束）. All are
-optional and render only where present. **Filled in so far: Day 3, 8 and 11
-only** — the remaining days show name, type and the day's driving load.
+optional and render only where present, but `hook`, `dwell` and `type` are
+currently on all 77 spots — keep it that way when adding one, or the day's
+budget row and the homogeneity counter go quiet for that day.
 
 `type` is on every spot and drives two things: the chip in the left column,
 and the 「全程第 N／M 個瀑布」 counter in the detail panel, which is how
