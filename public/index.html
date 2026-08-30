@@ -294,6 +294,10 @@
     background:rgba(126,147,172,.16);color:var(--text-3);
     border:1px solid rgba(126,147,172,.24);
   }
+  .badge.fixed{
+    background:var(--aurora-14);color:var(--aurora);
+    border-color:var(--aurora-28);
+  }
   .badge.seq{
     background:var(--glacier-14);color:var(--glacier);
     border-color:rgba(138,180,255,.26);font-variant-numeric:tabular-nums;
@@ -313,6 +317,10 @@
   .chip.book{
     color:var(--sulphur);background:rgba(242,181,68,.09);
     border-color:rgba(242,181,68,.28);
+  }
+  .chip.fixed{
+    color:var(--aurora);background:var(--aurora-08);
+    border-color:var(--aurora-28);font-weight:600;
   }
 
   /* Day load: net driving + summed dwell, on one 12 h ruler shared by every day */
@@ -1111,21 +1119,28 @@ const DAYS = [
   },
   {
     n:5, title:"Skaftafell 國家公園", date:"5/4（二）", stay:"Skaftafell / Hof 一帶", km:170, drive:2.4,
-    note:"從 Vík 往東進 Vatnajökull 國家公園。重點是 Skaftafell 的 Svartifoss + Sjónarnípa 完整環線（約 3 小時）。今晚住 Skaftafell / Hof 一帶，把潟湖留到明天早上拍晨光。",
+    note:"從 Vík 往東進 Vatnajökull 國家公園。重點是 Skaftafell 的 Svartifoss + Sjónarnípa 完整環線（約 3 小時）。Fjaðrárgljúfur 步道 5 月初常仍封閉，出發前查 ust.is —— 封閉就改停 Dverghamrar，兩者都在同一段 1 號公路上。今晚住 Skaftafell / Hof 一帶，把潟湖留到明天早上拍晨光。",
     spots:[
-      {name:"Fjaðrárgljúfur Canyon", zh:"羽毛峽谷", lat:63.7714, lng:-18.1719, z:15,
+      {name:"Fjaðrárgljúfur Canyon", zh:"羽毛峽谷", opt:true, lat:63.7714, lng:-18.1719, z:15,
        q:"Fjadrargljufur", type:"canyon",
        desc:"深 100 公尺、長 2 公里的蛇行峽谷，苔蘚覆蓋的岩壁一層層向內折。",
        hook:"步道沿著上緣走，每轉一個彎就是新的一段 S 形谷壁 —— 從頭到尾看到的不是同一個景。最深處有平台可以直接俯視谷底的 Fjaðrá 河。",
        dwell:75, walk:"上緣步道單程約 1.1 km、有爬升，來回約 1 小時", fee:"免費",
-       may:"⚠️ 步道每年春季常因融雪泥濘封閉以保護植被，近年多在 5 月中到 6 月初才重新開放 —— 出發前務必查 ust.is",
-       tradeoff:"從 1 號公路轉進來的礫石路約 2 km。若步道封閉，停車場附近只看得到谷口，10 分鐘結束"},
+       may:"⚠️ 步道每年春季常因融雪泥濘封閉以保護植被，近年多在 5 月中到 6 月初才重新開放 —— 行程排 5/4，押不到。出發前查 ust.is",
+       tradeoff:"標可選是因為開放與否押不到，不是因為不值得。封閉時停車場只看得到谷口，10 分鐘結束 —— 這種情況改停 Dverghamrar，省下的 1 小時可以加到 Skaftafell 的環線上"},
       {name:"Kirkjubæjarklaustur", zh:"教堂鎮", kind:"city", lat:63.7906, lng:-18.0594, z:14,
        q:"Kirkjubaejarklaustur", type:"town",
        desc:"Vík 與 Skaftafell 之間唯一的補給小鎮，有加油站與超市。",
        hook:"鎮旁的 Kirkjugólf「教堂地板」是一片被冰河磨平的柱狀玄武岩露頭 —— 約 80 平方公尺的六角形地磚整片攤在草地上。名字雖叫教堂地板，但上面從來沒有蓋過教堂，是天然的。",
        dwell:40, walk:"Kirkjugólf 從路邊走 10 分鐘平路", fee:"免費",
        tradeoff:"這天唯一的加油與超市點，中午在此休息"},
+      {name:"Dverghamrar", zh:"侏儒岩", opt:true, lat:63.7868, lng:-17.8760, z:16,
+       q:"Dverghamrar Iceland", type:"geology",
+       desc:"1 號公路旁的柱狀玄武岩露頭，1975 年起列為自然保護遺跡。",
+       hook:"整齊的六角柱疊成一面矮崖，上層還蓋著一頂被海浪磨圓的塊狀玄武岩 —— 冰河期末海平面比現在高，這裡曾經是海岸線。冰島民間傳說裡這是侏儒的住處，名字因此而來。",
+       dwell:20, walk:"路邊停車，走幾步就到", fee:"免費",
+       may:"戶外露頭，全年可看，不受季節封閉影響",
+       tradeoff:"Fjaðrárgljúfur 若封閉就走這裡 —— 同樣是玄武岩地形，20 分鐘，而且押得到。兩個都開的話，這站可跳過"},
       {name:"Skaftafell", zh:"斯卡夫塔山自然保護區", lat:64.0166, lng:-16.9662, z:13,
        q:"Skaftafell", type:"hike",
        desc:"Vatnajökull 國家公園的核心區，步道網四通八達。",
@@ -1281,14 +1296,14 @@ const DAYS = [
        dwell:45, walk:"短環線約 20 分鐘，長環線約 1 小時，平緩", fee:"免費",
        may:"5 月水鳥開始回巢；夏季那種成群的搖蚊此時還沒起來",
        tradeoff:"米湖南岸，繞湖一圈的路上順路"},
-      {name:"Mývatn Nature Baths", zh:"米湖溫泉", lat:65.6318, lng:-16.8478, z:16,
+      {name:"Mývatn Nature Baths", zh:"米湖溫泉", fixed:true, lat:65.6318, lng:-16.8478, z:16,
        q:"Myvatn Nature Baths", type:"bath",
        desc:"北部版藍湖，乳藍色鹼性溫泉水約 36–40°C。",
        hook:"人比藍湖少很多、視野也開闊得多 —— 泡在池裡直接望向米湖與周圍的火山地形，沒有圍牆。5 月日落近 22:00，可以一路泡到落日。",
        dwell:120, fee:"成人約 ISK 8,500（旺季浮動）",
-       book:"建議線上預約時段",
-       may:"全年營運",
-       tradeoff:"這天淨車程只有 1 小時，泡 2 小時收尾綽綽有餘"}
+       book:"已定案要去，出發前線上訂時段",
+       may:"全年營運，不受季節限制影響",
+       tradeoff:"這天淨車程只有 1 小時，泡 2 小時收尾綽綽有餘。這也是全程唯一不受 Reykjanes 火山活動影響的大型溫泉 —— 藍湖若臨時關閉，這裡已經先泡到了"}
     ]
   },
   {
@@ -1381,7 +1396,7 @@ const DAYS = [
   },
   {
     n:12, title:"Vatnsnes 半島（西北部）", date:"5/11（二）", stay:"Hvammstangi 一帶", km:210, drive:3.5,
-    note:"西北部整天：先看草皮教堂，再繞 711 號環半島礫石路看 Hvítserkur 海蝕岩與野生海豹。今晚住 Hvammstangi，比原本的 Blönduós 更靠近明天的半島行程。",
+    note:"西北部整天：先看草皮教堂，再繞 711 號環半島礫石路看 Hvítserkur 海蝕岩與野生海豹。Illugastaðir 5 月可能因絨鴨繁殖期封閉（查 selasetur.is）—— 若關閉，半島仍值得繞，Hvítserkur 才是主要理由，海豹順延到 Day 13 的 Ytri-Tunga。今晚住 Hvammstangi，比原本的 Blönduós 更靠近明天的半島行程。",
     spots:[
       {name:"Víðimýrarkirkja", zh:"維濟米爾教堂", opt:true, lat:65.5252, lng:-19.4638, z:16,
        q:"Vidimyrarkirkja turf church", type:"culture",
@@ -1402,8 +1417,8 @@ const DAYS = [
        desc:"半島西岸的農場海岸，冰島最容易從陸上看到野生海豹的地點之一。",
        hook:"木棧道走到海邊的觀景小屋，礁石上就是海豹固定上岸曬太陽的地方 —— 不用出海、不用船，走 15 分鐘就到。",
        dwell:60, walk:"停車場到觀景點木棧道來回約 15 分鐘", fee:"停車約 ISK 1,000（私人農場）",
-       may:"⚠️ 5 月是海豹上岸高峰，但此地因絨鴨繁殖期（約 4 月下旬至 6 月中）曾封閉部分或全部區域 —— 出發前務必查 selasetur.is 或現場告示",
-       tradeoff:"若封閉，Hvammstangi 的海豹中心會告訴你當天哪一段海岸看得到；半島東岸沿途也有幾個免費觀察點"},
+       may:"⚠️ 5 月是海豹上岸高峰，但此地因絨鴨繁殖期（約 4 月下旬至 6 月中）曾封閉部分或全部區域 —— 行程排 5/11，正落在區間內。出發前查 selasetur.is 或現場告示",
+       tradeoff:"押不到就別把海豹壓在這裡。備案順序：① Hvammstangi 海豹中心問當天哪段海岸有；② Hvítserkur 所在的 Ósar 一帶沿岸常見；③ Day 13 的 Ytri-Tunga 是最穩的一個，5–7 月正是高峰"},
       {name:"Hvammstangi", zh:"赫維姆斯唐吉", kind:"city", lat:65.3958, lng:-20.9403, z:14,
        q:"Hvammstangi Iceland", type:"town",
        desc:"Vatnsnes 半島的門戶小鎮，今晚在此過夜。",
@@ -1423,8 +1438,8 @@ const DAYS = [
        desc:"Víðidalsá 切出的深峽谷，Kolufossar 分段墜入谷底。",
        hook:"從橋上可以直接俯視整段峽谷與瀑布。傳說這是女巨人 Kola 挖來住的 —— 她躺在谷底，伸手就能從河裡抓鮭魚。",
        dwell:30, walk:"橋邊觀景平台，平路", fee:"免費",
-       may:"全年開放",
-       tradeoff:"離 1 號公路約 5 km，今天進來或明早出發時順路都行"}
+       may:"全年開放，不受繁殖期或融雪影響",
+       tradeoff:"離 1 號公路約 5 km，今天進來或明早出發時順路都行。Illugastaðir 若因繁殖期封閉，這站是這天現成的替補"}
     ]
   },
   {
@@ -1450,8 +1465,8 @@ const DAYS = [
        desc:"半島南岸農場旁的金沙海灘。",
        hook:"半島上少見的金色沙灘，近岸礁石是海豹固定上岸的地方 —— 退潮時常有一整群趴在石頭上。停車後走 5 分鐘就到。",
        dwell:45, walk:"停車場到海灘 5 分鐘平路", fee:"免費",
-       may:"5 月起進入海豹上岸高峰（5–7 月）；請保持 50 公尺以上距離",
-       tradeoff:"這趟第 2 個陸上看海豹的點。Day 12 的 Illugastaðir 5 月可能因繁殖期封閉 —— 那裡沒看到的話，這裡是補救機會"},
+       may:"5 月起進入海豹上岸高峰（5–7 月），且無繁殖期封閉問題；請保持 50 公尺以上距離",
+       tradeoff:"Day 12 的 Illugastaðir 5/11 正落在絨鴨繁殖期封閉區間內，押不到 —— 這裡才是這趟看海豹最穩的一站，別當成順路的重複景點跳過"},
       {name:"Búðakirkja", zh:"布迪爾黑教堂", lat:64.8215, lng:-23.3846, z:16,
        q:"Budakirkja black church", type:"culture",
        desc:"1848 年重建的黑色木教堂，孤立在 Búðahraun 熔岩原上。",
@@ -1527,8 +1542,8 @@ const DAYS = [
        hook:"池緣直接切齊大西洋，泡著就是看海與遠方的 Snæfellsnes 半島。招牌是七步驟 Ritual：熱池 → 冷水池 → 景觀窗桑拿 → 冷霧 → 鹽磨砂 → 蒸氣室 → 沖洗。",
        dwell:180, fee:"成人約 ISK 13,000 起（方案不同價差大）",
        book:"需線上預約時段",
-       may:"全年營運",
-       tradeoff:"與 Day 16 的藍湖性質接近，兩者擇一即可。這趟已有米湖溫泉與 Hofsós 海崖泳池"},
+       may:"全年營運，位在市區側，不受 Reykjanes 火山活動影響",
+       tradeoff:"與 Day 16 的藍湖性質接近，正常情況下兩者擇一。但它同時是藍湖的備案 —— 藍湖若因火山活動關閉，這裡是當天就能改訂的替代方案"},
       {name:"Perlan", zh:"珍珠樓", opt:true, lat:64.1290, lng:-21.9190, z:16,
        q:"Perlan Reykjavik", type:"culture",
        desc:"四座熱水儲槽上蓋玻璃穹頂改成的展館。",
@@ -1541,13 +1556,13 @@ const DAYS = [
        desc:"雷克雅維克主要購物街，咖啡店、書店與紀念品店集中在此。",
        hook:"補給乾糧與羊毛衣（lopapeysa）的地方。Bæjarins Beztu 熱狗攤、Brauð & Co 的肉桂捲、跳蚤市場 Kolaportið 都在步行範圍內。",
        dwell:180, walk:"平路散步", fee:"免費",
-       may:"Kolaportið 只在週末營業 —— 這天是 5/14（五），剛好錯過",
+       may:"Kolaportið 只在週末營業（通常六、日 11:00–17:00）—— 這天是 5/14（五），撲空。要逛的話改排 Day 16（5/15 週六）出發去 Reykjanes 之前，班機 00:50 起飛，早上多一小時押得住",
        tradeoff:"整理日的彈性時間：前面任何一天的天候延誤都在這裡吸收，所以這天不排死"}
     ]
   },
   {
     n:16, title:"Reykjanes 半島 + 藍湖 → 返程", date:"5/15（六）", stay:"—", km:130, drive:2.0,
-    note:"從雷克雅維克出發，繞 Reykjanes 半島西端，傍晚在 Blue Lagoon 泡湯收尾（需事先預約），再直接前往 KEF 機場——機場就在半島上，沿途觀光不繞路。回程班機 5/16 凌晨 00:50 起飛（經法蘭克福轉機），5/17 06:15 抵達桃園。",
+    note:"從雷克雅維克出發，繞 Reykjanes 半島西端，傍晚在 Blue Lagoon 泡湯收尾（需事先預約），再直接前往 KEF 機場——機場就在半島上，沿途觀光不繞路。⚠️ Reykjanes 自 2021 年起火山活動頻繁，這天的景點與藍湖都在受影響範圍內：出發前查 safetravel.is。Plan B —— 半島若封閉，改在市區泡 Sky Lagoon，再走 41 號公路（機場聯外道，不經 Grindavík）直達 KEF。回程班機 5/16 凌晨 00:50 起飛（經法蘭克福轉機），5/17 06:15 抵達桃園。",
     spots:[
       {name:"Bridge Between Continents", zh:"大陸板塊橋", lat:63.8698, lng:-22.6817, z:15,
        q:"Bridge Between Continents Iceland", type:"geology",
@@ -1583,8 +1598,8 @@ const DAYS = [
        hook:"名氣最大、人也最多的一個。票價通常含矽泥面膜與一杯飲料，池邊有吧台可以泡著喝。水的顏色來自矽與藻類，不是加的。",
        dwell:180, fee:"成人約 ISK 12,000 起（時段與方案浮動，查官網）",
        book:"務必提前數週線上訂位",
-       may:"⚠️ Reykjanes 半島自 2021 年起多次噴發，藍湖曾數度因火山活動與疏散令臨時關閉 —— 出發前查官網與 safetravel.is，並備好替代方案（市區側的 Sky Lagoon）",
-       tradeoff:"離 KEF 只有 20 分鐘車程，是回程班機前最順的收尾。班機 00:50 起飛，泡到 20:00 左右離開仍很充裕"},
+       may:"⚠️ Reykjanes 半島自 2021 年起多次噴發，藍湖曾數度因火山活動與疏散令臨時關閉 —— 出發前查官網與 safetravel.is",
+       tradeoff:"離 KEF 只有 20 分鐘車程，是回程班機前最順的收尾；班機 00:50 起飛，泡到 20:00 離開仍很充裕。但它是這趟唯一押在火山活動區的行程 —— 訂票時選可免費改期的方案，並把 Day 15 的 Sky Lagoon 當備案（米湖溫泉已定案，泡湯這件事不會落空）"},
       {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
        q:"Keflavik International Airport", type:"transit",
        desc:"回程 FI524 於 5/16 凌晨 00:50 起飛，經法蘭克福轉中華航空回桃園。",
@@ -1612,8 +1627,8 @@ DAYS.forEach(d=>d.spots.forEach(s=>{
   if(s.type) TYPE_SEQ.set(s, TYPE_TOTAL[s.type] = (TYPE_TOTAL[s.type]||0) + 1);
 }));
 
-/* 待決定 = 標為可選，或需要事先預約 */
-const isTodo = s => Boolean(s.opt || s.book);
+/* 待決定 = 標為可選，或需要事先預約；已用 fixed 定案的不算（預約仍要訂，但不必再決定） */
+const isTodo = s => Boolean((s.opt || s.book) && !s.fixed);
 
 const hhmm = m => m < 60 ? `${m} 分`
   : (m % 60 ? `${Math.floor(m/60)} 小時 ${m%60} 分` : `${m/60} 小時`);
@@ -1708,6 +1723,7 @@ function renderDay(day, dayIdx){
     const meta = [
       s.type  ? `<span class="chip type">${TYPES[s.type]}</span>` : '',
       s.dwell ? `<span class="chip">停留 ${hhmm(s.dwell)}</span>` : '',
+      s.fixed ? '<span class="chip fixed">已確定</span>' : '',
       s.book  ? '<span class="chip book">需預約</span>' : ''
     ].join('');
     b.innerHTML = `
@@ -1875,7 +1891,8 @@ function select(id){
   info.innerHTML = `
     <div class="i-head rise">
       <h2>${s.name}</h2><span class="i-zh">${s.zh}</span>
-      ${s.opt?'<span class="badge">可選行程</span>':''}${seq}
+      ${s.opt?'<span class="badge">可選行程</span>':''}${
+        s.fixed?'<span class="badge fixed">已確定</span>':''}${seq}
       <span class="i-photo-note" id="photoNote"></span>
     </div>
     ${s.hook ? `<p class="i-hook rise rise-2"><b>看點</b>${s.hook}</p>` : ''}

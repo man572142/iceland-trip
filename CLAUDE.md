@@ -68,9 +68,14 @@ live in the `TYPES` map at the top of the script — reuse one, don't invent a
 key without adding it there. Type by *experience*, not by administrative
 label: Hofsós is `bath` (the cliff pool is the reason to stop), not `town`.
 
+`fixed: true` marks a spot the group has settled on. It keeps the 需預約
+chip (you still have to book it) but drops out of 待決定 — that's the whole
+point, so as decisions land, set `fixed` rather than deleting `book`.
+
 Two derived views sit on this data: each day's `budget` row (net driving +
 summed `dwell`, on a shared 12 h ruler) and the 「只看待決定」 filter
-(`opt` or `book`). Both degrade quietly when `dwell` is missing.
+(`opt` or `book`, minus `fixed`). Both degrade quietly when `dwell` is
+missing.
 
 **Photos are fetched live, client-side, at page view time** — not stored in
 the repo. `loadPhotos()` queries the Wikimedia Commons API
