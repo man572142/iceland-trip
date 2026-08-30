@@ -294,6 +294,59 @@
     background:rgba(126,147,172,.16);color:var(--text-3);
     border:1px solid rgba(126,147,172,.24);
   }
+  .badge.seq{
+    background:var(--glacier-14);color:var(--glacier);
+    border-color:rgba(138,180,255,.26);font-variant-numeric:tabular-nums;
+  }
+
+  /* Decision meta — rendered only where the spot carries the data */
+  .s-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:5px}
+  .chip{
+    font-size:var(--t-xs);line-height:1.75;white-space:nowrap;
+    padding:0 7px;border-radius:99px;
+    color:var(--text-3);background:var(--surface-3);
+    border:1px solid var(--line);
+    font-variant-numeric:tabular-nums;
+  }
+  .day.open .chip{background:var(--surface)}
+  .chip.type{color:var(--text-2)}
+  .chip.book{
+    color:var(--sulphur);background:rgba(242,181,68,.09);
+    border-color:rgba(242,181,68,.28);
+  }
+
+  /* Day load: net driving + summed dwell, on one 12 h ruler shared by every day */
+  .budget{
+    display:flex;align-items:center;flex-wrap:wrap;gap:5px 11px;
+    margin:0 2px 11px;padding:8px 11px;
+    background:var(--sunken);border:1px solid var(--line);border-radius:var(--r-sm);
+    font-size:var(--t-xs);color:var(--text-4);font-variant-numeric:tabular-nums;
+  }
+  .budget b{color:var(--text-2);font-weight:600}
+  .budget b.tot{color:var(--aurora-hi)}
+  .budget .key{display:inline-flex;align-items:center;gap:5px}
+  .budget .key::before{content:"";width:7px;height:7px;border-radius:2px;flex:none}
+  .budget .k-drive::before{background:var(--glacier)}
+  .budget .k-dwell::before{background:var(--aurora)}
+  .bar{
+    flex:1 1 100%;display:flex;height:5px;margin-top:2px;
+    border-radius:99px;background:var(--surface-3);overflow:hidden;
+  }
+  .bar i{display:block;height:100%}
+  .bar .b-drive{background:var(--glacier);opacity:.75}
+  .bar .b-dwell{background:var(--aurora);opacity:.8}
+
+  /* 只看待決定 */
+  .bar-btns{display:flex;gap:6px}
+  .ghost-btn[aria-pressed="true"]{
+    color:var(--on-aurora);background:var(--aurora);border-color:var(--aurora);
+  }
+  .ghost-btn[aria-pressed="true"]:hover{
+    color:var(--on-aurora);background:var(--aurora-hi);border-color:var(--aurora-hi);
+  }
+  body.filtering .day[data-todo="0"],
+  body.filtering .day-spots li[data-todo="0"]{display:none}
+  body.filtering .day-spots::before{display:none}
 
   .day-actions{padding:9px 2px 0;display:flex;flex-wrap:wrap;gap:8px}
   .route-btn{
@@ -421,10 +474,38 @@
     transition:color .16s,border-color .16s;
   }
   .i-photo-note a:hover{color:var(--aurora-hi);border-color:var(--aurora-45)}
+  .i-hook{
+    margin:0 0 13px;padding:11px 14px;
+    border-left:2px solid var(--aurora-45);
+    border-radius:0 var(--r-sm) var(--r-sm) 0;
+    background:var(--aurora-08);
+    font-size:var(--t-md);line-height:1.85;color:var(--text);
+  }
+  .i-hook b{
+    display:block;margin-bottom:4px;
+    font-size:var(--t-xs);font-weight:700;letter-spacing:.14em;
+    color:var(--aurora);
+  }
   .i-desc{
     font-size:var(--t-md);line-height:1.9;color:var(--text-2);
     margin:0 0 16px;max-width:36em;
   }
+  .i-facts{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:1px;margin:0 0 14px;
+    background:var(--line);border:1px solid var(--line);
+    border-radius:var(--r-sm);overflow:hidden;
+  }
+  .i-facts>div{background:var(--surface);padding:9px 12px}
+  .i-facts dt{font-size:var(--t-xs);color:var(--text-4);letter-spacing:.06em}
+  .i-facts dd{margin:3px 0 0;font-size:var(--t-sm);line-height:1.7;color:var(--text-2)}
+  .i-trade{
+    display:flex;gap:10px;margin:0 0 14px;padding:10px 13px;
+    background:rgba(242,181,68,.07);
+    border:1px solid rgba(242,181,68,.22);border-radius:var(--r-sm);
+    font-size:var(--t-sm);line-height:1.8;color:var(--text-2);
+  }
+  .i-trade b{color:var(--sulphur);font-weight:700;white-space:nowrap}
 
   .gallery{
     display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
@@ -662,6 +743,11 @@
     .i-head{gap:8px}
     .i-photo-note{margin-left:0;flex:1 1 100%;white-space:normal}
     .i-desc{font-size:var(--t-md);line-height:1.85}
+    .i-hook{padding:10px 12px}
+    .i-facts{grid-template-columns:1fr}
+    .list-bar{flex-wrap:wrap}
+    .bar-btns{flex:1 1 100%}
+    .bar-btns .ghost-btn{flex:1 1 0;justify-content:center}
     .gallery{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
     .lb-prev{left:8px}
     .lb-next{right:8px}
@@ -690,6 +776,7 @@
   <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7.5 16.5 16.5 7.5"/><path d="M9.2 7.5h7.3v7.3"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11"/><path d="m17.5 6.5-11 11"/></symbol>
   <symbol id="i-image-off" viewBox="0 0 24 24"><path d="m3 3 18 18"/><path d="M21 15.5V6a2 2 0 0 0-2-2H8.5"/><path d="M3 7.5V18a2 2 0 0 0 2 2h11"/><path d="m3.5 17.5 4.5-4.5 2.5 2.5"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5.5h16l-6.3 7.3v5.5l-3.4 1.9v-7.4z"/></symbol>
   <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.4 8.6-1.9 4.9-4.9 1.9 1.9-4.9z"/></symbol>
   <symbol id="i-sync" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3l2.2 2.2"/><path d="M19.5 4.6V9h-4.4"/><path d="M19.5 12a7.5 7.5 0 0 1-12.8 5.3l-2.2-2.2"/><path d="M4.5 19.4V15h4.4"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3.5v11.5"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M4.5 19.5h15"/></symbol>
@@ -724,10 +811,16 @@
 
     <div class="list-bar">
       <span class="count" id="dayCount"></span>
-      <button type="button" class="ghost-btn" id="toggleAll" aria-expanded="false">
-        <svg class="ico" aria-hidden="true"><use href="#i-chev-d"/></svg>
-        <span id="toggleAllLabel">全部展開</span>
-      </button>
+      <span class="bar-btns">
+        <button type="button" class="ghost-btn" id="onlyTodo" aria-pressed="false">
+          <svg class="ico" aria-hidden="true"><use href="#i-filter"/></svg>
+          <span>只看待決定</span>
+        </button>
+        <button type="button" class="ghost-btn" id="toggleAll" aria-expanded="false">
+          <svg class="ico" aria-hidden="true"><use href="#i-chev-d"/></svg>
+          <span id="toggleAllLabel">全部展開</span>
+        </button>
+      </span>
     </div>
 
     <ol class="day-list" id="dayList"></ol>
@@ -867,256 +960,380 @@
    ========================================================= */
 const DAYS = [
   {
-    n:1, title:"抵達冰島", date:"4/30（五）", stay:"Reykjavík",
+    n:1, title:"抵達冰島", date:"4/30（五）", stay:"Reykjavík", km:50, drive:0.7,
     note:"2027/4/29 深夜 23:30 從桃園出發（經布拉格轉機），4/30 15:55 抵達 KEF → 前往雷克雅維克 → Check-in → 市區散步。5 月上旬日落近 22:00，晚餐後仍有充足光線；此季節永晝無暗夜，看不到極光。",
     spots:[
       {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
-       q:"Keflavik International Airport", desc:"冰島門戶機場，距離雷克雅維克約 50 分鐘車程。多數租車公司在此設點，建議一落地就取車。此行搭乘 CI067（桃園→布拉格）轉 FI537（布拉格→KEF）。"},
+       q:"Keflavik International Airport", type:"transit", desc:"冰島門戶機場，距離雷克雅維克約 50 分鐘車程。多數租車公司在此設點，建議一落地就取車。此行搭乘 CI067（桃園→布拉格）轉 FI537（布拉格→KEF）。"},
       {name:"Hallgrímskirkja", zh:"哈爾格林姆教堂", lat:64.1417, lng:-21.9266, z:16,
-       q:"Hallgrimskirkja", desc:"雷克雅維克地標，74.5 公尺高的混凝土教堂，外型靈感來自玄武岩柱。可搭電梯上塔頂俯瞰整片彩色屋頂市區。"},
+       q:"Hallgrimskirkja", type:"culture", desc:"雷克雅維克地標，74.5 公尺高的混凝土教堂，外型靈感來自玄武岩柱。可搭電梯上塔頂俯瞰整片彩色屋頂市區。"},
       {name:"Harpa Concert Hall", zh:"哈帕音樂廳", lat:64.1505, lng:-21.9325, z:16,
-       q:"Harpa Reykjavik", desc:"港邊的玻璃蜂巢建築，立面由 Olafur Eliasson 設計。夜晚燈光變化非常上鏡，內部可自由參觀。"},
+       q:"Harpa Reykjavik", type:"culture", desc:"港邊的玻璃蜂巢建築，立面由 Olafur Eliasson 設計。夜晚燈光變化非常上鏡，內部可自由參觀。"},
       {name:"Sólfar (Sun Voyager)", zh:"太陽航海者", lat:64.1475, lng:-21.9224, z:17,
-       q:"Sun Voyager Reykjavik", desc:"海邊的鋼製維京船骨架雕塑，面向 Esja 山。日落與極夜時分最美，走路即可從 Harpa 抵達。"}
+       q:"Sun Voyager Reykjavik", type:"culture", desc:"海邊的鋼製維京船骨架雕塑，面向 Esja 山。日落與極夜時分最美，走路即可從 Harpa 抵達。"}
     ]
   },
   {
-    n:2, title:"Golden Circle → 南岸方向", date:"5/1（六）", stay:"Hvolsvöllur 一帶",
+    n:2, title:"Golden Circle → 南岸方向", date:"5/1（六）", stay:"Hvolsvöllur 一帶", km:235, drive:3.3,
     note:"黃金圈經典三景點，中午在 Friðheimar 番茄農場用餐，下午順遊 Kerið 火山口湖。不返回雷克雅維克，直接住宿南岸方向的 Hvolsvöllur，銜接明天的瀑布行程。",
     spots:[
       {name:"Þingvellir National Park", zh:"辛格韋德利國家公園", lat:64.2559, lng:-21.1300, z:14,
-       q:"Thingvellir", desc:"世界遺產，北美與歐亞板塊的交界裂谷，也是古代冰島議會所在地。Almannagjá 峽谷步道是必走路線。"},
+       q:"Thingvellir", type:"geology", desc:"世界遺產，北美與歐亞板塊的交界裂谷，也是古代冰島議會所在地。Almannagjá 峽谷步道是必走路線。"},
       {name:"Geysir / Strokkur", zh:"間歇泉", lat:64.3104, lng:-20.3024, z:16,
-       q:"Strokkur geyser", desc:"「Geyser（間歇泉）」一詞的語源地。老 Geysir 已少噴發，旁邊的 Strokkur 每 5–10 分鐘噴出 20–30 公尺水柱。"},
+       q:"Strokkur geyser", type:"geothermal", desc:"「Geyser（間歇泉）」一詞的語源地。老 Geysir 已少噴發，旁邊的 Strokkur 每 5–10 分鐘噴出 20–30 公尺水柱。"},
       {name:"Gullfoss", zh:"黃金瀑布", lat:64.3271, lng:-20.1199, z:15,
-       q:"Gullfoss", desc:"分兩層落入 32 公尺深峽谷的巨瀑，水量驚人。冬季兩側結冰、水氣凝成霧凇，氣勢完全不同。"},
+       q:"Gullfoss", type:"waterfall", desc:"分兩層落入 32 公尺深峽谷的巨瀑，水量驚人。冬季兩側結冰、水氣凝成霧凇，氣勢完全不同。"},
       {name:"Friðheimar", zh:"番茄農場", opt:true, lat:64.1444, lng:-20.6423, z:16,
-       q:"Fridheimar tomato farm", desc:"地熱溫室番茄農場餐廳，招牌是番茄湯無限續碗。旺季建議事先訂位，是黃金圈上很受歡迎的午餐點。"},
+       q:"Fridheimar tomato farm", type:"food", desc:"地熱溫室番茄農場餐廳，招牌是番茄湯無限續碗。旺季建議事先訂位，是黃金圈上很受歡迎的午餐點。"},
       {name:"Kerið Crater", zh:"克里德火山口湖", lat:64.0411, lng:-20.8850, z:16,
-       q:"Kerid crater", desc:"3000 年歷史的火山口湖，紅黑色火山渣壁配上不透明的藍綠湖水。可繞口緣走一圈，也能下到湖畔。"},
+       q:"Kerid crater", type:"volcanic", desc:"3000 年歷史的火山口湖，紅黑色火山渣壁配上不透明的藍綠湖水。可繞口緣走一圈，也能下到湖畔。"},
       {name:"Hvolsvöllur", zh:"赫沃斯韋德爾", kind:"city", lat:63.7554, lng:-20.2308, z:14,
-       q:"Hvolsvollur Iceland", desc:"南岸公路上的補給小鎮，今晚在此過夜。比繞回雷克雅維克更順路，明天一早就能直接接上瀑布行程。"}
+       q:"Hvolsvollur Iceland", type:"town", desc:"南岸公路上的補給小鎮，今晚在此過夜。比繞回雷克雅維克更順路，明天一早就能直接接上瀑布行程。"}
     ]
   },
   {
-    n:3, title:"南岸 Day1", date:"5/2（日）", stay:"Vík",
+    n:3, title:"南岸 Day1", date:"5/2（日）", stay:"Vík", km:110, drive:1.7,
     note:"從 Hvolsvöllur 出發沿 1 號公路續往東，四座瀑布之間車程都很短。下午順路走 Sólheimajökull 冰川——它本來就在 Skógafoss → Vík 的路上，排今天可以消掉 Day 4 往西的折返。全天約 110 公里。",
     spots:[
       {name:"Seljalandsfoss", zh:"塞里雅蘭瀑布", lat:63.6156, lng:-19.9928, z:16,
-       q:"Seljalandsfoss", desc:"少數可以繞到水簾後方的瀑布，60 公尺落差。步道濕滑且會被噴濕，務必穿防水外套。"},
+       q:"Seljalandsfoss", type:"waterfall",
+       desc:"南岸第一座大瀑布，60 公尺落差，Seljalandsá 河從舊海岸線的崖頂墜下。",
+       hook:"冰島少數能繞到水簾正後方的瀑布 —— 步道貼著崖壁走進凹穴，從內側回頭看水幕與外面的南岸平原。全程會被水霧打濕。",
+       dwell:45, walk:"繞水簾一圈約 300 m，濕滑石階與碎石", fee:"停車收費（近年約 ISK 900–1,000，現場繳費機）",
+       may:"全年開放。5 月融雪期水量大、水霧強，防水外套與防滑鞋必備",
+       tradeoff:"與 Gljúfrabúi 共用停車場，兩座一起看只多 30 分鐘"},
       {name:"Gljúfrabúi", zh:"峽谷居民瀑布", lat:63.6205, lng:-19.9866, z:17,
-       q:"Gljufrabui", desc:"藏在岩縫裡的秘境瀑布，距 Seljalandsfoss 步行約 5 分鐘。需涉水走進窄縫，內部像天井般開闊。"},
+       q:"Gljufrabui", type:"waterfall",
+       desc:"Seljalandsfoss 北側約 500 公尺，藏在岩縫裡的瀑布。",
+       hook:"整座瀑布關在一道窄岩縫內，要踩著溪中石頭涉水走進去才看得到。裡面像一口天井，抬頭是一線天，水聲被岩壁整個包住。",
+       dwell:30, walk:"從 Seljalandsfoss 停車場步行 5–10 分鐘，最後一段須涉溪", fee:"免費（共用 Seljalandsfoss 停車場）",
+       may:"5 月融雪期溪水較深，防水鞋是關鍵",
+       tradeoff:"與 Seljalandsfoss 性質不同（一個繞到後方、一個走進縫內），不算重複"},
       {name:"Skógafoss", zh:"斯科加瀑布", lat:63.5321, lng:-19.5114, z:16,
-       q:"Skogafoss", desc:"寬 25 公尺、高 60 公尺的方正大瀑布，晴天常出現雙彩虹。右側階梯可登上瀑頂接 Fimmvörðuháls 步道。"},
+       q:"Skogafoss", type:"waterfall",
+       desc:"寬 25 公尺、高 60 公尺的方正大瀑布，就在 1 號公路旁。",
+       hook:"可以一路走到瀑底、被水霧正面打到的那種近。右側 527 階樓梯上到瀑頂，是 Fimmvörðuháls 步道的起點，往上游還接著一整排小瀑布。",
+       dwell:45, walk:"瀑底平路 5 分鐘；瀑頂 527 階，來回約 40 分鐘", fee:"停車收費",
+       may:"全年開放。晴天中午前後水霧常出現彩虹",
+       tradeoff:"這天第 3 座瀑布。時間不夠時，瀑頂那 40 分鐘是最容易砍的一段"},
       {name:"Kvernufoss", zh:"克維努瀑布", opt:true, lat:63.5305, lng:-19.4885, z:17,
-       q:"Kvernufoss", desc:"從 Skógar 博物館旁步行約 15 分鐘的小眾瀑布，同樣可以走到水簾後方，人潮遠少於 Skógafoss。"},
+       q:"Kvernufoss", type:"waterfall",
+       desc:"Skógar 博物館後方小峽谷裡的瀑布。",
+       hook:"同樣能走到水簾後方，但藏在農地後的峽谷裡，遊客常只有個位數 —— 跟 Skógafoss 停車場的人潮是兩個世界。",
+       dwell:45, walk:"從 Skógar 博物館旁停車場沿溪走 15 分鐘，須翻一道柵欄，路面泥濘", fee:"免費",
+       may:"全年可走；5 月融雪期步道泥濘",
+       tradeoff:"「走到水簾後方」與 Seljalandsfoss 重複，且是這天第 4 座瀑布 —— 標可選是對的"},
       {name:"Sólheimajökull", zh:"索爾黑馬冰川", lat:63.5306, lng:-19.3689, z:14,
-       q:"Solheimajokull", desc:"Mýrdalsjökull 冰帽的外伸冰舌，南岸最容易接近的冰川。停車場走到冰緣約 15 分鐘（免費）；嚮導冰川健行也從這裡出發，配發冰爪與冰斧，約 3 小時，需事先預約並確認 5 月初團況。"},
+       q:"Solheimajokull", type:"glacier",
+       desc:"Mýrdalsjökull 冰帽向南伸出的冰舌，南岸最容易接近的冰川。",
+       hook:"停車場走 15 分鐘就站到冰舌前緣，不用任何裝備就能貼近看藍冰、冰磧與融水湖。要走進冰隙區才需要嚮導、冰爪與冰斧。",
+       dwell:60, walk:"停車場到冰緣來回約 2 km 平路，單程 15 分鐘", fee:"停車費約 ISK 1,000；嚮導冰川健行每人約 ISK 15,000 起",
+       book:"嚮導健行需事先預約",
+       may:"冰緣步道全年開放。5 月初部分業者才剛恢復每日出團，團況需先確認",
+       tradeoff:"自行走到冰緣約 1 小時，改成嚮導健行是 3 小時。這天淨車程只有 1.7 h，3 小時的版本塞得下"},
       {name:"Vík í Mýrdal", zh:"維克鎮", kind:"city", lat:63.4187, lng:-19.0060, z:14,
-       q:"Vik i Myrdal", desc:"南岸唯一的補給小鎮，山丘上的紅頂教堂是明信片場景。今晚住這裡。"}
+       q:"Vik i Myrdal", type:"town",
+       desc:"南岸唯一的補給小鎮，連住兩晚。",
+       hook:"山丘上的 Reyniskirkja 紅頂教堂可以俯瞰整片黑沙灘與外海的 Reynisdrangar 海蝕柱 —— 明信片那張就是從這裡拍的。",
+       dwell:40, fee:"免費",
+       tradeoff:"南岸唯一有超市、加油站與餐廳的地方。Day 4 還會回到這裡，今晚只需補給與晚餐"}
     ]
   },
   {
-    n:4, title:"南岸 Day2（黑沙灘）", date:"5/3（一）", stay:"Vík",
+    n:4, title:"南岸 Day2（黑沙灘）", date:"5/3（一）", stay:"Vík", km:40, drive:0.8,
     note:"冰川已移到 Day 3，今天只剩 Vík 周邊約 40 公里，是刻意留白的半日：Dyrhólaey 上部 5 月初常封閉、Reynisfjara 要看浪況，天候有變也吸收得掉。",
     spots:[
       {name:"Dyrhólaey", zh:"迪霍拉里海岬", lat:63.4020, lng:-19.1264, z:15,
-       q:"Dyrholaey", desc:"120 公尺高的海岬與巨大海蝕拱門，可俯瞰整條黑沙灘。⚠️ 5/1–6/25 為保護鳥類管制進出，上部 Háey（燈塔、拱門觀景台）常在 5/1–5/12 封閉，出發前查 ust.is。海鸚要 5 月中才在此定居，改到 Day 7 的 Hafnarhólmi 看。"},
+       q:"Dyrholaey", type:"coast", desc:"120 公尺高的海岬與巨大海蝕拱門，可俯瞰整條黑沙灘。⚠️ 5/1–6/25 為保護鳥類管制進出，上部 Háey（燈塔、拱門觀景台）常在 5/1–5/12 封閉，出發前查 ust.is。海鸚要 5 月中才在此定居，改到 Day 7 的 Hafnarhólmi 看。"},
       {name:"Reynisfjara Black Sand Beach", zh:"雷尼斯黑沙灘", lat:63.4058, lng:-19.0448, z:15,
-       q:"Reynisfjara", desc:"玄武岩柱洞窟與外海的 Reynisdrangar 海蝕柱。⚠️ 這裡有致命的 sneaker wave，絕對不要靠近水線背對海面。"}
+       q:"Reynisfjara", type:"coast", desc:"玄武岩柱洞窟與外海的 Reynisdrangar 海蝕柱。⚠️ 這裡有致命的 sneaker wave，絕對不要靠近水線背對海面。"}
     ]
   },
   {
-    n:5, title:"Skaftafell 國家公園", date:"5/4（二）", stay:"Skaftafell / Hof 一帶",
+    n:5, title:"Skaftafell 國家公園", date:"5/4（二）", stay:"Skaftafell / Hof 一帶", km:170, drive:2.4,
     note:"從 Vík 往東進 Vatnajökull 國家公園。重點是 Skaftafell 的 Svartifoss + Sjónarnípa 完整環線（約 3 小時）。今晚住 Skaftafell / Hof 一帶，把潟湖留到明天早上拍晨光。",
     spots:[
       {name:"Fjaðrárgljúfur Canyon", zh:"羽毛峽谷", lat:63.7714, lng:-18.1719, z:15,
-       q:"Fjadrargljufur", desc:"200 萬年歷史的蛇行峽谷，深 100 公尺、長 2 公里，苔蘚覆蓋的岩壁蜿蜒如巨獸脊背。峽谷上緣有觀景步道。"},
+       q:"Fjadrargljufur", type:"canyon", desc:"200 萬年歷史的蛇行峽谷，深 100 公尺、長 2 公里，苔蘚覆蓋的岩壁蜿蜒如巨獸脊背。峽谷上緣有觀景步道。"},
       {name:"Kirkjubæjarklaustur", zh:"教堂鎮", kind:"city", lat:63.7906, lng:-18.0594, z:14,
-       q:"Kirkjubaejarklaustur", desc:"Vík 與 Skaftafell 之間唯一的補給小鎮，有加油站與超市。鎮旁的 Kirkjugólf「教堂地板」是被冰河磨平的柱狀玄武岩露頭，走 10 分鐘即到。"},
+       q:"Kirkjubaejarklaustur", type:"town", desc:"Vík 與 Skaftafell 之間唯一的補給小鎮，有加油站與超市。鎮旁的 Kirkjugólf「教堂地板」是被冰河磨平的柱狀玄武岩露頭，走 10 分鐘即到。"},
       {name:"Skaftafell", zh:"斯卡夫塔山自然保護區", lat:64.0166, lng:-16.9662, z:13,
-       q:"Skaftafell", desc:"Vatnajökull 國家公園的核心區，步道網四通八達。走到玄武岩柱環繞的 Svartifoss（黑瀑布）來回約 1.5 小時；接上 Sjónarnípa 稜線環線約 3 小時，可俯瞰 Skaftafellsjökull 冰舌，是全程最值得的一段健行。"},
+       q:"Skaftafell", type:"hike", desc:"Vatnajökull 國家公園的核心區，步道網四通八達。走到玄武岩柱環繞的 Svartifoss（黑瀑布）來回約 1.5 小時；接上 Sjónarnípa 稜線環線約 3 小時，可俯瞰 Skaftafellsjökull 冰舌，是全程最值得的一段健行。"},
       {name:"Hofskirkja", zh:"霍夫草皮教堂", lat:63.9276, lng:-16.7003, z:16,
-       q:"Hofskirkja turf church", desc:"1884 年建成，冰島最後一批傳統草皮教堂之一，草皮屋頂與周圍墓塚都長滿青草。就在今晚住宿的 Hof 村，傍晚散步可到。"}
+       q:"Hofskirkja turf church", type:"culture", desc:"1884 年建成，冰島最後一批傳統草皮教堂之一，草皮屋頂與周圍墓塚都長滿青草。就在今晚住宿的 Hof 村，傍晚散步可到。"}
     ]
   },
   {
-    n:6, title:"冰河潟湖 + Vestrahorn", date:"5/5（三）", stay:"Höfn",
+    n:6, title:"冰河潟湖 + Vestrahorn", date:"5/5（三）", stay:"Höfn", km:165, drive:2.3,
     note:"一早到潟湖拍晨光 —— 人最少、光最好，Zodiac 也是早班。順路看安靜的 Fjallsárlón，下午移動到 Höfn，黃昏拍 Vestrahorn，晚上吃龍蝦。",
     spots:[
       {name:"Fjallsárlón", zh:"菲亞德爾冰河湖", lat:64.0128, lng:-16.3808, z:15,
-       q:"Fjallsarlon", desc:"Jökulsárlón 西邊 10 公里的小型冰河湖，遊客少很多，而且能直接望見 Fjallsjökull 冰舌本體，冰山離岸也更近。"},
+       q:"Fjallsarlon", type:"glacier", desc:"Jökulsárlón 西邊 10 公里的小型冰河湖，遊客少很多，而且能直接望見 Fjallsjökull 冰舌本體，冰山離岸也更近。"},
       {name:"Jökulsárlón", zh:"傑古沙龍冰河潟湖", lat:64.0784, lng:-16.2306, z:14,
-       q:"Jokulsarlon", desc:"冰島最深的湖，Breiðamerkurjökull 崩落的藍白冰山漂浮其中並緩緩流向大海，常有海豹出沒。Zodiac 快艇能開到冰山之間 —— 船班通常 5/1 開航，5 月初班次少且易因冰況取消，務必先訂並留備案。"},
+       q:"Jokulsarlon", type:"glacier", desc:"冰島最深的湖，Breiðamerkurjökull 崩落的藍白冰山漂浮其中並緩緩流向大海，常有海豹出沒。Zodiac 快艇能開到冰山之間 —— 船班通常 5/1 開航，5 月初班次少且易因冰況取消，務必先訂並留備案。"},
       {name:"Diamond Beach", zh:"鑽石沙灘", lat:64.0434, lng:-16.1794, z:15,
-       q:"Diamond Beach Iceland", desc:"潟湖出海口對面的黑沙灘，被浪打回岸上的冰塊在黑沙上像散落的鑽石。清晨低角度陽光最上鏡，今天正好排在早上。"},
+       q:"Diamond Beach Iceland", type:"coast", desc:"潟湖出海口對面的黑沙灘，被浪打回岸上的冰塊在黑沙上像散落的鑽石。清晨低角度陽光最上鏡，今天正好排在早上。"},
       {name:"Vestrahorn / Stokksnes", zh:"維斯特拉山角", lat:64.2513, lng:-14.9752, z:14,
-       q:"Vestrahorn Stokksnes", desc:"黑沙灘、沙丘與尖銳山峰同框的經典構圖，冰島攝影師最愛的取景地之一，需付少額入場費（私人土地）。5 月日落近 22:00，黃昏光線最好。"},
+       q:"Vestrahorn Stokksnes", type:"coast", desc:"黑沙灘、沙丘與尖銳山峰同框的經典構圖，冰島攝影師最愛的取景地之一，需付少額入場費（私人土地）。5 月日落近 22:00，黃昏光線最好。"},
       {name:"Höfn", zh:"霍芬鎮", kind:"city", lat:64.2539, lng:-15.2082, z:14,
-       q:"Hofn Iceland", desc:"東南岸漁港小鎮，以龍蝦（langoustine）聞名，背景是 Vatnajökull 冰帽。今晚住這裡，吃一頓好的。"}
+       q:"Hofn Iceland", type:"town", desc:"東南岸漁港小鎮，以龍蝦（langoustine）聞名，背景是 Vatnajökull 冰帽。今晚住這裡，吃一頓好的。"}
     ]
   },
   {
-    n:7, title:"東部峽灣 Day1", date:"5/6（四）", stay:"Egilsstaðir",
+    n:7, title:"東部峽灣 Day1", date:"5/6（四）", stay:"Egilsstaðir", km:395, drive:5.4,
     note:"從 Höfn 沿 1 號公路貼著東部峽灣北上，翻山抵達 Egilsstaðir 放行李，傍晚再開 94 號公路去 Hafnarhólmi 看海鸚 —— 18:00–22:00 正是海鸚最活躍的時段，而 5 月日落近 22:00，時間完全夠。",
     spots:[
       {name:"Djúpivogur", zh:"迪尤皮沃古爾", kind:"city", lat:64.6552, lng:-14.2884, z:14,
-       q:"Djupivogur Iceland", desc:"東部峽灣第一個漁村，港邊排列著 34 顆巨型石蛋雕塑（Eggin í Gleðivík），對應冰島各種鳥蛋。"},
+       q:"Djupivogur Iceland", type:"town", desc:"東部峽灣第一個漁村，港邊排列著 34 顆巨型石蛋雕塑（Eggin í Gleðivík），對應冰島各種鳥蛋。"},
       {name:"Petra's Stone Collection", zh:"佩特拉石頭博物館", opt:true, lat:64.8173, lng:-13.8554, z:16,
-       q:"Petra's Stone Collection Stodvarfjordur", desc:"Stöðvarfjörður 小鎮上一位居民畢生撿拾的礦石與水晶收藏，庭院擺滿奇石，是東部峽灣公路上的經典小站。"},
+       q:"Petra's Stone Collection Stodvarfjordur", type:"culture", desc:"Stöðvarfjörður 小鎮上一位居民畢生撿拾的礦石與水晶收藏，庭院擺滿奇石，是東部峽灣公路上的經典小站。"},
       {name:"Egilsstaðir", zh:"埃伊爾斯塔濟", kind:"city", lat:65.2669, lng:-14.3948, z:13,
-       q:"Egilsstadir Iceland", desc:"東冰島最大內陸城鎮，位在 Lagarfljót 湖畔，是東部峽灣與北冰島之間的補給與住宿樞紐。"},
+       q:"Egilsstadir Iceland", type:"town", desc:"東冰島最大內陸城鎮，位在 Lagarfljót 湖畔，是東部峽灣與北冰島之間的補給與住宿樞紐。"},
       {name:"Hafnarhólmi", zh:"海鸚岩（Borgarfjörður eystri）", lat:65.5340, lng:-13.7480, z:15,
-       q:"Hafnarholmi puffin colony", desc:"全冰島最好接近的海鸚棲地，木棧觀景平台離巢穴只有幾公尺。海鸚 4 月中就抵達（2025 年首見 4/8），整個 5 月都在。從 Egilsstaðir 走 94 號公路約 70 公里（已鋪柏油），來回含停留約 3 小時。"}
+       q:"Hafnarholmi puffin colony", type:"wildlife", desc:"全冰島最好接近的海鸚棲地，木棧觀景平台離巢穴只有幾公尺。海鸚 4 月中就抵達（2025 年首見 4/8），整個 5 月都在。從 Egilsstaðir 走 94 號公路約 70 公里（已鋪柏油），來回含停留約 3 小時。"}
     ]
   },
   {
-    n:8, title:"東部峽灣 Day2", date:"5/7（五）", stay:"Mývatn",
+    n:8, title:"東部峽灣 Day2", date:"5/7（五）", stay:"Mývatn", km:290, drive:4.2,
     note:"上午繞去 Seyðisfjörður 看藍教堂與峽灣，可選走 Hengifoss 步道。下午沿 1 號公路經內陸高地 Möðrudalur，開往米湖過夜。",
     spots:[
       {name:"Seyðisfjörður", zh:"塞濟斯菲厴澤", kind:"city", lat:65.2637, lng:-14.0079, z:14,
-       q:"Seydisfjordur blue church", desc:"翻過 Fjarðarheiði 山口後藏在峽灣底的彩色小鎮，藍色木教堂與彩虹階梯是招牌畫面，也是渡輪往返丹麥的港口。"},
+       q:"Seydisfjordur blue church", type:"town",
+       desc:"藏在峽灣底的彩色小鎮，也是往丹麥渡輪的港口。",
+       hook:"開下 Fjarðarheiði 山口那一刻整座峽灣底的小鎮攤在眼前，是東部最好的一個俯瞰。鎮上藍色木教堂前那條彩虹階梯是全冰島最常被拍的街景。",
+       dwell:90, walk:"鎮上平路散步", fee:"免費",
+       may:"93 號公路 Fjarðarheiði 山口海拔 620 m，5 月初仍可能因雪或強風暫時封閉，出發前查 road.is",
+       tradeoff:"從 Egilsstaðir 來回 54 km、翻山約 50 分鐘，是這天主要的繞路"},
       {name:"Hengifoss", zh:"亨吉瀑布", opt:true, lat:65.0761, lng:-14.6373, z:15,
-       q:"Hengifoss Iceland", desc:"冰島第三高瀑布（128 公尺），玄武岩層間夾著紅色黏土條紋。步道來回約 2.5 小時，是東部峽灣最值得的健行。"},
+       q:"Hengifoss Iceland", type:"waterfall",
+       desc:"冰島第三高瀑布，128 公尺，位在 Lagarfljót 湖西岸。",
+       hook:"看點不在瀑布本身，在崖壁：一層黑玄武岩夾一層紅黏土的水平橫紋一路疊上去，每一條紅線都是兩次熔岩流之間長出來的土壤。步道中段還會經過柱狀玄武岩包圍的 Litlanesfoss。",
+       dwell:150, walk:"來回 5 km、爬升約 350 m，階梯與碎石坡，約 2.5 小時", fee:"免費",
+       may:"5 月初步道通常已無雪可走，但融雪期泥濘",
+       tradeoff:"這天淨車程已 4.2 h，加上這 2.5 h 等於 6.7 h。東部另一個候選 Stuðlagil（923 號公路，順路往米湖方向）也只能排在這天 —— 兩者擇一"},
       {name:"Möðrudalur", zh:"默茲呂達魯爾", kind:"city", lat:65.1973, lng:-16.2429, z:13,
-       q:"Modrudalur Iceland", desc:"冰島海拔最高的有人居住農場，黑色小教堂立在無邊荒原中，是往北冰島路上唯一的補給點。"}
+       q:"Modrudalur Iceland", type:"town",
+       desc:"冰島海拔最高（469 m）的有人居住農場，位在 1 號公路的高地段。",
+       hook:"四周是完全無樹的火山荒原，能見度好時看得到 Herðubreið 桌狀山。黑色小教堂是農場主人 1949 年為亡妻親手蓋的；農場咖啡館供應自製 kleina 與羊肉湯。",
+       dwell:30, fee:"免費（咖啡館另計）",
+       may:"1 號公路此段全年開放",
+       tradeoff:"Egilsstaðir → 米湖 190 km 之間唯一的補給點，停與不停差 30 分鐘"}
     ]
   },
   {
-    n:9, title:"Lake Mývatn", date:"5/8（六）", stay:"Mývatn",
+    n:9, title:"Lake Mývatn", date:"5/8（六）", stay:"Mývatn", km:60, drive:1.0,
     note:"北冰島精華，一整天都在火山與地熱地貌裡繞。下午泡 Mývatn Nature Baths 收尾。",
     spots:[
       {name:"Hverir (Hverarönd)", zh:"赫維爾地熱區", lat:65.6404, lng:-16.8093, z:16,
-       q:"Hverir Namafjall", desc:"橘紅色的無植被地熱荒原，沸騰泥漿池與硫磺蒸氣噴口遍布。氣味濃烈、地面滾燙，務必走在步道內 —— 全冰島最像外星球的地方。"},
+       q:"Hverir Namafjall", type:"geothermal", desc:"橘紅色的無植被地熱荒原，沸騰泥漿池與硫磺蒸氣噴口遍布。氣味濃烈、地面滾燙，務必走在步道內 —— 全冰島最像外星球的地方。"},
       {name:"Námafjall", zh:"納馬菲亞山", lat:65.6394, lng:-16.8194, z:15,
-       q:"Namafjall", desc:"Hverir 後方的硫磺山脊，可登上稜線俯瞰整片地熱區與 Mývatn 方向的熔岩原，來回約 40 分鐘。"},
+       q:"Namafjall", type:"hike", desc:"Hverir 後方的硫磺山脊，可登上稜線俯瞰整片地熱區與 Mývatn 方向的熔岩原，來回約 40 分鐘。"},
       {name:"Grjótagjá Cave", zh:"格約塔格亞洞穴", lat:65.6260, lng:-16.8830, z:17,
-       q:"Grjotagja", desc:"熔岩裂縫中的地熱溫泉洞（《權力遊戲》取景地）。水溫過高且屬私人土地，禁止下水，但洞內藍水配裂隙光線非常值得一看。"},
+       q:"Grjotagja", type:"geothermal", desc:"熔岩裂縫中的地熱溫泉洞（《權力遊戲》取景地）。水溫過高且屬私人土地，禁止下水，但洞內藍水配裂隙光線非常值得一看。"},
       {name:"Dimmuborgir", zh:"黑色城堡熔岩地", lat:65.5906, lng:-16.9126, z:15,
-       q:"Dimmuborgir", desc:"字面意思是「黑暗城堡」，熔岩湖塌陷後留下的巨大黑色岩柱與拱門迷宮。步道分多種長度，Kirkjan（教堂）岩拱是必看。"},
+       q:"Dimmuborgir", type:"volcanic", desc:"字面意思是「黑暗城堡」，熔岩湖塌陷後留下的巨大黑色岩柱與拱門迷宮。步道分多種長度，Kirkjan（教堂）岩拱是必看。"},
       {name:"Skútustaðagígar", zh:"斯庫圖斯塔泡狀假火山口", lat:65.5700, lng:-17.0330, z:15,
-       q:"Skutustadagigar", desc:"熔岩流過濕地時蒸氣爆炸形成的「偽火山口」群，環湖步道平緩好走，夏季是水鳥天堂。"},
+       q:"Skutustadagigar", type:"volcanic", desc:"熔岩流過濕地時蒸氣爆炸形成的「偽火山口」群，環湖步道平緩好走，夏季是水鳥天堂。"},
       {name:"Mývatn Nature Baths", zh:"米湖溫泉", lat:65.6318, lng:-16.8478, z:16,
-       q:"Myvatn Nature Baths", desc:"北部版藍湖，人少很多、視野開闊。乳藍色鹼性溫泉水約 36–40°C，5 月日落近 22:00，傍晚可以一路泡到落日。"}
+       q:"Myvatn Nature Baths", type:"bath", desc:"北部版藍湖，人少很多、視野開闊。乳藍色鹼性溫泉水約 36–40°C，5 月日落近 22:00，傍晚可以一路泡到落日。"}
     ]
   },
   {
-    n:10, title:"Dettifoss + Húsavík", date:"5/9（日）", stay:"Akureyri",
+    n:10, title:"Dettifoss + Húsavík", date:"5/9（日）", stay:"Akureyri", km:305, drive:4.0,
     note:"上午衝瀑布，下午到 Húsavík，可選賞鯨。傍晚沿 1 號公路返回 Akureyri，順路停 Goðafoss。",
     spots:[
       {name:"Dettifoss", zh:"黛提瀑布", lat:65.8145, lng:-16.3844, z:15,
-       q:"Dettifoss", desc:"歐洲水量最大的瀑布，寬 100 公尺、落差 45 公尺，灰色冰川泥水轟然墜入峽谷。西岸（862 號公路）路況較好且視野正面，東岸能更靠近。"},
+       q:"Dettifoss", type:"waterfall", desc:"歐洲水量最大的瀑布，寬 100 公尺、落差 45 公尺，灰色冰川泥水轟然墜入峽谷。西岸（862 號公路）路況較好且視野正面，東岸能更靠近。"},
       {name:"Selfoss (waterfall)", zh:"塞爾瀑布", lat:65.8070, lng:-16.3880, z:16,
-       q:"Selfoss waterfall Iceland", desc:"從 Dettifoss 沿步道往上游走約 15 分鐘，寬闊的階梯狀瀑布橫跨整個峽谷，遊客明顯少很多。"},
+       q:"Selfoss waterfall Iceland", type:"waterfall", desc:"從 Dettifoss 沿步道往上游走約 15 分鐘，寬闊的階梯狀瀑布橫跨整個峽谷，遊客明顯少很多。"},
       {name:"Húsavík", zh:"胡薩維克", kind:"city", lat:66.0449, lng:-17.3389, z:14,
-       q:"Husavik", desc:"歐洲賞鯨之都，Skjálfandi 灣可見座頭鯨、小鬚鯨與藍鯨。港邊的木造教堂與鯨魚博物館值得一逛（也是電影《歐洲歌唱大賽》場景）。"},
+       q:"Husavik", type:"town", desc:"歐洲賞鯨之都，Skjálfandi 灣可見座頭鯨、小鬚鯨與藍鯨。港邊的木造教堂與鯨魚博物館值得一逛（也是電影《歐洲歌唱大賽》場景）。"},
       {name:"Whale Watching", zh:"賞鯨", opt:true, lat:66.0500, lng:-17.3480, z:12,
-       q:"whale watching Husavik", desc:"航程約 3 小時，多為傳統橡木船或 RIB 快艇。5 月正值賞鯨季，出海很冷，船公司會提供連身保暖衣。"},
+       q:"whale watching Husavik", type:"wildlife", desc:"航程約 3 小時，多為傳統橡木船或 RIB 快艇。5 月正值賞鯨季，出海很冷，船公司會提供連身保暖衣。"},
       {name:"Goðafoss", zh:"眾神瀑布", lat:65.6828, lng:-17.5500, z:15,
-       q:"Godafoss", desc:"西元 1000 年冰島改信基督教時，法律宣講者將舊神像投入此瀑，因而得名。寬 30 公尺的馬蹄形瀑布就在 1 號公路旁，兩岸都有步道，回 Akureyri 順路停 20 分鐘。"}
+       q:"Godafoss", type:"waterfall", desc:"西元 1000 年冰島改信基督教時，法律宣講者將舊神像投入此瀑，因而得名。寬 30 公尺的馬蹄形瀑布就在 1 號公路旁，兩岸都有步道，回 Akureyri 順路停 20 分鐘。"}
     ]
   },
   {
-    n:11, title:"Tröllaskagi 半島（巨魔半島）", date:"5/10（一）", stay:"Sauðárkrókur",
+    n:11, title:"Tröllaskagi 半島（巨魔半島）", date:"5/10（一）", stay:"Sauðárkrókur", km:190, drive:3.0,
     note:"沿 82／76 號公路穿隧道繞完整個 Tröllaskagi 半島，不折返 Akureyri，直接翻到西側的 Skagafjörður 過夜。全程約 190 公里、淨車程 3 小時。",
     spots:[
       {name:"Dalvík", zh:"達爾維克", kind:"city", lat:65.9711, lng:-18.5286, z:14,
-       q:"Dalvik Iceland", desc:"Eyjafjörður 西岸的漁港小鎮，是往 Grímsey 島與賞鯨船的出發港。半島公路上第一個補給點。"},
+       q:"Dalvik Iceland", type:"town",
+       desc:"Eyjafjörður 西岸的漁港，往 Grímsey 北極圈島的渡輪由此出發。",
+       hook:"半島公路上第一個補給點，鎮上就是港口加一條主街。真正的畫面在路上 —— 82 號公路一路貼著 Eyjafjörður 峽灣走。",
+       dwell:20, fee:"免費",
+       tradeoff:"這天五個港灣小鎮中的第一個，也是最沒有專屬看點的一個；加油與咖啡就夠"},
       {name:"Ólafsfjörður", zh:"歐拉夫斯菲厄澤", lat:66.0653, lng:-18.6547, z:14,
-       q:"Olafsfjordur", desc:"穿過 3.4 公里的 Múlagöng 隧道後抵達的峽灣小鎮，三面陡峭山壁夾著一潭湖水，接著再穿 Héðinsfjarðargöng 往 Siglufjörður。"},
+       q:"Olafsfjordur", type:"town",
+       desc:"穿過 3.4 公里 Múlagöng 隧道後的峽灣小鎮，接著再穿 Héðinsfjarðargöng 往 Siglufjörður。",
+       hook:"看點是隧道本身：Múlagöng 是單線會車隧道，開進去要留意避車彎；出來後三面陡壁夾著一潭水，鎮本身很安靜。",
+       dwell:20, fee:"免費",
+       may:"兩條隧道全年開放",
+       tradeoff:"與 Dalvík 同型的港灣風景，不下車也看得到 —— 這天最容易壓縮的一站"},
       {name:"Siglufjörður", zh:"錫格盧菲厄澤", kind:"city", lat:66.1517, lng:-18.9108, z:14,
-       q:"Siglufjordur", desc:"曾是全球鯡魚漁業重鎮的峽灣小鎮，四面環山、風景明信片等級。冰島本島最北的城鎮，港邊餐廳適合午餐。"},
+       q:"Siglufjordur", type:"town",
+       desc:"曾是全球鯡魚漁業重鎮的峽灣小鎮，冰島本島最北的城鎮。",
+       hook:"20 世紀前半這裡是「大西洋的鯡魚之都」，人口是現在的數倍。整排老船屋現在改成餐廳與旅館，四面環山的港灣是這條半島公路上最完整的一個小鎮。",
+       dwell:120, walk:"港區平路", fee:"免費",
+       tradeoff:"這天最有內容的一站，午餐排這裡"},
       {name:"Síldarminjasafnið (Herring Era Museum)", zh:"鯡魚時代博物館", opt:true, lat:66.1505, lng:-18.9145, z:16,
-       q:"Herring Era Museum Siglufjordur", desc:"還原 20 世紀鯡魚榮景的港區博物館群，老船屋、工廠與職人宿舍原汁原味保留，是冰島評價最高的博物館之一。"},
+       q:"Herring Era Museum Siglufjordur", type:"culture",
+       desc:"還原 20 世紀鯡魚榮景的港區博物館群，冰島評價最高的博物館之一。",
+       hook:"五棟原址保留的工廠與船屋 —— 甲板、鹽漬桶、女工宿舍都按當年原樣擺著，不是玻璃櫃展示。夏季週末有醃鯡魚的現場示範。",
+       dwell:90, fee:"成人約 ISK 2,500",
+       may:"5 月上旬多為縮短時段（常見午後才開），6 月才進入每日全時營運 —— 出發前查官網",
+       tradeoff:"加上它，Siglufjörður 要停 3.5 小時。這天淨車程只有 3 h，塞得下"},
       {name:"Hofsós", zh:"霍夫索斯", lat:65.8944, lng:-19.4147, z:15,
-       q:"Hofsos Iceland", desc:"Skagafjörður 東岸的小村，招牌是懸在海崖上的無邊際泳池，泡在池裡直接望向峽灣與 Drangey 島。港邊還有一小段柱狀玄武岩海岸。"},
+       q:"Hofsos Iceland", type:"bath",
+       desc:"Skagafjörður 東岸的小村，招牌是懸在海崖上的地熱泳池。",
+       hook:"25 公尺的無邊際泳池直接架在海崖邊，池緣的視線切齊峽灣與外海的 Drangey 島。水溫約 29°C —— 是泳池不是溫泉，可以真的游。港邊另有一小段柱狀玄武岩海岸。",
+       dwell:90, fee:"泳池入場約 ISK 1,200（毛巾另租）",
+       may:"全年營運，但 5 月上旬可能是淡季時段，出發前查營業時間",
+       tradeoff:"下水要 1.5 小時（含更衣淋浴）；只在崖邊看一眼是 15 分鐘"},
       {name:"Sauðárkrókur", zh:"紹達克羅屈爾", kind:"city", lat:65.7461, lng:-19.6394, z:14,
-       q:"Saudarkrokur Iceland", desc:"Skagafjörður 灣底的西北部第一大鎮，冰島馬產區的中心。今晚住這裡，明天接 Vatnsnes 半島。"}
+       q:"Saudarkrokur Iceland", type:"town",
+       desc:"Skagafjörður 灣底的西北部第一大鎮，冰島馬產區的中心。今晚住這裡。",
+       hook:"Skagafjörður 是冰島馬的原鄉，周邊馬場全年可預約 1–2 小時騎乘。冰島馬有第五種步態 tölt —— 四拍、快而不顛，騎的時候身體幾乎不上下晃。",
+       dwell:30, fee:"免費（馬場騎乘每人約 ISK 12,000–15,000）",
+       book:"騎馬需事先預約",
+       may:"馬場全年營業",
+       tradeoff:"這天是全程同質性最高的一天 —— Dalvík、Ólafsfjörður、Siglufjörður、Hofsós、Sauðárkrókur 五個港灣小鎮。把前兩個壓到最短換 1–2 小時騎馬，是這天唯一能加進來的異質體驗"}
     ]
   },
   {
-    n:12, title:"Vatnsnes 半島（西北部）", date:"5/11（二）", stay:"Hvammstangi 一帶",
+    n:12, title:"Vatnsnes 半島（西北部）", date:"5/11（二）", stay:"Hvammstangi 一帶", km:210, drive:3.5,
     note:"西北部整天：先看草皮教堂，再繞 711 號環半島礫石路看 Hvítserkur 海蝕岩與野生海豹。今晚住 Hvammstangi，比原本的 Blönduós 更靠近明天的半島行程。",
     spots:[
       {name:"Víðimýrarkirkja", zh:"維濟米爾教堂", opt:true, lat:65.5252, lng:-19.4638, z:16,
-       q:"Vidimyrarkirkja turf church", desc:"1834 年建成的草皮教堂，冰島僅存幾座傳統草皮教堂之一，就在 1 號公路旁的 Varmahlíð 附近，順路停留 10 分鐘即可。"},
+       q:"Vidimyrarkirkja turf church", type:"culture", desc:"1834 年建成的草皮教堂，冰島僅存幾座傳統草皮教堂之一，就在 1 號公路旁的 Varmahlíð 附近，順路停留 10 分鐘即可。"},
       {name:"Hvítserkur", zh:"犀牛石", lat:65.6061, lng:-20.6383, z:16,
-       q:"Hvitserkur", desc:"矗立在 Húnaflói 灣淺灘上的 15 公尺玄武岩海蝕柱，兩個岩洞讓它看起來像一頭低頭喝水的犀牛或巨龍。退潮可走下黑沙灘靠近，漲潮時從崖上觀景台拍。"},
+       q:"Hvitserkur", type:"coast", desc:"矗立在 Húnaflói 灣淺灘上的 15 公尺玄武岩海蝕柱，兩個岩洞讓它看起來像一頭低頭喝水的犀牛或巨龍。退潮可走下黑沙灘靠近，漲潮時從崖上觀景台拍。"},
       {name:"Illugastaðir", zh:"伊魯加斯塔濟海豹棲地", opt:true, lat:65.5525, lng:-20.9628, z:15,
-       q:"Vatnsnes peninsula", desc:"半島西岸的農場海岸，是冰島最容易從陸上看到野生海豹的地點之一。木棧道走到礁石觀景點約 15 分鐘，5 月正值海豹上岸曬太陽的季節。"},
+       q:"Vatnsnes peninsula", type:"wildlife", desc:"半島西岸的農場海岸，是冰島最容易從陸上看到野生海豹的地點之一。木棧道走到礁石觀景點約 15 分鐘，5 月正值海豹上岸曬太陽的季節。"},
       {name:"Hvammstangi", zh:"赫維姆斯唐吉", kind:"city", lat:65.3958, lng:-20.9403, z:14,
-       q:"Hvammstangi Iceland", desc:"Vatnsnes 半島的門戶小鎮，港邊有 Icelandic Seal Center（海豹中心），館內說明去哪一段海岸、什麼潮汐看得到海豹。今晚在此過夜。"},
+       q:"Hvammstangi Iceland", type:"town", desc:"Vatnsnes 半島的門戶小鎮，港邊有 Icelandic Seal Center（海豹中心），館內說明去哪一段海岸、什麼潮汐看得到海豹。今晚在此過夜。"},
       {name:"Borgarvirki", zh:"博爾加維爾基堡壘", opt:true, lat:65.4694, lng:-20.7469, z:15,
-       q:"Borgarvirki", desc:"10 公尺高的玄武岩柱狀岩台，維京時代被改建成天然要塞，頂上有 360 度視野可俯瞰兩座峽灣與湖泊。從停車場走上去只要 5 分鐘。"},
+       q:"Borgarvirki", type:"view", desc:"10 公尺高的玄武岩柱狀岩台，維京時代被改建成天然要塞，頂上有 360 度視野可俯瞰兩座峽灣與湖泊。從停車場走上去只要 5 分鐘。"},
       {name:"Kolugljúfur", zh:"科盧峽谷", opt:true, lat:65.3617, lng:-20.4517, z:15,
-       q:"Kolugljufur", desc:"Víðidalsá 切出的深邃峽谷，Kolufossar 瀑布分段墜入谷底，傳說是女巨人 Kola 的住處。就在 1 號公路旁 5 公里處，適合當天進來或明天出發時順路。"}
+       q:"Kolugljufur", type:"canyon", desc:"Víðidalsá 切出的深邃峽谷，Kolufossar 瀑布分段墜入谷底，傳說是女巨人 Kola 的住處。就在 1 號公路旁 5 公里處，適合當天進來或明天出發時順路。"}
     ]
   },
   {
-    n:13, title:"Snæfellsnes 半島 Day1（南岸）", date:"5/12（三）", stay:"Snæfellsnes（Arnarstapi 一帶）",
+    n:13, title:"Snæfellsnes 半島 Day1（南岸）", date:"5/12（三）", stay:"Snæfellsnes（Arnarstapi 一帶）", km:275, drive:3.7,
     note:"從 Hvammstangi 沿 1 號公路南下，經 Grábrók、Borgarnes 後轉 54 號走半島南岸：Ytri-Tunga 海豹灘 → Búðakirkja 黑教堂 → Arnarstapi 海崖步道。半島走逆時針一圈，南岸進、北岸出，不橫切，全天約 275 公里。",
     spots:[
       {name:"Grábrók", zh:"格拉布羅克火山口", opt:true, lat:64.7920, lng:-21.3690, z:14,
-       q:"Grabrok crater", desc:"3000 年前噴發的小型火山渣錐，就在 1 號公路旁，有木棧道可登頂，來回約 30 分鐘，能俯瞰周邊熔岩原與農田。"},
+       q:"Grabrok crater", type:"volcanic", desc:"3000 年前噴發的小型火山渣錐，就在 1 號公路旁，有木棧道可登頂，來回約 30 分鐘，能俯瞰周邊熔岩原與農田。"},
       {name:"Borgarnes", zh:"博爾加內斯", kind:"city", lat:64.5388, lng:-21.9231, z:14,
-       q:"Borgarnes Iceland", desc:"轉往半島前最後一個大鎮，跨海堤道邊有加油站與餐廳，適合中途休息用餐。"},
+       q:"Borgarnes Iceland", type:"town", desc:"轉往半島前最後一個大鎮，跨海堤道邊有加油站與餐廳，適合中途休息用餐。"},
       {name:"Ytri-Tunga", zh:"伊特里通加海豹灘", lat:64.8036, lng:-23.0982, z:15,
-       q:"Ytri Tunga seal beach Snaefellsnes", desc:"半島南岸農場旁的金沙海灘，5–7 月是海豹上岸高峰，退潮時常有一群趴在近岸礁石上。停車後走 5 分鐘，免費，請保持 50 公尺距離。"},
+       q:"Ytri Tunga seal beach Snaefellsnes", type:"wildlife", desc:"半島南岸農場旁的金沙海灘，5–7 月是海豹上岸高峰，退潮時常有一群趴在近岸礁石上。停車後走 5 分鐘，免費，請保持 50 公尺距離。"},
       {name:"Búðakirkja", zh:"布迪爾黑教堂", lat:64.8215, lng:-23.3846, z:16,
-       q:"Budakirkja black church", desc:"1848 年重建的黑色木教堂，孤立在 Búðahraun 熔岩原上，背景是 Snæfellsjökull 冰川火山。四周熔岩野地有步道，是半島最常入鏡的畫面之一。"},
+       q:"Budakirkja black church", type:"culture", desc:"1848 年重建的黑色木教堂，孤立在 Búðahraun 熔岩原上，背景是 Snæfellsjökull 冰川火山。四周熔岩野地有步道，是半島最常入鏡的畫面之一。"},
       {name:"Arnarstapi", zh:"阿爾納斯塔皮", lat:64.7710, lng:-23.6260, z:15,
-       q:"Arnarstapi", desc:"半島南岸的漁村，今晚住這裡。海崖步道走到 Hellnar 單程 2.5 公里、約 1 小時，一路是海蝕拱門 Gatklettur 與柱狀玄武岩，Snæfellsjökull 當背景。傍晚光線最好，日落近 22:00。"}
+       q:"Arnarstapi", type:"coast", desc:"半島南岸的漁村，今晚住這裡。海崖步道走到 Hellnar 單程 2.5 公里、約 1 小時，一路是海蝕拱門 Gatklettur 與柱狀玄武岩，Snæfellsjökull 當背景。傍晚光線最好，日落近 22:00。"}
     ]
   },
   {
-    n:14, title:"Snæfellsnes 半島 Day2（西端 → 北岸）", date:"5/13（四）", stay:"Reykjavík",
+    n:14, title:"Snæfellsnes 半島 Day2（西端 → 北岸）", date:"5/13（四）", stay:"Reykjavík", km:295, drive:3.9,
     note:"沿 574 號繞半島西端一圈：Lóndrangar、Vatnshellir、Djúpalónssandur、Saxhóll，再轉到北岸看 Kirkjufell，經 Stykkishólmur 返回雷克雅維克。約 295 公里，但最後 175 公里是沒有停點的高速段。",
     spots:[
       {name:"Lóndrangar", zh:"隆德朗加玄武岩塔", lat:64.7350, lng:-23.7840, z:15,
-       q:"Londrangar", desc:"75 與 61 公尺高的兩根玄武岩尖塔，是火山頸被海侵蝕後剩下的殘骸，海鳥在上頭築巢。崖頂觀景台與 Malarrif 燈塔各有一個角度，也有步道可以走近。"},
+       q:"Londrangar", type:"coast", desc:"75 與 61 公尺高的兩根玄武岩尖塔，是火山頸被海侵蝕後剩下的殘骸，海鳥在上頭築巢。崖頂觀景台與 Malarrif 燈塔各有一個角度，也有步道可以走近。"},
       {name:"Vatnshellir Cave", zh:"瓦特恩赫爾洞穴", opt:true, lat:64.7642, lng:-23.8834, z:16,
-       q:"Vatnshellir cave", desc:"8000 年前熔岩流形成的地下洞穴，需參加付費導覽（含頭燈與安全帽），可深入地底約 35 公尺。"},
+       q:"Vatnshellir cave", type:"volcanic", desc:"8000 年前熔岩流形成的地下洞穴，需參加付費導覽（含頭燈與安全帽），可深入地底約 35 公尺。"},
       {name:"Djúpalónssandur", zh:"迪尤帕蘿頌黑沙灘", lat:64.7726, lng:-23.9058, z:15,
-       q:"Djupalonssandur", desc:"半島最西端的黑卵石灘，散落著沉船殘骸鐵件與四顆傳統試力石，四周奇岩嶙峋。"},
+       q:"Djupalonssandur", type:"coast", desc:"半島最西端的黑卵石灘，散落著沉船殘骸鐵件與四顆傳統試力石，四周奇岩嶙峋。"},
       {name:"Saxhóll Crater", zh:"薩克斯霍爾火山口", lat:64.8547, lng:-23.8140, z:15,
-       q:"Saxholl crater", desc:"半島西北側的紅色火山渣錐，鐵製階梯直上口緣，來回只要 20 分鐘，頂上可俯瞰 Neshraun 熔岩原一路鋪到海邊。"},
+       q:"Saxholl crater", type:"volcanic", desc:"半島西北側的紅色火山渣錐，鐵製階梯直上口緣，來回只要 20 分鐘，頂上可俯瞰 Neshraun 熔岩原一路鋪到海邊。"},
       {name:"Kirkjufell & Kirkjufellsfoss", zh:"教會山與教會山瀑布", lat:64.9377, lng:-23.3080, z:15,
-       q:"Kirkjufell", desc:"冰島最上鏡的山峰，前景搭配 Kirkjufellsfoss 小瀑布幾乎是冰島明信片代名詞。5 月日落在 22:00 之後，傍晚低角度光線最推薦。"},
+       q:"Kirkjufell", type:"view", desc:"冰島最上鏡的山峰，前景搭配 Kirkjufellsfoss 小瀑布幾乎是冰島明信片代名詞。5 月日落在 22:00 之後，傍晚低角度光線最推薦。"},
       {name:"Stykkishólmur", zh:"斯蒂基斯霍爾米", kind:"city", lat:65.0757, lng:-22.7262, z:14,
-       q:"Stykkisholmur", desc:"半島北岸最大的港口小鎮，彩色木屋與 Súgandisey 燈塔小島是熱門拍照點，也是往 Breiðafjörður 群島渡輪的起點。"}
+       q:"Stykkisholmur", type:"town", desc:"半島北岸最大的港口小鎮，彩色木屋與 Súgandisey 燈塔小島是熱門拍照點，也是往 Breiðafjörður 群島渡輪的起點。"}
     ]
   },
   {
-    n:15, title:"雷克雅維克（整理日）", date:"5/14（五）", stay:"Reykjavík",
+    n:15, title:"雷克雅維克（整理日）", date:"5/14（五）", stay:"Reykjavík", km:20, drive:null,
     note:"不排太滿：泡湯、咖啡店、市區散步、補給，為明天啟程做準備。",
     spots:[
       {name:"Sky Lagoon", zh:"天空潟湖", opt:true, lat:64.1197, lng:-21.9407, z:16,
-       q:"Sky Lagoon Iceland", desc:"Kópavogur 海邊的無邊際地熱溫泉，泡在池裡直接望向大西洋。七步驟的 Ritual 儀式是招牌，比藍湖更近市區。"},
+       q:"Sky Lagoon Iceland", type:"bath", desc:"Kópavogur 海邊的無邊際地熱溫泉，泡在池裡直接望向大西洋。七步驟的 Ritual 儀式是招牌，比藍湖更近市區。"},
       {name:"Perlan", zh:"珍珠樓", opt:true, lat:64.1290, lng:-21.9190, z:16,
-       q:"Perlan Reykjavik", desc:"熱水儲槽改建的玻璃穹頂建築，內有人造冰洞與極光展，頂樓 360 度觀景台可俯瞰整個雷克雅維克。"},
+       q:"Perlan Reykjavik", type:"culture", desc:"熱水儲槽改建的玻璃穹頂建築，內有人造冰洞與極光展，頂樓 360 度觀景台可俯瞰整個雷克雅維克。"},
       {name:"Laugavegur", zh:"市區主街", opt:true, lat:64.1440, lng:-21.9270, z:16,
-       q:"Laugavegur Reykjavik", desc:"雷克雅維克主要購物街，咖啡店、書店與紀念品店集中在此。補給乾糧與羊毛衣（lopapeysa）的好地方。"}
+       q:"Laugavegur Reykjavik", type:"town", desc:"雷克雅維克主要購物街，咖啡店、書店與紀念品店集中在此。補給乾糧與羊毛衣（lopapeysa）的好地方。"}
     ]
   },
   {
-    n:16, title:"Reykjanes 半島 + 藍湖 → 返程", date:"5/15（六）", stay:"—",
+    n:16, title:"Reykjanes 半島 + 藍湖 → 返程", date:"5/15（六）", stay:"—", km:130, drive:2.0,
     note:"從雷克雅維克出發，繞 Reykjanes 半島西端，傍晚在 Blue Lagoon 泡湯收尾（需事先預約），再直接前往 KEF 機場——機場就在半島上，沿途觀光不繞路。回程班機 5/16 凌晨 00:50 起飛（經法蘭克福轉機），5/17 06:15 抵達桃園。",
     spots:[
       {name:"Bridge Between Continents", zh:"大陸板塊橋", lat:63.8698, lng:-22.6817, z:15,
-       q:"Bridge Between Continents Iceland", desc:"跨在北美與歐亞板塊裂縫上的人行橋，象徵性地「一步跨過兩大洲」，橋短但拍照很有梗。"},
+       q:"Bridge Between Continents Iceland", type:"geology", desc:"跨在北美與歐亞板塊裂縫上的人行橋，象徵性地「一步跨過兩大洲」，橋短但拍照很有梗。"},
       {name:"Gunnuhver", zh:"古努赫維地熱區", lat:63.8194, lng:-22.7005, z:16,
-       q:"Gunnuhver hot spring", desc:"冰島最大的泥漿噴泉之一，蒸氣終年不斷。步道緊鄰海崖，風大時建議抓緊帽子與相機。"},
+       q:"Gunnuhver hot spring", type:"geothermal", desc:"冰島最大的泥漿噴泉之一，蒸氣終年不斷。步道緊鄰海崖，風大時建議抓緊帽子與相機。"},
       {name:"Reykjanesviti & Valahnúkamöl", zh:"雷克雅內斯燈塔", lat:63.8154, lng:-22.7099, z:15,
-       q:"Reykjanesviti lighthouse", desc:"冰島最古老的燈塔，附近的 Valahnúkamöl 海崖可看海鳥棲息的柱狀玄武岩海蝕柱。"},
+       q:"Reykjanesviti lighthouse", type:"coast", desc:"冰島最古老的燈塔，附近的 Valahnúkamöl 海崖可看海鳥棲息的柱狀玄武岩海蝕柱。"},
       {name:"Brimketill", zh:"布林克提爾熔岩海蝕池", opt:true, lat:63.8323, lng:-22.6944, z:16,
-       q:"Brimketill Iceland", desc:"傳說中巨人女用來泡澡的天然熔岩池，浪大時海水會灌入池中，注意不要太靠近浪花區。"},
+       q:"Brimketill Iceland", type:"coast", desc:"傳說中巨人女用來泡澡的天然熔岩池，浪大時海水會灌入池中，注意不要太靠近浪花區。"},
       {name:"Blue Lagoon", zh:"藍湖溫泉", opt:true, lat:63.8804, lng:-22.4495, z:15,
-       q:"Blue Lagoon Iceland", desc:"世界知名的地熱溫泉度假村，乳白藍色矽泥溫泉水約 37–39°C。人氣極高，務必提前數週線上訂位。"},
+       q:"Blue Lagoon Iceland", type:"bath", desc:"世界知名的地熱溫泉度假村，乳白藍色矽泥溫泉水約 37–39°C。人氣極高，務必提前數週線上訂位。"},
       {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
-       q:"Keflavik International Airport", desc:"回程班機為深夜 00:50 起飛（FI524 飛法蘭克福，轉中華航空回桃園），建議晚餐後直接從機場周邊出發，留充裕時間辦理登機、還車。"}
+       q:"Keflavik International Airport", type:"transit", desc:"回程班機為深夜 00:50 起飛（FI524 飛法蘭克福，轉中華航空回桃園），建議晚餐後直接從機場周邊出發，留充裕時間辦理登機、還車。"}
     ]
   }
 ];
+
+/* =========================================================
+   決策輔助：體驗類型、同類計數、單日負荷
+   ========================================================= */
+const TYPES = {
+  waterfall:"瀑布", glacier:"冰川", geothermal:"地熱", bath:"溫泉池", coast:"海岸",
+  canyon:"峽谷", volcanic:"火山地形", geology:"地質", wildlife:"野生動物",
+  hike:"健行", view:"景觀點", culture:"人文", town:"城鎮", food:"飲食", transit:"交通"
+};
+
+/* 每個景點是全程同類型的第幾個 —— 讓「一天五個城鎮」這種重複直接現形 */
+const TYPE_TOTAL = {};
+const TYPE_SEQ = new Map();
+DAYS.forEach(d=>d.spots.forEach(s=>{
+  if(s.type) TYPE_SEQ.set(s, TYPE_TOTAL[s.type] = (TYPE_TOTAL[s.type]||0) + 1);
+}));
+
+/* 待決定 = 標為可選，或需要事先預約 */
+const isTodo = s => Boolean(s.opt || s.book);
+
+const hhmm = m => m < 60 ? `${m} 分`
+  : (m % 60 ? `${Math.floor(m/60)} 小時 ${m%60} 分` : `${m/60} 小時`);
+const hrs = h => `${h.toFixed(1)} 小時`;
+
+/* 單日負荷：淨車程（見 review.html 的里程表）+ 已估算的停留時間。
+   長條圖固定 12 小時刻度，所有天共用同一把尺，可直接互比。 */
+const BAR_H = 12;
+function budgetHtml(day){
+  const known = day.spots.filter(s=>s.dwell);
+  const dwell = known.reduce((n,s)=>n + s.dwell, 0) / 60;
+  const drive = day.drive || 0;
+  const w = h => Math.min(100, h / BAR_H * 100).toFixed(1);
+  const full = known.length === day.spots.length;
+
+  const stay = known.length
+    ? `<span class="key k-dwell">停留 <b>${hrs(dwell)}</b>${
+        full ? '' : `（${day.spots.length} 個中 ${known.length} 個已估）`}</span>
+       <span>合計 <b class="tot">${hrs(drive + dwell)}</b></span>`
+    : `<span class="key k-dwell">停留時間尚未估算</span>`;
+
+  return `<div class="budget">
+    <span class="key k-drive">淨車程 <b>${day.drive == null ? '—' : hrs(day.drive)}</b></span>
+    ${stay}
+    <span>${day.km} km</span>
+    <span class="bar" aria-hidden="true">
+      <i class="b-drive" style="width:${w(drive)}%"></i>
+      <i class="b-dwell" style="width:${w(dwell)}%"></i>
+    </span>
+  </div>`;
+}
 
 /* ================= 建立左側列表 ================= */
 const dayList = document.getElementById('dayList');
@@ -1157,6 +1374,7 @@ function renderDay(day, dayIdx){
     <div class="day-body" id="${bodyId}">
       <div class="day-body-inner"><div class="day-body-pad">
         <p class="day-note">${day.note}</p>
+        ${day.km ? budgetHtml(day) : ''}
         <ul class="day-spots"></ul>
         ${day.spots.length>1 || nextDay ? `<div class="day-actions">
           ${day.spots.length>1 ? `<a class="route-btn" href="${dirUrl}" target="_blank" rel="noopener">${icon('i-route')}在 Google 地圖規劃當日路線</a>` : ''}
@@ -1166,19 +1384,27 @@ function renderDay(day, dayIdx){
     </div>`;
 
   const list = el.querySelector('.day-spots');
+  el.dataset.todo = day.spots.some(isTodo) ? '1' : '0';
   day.spots.forEach(s=>{
     const id = 's'+(uid++);
     REG[id] = s;
     const li = document.createElement('li');
+    li.dataset.todo = isTodo(s) ? '1' : '0';
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'spot' + (s.opt?' opt':'') + (s.kind==='city'?' city':'');
     b.dataset.id = id;
+    const meta = [
+      s.type  ? `<span class="chip type">${TYPES[s.type]}</span>` : '',
+      s.dwell ? `<span class="chip">停留 ${hhmm(s.dwell)}</span>` : '',
+      s.book  ? '<span class="chip book">需預約</span>' : ''
+    ].join('');
     b.innerHTML = `
       <span class="dot" aria-hidden="true"></span>
       <span class="spot-txt">
         <span class="spot-name">${s.name}${s.opt?'<span class="badge">可選</span>':''}</span>
         <span class="spot-zh">${s.zh}</span>
+        ${meta ? `<span class="s-meta">${meta}</span>` : ''}
       </span>`;
     b.addEventListener('click', ()=>select(id));
     li.appendChild(b);
@@ -1196,8 +1422,9 @@ function renderDay(day, dayIdx){
 
 DAYS.forEach(renderDay);
 
-document.getElementById('dayCount').textContent =
-  `${DAYS.length} 天 · ${DAYS.reduce((n,d)=>n+d.spots.length,0)} 個地點`;
+const countEl  = document.getElementById('dayCount');
+const countAll = `${DAYS.length} 天 · ${DAYS.reduce((n,d)=>n+d.spots.length,0)} 個地點`;
+countEl.textContent = countAll;
 
 function setDayOpen(el, open){
   el.classList.toggle('open', open);
@@ -1208,19 +1435,35 @@ function setDayOpen(el, open){
 const toggleAll = document.getElementById('toggleAll');
 const toggleAllLabel = document.getElementById('toggleAllLabel');
 const allDays = () => Array.from(dayList.children);
+/* 篩選開啟時，「全部展開」只管還看得到的那幾天 */
+const shownDays = () => allDays().filter(d=>
+  !(document.body.classList.contains('filtering') && d.dataset.todo === '0'));
 
 function syncToggleAll(){
-  const allOpen = allDays().every(d=>d.classList.contains('open'));
+  const allOpen = shownDays().every(d=>d.classList.contains('open'));
   toggleAll.classList.toggle('all-open', allOpen);
   toggleAll.setAttribute('aria-expanded', String(allOpen));
   toggleAllLabel.textContent = allOpen ? '全部收合' : '全部展開';
 }
 toggleAll.addEventListener('click', ()=>{
-  const open = !allDays().every(d=>d.classList.contains('open'));
-  allDays().forEach(d=>setDayOpen(d, open));
+  const open = !shownDays().every(d=>d.classList.contains('open'));
+  shownDays().forEach(d=>setDayOpen(d, open));
   syncToggleAll();
 });
 syncToggleAll();
+
+/* ---------- 只看待決定：可選行程 + 需預約 ---------- */
+const onlyTodo  = document.getElementById('onlyTodo');
+const todoCount = DAYS.reduce((n,d)=>n + d.spots.filter(isTodo).length, 0);
+
+onlyTodo.addEventListener('click', ()=>{
+  const on = !document.body.classList.contains('filtering');
+  document.body.classList.toggle('filtering', on);
+  onlyTodo.setAttribute('aria-pressed', String(on));
+  countEl.textContent = on ? `${todoCount} 個待決定 · 可選行程與需預約` : countAll;
+  if(on) shownDays().forEach(d=>setDayOpen(d, true));
+  syncToggleAll();
+});
 
 /* ================= 地圖 ================= */
 // "Sólfar (Sun Voyager)" → "Sun Voyager, Iceland"；"Geysir / Strokkur" → "Geysir, Iceland"
@@ -1306,13 +1549,29 @@ function select(id){
 
   const token = ++reqToken;
   PHOTOS = [];
+  const facts = [
+    s.dwell && ['建議停留', hhmm(s.dwell)],
+    s.walk  && ['步行', s.walk],
+    s.fee   && ['費用', s.fee],
+    s.book  && ['預約', s.book],
+    s.may   && ['5 月初', s.may]
+  ].filter(Boolean);
+
+  const seq = s.type
+    ? `<span class="badge seq">${TYPES[s.type]} · 全程第 ${TYPE_SEQ.get(s)}／${TYPE_TOTAL[s.type]}</span>`
+    : '';
+
   info.innerHTML = `
     <div class="i-head rise">
       <h2>${s.name}</h2><span class="i-zh">${s.zh}</span>
-      ${s.opt?'<span class="badge">可選行程</span>':''}
+      ${s.opt?'<span class="badge">可選行程</span>':''}${seq}
       <span class="i-photo-note" id="photoNote"></span>
     </div>
+    ${s.hook ? `<p class="i-hook rise rise-2"><b>看點</b>${s.hook}</p>` : ''}
     <p class="i-desc rise rise-2">${s.desc}</p>
+    ${facts.length ? `<dl class="i-facts rise rise-2">${
+      facts.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>` : ''}
+    ${s.tradeoff ? `<p class="i-trade rise rise-2"><b>排程</b><span>${s.tradeoff}</span></p>` : ''}
     <div class="gallery rise rise-3" id="gal">
       ${'<div class="ph skel"></div>'.repeat(3)}
     </div>`;
@@ -1696,6 +1955,7 @@ function kmlDesc(day, s){
   const meta = [`DAY ${day.n}`, day.date, day.stay !== '—' ? `住 ${day.stay}` : ''].filter(Boolean).join(' · ');
   return [
     `<p><b>${xesc(s.name)}</b></p>`,
+    s.hook ? `<p>${xesc(s.hook)}</p>` : '',
     s.desc ? `<p>${xesc(s.desc)}</p>` : '',
     `<p>${xesc(meta)}${s.opt ? ' · 可選' : ''}</p>`,
     `<p><a href="${xesc(mapsUrl(s))}">在 Google 地圖開啟</a></p>`
