@@ -285,6 +285,7 @@ Húsavík
 
 - Kirkjufell & Kirkjufellsfoss
 - Stykkishólmur 小鎮
+- Víðgelmir Cave（可選，繞道 Húsafell，需預約洞穴導覽，來回多約 1 小時）
 
 下午返回雷克雅維克。全天約 295 公里，最後 175 公里是沒有停點的高速段。
 
