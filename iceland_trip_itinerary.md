@@ -98,8 +98,9 @@
 
 景點：
 
-- Fjaðrárgljúfur Canyon
+- Fjaðrárgljúfur Canyon（可選 —— 步道 5 月初常仍封閉，查 ust.is）
 - Kirkjubæjarklaustur（補給、Kirkjugólf 玄武岩露頭）
+- Dverghamrar 柱狀玄武岩（可選，1 號公路旁；Fjaðrárgljúfur 封閉時的替代）
 - Skaftafell —— Svartifoss + Sjónarnípa 環線，約 3 小時
 - Hofskirkja 草皮教堂（住宿地旁）
 
@@ -182,7 +183,7 @@
 
 下午：
 
-Mývatn Nature Baths
+Mývatn Nature Baths（已定案要去，出發前線上訂時段）
 
 住宿：
 
@@ -238,7 +239,7 @@ Húsavík
 
 - Víðimýrarkirkja 草皮教堂（可選，Varmahlíð 附近）
 - Hvítserkur 犀牛石
-- Illugastaðir 海豹棲地（可選）
+- Illugastaðir 海豹棲地（可選 —— 5/11 落在絨鴨繁殖期封閉區間，查 selasetur.is；押不到就把海豹留給 Day 13 的 Ytri-Tunga）
 - Hvammstangi（Icelandic Seal Center 海豹中心）
 - Borgarvirki 玄武岩堡壘（可選）
 - Kolugljúfur 峽谷（可選，1 號公路旁 5 公里，今天進來或明天出發時順路都行）
@@ -324,6 +325,10 @@ Húsavík
 - Blue Lagoon 藍湖溫泉（可選，需事先預約）
 
 KEF 機場就在 Reykjanes 半島上，觀光後直接前往機場，不繞路。
+
+⚠️ Reykjanes 自 2021 年起火山活動頻繁，這天的景點與藍湖都在受影響範圍內，出發前查 safetravel.is。半島若封閉：改在市區泡 Sky Lagoon，走 41 號公路（機場聯外道，不經 Grindavík）直達 KEF。米湖溫泉（Day 9）已定案，泡湯不會落空。
+
+Kolaportið 跳蚤市場只在週末營業，Day 15（週五）撲空；要逛的話排在今天出發前。
 
 晚上：
 
