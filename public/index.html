@@ -184,6 +184,30 @@
   .ghost-btn .ico{--ico:14px;transition:transform var(--dur) var(--ease)}
   .ghost-btn.all-open .ico{transform:rotate(180deg)}
 
+  .search-bar{position:relative;margin:0 4px 9px}
+  .search-bar .ico{
+    --ico:15px;position:absolute;left:10px;top:50%;transform:translateY(-50%);
+    color:var(--text-4);pointer-events:none;
+  }
+  .search-bar input{
+    width:100%;font-family:inherit;font-size:var(--t-sm);color:var(--text);
+    background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm);
+    padding:8px 32px;transition:border-color .16s,background .16s;
+    appearance:none;-webkit-appearance:none;
+  }
+  .search-bar input::-webkit-search-cancel-button{display:none}
+  .search-bar input::placeholder{color:var(--text-4)}
+  .search-bar input:focus{outline:none;border-color:var(--aurora-45);background:var(--surface)}
+  .search-bar .clear-btn{
+    position:absolute;right:6px;top:50%;transform:translateY(-50%);
+    display:flex;align-items:center;justify-content:center;
+    width:22px;height:22px;padding:0;border:0;border-radius:99px;
+    color:var(--text-4);background:transparent;cursor:pointer;
+  }
+  .search-bar .clear-btn:hover{color:var(--text);background:var(--surface-3)}
+  .search-bar .clear-btn .ico{position:static;transform:none;--ico:13px}
+  .search-bar .clear-btn[hidden]{display:none}
+
   .day-list{list-style:none;margin:0;padding:0}
 
   .day{
@@ -355,6 +379,12 @@
   body.filtering .day[data-todo="0"],
   body.filtering .day-spots li[data-todo="0"]{display:none}
   body.filtering .day-spots::before{display:none}
+
+  /* 搜尋景點 */
+  body.searching .day[data-search="0"],
+  body.searching .day-spots li[data-search="0"]{display:none}
+  body.searching .day-spots::before{display:none}
+  .no-results{padding:24px 8px;text-align:center;color:var(--text-4);font-size:var(--t-sm)}
 
   .day-actions{padding:9px 2px 0;display:flex;flex-wrap:wrap;gap:8px}
   .route-btn{
@@ -785,6 +815,7 @@
   <symbol id="i-x" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11"/><path d="m17.5 6.5-11 11"/></symbol>
   <symbol id="i-image-off" viewBox="0 0 24 24"><path d="m3 3 18 18"/><path d="M21 15.5V6a2 2 0 0 0-2-2H8.5"/><path d="M3 7.5V18a2 2 0 0 0 2 2h11"/><path d="m3.5 17.5 4.5-4.5 2.5 2.5"/></symbol>
   <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5.5h16l-6.3 7.3v5.5l-3.4 1.9v-7.4z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m20 20-4.6-4.6"/></symbol>
   <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.4 8.6-1.9 4.9-4.9 1.9 1.9-4.9z"/></symbol>
   <symbol id="i-sync" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3l2.2 2.2"/><path d="M19.5 4.6V9h-4.4"/><path d="M19.5 12a7.5 7.5 0 0 1-12.8 5.3l-2.2-2.2"/><path d="M4.5 19.4V15h4.4"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3.5v11.5"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M4.5 19.5h15"/></symbol>
@@ -817,6 +848,14 @@
       <span>出發 <b>2027/4/29（四）夜間</b>，4/30 抵達冰島；回程 <b>2027/5/16（日）凌晨</b>飛離。</span>
     </p>
 
+    <div class="search-bar">
+      <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+      <input type="search" id="spotSearch" placeholder="搜尋景點是否已排入行程…" aria-label="搜尋景點">
+      <button type="button" class="clear-btn" id="spotSearchClear" hidden aria-label="清除搜尋">
+        <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+
     <div class="list-bar">
       <span class="count" id="dayCount"></span>
       <span class="bar-btns">
@@ -832,6 +871,7 @@
     </div>
 
     <ol class="day-list" id="dayList"></ol>
+    <p class="no-results" id="noResults" hidden>沒有符合的景點</p>
 
     <section class="tail">
       <h2><svg class="ico" aria-hidden="true"><use href="#i-bed"/></svg>住宿建議</h2>
@@ -1749,9 +1789,10 @@ function setDayOpen(el, open){
 const toggleAll = document.getElementById('toggleAll');
 const toggleAllLabel = document.getElementById('toggleAllLabel');
 const allDays = () => Array.from(dayList.children);
-/* 篩選開啟時，「全部展開」只管還看得到的那幾天 */
+/* 篩選開啟時（待決定／搜尋），「全部展開」只管還看得到的那幾天 */
 const shownDays = () => allDays().filter(d=>
-  !(document.body.classList.contains('filtering') && d.dataset.todo === '0'));
+  !(document.body.classList.contains('filtering') && d.dataset.todo === '0') &&
+  !(document.body.classList.contains('searching') && d.dataset.search === '0'));
 
 function syncToggleAll(){
   const allOpen = shownDays().every(d=>d.classList.contains('open'));
@@ -1766,6 +1807,28 @@ toggleAll.addEventListener('click', ()=>{
 });
 syncToggleAll();
 
+/* 目前有幾個景點列項（同時套用待決定 + 搜尋兩個篩選） */
+function visibleSpotCount(){
+  const filtering = document.body.classList.contains('filtering');
+  const searching = document.body.classList.contains('searching');
+  let n = 0;
+  allDays().forEach(d=>d.querySelectorAll('.day-spots > li').forEach(li=>{
+    if((!filtering || li.dataset.todo === '1') && (!searching || li.dataset.search === '1')) n++;
+  }));
+  return n;
+}
+
+function updateCount(){
+  const filtering = document.body.classList.contains('filtering');
+  const searching = document.body.classList.contains('searching');
+  if(!filtering && !searching){ countEl.textContent = countAll; return; }
+  if(searching){
+    countEl.textContent = `找到 ${visibleSpotCount()} 個地點` + (filtering ? '（待決定）' : '');
+  } else {
+    countEl.textContent = `${todoCount} 個待決定 · 可選行程與需預約`;
+  }
+}
+
 /* ---------- 只看待決定：可選行程 + 需預約 ---------- */
 const onlyTodo  = document.getElementById('onlyTodo');
 const todoCount = DAYS.reduce((n,d)=>n + d.spots.filter(isTodo).length, 0);
@@ -1774,9 +1837,47 @@ onlyTodo.addEventListener('click', ()=>{
   const on = !document.body.classList.contains('filtering');
   document.body.classList.toggle('filtering', on);
   onlyTodo.setAttribute('aria-pressed', String(on));
-  countEl.textContent = on ? `${todoCount} 個待決定 · 可選行程與需預約` : countAll;
+  updateCount();
   if(on) shownDays().forEach(d=>setDayOpen(d, true));
   syncToggleAll();
+});
+
+/* ---------- 搜尋景點：查某個景點是否已排入行程 ---------- */
+const spotSearch = document.getElementById('spotSearch');
+const spotSearchClear = document.getElementById('spotSearchClear');
+const noResults = document.getElementById('noResults');
+
+const searchText = s => [s.name, s.zh, s.desc].filter(Boolean).join(' ').toLowerCase();
+
+function applySearch(){
+  const q = spotSearch.value.trim().toLowerCase();
+  const searching = q.length > 0;
+  document.body.classList.toggle('searching', searching);
+  spotSearchClear.hidden = !searching;
+
+  allDays().forEach(d=>{
+    let match = false;
+    d.querySelectorAll('.day-spots > li').forEach(li=>{
+      const btn = li.querySelector('.spot');
+      const spot = REG[btn.dataset.id];
+      const hit = !searching || searchText(spot).includes(q);
+      li.dataset.search = hit ? '1' : '0';
+      if(hit) match = true;
+    });
+    d.dataset.search = match ? '1' : '0';
+  });
+
+  noResults.hidden = !(searching && !allDays().some(d=>d.dataset.search==='1'));
+  updateCount();
+  if(searching) shownDays().forEach(d=>setDayOpen(d, true));
+  syncToggleAll();
+}
+
+spotSearch.addEventListener('input', applySearch);
+spotSearchClear.addEventListener('click', ()=>{
+  spotSearch.value = '';
+  applySearch();
+  spotSearch.focus();
 });
 
 /* ================= 地圖 ================= */
