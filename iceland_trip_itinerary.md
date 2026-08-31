@@ -63,8 +63,7 @@
 
 從 Hvolsvöllur 出發沿 1 號公路續往東：
 
-- Seljalandsfoss
-- Gljúfrabúi
+- Seljalandsfoss ＋ Gljúfrabúi（步行約 5 分鐘）
 - Skógafoss
 - Kvernufoss（可選）
 
@@ -175,8 +174,7 @@
 
 景點：
 
-- Hverir
-- Námafjall
+- Hverir ＋ Námafjall（後方山脊，來回約 40 分鐘）
 - Grjótagjá Cave
 - Dimmuborgir
 - Skútustaðagígar
@@ -195,8 +193,7 @@ Mývatn Nature Baths（已定案要去，出發前線上訂時段）
 
 上午：
 
-- Dettifoss
-- Selfoss（瀑布）
+- Dettifoss ＋ Selfoss（沿步道往上游走約 15 分鐘）
 
 下午：
 
