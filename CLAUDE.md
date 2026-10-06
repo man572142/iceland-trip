@@ -45,7 +45,7 @@ npm dependencies, no JSX — edit the array literal and the render functions
 directly.
 
 **Itinerary data shape** (`DAYS` in `public/index.html`): each day has
-`n`, `title`, `date`, `stay`, `note`, `km`, `drive` (net driving hours,
+`n`, `title`, `date`, `note`, `km`, `drive` (net driving hours,
 `null` on the Reykjavík day — both taken from the load table in
 `review.html`), and a `spots[]` array. Each spot has `name`, `zh` (Chinese
 name), `lat`/`lng`/`z` (map zoom), `desc`, `q` (the search query used
@@ -58,12 +58,12 @@ plan, so beyond `desc`（這是什麼）a spot may carry `hook`（看點：你�
 `dwell` (minutes), `walk`, `fee`, `book` (a string; presence marks the spot
 待決定), `may`（5 月初的開放實況）and `tradeoff`（純事實的排程約束）. All are
 optional and render only where present, but `hook`, `dwell` and `type` are
-currently on all 77 spots — keep it that way when adding one, or the day's
+currently on all 74 spots — keep it that way when adding one, or the day's
 budget row and the homogeneity counter go quiet for that day.
 
 `type` is on every spot and drives two things: the chip in the left column,
 and the 「全程第 N／M 個瀑布」 counter in the detail panel, which is how
-homogeneity（9 瀑布、17 城鎮、10 海岸）becomes visible while deciding. Keys
+homogeneity（7 瀑布、15 城鎮、10 海岸）becomes visible while deciding. Keys
 live in the `TYPES` map at the top of the script — reuse one, don't invent a
 key without adding it there. Type by *experience*, not by administrative
 label: Hofsós is `bath` (the cliff pool is the reason to stop), not `town`.
