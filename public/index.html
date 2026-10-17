@@ -777,6 +777,90 @@
       transition-duration:.01ms!important;scroll-behavior:auto!important;
     }
   }
+  /* ---------- 全程路線：Leaflet 蓋在 Google iframe 之上 ---------- */
+  .route-map{position:absolute;inset:0;z-index:2;background:var(--ink-900)}
+  .route-map.dim .leaflet-tile-pane{
+    filter:invert(1) hue-rotate(180deg) saturate(.62) brightness(.84) contrast(1.06);
+  }
+  body.route-on .map-box{flex-basis:72%}
+  body.route-on .map-open{display:none}
+  .leaflet-container{background:var(--ink-900);font-family:inherit}
+  .leaflet-bar,.leaflet-bar a{
+    background:rgba(7,10,15,.86);color:var(--text-2);border-color:var(--line);
+  }
+  .leaflet-bar a:hover{background:var(--surface-2);color:var(--text)}
+  .leaflet-control-attribution{
+    background:rgba(7,10,15,.74)!important;color:var(--text-4);font-size:10px;
+  }
+  .leaflet-control-attribution a{color:var(--text-3)}
+  .day-pin{
+    display:grid;place-items:center;width:22px;height:22px;border-radius:50%;
+    font-size:11px;font-weight:700;letter-spacing:-.3px;
+    color:var(--on-aurora);border:1.5px solid rgba(7,10,15,.85);
+    box-shadow:0 1px 4px rgba(0,0,0,.6);
+  }
+  .leaflet-popup-content-wrapper,.leaflet-popup-tip{
+    background:var(--surface);color:var(--text-2);
+    border:1px solid var(--line);box-shadow:var(--shadow-2);
+  }
+  .leaflet-popup-content-wrapper{border-radius:var(--r-md)}
+  .leaflet-popup-content{margin:11px 13px;font-size:var(--t-sm);line-height:1.55}
+  .leaflet-popup-close-button{color:var(--text-4)!important}
+  .pop-h{display:block;font-size:var(--t-md);color:var(--text);font-weight:600}
+  .pop-zh{display:block;color:var(--text-4);font-size:var(--t-xs);margin-bottom:6px}
+  .pop-links{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .pop-links a{
+    font-size:var(--t-xs);text-decoration:none;
+    background:var(--surface-2);border:1px solid var(--line);color:var(--text-2);
+    padding:4px 8px;border-radius:6px;
+  }
+  .pop-links a:hover{border-color:var(--aurora-45);color:var(--aurora-hi)}
+
+  /* 右側：每晚落在哪一段 */
+  .route-sum{
+    display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline;
+    font-size:var(--t-sm);color:var(--text-3);margin:0;
+  }
+  .route-sum b{color:var(--text);font-size:var(--t-md);font-weight:600}
+  .route-note{font-size:var(--t-sm);color:var(--text-4);margin:12px 0 0;line-height:1.65}
+  .route-note .dash{
+    display:inline-block;width:18px;border-top:2px dashed var(--text-3);
+    transform:translateY(-3px);margin:0 2px;
+  }
+  .nights{list-style:none;display:flex;flex-direction:column;gap:8px;margin:14px 0 0;padding:0}
+  .night{
+    display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;
+    background:var(--surface);border:1px solid var(--line);
+    border-left:3px solid var(--night-c,var(--aurora));
+    border-radius:var(--r-sm);padding:9px 12px;
+  }
+  .night-n{
+    grid-row:1/span 2;font-size:var(--t-xs);font-weight:700;line-height:1.35;
+    color:var(--night-c,var(--aurora));white-space:nowrap;
+  }
+  .night-n span{display:block;color:var(--text-4);font-weight:500}
+  .night-leg{font-size:var(--t-sm);color:var(--text-3);min-width:0}
+  .night-leg b{color:var(--text-2);font-weight:600}
+  .night-leg .arr{color:var(--line-2);margin:0 6px}
+  .night-leg .gap{color:var(--text-4);font-size:var(--t-xs);margin-left:7px;white-space:nowrap}
+  .night-links{display:flex;flex-wrap:wrap;gap:5px}
+  .night-links a{
+    font-size:var(--t-xs);text-decoration:none;color:var(--text-3);
+    border:1px solid var(--line);padding:3px 8px;border-radius:5px;
+  }
+  .night-links a:hover{border-color:var(--aurora-45);color:var(--aurora-hi)}
+  .route-warn{
+    display:flex;gap:9px;margin:12px 0 0;padding:10px 12px;
+    background:rgba(242,181,68,.07);border:1px solid rgba(242,181,68,.3);
+    border-radius:var(--r-sm);font-size:var(--t-sm);color:var(--text-3);line-height:1.6;
+  }
+  .route-warn b{color:var(--sulphur);font-weight:600}
+  .route-warn .ico{--ico:17px;color:var(--sulphur);flex:none;margin-top:2px}
+
+  /* 手機上地圖框固定 190px，全島路線看不清 —— 路線檢視時放大 */
+  @media (max-width:940px){
+    body.route-on .map-box{height:46vh}
+  }
 </style>
 </head>
 <body>
@@ -876,6 +960,7 @@
           <svg class="ico" aria-hidden="true"><use href="#i-compass"/></svg>全覽
         </button>
       </div>
+      <div class="route-map dim" id="route" hidden></div>
       <iframe id="map" title="景點位置地圖" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       <a class="map-open" id="mapOpen" href="#" target="_blank" rel="noopener">
         在 Google 地圖開啟<svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg>
@@ -1231,7 +1316,7 @@ const DAYS = [
        dwell:150, walk:"來回 5 km、爬升約 350 m，階梯與碎石坡，約 2.5 小時", fee:"免費",
        may:"5 月初步道通常已無雪可走，但融雪期泥濘",
        tradeoff:"這天淨車程已 4.2 h，加上這 2.5 h 等於 6.7 h。東部另一個候選 Stuðlagil（923 號公路，順路往米湖方向）也只能排在這天 —— 兩者擇一"},
-      {name:"Möðrudalur", zh:"默茲呂達魯爾", kind:"city", lat:65.1973, lng:-16.2429, z:13,
+      {name:"Möðrudalur", zh:"默茲呂達魯爾", kind:"city", lat:65.3746, lng:-15.8813, z:13,
        q:"Modrudalur Iceland", type:"town",
        desc:"冰島海拔最高（469 m）的有人居住農場，位在 1 號公路的高地段。",
        hook:"四周是完全無樹的火山荒原，能見度好時看得到 Herðubreið 桌狀山。黑色小教堂是農場主人 1949 年為亡妻親手蓋的；農場咖啡館供應自製 kleina 與羊肉湯。",
@@ -1862,24 +1947,328 @@ document.querySelectorAll('.map-toolbar button[data-t]').forEach(b=>{
     b.classList.add('on');
     b.setAttribute('aria-pressed', 'true');
     mapType = b.dataset.t;
-    drawMap();
+    routeOn ? setTile() : drawMap();
   });
 });
 
-document.getElementById('btnAll').addEventListener('click', ()=>{
+/* ================= 全程路線 =================
+   Google 地圖的路線網址吃 10 個停靠點、我的地圖吃 10 個圖層，16 天 74 個點
+   兩邊都塞不下，所以整段路線在頁內自己畫。Leaflet 只在第一次點「全覽」時
+   才載入，連不上就留在底下的 Google iframe。 */
+const LEAFLET = {
+  css:['https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css',
+       'sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw=='],
+  js: ['https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js',
+       'sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==']
+};
+
+// 對上工具列的 地圖／衛星／地形；dim = 要不要套深色濾鏡（衛星圖反轉會壞掉）
+const TILES = {
+  m:{url:'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', max:18, dim:true,
+     attr:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'},
+  k:{url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+     max:18, dim:false, attr:'Esri · Maxar · Earthstar Geographics'},
+  p:{url:'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', max:16, dim:true,
+     attr:'<a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'}
+};
+
+const btnAll  = document.getElementById('btnAll');
+const routeEl = document.getElementById('route');
+const dayColor = i => `hsl(${166 + i*12} 74% 62%)`;
+const endOf = day => day.spots[day.spots.length-1];
+const mmdd  = d => (d || '').replace(/（.*/, '');
+
+// OSRM 回來之前的墊檔值；一旦標成「直線」就不能被當成車程讀
+function airKm(a, b){
+  const rad = x => x*Math.PI/180, R = 6371;
+  const h = Math.sin(rad(b.lat-a.lat)/2)**2 +
+            Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(rad(b.lng-a.lng)/2)**2;
+  return Math.round(2*R*Math.asin(Math.sqrt(h)));
+}
+
+/* 路線貼合實際道路：OSRM 的公用 demo server（免 API key、CORS 開放，但沒有
+   可用性保證）。每段查一次，結果連同座標指紋存進 localStorage —— 指紋變了
+   表示 DAYS 動過，整份重查。任何一段查不到就保留該段的直線，地圖不會開天窗。 */
+const OSRM = 'https://router.project-osrm.org/route/v1/driving/';
+const ROADS_KEY = 'iceland-trip:roads:v2';
+
+const LINES = {};        // 'day3' / 'gap3' -> polyline
+const PINS  = {};        // 天數索引 -> 該天收尾的圖釘
+const GAPS  = {};        // 天數索引 -> {km, min}，OSRM 回來才有
+
+const legLabel = (i, a, b) => GAPS[i]
+  ? `車程 ${hhmm(GAPS[i].min)} · ${GAPS[i].km} km`
+  : `直線 ${airKm(a, b)} km`;
+
+const hash = str => {
+  let h = 0;
+  for(let i=0; i<str.length; i++) h = (h*31 + str.charCodeAt(i)) | 0;
+  return h.toString(36);
+};
+
+// 當天的點連成一段，兩天之間自成一段 —— 這樣實線與虛線才各有自己的幾何
+function segments(){
+  const out = [];
+  DAYS.forEach((day, i)=>{
+    const pts = day.spots.map(sp => [sp.lng, sp.lat]);   // OSRM 吃 lng,lat
+    if(pts.length > 1) out.push({key:'day'+i, i, gap:false, pts});
+    const next = DAYS[i+1];
+    if(next){
+      const a = endOf(day), b = next.spots[0];
+      out.push({key:'gap'+i, i, gap:true, pts:[[a.lng, a.lat], [b.lng, b.lat]]});
+    }
+  });
+  return out;
+}
+
+async function osrm(pts){
+  // steps 只為了讀 ref：F 字頭是冰島高地道路，季節性封閉又限四驅
+  const url = OSRM + pts.map(c => c.join(',')).join(';') +
+    '?overview=simplified&geometries=geojson&steps=true';
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('osrm ' + res.status);
+  const json = await res.json();
+  if(json.code !== 'Ok' || !json.routes?.length) throw new Error(json.code || 'osrm');
+  const rt = json.routes[0];
+  return {
+    line: rt.geometry.coordinates.map(([lng, lat]) => [+lat.toFixed(5), +lng.toFixed(5)]),
+    km:   Math.round(rt.distance/1000),
+    min:  Math.round(rt.duration/60),
+    f:    [...new Set(rt.legs.flatMap(l => l.steps)
+            .flatMap(st => (st.ref || '').split(/[;,]/))
+            .map(r => r.trim())
+            .filter(r => /^F\d/i.test(r)))]
+  };
+}
+
+/* OSRM 算的是最短路徑，不管季節 —— 冰島的 F 字頭道路多半 6 月才開放且限四驅，
+   這趟是 4/30–5/15。走到 F 路的段落要講出來，不能讓車程數字看起來像可行方案。 */
+const FROADS = {};
+
+function renderWarn(){
+  const box = document.getElementById('routeWarn');
+  if(!box) return;
+  const hits = Object.entries(FROADS).filter(([, v]) => v.f.length);
+  if(!hits.length){ box.hidden = true; return; }
+  box.hidden = false;
+  box.innerHTML = `${icon('i-route')}<span><b>這些路段 OSRM 走了高地 F 路</b>：${
+    hits.map(([, v]) => `${v.label} 經 ${v.f.join('、')}`).join('；')
+  }。F 字頭道路通常 6 月才開放且限四驅，這趟是 4/30–5/15 —— 上面的車程是依座標算出的最短路徑，不是可走的安排。</span>`;
+}
+
+function applyRoad(seg, d){
+  LINES[seg.key]?.setLatLngs(d.line);
+  FROADS[seg.key] = {f: d.f || [], label: seg.gap
+    ? `DAY ${DAYS[seg.i].n}→${DAYS[seg.i+1].n}`
+    : `DAY ${DAYS[seg.i].n} 當天`};
+  renderWarn();
+  if(!seg.gap) return;
+  GAPS[seg.i] = d;
+  const txt = `車程 ${hhmm(d.min)} · ${d.km} km`;
+  document.querySelectorAll(`[data-gap="${seg.i}"]`).forEach(el => el.textContent = txt);
+  PINS[seg.i]?.setPopupContent(endPopup(DAYS[seg.i], seg.i));
+}
+
+let snapped = false;
+
+async function snapToRoads(){
+  if(snapped) return;
+  snapped = true;
+  const segs = segments();
+  const fp = hash(segs.map(x => x.pts.join(';')).join('|'));
+  let store = null;
+  try{ store = JSON.parse(localStorage.getItem(ROADS_KEY) || 'null'); }catch(e){}
+  if(store?.fp !== fp) store = {fp, seg:{}};
+
+  for(const seg of segs){
+    if(!store.seg[seg.key]){
+      try{ store.seg[seg.key] = await osrm(seg.pts); }
+      catch(e){ continue; }                        // 這段維持直線
+      await new Promise(r => setTimeout(r, 120));  // 公用 server，別連打
+    }
+    applyRoad(seg, store.seg[seg.key]);
+  }
+  try{ localStorage.setItem(ROADS_KEY, JSON.stringify(store)); }catch(e){}
+}
+
+/* 住宿／加油／超市一律丟回 Google 地圖的區域搜尋，不在行程資料裡預先假定小鎮
+   —— 該區到底有什麼，看地圖上實際存在的結果。z 越小搜得越廣。 */
+const NEAR = [['住宿','accommodation'], ['加油','petrol station'], ['超市','supermarket']];
+const nearUrl = (q, s, z) =>
+  `https://www.google.com/maps/search/${encodeURIComponent(q)}/@${s.lat},${s.lng},${z}z`;
+const legUrl = (a, b) =>
+  `https://www.google.com/maps/dir/${a.lat},${a.lng}/${b.lat},${b.lng}`;
+const nearLinks = (s, z) => NEAR.map(([t,q]) =>
+  `<a href="${nearUrl(q, s, z)}" target="_blank" rel="noopener">${t}</a>`).join('');
+
+let rmap = null, rTile = null, routeOn = false, leafletReady = null;
+
+function loadLeaflet(){
+  if(leafletReady) return leafletReady;
+  return leafletReady = new Promise((ok, fail)=>{
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = LEAFLET.css[0];
+    link.integrity = LEAFLET.css[1];
+    link.crossOrigin = 'anonymous';
+    // 放在 head 最前面，本頁 <style> 的深色覆寫才排在 Leaflet 預設之後
+    document.head.prepend(link);
+    const sc = document.createElement('script');
+    sc.src = LEAFLET.js[0];
+    sc.integrity = LEAFLET.js[1];
+    sc.crossOrigin = 'anonymous';
+    sc.onload = ok;
+    sc.onerror = () => fail(new Error('leaflet'));
+    document.head.appendChild(sc);
+  });
+}
+
+function setTile(){
+  if(!rmap) return;
+  const t = TILES[mapType] || TILES.m;
+  rTile?.remove();
+  rTile = L.tileLayer(t.url, {attribution:t.attr, maxZoom:t.max}).addTo(rmap);
+  routeEl.classList.toggle('dim', t.dim);
+}
+
+function spotPopup(s){
+  return `<span class="pop-h">${esc(s.name)}</span>
+    <span class="pop-zh">${esc(s.zh)}${s.dwell ? ` · 停留 ${hhmm(s.dwell)}` : ''}</span>
+    <span class="pop-links">${nearLinks(s, 12)}</span>`;
+}
+
+function endPopup(day, i){
+  const end = endOf(day), next = DAYS[i+1];
+  if(!next) return `<span class="pop-h">DAY ${day.n} 收尾</span>
+    <span class="pop-zh">${esc(mmdd(day.date))} · ${esc(end.name)}</span>
+    當晚 00:50 的班機，不過夜。`;
+  const start = next.spots[0];
+  return `<span class="pop-h">DAY ${day.n} 收尾</span>
+    <span class="pop-zh">${esc(mmdd(day.date))} · ${esc(end.name)}</span>
+    隔天從 <b>${esc(start.name)}</b> 起跑，${legLabel(i, end, start)}。
+    <span class="pop-links">${nearLinks(end, 10)}<a href="${
+      legUrl(end, start)}" target="_blank" rel="noopener">這段車程</a></span>`;
+}
+
+function buildRoute(){
+  rmap = L.map(routeEl, {worldCopyJump:false});
+  setTile();
+  const seen = [];
+
+  DAYS.forEach((day, i)=>{
+    const c = dayColor(i), end = endOf(day);
+    const line = day.spots.map(s => [s.lat, s.lng]);
+    seen.push(...line);
+    if(line.length > 1) LINES['day'+i] =
+      L.polyline(line, {color:c, weight:3.5, opacity:.95}).addTo(rmap);
+
+    // 虛線 = 兩天之間的移動；當晚落腳就在這一段上
+    const next = DAYS[i+1];
+    if(next) LINES['gap'+i] =
+      L.polyline([[end.lat, end.lng], [next.spots[0].lat, next.spots[0].lng]],
+        {color:c, weight:2, opacity:.55, dashArray:'4 7'}).addTo(rmap);
+
+    day.spots.forEach(s=>{
+      if(s === end) return;
+      L.circleMarker([s.lat, s.lng],
+        {radius:4, color:c, weight:1.5, fillColor:'#070a0f', fillOpacity:.9})
+        .addTo(rmap).bindPopup(spotPopup(s));
+    });
+
+    PINS[i] = L.marker([end.lat, end.lng], {
+      zIndexOffset:400,
+      title:`DAY ${day.n} ${end.name}`,
+      icon:L.divIcon({className:'', iconSize:[22,22], iconAnchor:[11,11],
+        html:`<span class="day-pin" style="background:${c}">${day.n}</span>`})
+    }).addTo(rmap).bindPopup(endPopup(day, i));
+  });
+
+  rmap.fitBounds(seen, {padding:[24,24]});
+  snapToRoads();   // 先直線上畫面，再逐段換成實際道路
+}
+
+function routeInfo(){
+  const spots = DAYS.reduce((n,d) => n + d.spots.length, 0);
+  const totKm = DAYS.reduce((n,d) => n + (d.km || 0), 0);
+  const totHr = DAYS.reduce((n,d) => n + (d.drive || 0), 0);
+
+  const nights = DAYS.slice(0, -1).map((day, i)=>{
+    const end = endOf(day), start = DAYS[i+1].spots[0];
+    return `<li class="night" style="--night-c:${dayColor(i)}">
+      <span class="night-n">DAY ${day.n}<span>${esc(mmdd(day.date))}</span></span>
+      <span class="night-leg"><b>${esc(end.name)}</b><span class="arr">→</span>${
+        esc(start.name)}<span class="gap" data-gap="${i}">${
+        legLabel(i, end, start)}</span></span>
+      <span class="night-links">${nearLinks(end, 10)}<a href="${
+        legUrl(end, start)}" target="_blank" rel="noopener">這段車程</a></span>
+    </li>`;
+  }).join('');
+
+  return `<div class="i-head rise">
+      <h2>全程路線</h2><span class="i-zh">16 天一次看完</span>
+    </div>
+    <p class="route-sum rise rise-2">
+      <span><b>${spots}</b> 個地點</span>
+      <span><b>${totKm.toLocaleString()}</b> km</span>
+      <span>淨開車 <b>${totHr.toFixed(1)}</b> 小時</span>
+      <span><b>${DAYS.length-1}</b> 晚</span>
+    </p>
+    <p class="route-note rise rise-2">實線是當天的移動，<span class="dash"></span>虛線是兩天之間的那一段
+      —— 當晚住哪就落在虛線上。路線與車程由 OSRM 依實際道路計算，第一次開啟時逐段更新。
+      下面每一列的連結直接搜該段附近實際有什麼。</p>
+    <div class="route-warn rise rise-2" id="routeWarn" hidden></div>
+    <ol class="nights rise rise-3">${nights}</ol>`;
+}
+
+function routeOff(){
+  if(!routeOn) return;
+  routeOn = false;
+  routeEl.hidden = true;
+  document.body.classList.remove('route-on');
+  btnAll.classList.remove('on');
+  btnAll.setAttribute('aria-pressed', 'false');
+}
+
+async function routeShow(){
+  try{ await loadLeaflet(); }
+  catch(e){
+    info.innerHTML = `
+      <div class="info-empty">
+        ${icon('i-map')}
+        <p class="lead">全程路線載入失敗</p>
+        <p class="hint">地圖元件連不上，已退回 Google 的全島檢視</p>
+      </div>`;
+    return;
+  }
+  routeOn = true;
+  document.body.classList.add('route-on');
+  routeEl.hidden = false;
+  mapPh.style.opacity = '0';
+  rmap ? rmap.invalidateSize() : buildRoute();
+
+  info.innerHTML = routeInfo();
+  renderWarn();
+  btnAll.classList.add('on');
+  btnAll.setAttribute('aria-pressed', 'true');
+  stageCur.textContent = '全程路線';
+  stageCur.classList.remove('empty');
+  document.body.classList.remove('stage-collapsed');
+  collapseBtn.setAttribute('aria-expanded', 'true');
+  collapseLabel.textContent = '收合';
+  stage.scrollTo({top:0, behavior:'smooth'});
+}
+
+btnAll.addEventListener('click', ()=>{
   current = null;
   PHOTOS = [];
   document.querySelectorAll('.spot.active').forEach(x=>x.classList.remove('active'));
-  drawMap();
-  info.innerHTML = `
-    <div class="info-empty">
-      ${icon('i-map')}
-      <p class="lead">冰島全覽</p>
-      <p class="hint">從左側點選任一景點，載入定位與實景照片</p>
-    </div>`;
-  stageCur.textContent = '尚未選擇景點';
-  stageCur.classList.add('empty');
+  drawMap();        // 底下的 iframe 也回到全島，Leaflet 載不到時就是它
+  routeShow();
 });
+
+// 收合、轉向、視窗縮放都會改到地圖框的尺寸，Leaflet 要重新量一次
+new ResizeObserver(()=>{ if(routeOn) rmap?.invalidateSize(); })
+  .observe(document.querySelector('.map-box'));
 
 /* ================= 行動版：底部面板收合 ================= */
 const stage = document.querySelector('.stage');
@@ -1897,6 +2286,7 @@ const info = document.getElementById('info');
 let reqToken = 0;
 
 function select(id){
+  routeOff();
   const s = REG[id];
   current = s;
   document.querySelectorAll('.spot').forEach(x=>x.classList.toggle('active', x.dataset.id===id));
