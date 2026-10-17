@@ -56,10 +56,10 @@ against Wikimedia), `type` (see below), and optional `opt: true` (side trip
 differently from a sightseeing spot).
 
 **Decision fields on a spot** — the page exists to settle what stays in the
-plan, so beyond `desc`（這是什麼）a spot may carry `hook`（看點：你會經歷什麼）,
+plan, so beyond `desc`（這是什麼＋你會看到／經歷什麼，一段話）a spot may carry
 `dwell` (minutes), `walk`, `fee`, `book` (a string; presence marks the spot
 待決定), `may`（5 月初的開放實況）and `tradeoff`（純事實的排程約束）. All are
-optional and render only where present, but `hook`, `dwell` and `type` are
+optional and render only where present, but `dwell` and `type` are
 currently on all 74 spots — keep it that way when adding one, or the day's
 budget row and the homogeneity counter go quiet for that day.
 
@@ -150,10 +150,14 @@ other should match.
   (plain city names often collide with unrelated results — qualify with
   country/region words as seen in existing entries). Add the decision fields
   too if the surrounding day already has them.
-- **Writing a `hook`**: state what you do or see there, not why it rates —
-  「能繞到水簾正後方，從內側回頭看水幕」, not 「必看」. No scores, no rankings;
-  the facts are what the group decides on. Same for `tradeoff`: give the
-  arithmetic（這天已 4.2 h，加上這 2.5 h 等於 6.7 h）, not a recommendation.
+- **Writing a `desc`**: one paragraph — what the place is, then what you do or
+  see there, not why it rates —「能繞到水簾正後方，從內側回頭看水幕」, not
+  「必看」. No scores, no rankings; the facts are what the group decides on.
+  Each fact lives in one field only: times and distances in `dwell`／`walk`,
+  prices in `fee`, reservations in `book`, seasonal status in `may` — don't
+  repeat them in `desc` or `tradeoff`. `tradeoff` gives the arithmetic
+  （這天已 4.2 h，加上這 2.5 h 等於 6.7 h）, not a recommendation; leave it
+  out when it would only restate `dwell`.
   Prices and opening dates change yearly — keep them hedged（約、通常）and
   point at the source to re-check (road.is, ust.is, the operator's site).
 - **No build/lint/test commands** — this is plain HTML/CSS/JS served as-is.
