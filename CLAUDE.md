@@ -99,7 +99,7 @@ into this file. KMZ is not supported — export as KML.
 **One map: Leaflet, in-page.** It is built on load (cdnjs with SRI) and never
 replaced — selecting a spot pans it and opens that spot's popup, so the whole
 route stays on screen. Google Maps survives only as outbound links
-(「在 Google 地圖開啟」, 當日路線, the 住宿／加油／超市 area searches); there is
+(「在 Google 地圖開啟」, the 住宿／加油／超市 area searches); there is
 no `output=embed` iframe and no fallback map, so a Leaflet that never arrives
 leaves the placeholder message. One coloured polyline per day, a dashed
 segment across each gap between days, a numbered pin at every day's last stop
