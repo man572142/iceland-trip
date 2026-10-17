@@ -383,8 +383,11 @@
   }
   .stage-handle{display:none}
 
+  /* 地圖多往下延伸 --ov，被半透明的資訊面板蓋住；手機版不用 */
+  .stage{--ov:170px}
   .map-box{
-    flex:0 0 54%;position:relative;min-height:280px;
+    flex:0 0 calc(54% + var(--ov));margin-bottom:calc(-1*var(--ov));
+    position:relative;min-height:280px;
     background:
       repeating-linear-gradient(135deg,transparent 0 14px,rgba(255,255,255,.012) 14px 28px),
       var(--ink-900);
@@ -417,7 +420,7 @@
   .map-toolbar #btnAll,.map-toolbar #btnRoute{display:inline-flex;align-items:center;gap:6px}
   .map-toolbar #btnAll .ico,.map-toolbar #btnRoute .ico{--ico:14px}
   .map-open{
-    position:absolute;bottom:12px;left:12px;z-index:5;
+    position:absolute;bottom:calc(12px + var(--ov));left:12px;z-index:5;
     display:inline-flex;align-items:center;gap:6px;
     background:rgba(7,10,15,.85);border:1px solid var(--line);
     color:var(--text-2);text-decoration:none;font-size:var(--t-sm);font-weight:500;
@@ -430,10 +433,11 @@
   .map-open:hover{border-color:var(--aurora-45);color:var(--aurora-hi)}
 
   .info{
+    position:relative;z-index:4;
     flex:1 1 auto;
     border-top:1px solid var(--line);
-    background:rgba(12,18,26,.62);
-    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    background:rgba(12,18,26,.36);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
     padding:20px 24px 28px;
   }
 
@@ -478,7 +482,7 @@
     background:var(--line);border:1px solid var(--line);
     border-radius:var(--r-sm);overflow:hidden;
   }
-  .i-facts>div{background:rgba(17,25,37,.7);padding:9px 12px}
+  .i-facts>div{background:rgba(17,25,37,.6);padding:9px 12px}
   .i-facts dt{font-size:var(--t-xs);color:var(--text-4);letter-spacing:.06em}
   .i-facts dd{margin:3px 0 0;font-size:var(--t-sm);line-height:1.7;color:var(--text-2)}
   .i-dwell{color:var(--text-3);font-size:var(--t-sm);white-space:nowrap}
@@ -631,7 +635,8 @@
     .collapse-btn .ico{transition:transform var(--dur) var(--ease)}
     body.stage-collapsed .collapse-btn .ico{transform:rotate(180deg)}
 
-    .map-box{height:190px;flex:0 0 auto;min-height:0}
+    .stage{--ov:0px}
+    .map-box{height:190px;flex:0 0 auto;min-height:0;margin-bottom:0}
     .info{padding:16px 16px 22px}
     .i-head h2{font-size:var(--t-lg)}
     .i-head{gap:8px}
@@ -659,7 +664,7 @@
     filter:invert(1) hue-rotate(180deg) saturate(.62) brightness(.84) contrast(1.06);
   }
   /* route-on = 右側是全程總覽（沒選景點），地圖分到多一點高度 */
-  body.route-on .map-box{flex-basis:72%}
+  body.route-on .map-box{flex-basis:calc(72% + var(--ov))}
   .leaflet-container{background:var(--ink-900);font-family:inherit}
   .leaflet-bar,.leaflet-bar a{
     background:rgba(7,10,15,.86);color:var(--text-2);border-color:var(--line);
@@ -669,6 +674,7 @@
     background:rgba(7,10,15,.74)!important;color:var(--text-4);font-size:10px;
   }
   .leaflet-control-attribution a{color:var(--text-3)}
+  .leaflet-bottom{bottom:var(--ov)}
   .day-pin{
     display:grid;place-items:center;width:22px;height:22px;border-radius:50%;
     font-size:11px;font-weight:700;letter-spacing:-.3px;
@@ -1810,6 +1816,11 @@ function spotPopup(s){
     <span class="pop-links">${nearLinks(s, 12)}</span>`;
 }
 
+function fitAll(){
+  const ov = parseInt(getComputedStyle(routeEl).getPropertyValue('--ov')) || 0;
+  rmap.fitBounds(allPts, {paddingTopLeft:[24,24], paddingBottomRight:[24, 24+Math.round(ov*.4)]});
+}
+
 function buildRoute(){
   // 先給一個視野（全島）：圖層加到還沒定位的地圖上會炸，最後才 fitBounds
   rmap = L.map(routeEl, {worldCopyJump:false, zoomControl:false}).setView([64.90, -18.60], 6);
@@ -1850,7 +1861,7 @@ function buildRoute(){
   // 地圖上點一下等於在左側點那個景點；視野留在原處，只開 popup
   MARKERS.forEach((m, s) => m.on('click', ()=>{ if(IDS.has(s)) select(IDS.get(s), true); }));
 
-  rmap.fitBounds(allPts, {padding:[24,24]});
+  fitAll();
   mapPh.style.opacity = '0';
   snapToRoads();   // 先直線上畫面，再逐段換成實際道路
 }
@@ -1913,7 +1924,7 @@ async function routeShow(){
   document.body.classList.remove('spot-on');
   rmap.invalidateSize();
   rmap.closePopup();
-  rmap.fitBounds(allPts, {padding:[24,24]});
+  fitAll();
 
   info.innerHTML = routeInfo();
   renderWarn();
