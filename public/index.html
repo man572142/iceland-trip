@@ -478,13 +478,7 @@
   .i-facts>div{background:var(--surface);padding:9px 12px}
   .i-facts dt{font-size:var(--t-xs);color:var(--text-4);letter-spacing:.06em}
   .i-facts dd{margin:3px 0 0;font-size:var(--t-sm);line-height:1.7;color:var(--text-2)}
-  .i-trade{
-    display:flex;gap:10px;margin:0 0 14px;padding:10px 13px;
-    background:rgba(242,181,68,.07);
-    border:1px solid rgba(242,181,68,.22);border-radius:var(--r-sm);
-    font-size:var(--t-sm);line-height:1.8;color:var(--text-2);
-  }
-  .i-trade b{color:var(--sulphur);font-weight:700;white-space:nowrap}
+  .i-dwell{color:var(--text-3);font-size:var(--t-sm);white-space:nowrap}
 
   .gallery{
     display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
@@ -2056,11 +2050,11 @@ function select(id, keepView){
   const token = ++reqToken;
   PHOTOS = [];
   const facts = [
-    s.dwell && ['建議停留', hhmm(s.dwell)],
     s.walk  && ['步行', s.walk],
     s.fee   && ['費用', s.fee],
     s.book  && ['預約', s.book],
-    s.may   && ['5 月初', s.may]
+    s.may   && ['5 月初', s.may],
+    s.tradeoff && ['排程', s.tradeoff]
   ].filter(Boolean);
 
   const seq = s.type
@@ -2070,6 +2064,7 @@ function select(id, keepView){
   info.innerHTML = `
     <div class="i-head rise">
       <h2>${s.name}</h2><span class="i-zh">${s.zh}</span>
+      ${s.dwell?`<span class="i-dwell">建議停留 ${hhmm(s.dwell)}</span>`:''}
       ${s.opt?'<span class="badge">可選行程</span>':''}${
         s.fixed?'<span class="badge fixed">已確定</span>':''}${seq}
       <span class="i-photo-note" id="photoNote"></span>
@@ -2077,7 +2072,6 @@ function select(id, keepView){
     <p class="i-desc rise rise-2">${s.desc}</p>
     ${facts.length ? `<dl class="i-facts rise rise-2">${
       facts.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>` : ''}
-    ${s.tradeoff ? `<p class="i-trade rise rise-2"><b>排程</b><span>${s.tradeoff}</span></p>` : ''}
     <div class="gallery rise rise-3" id="gal">
       ${'<div class="ph skel"></div>'.repeat(3)}
     </div>`;
