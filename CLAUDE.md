@@ -96,17 +96,21 @@ extra 「匯入」 group in the left column (kept in `localStorage`, key
 `iceland-trip:mymaps:v1`), and can copy them as a `DAYS` snippet to paste
 into this file. KMZ is not supported — export as KML.
 
-**Two maps behind one toolbar.** A selected spot renders in a Google Maps
-`output=embed` iframe (from `lat`/`lng`/`z`, no API key), queried by place
-*name* so Google supplies its own info card and photos. 「全覽」 instead draws
-the whole trip in-page with Leaflet — loaded from cdnjs with SRI on first
-use, and the page degrades to the iframe if it never arrives. One coloured
-polyline per day, a dashed segment across each gap between days, a numbered
-pin at every day's last stop. The route lives here and not in Google because
-a `maps/dir/` URL caps at 10 stops and My Maps at 10 layers. The
-road/satellite/terrain buttons drive whichever map is showing (`TILES` maps
-them to OSM / Esri imagery / OpenTopoMap; the dark look is a CSS filter on
-the tile pane, off for imagery).
+**One map: Leaflet, in-page.** It is built on load (cdnjs with SRI) and never
+replaced — selecting a spot pans it and opens that spot's popup, so the whole
+route stays on screen. Google Maps survives only as outbound links
+(「在 Google 地圖開啟」, 當日路線, the 住宿／加油／超市 area searches); there is
+no `output=embed` iframe and no fallback map, so a Leaflet that never arrives
+leaves the placeholder message. One coloured polyline per day, a dashed
+segment across each gap between days, a numbered pin at every day's last stop
+— the route lives here and not in Google because a `maps/dir/` URL caps at 10
+stops and My Maps at 10 layers. Lines sit in their own layer group so 「路線」
+can hide them while the pins stay; 「全覽」 refits to the whole trip and puts
+the route summary in the right panel (`body.route-on`). The
+road/satellite/terrain buttons swap tile layers (`TILES` maps them to OSM /
+Esri imagery / OpenTopoMap; the dark look is a CSS filter on the tile pane,
+off for imagery). Layers added before the map has a view throw inside
+Leaflet — `buildRoute` sets one first and fits bounds last.
 
 **Road geometry comes from OSRM's public demo server** (`router.project-osrm.org`,
 no API key, no uptime guarantee). Segments are drawn straight first and
