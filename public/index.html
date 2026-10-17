@@ -1976,7 +1976,7 @@ function select(id, keepView){
   document.querySelectorAll('.spot').forEach(x=>x.classList.toggle('active', x.dataset.id===id));
   setMapOpen();
   if(!keepView) mapReady.then(()=>{
-    rmap?.setView([s.lat, s.lng], s.z || 14);
+    rmap?.setView([s.lat, s.lng], Math.round((s.z || 14) * 0.75));
     MARKERS.get(s)?.openPopup();
   });
 
