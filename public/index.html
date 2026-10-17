@@ -730,6 +730,16 @@
     }
     body.stage-collapsed .stage{transform:translateY(calc(48vh - 56px))}
 
+    /* 選了景點：詳細資訊蓋滿整個畫面，收合後退回底部 56px 的把手 */
+    body.spot-on .stage{
+      top:0;height:100vh;height:100dvh;border-radius:0;
+    }
+    body.spot-on .stage-handle{border-radius:0}
+    body.spot-on.stage-collapsed .stage{
+      transform:translateY(calc(100vh - 56px));
+      transform:translateY(calc(100dvh - 56px));
+    }
+
     .stage-handle{
       display:flex;align-items:center;gap:10px;
       flex:0 0 auto;padding:9px 10px 9px 16px;
@@ -2250,6 +2260,7 @@ async function routeShow(){
   }
   routeOn = true;
   document.body.classList.add('route-on');
+  document.body.classList.remove('spot-on');
   rmap.invalidateSize();
   rmap.closePopup();
   rmap.fitBounds(allPts, {padding:[24,24]});
@@ -2315,6 +2326,7 @@ function select(id, keepView){
 
   stageCur.textContent = s.name;
   stageCur.classList.remove('empty');
+  document.body.classList.add('spot-on');
   document.body.classList.remove('stage-collapsed');
   collapseBtn.setAttribute('aria-expanded', 'true');
   collapseLabel.textContent = '收合';
