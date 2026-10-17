@@ -130,8 +130,9 @@ guessed towns as data.
 
 住宿 links go to Booking.com, not Google Maps, because a Maps search URL can't
 carry dates or party size. `stayUrl()` fills check-in (that day) / check-out
-(next day), `GUESTS` adults and the coordinates; `TRIP_YEAR` and `GUESTS` sit
-above `nearLinks`. The last day has no night (red-eye flight) and falls back to
+(next day), `GUESTS` adults, the coordinates and a nightly price cap
+(`STAY_MAX`, NT$, per night); `TRIP_YEAR`, `GUESTS` and `STAY_MAX` sit above
+`nearLinks`. The last day has no night (red-eye flight) and falls back to
 the Google search. 加油／超市 stay on Google.
 
 **Two color themes exist and diverge on purpose**: `index.html` and
