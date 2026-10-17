@@ -413,20 +413,17 @@
       repeating-linear-gradient(135deg,transparent 0 14px,rgba(255,255,255,.012) 14px 28px),
       var(--ink-900);
   }
+  /* z-index 要壓過 .route-map，不然載入中／載入失敗的訊息被地圖底色蓋住 */
   .map-ph{
-    position:absolute;inset:0;display:flex;flex-direction:column;
+    position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:8px;
     color:var(--text-4);font-size:var(--t-sm);pointer-events:none;
   }
   .map-ph{transition:opacity .35s var(--ease)}
   .map-ph .ico{--ico:26px;opacity:.55}
-  .map-box iframe{
-    position:relative;width:100%;height:100%;border:0;display:block;
-    filter:saturate(.92) contrast(1.03);
-  }
   .map-toolbar{
     position:absolute;top:12px;left:12px;z-index:5;
-    display:flex;align-items:center;gap:3px;
+    display:flex;flex-wrap:wrap;align-items:center;gap:3px;
     background:rgba(7,10,15,.82);
     border:1px solid var(--line);border-radius:var(--r-sm);padding:4px;
     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
@@ -441,10 +438,10 @@
   .map-toolbar button:hover{color:var(--text);background:rgba(255,255,255,.05)}
   .map-toolbar button.on{background:var(--aurora);color:var(--on-aurora);font-weight:600}
   .map-toolbar .divider{width:1px;height:18px;background:var(--line);margin:0 2px}
-  .map-toolbar #btnAll{display:inline-flex;align-items:center;gap:6px}
-  .map-toolbar #btnAll .ico{--ico:14px}
+  .map-toolbar #btnAll,.map-toolbar #btnRoute{display:inline-flex;align-items:center;gap:6px}
+  .map-toolbar #btnAll .ico,.map-toolbar #btnRoute .ico{--ico:14px}
   .map-open{
-    position:absolute;bottom:12px;right:12px;z-index:5;
+    position:absolute;bottom:12px;left:12px;z-index:5;
     display:inline-flex;align-items:center;gap:6px;
     background:rgba(7,10,15,.85);border:1px solid var(--line);
     color:var(--text-2);text-decoration:none;font-size:var(--t-sm);font-weight:500;
@@ -777,13 +774,13 @@
       transition-duration:.01ms!important;scroll-behavior:auto!important;
     }
   }
-  /* ---------- 全程路線：Leaflet 蓋在 Google iframe 之上 ---------- */
+  /* ---------- 唯一的地圖：Leaflet ---------- */
   .route-map{position:absolute;inset:0;z-index:2;background:var(--ink-900)}
   .route-map.dim .leaflet-tile-pane{
     filter:invert(1) hue-rotate(180deg) saturate(.62) brightness(.84) contrast(1.06);
   }
+  /* route-on = 右側是全程總覽（沒選景點），地圖分到多一點高度 */
   body.route-on .map-box{flex-basis:72%}
-  body.route-on .map-open{display:none}
   .leaflet-container{background:var(--ink-900);font-family:inherit}
   .leaflet-bar,.leaflet-bar a{
     background:rgba(7,10,15,.86);color:var(--text-2);border-color:var(--line);
@@ -959,9 +956,11 @@
         <button type="button" id="btnAll">
           <svg class="ico" aria-hidden="true"><use href="#i-compass"/></svg>全覽
         </button>
+        <button type="button" id="btnRoute" class="on" aria-pressed="true">
+          <svg class="ico" aria-hidden="true"><use href="#i-route"/></svg>路線
+        </button>
       </div>
-      <div class="route-map dim" id="route" hidden></div>
-      <iframe id="map" title="景點位置地圖" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <div class="route-map dim" id="route"></div>
       <a class="map-open" id="mapOpen" href="#" target="_blank" rel="noopener">
         在 Google 地圖開啟<svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg>
       </a>
@@ -1727,6 +1726,7 @@ function budgetHtml(day){
 const dayList = document.getElementById('dayList');
 let uid = 0;
 const REG = {};   // id -> spot
+const IDS = new Map();   // spot -> id（地圖圖釘點回左側用）
 
 const icon = id => `<svg class="ico" aria-hidden="true"><use href="#${id}"/></svg>`;
 
@@ -1773,6 +1773,7 @@ function renderDay(day, dayIdx){
   day.spots.forEach(s=>{
     const id = 's'+(uid++);
     REG[id] = s;
+    IDS.set(s, id);
     const li = document.createElement('li');
     li.dataset.todo = isTodo(s) ? '1' : '0';
     const b = document.createElement('button');
@@ -1912,30 +1913,22 @@ spotSearchClear.addEventListener('click', ()=>{
   spotSearch.focus();
 });
 
-/* ================= 地圖 ================= */
+/* ================= 地圖 =================
+   頁內的 Leaflet 是唯一的地圖。Google 地圖只剩外連按鈕（「在 Google 地圖開啟」、
+   當日路線、區域搜尋）—— 點景點不換地圖，全程路線就不會被蓋掉。 */
 // "Sólfar (Sun Voyager)" → "Sun Voyager, Iceland"；"Geysir / Strokkur" → "Geysir, Iceland"
 const placeQuery = s => `${titleCandidates(s)[0] || s.name}, Iceland`;
 
-const mapEl   = document.getElementById('map');
 const mapOpen = document.getElementById('mapOpen');
 const mapPh   = document.querySelector('.map-ph');
 let mapType = 'm';
 let current = null;
 
-mapEl.addEventListener('load', ()=>{ mapPh.style.opacity = '0'; });
-
-function drawMap(){
-  let lat, lng, z;
-  if(current){ lat=current.lat; lng=current.lng; z=current.z||14; }
-  else { lat=64.90; lng=-18.60; z=6; }
-  // 經典 output=embed 端點，不需要 API key。
-  // 用地點名稱查詢（而非純座標）Google 才會帶出真正的景點資訊卡、評論與官方照片；
-  // 純座標只會落下一個沒有內容的圖釘。ll 仍指定座標，萬一名稱比對到別處也不會飄走。
-  const q = current ? encodeURIComponent(placeQuery(current)) : `${lat},${lng}`;
-  mapEl.src = `https://www.google.com/maps?q=${q}&ll=${lat},${lng}&z=${z}&t=${mapType}&hl=zh-TW&output=embed`;
+// 用地點名稱而非座標，Google 才會開在它自己的景點頁（資訊卡、評論、照片）
+function setMapOpen(){
   mapOpen.href = current
     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(placeQuery(current))}`
-    : `https://www.google.com/maps/@${lat},${lng},${z}z`;
+    : 'https://www.google.com/maps/@64.90,-18.60,6z';
 }
 
 document.querySelectorAll('.map-toolbar button[data-t]').forEach(b=>{
@@ -1947,14 +1940,14 @@ document.querySelectorAll('.map-toolbar button[data-t]').forEach(b=>{
     b.classList.add('on');
     b.setAttribute('aria-pressed', 'true');
     mapType = b.dataset.t;
-    routeOn ? setTile() : drawMap();
+    setTile();
   });
 });
 
 /* ================= 全程路線 =================
    Google 地圖的路線網址吃 10 個停靠點、我的地圖吃 10 個圖層，16 天 74 個點
-   兩邊都塞不下，所以整段路線在頁內自己畫。Leaflet 只在第一次點「全覽」時
-   才載入，連不上就留在底下的 Google iframe。 */
+   兩邊都塞不下，所以整段路線在頁內自己畫。Leaflet 連不上就只剩底圖的占位訊息
+   —— 沒有第二張地圖可以退回。 */
 const LEAFLET = {
   css:['https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css',
        'sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw=='],
@@ -2102,6 +2095,8 @@ const nearLinks = (s, z) => NEAR.map(([t,q]) =>
   `<a href="${nearUrl(q, s, z)}" target="_blank" rel="noopener">${t}</a>`).join('');
 
 let rmap = null, rTile = null, routeOn = false, leafletReady = null;
+let routeLines = null, allPts = [];
+const MARKERS = new Map();   // spot -> 該點在地圖上的圖釘
 
 function loadLeaflet(){
   if(leafletReady) return leafletReady;
@@ -2122,6 +2117,11 @@ function loadLeaflet(){
     document.head.appendChild(sc);
   });
 }
+
+/* 唯一的地圖，所以一進頁面就建 —— 不再等「全覽」被點。 */
+const mapReady = loadLeaflet().then(buildRoute).catch(()=>{
+  mapPh.querySelector('span').textContent = '地圖元件連不上，請重新整理，或用左下角的 Google 地圖連結';
+});
 
 function setTile(){
   if(!rmap) return;
@@ -2151,28 +2151,31 @@ function endPopup(day, i){
 }
 
 function buildRoute(){
-  rmap = L.map(routeEl, {worldCopyJump:false});
+  // 先給一個視野（全島）：圖層加到還沒定位的地圖上會炸，最後才 fitBounds
+  rmap = L.map(routeEl, {worldCopyJump:false, zoomControl:false}).setView([64.90, -18.60], 6);
+  L.control.zoom({position:'topright'}).addTo(rmap);   // 左上角是本頁的工具列
   setTile();
-  const seen = [];
+  // 線自己一層，「路線」關掉時圖釘不跟著消失
+  routeLines = L.layerGroup().addTo(rmap);
 
   DAYS.forEach((day, i)=>{
     const c = dayColor(i), end = endOf(day);
     const line = day.spots.map(s => [s.lat, s.lng]);
-    seen.push(...line);
+    allPts.push(...line);
     if(line.length > 1) LINES['day'+i] =
-      L.polyline(line, {color:c, weight:3.5, opacity:.95}).addTo(rmap);
+      L.polyline(line, {color:c, weight:3.5, opacity:.95}).addTo(routeLines);
 
     // 虛線 = 兩天之間的移動；當晚落腳就在這一段上
     const next = DAYS[i+1];
     if(next) LINES['gap'+i] =
       L.polyline([[end.lat, end.lng], [next.spots[0].lat, next.spots[0].lng]],
-        {color:c, weight:2, opacity:.55, dashArray:'4 7'}).addTo(rmap);
+        {color:c, weight:2, opacity:.55, dashArray:'4 7'}).addTo(routeLines);
 
     day.spots.forEach(s=>{
       if(s === end) return;
-      L.circleMarker([s.lat, s.lng],
+      MARKERS.set(s, L.circleMarker([s.lat, s.lng],
         {radius:4, color:c, weight:1.5, fillColor:'#070a0f', fillOpacity:.9})
-        .addTo(rmap).bindPopup(spotPopup(s));
+        .addTo(rmap).bindPopup(spotPopup(s)));
     });
 
     PINS[i] = L.marker([end.lat, end.lng], {
@@ -2181,9 +2184,14 @@ function buildRoute(){
       icon:L.divIcon({className:'', iconSize:[22,22], iconAnchor:[11,11],
         html:`<span class="day-pin" style="background:${c}">${day.n}</span>`})
     }).addTo(rmap).bindPopup(endPopup(day, i));
+    MARKERS.set(end, PINS[i]);
   });
 
-  rmap.fitBounds(seen, {padding:[24,24]});
+  // 地圖上點一下等於在左側點那個景點；視野留在原處，只開 popup
+  MARKERS.forEach((m, s) => m.on('click', ()=>{ if(IDS.has(s)) select(IDS.get(s), true); }));
+
+  rmap.fitBounds(allPts, {padding:[24,24]});
+  mapPh.style.opacity = '0';
   snapToRoads();   // 先直線上畫面，再逐段換成實際道路
 }
 
@@ -2220,31 +2228,31 @@ function routeInfo(){
     <ol class="nights rise rise-3">${nights}</ol>`;
 }
 
+// 地圖不收起來，只是右側從總覽換成某個景點
 function routeOff(){
   if(!routeOn) return;
   routeOn = false;
-  routeEl.hidden = true;
   document.body.classList.remove('route-on');
   btnAll.classList.remove('on');
   btnAll.setAttribute('aria-pressed', 'false');
 }
 
 async function routeShow(){
-  try{ await loadLeaflet(); }
-  catch(e){
+  await mapReady;
+  if(!rmap){
     info.innerHTML = `
       <div class="info-empty">
         ${icon('i-map')}
-        <p class="lead">全程路線載入失敗</p>
-        <p class="hint">地圖元件連不上，已退回 Google 的全島檢視</p>
+        <p class="lead">地圖載入失敗</p>
+        <p class="hint">地圖元件連不上，重新整理再試一次</p>
       </div>`;
     return;
   }
   routeOn = true;
   document.body.classList.add('route-on');
-  routeEl.hidden = false;
-  mapPh.style.opacity = '0';
-  rmap ? rmap.invalidateSize() : buildRoute();
+  rmap.invalidateSize();
+  rmap.closePopup();
+  rmap.fitBounds(allPts, {padding:[24,24]});
 
   info.innerHTML = routeInfo();
   renderWarn();
@@ -2262,12 +2270,20 @@ btnAll.addEventListener('click', ()=>{
   current = null;
   PHOTOS = [];
   document.querySelectorAll('.spot.active').forEach(x=>x.classList.remove('active'));
-  drawMap();        // 底下的 iframe 也回到全島，Leaflet 載不到時就是它
+  setMapOpen();
   routeShow();
 });
 
+const btnRoute = document.getElementById('btnRoute');
+btnRoute.addEventListener('click', ()=>{
+  const on = !btnRoute.classList.contains('on');
+  btnRoute.classList.toggle('on', on);
+  btnRoute.setAttribute('aria-pressed', String(on));
+  if(rmap && routeLines) on ? routeLines.addTo(rmap) : routeLines.remove();
+});
+
 // 收合、轉向、視窗縮放都會改到地圖框的尺寸，Leaflet 要重新量一次
-new ResizeObserver(()=>{ if(routeOn) rmap?.invalidateSize(); })
+new ResizeObserver(()=>rmap?.invalidateSize())
   .observe(document.querySelector('.map-box'));
 
 /* ================= 行動版：底部面板收合 ================= */
@@ -2285,12 +2301,17 @@ collapseBtn.addEventListener('click', ()=>{
 const info = document.getElementById('info');
 let reqToken = 0;
 
-function select(id){
+// keepView：從地圖圖釘點進來的，視野不要再跳
+function select(id, keepView){
   routeOff();
   const s = REG[id];
   current = s;
   document.querySelectorAll('.spot').forEach(x=>x.classList.toggle('active', x.dataset.id===id));
-  drawMap();
+  setMapOpen();
+  if(!keepView) mapReady.then(()=>{
+    rmap?.setView([s.lat, s.lng], s.z || 14);
+    MARKERS.get(s)?.openPopup();
+  });
 
   stageCur.textContent = s.name;
   stageCur.classList.remove('empty');
@@ -3062,7 +3083,8 @@ imported = loadImported();
 renderImported();
 
 /* ================= 初始 ================= */
-drawMap();
+setMapOpen();
+routeShow();   // 全覽就是預設檢視
 </script>
 </body>
 </html>
