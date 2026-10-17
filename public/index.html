@@ -373,23 +373,6 @@
   body.searching .day-spots::before{display:none}
   .no-results{padding:24px 8px;text-align:center;color:var(--text-4);font-size:var(--t-sm)}
 
-  .day-actions{padding:9px 2px 0;display:flex;flex-wrap:wrap;gap:8px}
-  .route-btn{
-    display:inline-flex;align-items:center;gap:7px;
-    font-size:var(--t-sm);font-weight:500;color:var(--aurora-hi);
-    text-decoration:none;border:1px solid var(--aurora-28);
-    background:var(--aurora-08);
-    padding:6px 11px;border-radius:var(--r-sm);
-    transition:background .16s,border-color .16s;
-  }
-  .route-btn .ico{--ico:15px}
-  .route-btn:hover{background:var(--aurora-14);border-color:var(--aurora-45)}
-  .route-btn.gap-btn{
-    color:var(--text-3);border-color:var(--line);
-    background:transparent;
-  }
-  .route-btn.gap-btn:hover{background:var(--surface-2);border-color:var(--text-4)}
-
 
   /* ---------- Right: map + info ---------- */
   .stage{
@@ -1728,18 +1711,11 @@ const IDS = new Map();   // spot -> id（地圖圖釘點回左側用）
 
 const icon = id => `<svg class="ico" aria-hidden="true"><use href="#${id}"/></svg>`;
 
-function renderDay(day, dayIdx){
+function renderDay(day){
   const el = document.createElement('li');
   const open = day.open || day.n===1;
   el.className = 'day' + (open ? ' open' : '');
   const bodyId = 'dayBody' + (day.key || day.n);
-  const dirUrl = 'https://www.google.com/maps/dir/' +
-    day.spots.map(s=>`${s.lat},${s.lng}`).join('/');
-
-  const nextDay = DAYS[dayIdx+1];
-  const gapUrl = nextDay ? 'https://www.google.com/maps/dir/' +
-    `${day.spots[day.spots.length-1].lat},${day.spots[day.spots.length-1].lng}` +
-    '/' + `${nextDay.spots[0].lat},${nextDay.spots[0].lng}` : '';
 
   el.innerHTML = `
     <h2 style="margin:0;font-size:inherit;font-weight:inherit">
@@ -1759,10 +1735,6 @@ function renderDay(day, dayIdx){
         <p class="day-note">${day.note}</p>
         ${day.km ? budgetHtml(day) : ''}
         <ul class="day-spots"></ul>
-        ${day.spots.length>1 || nextDay ? `<div class="day-actions">
-          ${day.spots.length>1 ? `<a class="route-btn" href="${dirUrl}" target="_blank" rel="noopener">${icon('i-route')}在 Google 地圖規劃當日路線</a>` : ''}
-          ${nextDay ? `<a class="route-btn gap-btn" href="${gapUrl}" target="_blank" rel="noopener">${icon('i-route')}前往 Day ${nextDay.n} 的移動路線與車程</a>` : ''}
-        </div>` : ''}
       </div></div>
     </div>`;
 
