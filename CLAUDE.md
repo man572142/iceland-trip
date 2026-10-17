@@ -58,7 +58,7 @@ differently from a sightseeing spot).
 **Decision fields on a spot** — the page exists to settle what stays in the
 plan, so beyond `desc`（這是什麼＋你會看到／經歷什麼，一段話）a spot may carry
 `dwell` (minutes), `walk`, `fee`, `book` (a string; presence marks the spot
-待決定), `may`（5 月初的開放實況）and `tradeoff`（純事實的排程約束）. All are
+待決定), `may`（5 月初的開放實況）and `detour`（繞路的距離與路況，僅 7 站有）. All are
 optional and render only where present, but `dwell` and `type` are
 currently on all 74 spots — keep it that way when adding one, or the day's
 budget row and the homogeneity counter go quiet for that day.
@@ -150,9 +150,12 @@ other should match.
   「必看」. No scores, no rankings; the facts are what the group decides on.
   Each fact lives in one field only: times and distances in `dwell`／`walk`,
   prices in `fee`, reservations in `book`, seasonal status in `may` — don't
-  repeat them in `desc` or `tradeoff`. `tradeoff` gives the arithmetic
-  （這天已 4.2 h，加上這 2.5 h 等於 6.7 h）, not a recommendation; leave it
-  out when it would only restate `dwell`.
+  repeat them in `desc` or `detour`. Every field must read on its own — no
+  "這天已 N h"、no pointers to other days or spots, no recommendations;
+  cross-day arithmetic lives in the day's budget row and `note`. `detour`
+  holds only the extra distance/road condition of a side road（來回 54 km、
+  礫石路）; leave it out otherwise. A tip that isn't a reservation (「旺季建議
+  先訂位」) goes in `desc`, not `book`, or the spot turns 待決定.
   Prices and opening dates change yearly — keep them hedged（約、通常）and
   point at the source to re-check (road.is, ust.is, the operator's site).
 - **No build/lint/test commands** — this is plain HTML/CSS/JS served as-is.
