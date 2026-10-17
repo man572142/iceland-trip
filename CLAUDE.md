@@ -30,6 +30,8 @@ Live site: https://iceland-trip.man572142.workers.dev/
 - `iceland_trip_itinerary.md` — the canonical written plan in Chinese
   (day-by-day notes, lodging table). Not deployed — see "Making changes"
   below for how it relates to `index.html`.
+- `.claude/launch.json` — dev-server entry so the editor's browser preview
+  can run `npx wrangler dev`; not part of the deployed site.
 - `wrangler.jsonc` — Cloudflare Workers config. This is a **static-assets-only
   Worker** (no Worker script) — `assets.directory` points at `public/`. This
   is Workers, not Pages, despite the static-hosting look; don't add
@@ -94,9 +96,38 @@ extra 「匯入」 group in the left column (kept in `localStorage`, key
 `iceland-trip:mymaps:v1`), and can copy them as a `DAYS` snippet to paste
 into this file. KMZ is not supported — export as KML.
 
-**Map is a Google Maps `output=embed` iframe**, built from `lat`/`lng`/`z`,
-no API key required. Map type (road/satellite/terrain) is toggled by
-rewriting the iframe `src`.
+**Two maps behind one toolbar.** A selected spot renders in a Google Maps
+`output=embed` iframe (from `lat`/`lng`/`z`, no API key), queried by place
+*name* so Google supplies its own info card and photos. 「全覽」 instead draws
+the whole trip in-page with Leaflet — loaded from cdnjs with SRI on first
+use, and the page degrades to the iframe if it never arrives. One coloured
+polyline per day, a dashed segment across each gap between days, a numbered
+pin at every day's last stop. The route lives here and not in Google because
+a `maps/dir/` URL caps at 10 stops and My Maps at 10 layers. The
+road/satellite/terrain buttons drive whichever map is showing (`TILES` maps
+them to OSM / Esri imagery / OpenTopoMap; the dark look is a CSS filter on
+the tile pane, off for imagery).
+
+**Road geometry comes from OSRM's public demo server** (`router.project-osrm.org`,
+no API key, no uptime guarantee). Segments are drawn straight first and
+redrawn as each query lands, so a slow or dead server just leaves straight
+lines — that fallback is the feature, don't replace it with a spinner.
+Geometry plus each leg's km/minutes is cached in `localStorage`
+(`iceland-trip:roads:v2`) under a hash of every coordinate, so editing
+`DAYS` refetches and nothing else does.
+
+**OSRM routes by distance, not by season**, and will happily send you over an
+`F`-road — highland tracks that are 4x4-only and usually shut until June,
+while this trip runs 4/30–15. Every query asks for `steps` purely to read
+each step's `ref`; any `F`-prefixed one is collected and named in the amber
+`#routeWarn` block. Keep that warning wired to anything that shows an OSRM
+duration: the numbers are shortest-path, not plans.
+
+**Lodging is never named in `DAYS`.** The overview gives each night the leg
+it falls on and Google 區域搜尋 links (住宿／加油／超市) centred there, so what
+an area actually has is read off the live map. An earlier version listed
+overnight towns and had no way to know any were bookable — don't reintroduce
+guessed towns as data.
 
 **Two color themes exist and diverge on purpose**: `index.html` and
 `flights.html` each define their own `:root` CSS variables and are not
