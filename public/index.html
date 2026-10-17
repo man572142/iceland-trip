@@ -383,11 +383,12 @@
   }
   .stage-handle{display:none}
 
-  /* 地圖多往下延伸 --ov，被半透明的資訊面板蓋住；手機版不用 */
-  .stage{--ov:170px}
+  /* 地圖撐滿整個右欄並固定不動；資訊面板蓋在上面，一開始只露出 --peek 高（名稱＋簡介），
+     其餘往上捲才會蓋過地圖。--peek 由 setPeek() 依內容量；手機版不用 */
+  .stage{--peek:200px}
   .map-box{
-    flex:0 0 calc(54% + var(--ov));margin-bottom:calc(-1*var(--ov));
-    position:relative;min-height:280px;
+    flex:0 0 100%;height:100%;margin-bottom:calc(-1*var(--peek));
+    position:sticky;top:0;z-index:1;min-height:280px;
     background:
       repeating-linear-gradient(135deg,transparent 0 14px,rgba(255,255,255,.012) 14px 28px),
       var(--ink-900);
@@ -420,7 +421,7 @@
   .map-toolbar #btnAll,.map-toolbar #btnRoute{display:inline-flex;align-items:center;gap:6px}
   .map-toolbar #btnAll .ico,.map-toolbar #btnRoute .ico{--ico:14px}
   .map-open{
-    position:absolute;bottom:calc(12px + var(--ov));left:12px;z-index:5;
+    position:absolute;bottom:calc(12px + var(--peek));left:12px;z-index:5;
     display:inline-flex;align-items:center;gap:6px;
     background:rgba(7,10,15,.85);border:1px solid var(--line);
     color:var(--text-2);text-decoration:none;font-size:var(--t-sm);font-weight:500;
@@ -457,7 +458,7 @@
   .rise-3{animation-delay:.1s}
 
   .i-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-  .i-head h2{margin:0;font-size:var(--t-xl);font-weight:700;letter-spacing:-.01em;line-height:1.25}
+  .i-head h2{text-shadow:0 1px 10px rgba(0,0,0,.75);margin:0;font-size:var(--t-xl);font-weight:700;letter-spacing:-.01em;line-height:1.25}
   .i-zh{color:var(--aurora);font-size:var(--t-md);font-weight:500}
   .i-photo-note{
     margin-left:auto;color:var(--text-4);font-size:var(--t-xs);white-space:nowrap;
@@ -473,7 +474,7 @@
     margin:0 0 14px;padding:11px 14px;
     border-left:2px solid var(--aurora-45);
     border-radius:0 var(--r-sm) var(--r-sm) 0;
-    background:var(--aurora-08);
+    background:linear-gradient(var(--aurora-08),var(--aurora-08)),rgba(12,18,26,.4);
     font-size:var(--t-md);line-height:1.85;color:var(--text);
   }
   .i-facts{
@@ -635,8 +636,8 @@
     .collapse-btn .ico{transition:transform var(--dur) var(--ease)}
     body.stage-collapsed .collapse-btn .ico{transform:rotate(180deg)}
 
-    .stage{--ov:0px}
-    .map-box{height:190px;flex:0 0 auto;min-height:0;margin-bottom:0}
+    .stage{--peek:0px}
+    .map-box{position:relative;height:190px;flex:0 0 auto;min-height:0;margin-bottom:0}
     .info{padding:16px 16px 22px}
     .i-head h2{font-size:var(--t-lg)}
     .i-head{gap:8px}
@@ -664,7 +665,6 @@
     filter:invert(1) hue-rotate(180deg) saturate(.62) brightness(.84) contrast(1.06);
   }
   /* route-on = 右側是全程總覽（沒選景點），地圖分到多一點高度 */
-  body.route-on .map-box{flex-basis:calc(72% + var(--ov))}
   .leaflet-container{background:var(--ink-900);font-family:inherit}
   .leaflet-bar,.leaflet-bar a{
     background:rgba(7,10,15,.86);color:var(--text-2);border-color:var(--line);
@@ -674,7 +674,7 @@
     background:rgba(7,10,15,.74)!important;color:var(--text-4);font-size:10px;
   }
   .leaflet-control-attribution a{color:var(--text-3)}
-  .leaflet-bottom{bottom:var(--ov)}
+  .leaflet-bottom{bottom:var(--peek)}
   .day-pin{
     display:grid;place-items:center;width:22px;height:22px;border-radius:50%;
     font-size:11px;font-weight:700;letter-spacing:-.3px;
@@ -682,9 +682,10 @@
     box-shadow:0 1px 4px rgba(0,0,0,.6);
   }
   .leaflet-popup-content-wrapper,.leaflet-popup-tip{
-    background:rgba(17,25,37,.78);color:var(--text-2);
-    border:1px solid rgba(51,69,95,.7);box-shadow:var(--shadow-2);
-    backdrop-filter:blur(10px) saturate(1.2);-webkit-backdrop-filter:blur(10px) saturate(1.2);
+    background:rgba(17,25,37,.48);color:var(--text-2);
+    border:1px solid rgba(90,115,150,.45);box-shadow:var(--shadow-2);
+    backdrop-filter:blur(12px) saturate(1.3);-webkit-backdrop-filter:blur(12px) saturate(1.3);
+    text-shadow:0 1px 6px rgba(0,0,0,.7);
   }
   .leaflet-popup-content-wrapper{border-radius:var(--r-md)}
   .leaflet-popup-content{margin:11px 13px;font-size:var(--t-sm);line-height:1.55}
@@ -1817,8 +1818,8 @@ function spotPopup(s){
 }
 
 function fitAll(){
-  const ov = parseInt(getComputedStyle(routeEl).getPropertyValue('--ov')) || 0;
-  rmap.fitBounds(allPts, {paddingTopLeft:[24,24], paddingBottomRight:[24, 24+Math.round(ov*.4)]});
+  const peek = parseInt(getComputedStyle(routeEl).getPropertyValue('--peek')) || 0;
+  rmap.fitBounds(allPts, {paddingTopLeft:[24,24], paddingBottomRight:[24, 24+peek]});
 }
 
 function buildRoute(){
@@ -1927,6 +1928,7 @@ async function routeShow(){
   fitAll();
 
   info.innerHTML = routeInfo();
+  watchPeek();
   renderWarn();
   btnAll.classList.add('on');
   btnAll.setAttribute('aria-pressed', 'true');
@@ -1957,6 +1959,23 @@ btnRoute.addEventListener('click', ()=>{
 // 收合、轉向、視窗縮放都會改到地圖框的尺寸，Leaflet 要重新量一次
 new ResizeObserver(()=>rmap?.invalidateSize())
   .observe(document.querySelector('.map-box'));
+
+// 面板一開始露出的高度 = 上緣到「名稱＋簡介」（總覽時是名稱＋統計）底部；其餘要往上捲
+const peekRO = new ResizeObserver(setPeek);
+function setPeek(){
+  const head = info.firstElementChild, next = head?.nextElementSibling;
+  if(!head || !next) return;
+  const h = next.getBoundingClientRect().bottom - info.getBoundingClientRect().top;
+  stage.style.setProperty('--peek', Math.round(h + 14) + 'px');
+}
+function watchPeek(){
+  peekRO.disconnect();
+  const head = info.firstElementChild;
+  if(!head) return;
+  peekRO.observe(head);
+  if(head.nextElementSibling) peekRO.observe(head.nextElementSibling);
+  setPeek();
+}
 
 /* ================= 行動版：底部面板收合 ================= */
 const stage = document.querySelector('.stage');
@@ -2022,6 +2041,7 @@ function select(id, keepView){
       ${'<div class="ph skel"></div>'.repeat(3)}
     </div>`;
 
+  watchPeek();
   loadPhotos(s, token);
 }
 
