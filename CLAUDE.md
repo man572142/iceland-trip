@@ -164,6 +164,10 @@ other should match.
   先訂位」) goes in `desc`, not `book`, or the spot turns 待決定.
   Prices and opening dates change yearly — keep them hedged（約、通常）and
   point at the source to re-check (road.is, ust.is, the operator's site).
+- **Verify before reporting done.** Load the page in Chromium (Playwright,
+  `python3 -m http.server` on `public/`), exercise the changed behaviour, read
+  the actual DOM/hrefs, and look at a screenshot. Reading code or unit-testing
+  a helper is not verification. Say plainly what could not be checked.
 - **No build/lint/test commands** — this is plain HTML/CSS/JS served as-is.
   Validate changes by opening the file in a browser or running
   `npx wrangler dev` for a local preview against the real Worker config.
