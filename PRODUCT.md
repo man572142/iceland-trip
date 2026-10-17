@@ -50,12 +50,9 @@ maintaining an image library.
 - Photos are fetched live client-side from the Wikimedia Commons API at page
   view time (no stored images, no API key) — requires network access to
   render.
-- Map is a Google Maps `output=embed` iframe, no API key.
-- Itinerary exports to KML/CSV for Google 我的地圖 and reads a My Maps
-  KML/CSV/GPX export back; My Maps has no API, so the round trip is by file,
-  not sync.
+- Map is Leaflet in-page; road geometry comes from OSRM's public demo server.
 - No accounts, no analytics. The only stored state is a `localStorage`
-  copy of places imported back from Google 我的地圖.
+  cache of road geometry.
 
 ## Brand Commitments
 

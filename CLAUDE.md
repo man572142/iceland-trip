@@ -87,15 +87,6 @@ Commons returns nothing. This means the page needs network access to show
 images, and photo quality/relevance depends on tuning the `q` search string
 per spot, not on any local asset.
 
-**Google My Maps round-trip lives in `index.html`** (header button 「我的地圖」).
-My Maps has no public API, so there is no live sync — only files. Export
-builds KML (one `<Folder>` per day, `ExtendedData` columns) and CSV from
-`DAYS`; import parses KML/CSV/GPX in the browser, matches each point against
-`DAYS` by normalised name or 300 m proximity, lists unmatched ones as an
-extra 「匯入」 group in the left column (kept in `localStorage`, key
-`iceland-trip:mymaps:v1`), and can copy them as a `DAYS` snippet to paste
-into this file. KMZ is not supported — export as KML.
-
 **One map: Leaflet, in-page.** It is built on load (cdnjs with SRI) and never
 replaced — selecting a spot pans it and opens that spot's popup, so the whole
 route stays on screen. Google Maps survives only as outbound links
@@ -104,7 +95,7 @@ no `output=embed` iframe and no fallback map, so a Leaflet that never arrives
 leaves the placeholder message. One coloured polyline per day, a dashed
 segment across each gap between days, a numbered pin at every day's last stop
 — the route lives here and not in Google because a `maps/dir/` URL caps at 10
-stops and My Maps at 10 layers. Lines sit in their own layer group so 「路線」
+stops. Lines sit in their own layer group so 「路線」
 can hide them while the pins stay; 「全覽」 refits to the whole trip and puts
 the route summary in the right panel (`body.route-on`). The
 road/satellite/terrain buttons swap tile layers (`TILES` maps them to OSM /
@@ -125,7 +116,11 @@ Geometry plus each leg's km/minutes is cached in `localStorage`
 while this trip runs 4/30–15. Every query asks for `steps` purely to read
 each step's `ref`; any `F`-prefixed one is collected and named in the amber
 `#routeWarn` block. Keep that warning wired to anything that shows an OSRM
-duration: the numbers are shortest-path, not plans.
+duration: the numbers are shortest-path, not plans. When it fires, add a
+`via:[[lat,lng],…]` to the spot that ends the offending leg — those points are
+inserted before it in the OSRM query (`segments()`) and pin the line to the
+paved road (Day 2 via Laugarvatn, Day 14 via Ólafsvík / Borgarnes / Reykholt).
+The warning text is for travellers: no "OSRM" or road numbers in it.
 
 **Lodging is never named in `DAYS`.** The overview gives each night the leg
 it falls on and Google 區域搜尋 links (住宿／加油／超市) centred there, so what
