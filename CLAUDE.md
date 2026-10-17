@@ -128,6 +128,12 @@ an area actually has is read off the live map. An earlier version listed
 overnight towns and had no way to know any were bookable — don't reintroduce
 guessed towns as data.
 
+住宿 links go to Booking.com, not Google Maps, because a Maps search URL can't
+carry dates or party size. `stayUrl()` fills check-in (that day) / check-out
+(next day), `GUESTS` adults and the coordinates; `TRIP_YEAR` and `GUESTS` sit
+above `nearLinks`. The last day has no night (red-eye flight) and falls back to
+the Google search. 加油／超市 stay on Google.
+
 **Two color themes exist and diverge on purpose**: `index.html` and
 `flights.html` each define their own `:root` CSS variables and are not
 sharing a stylesheet. If you change the palette in one, check whether the

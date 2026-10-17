@@ -1771,8 +1771,27 @@ const nearUrl = (q, s, z) =>
   `https://www.google.com/maps/search/${encodeURIComponent(q)}/@${s.lat},${s.lng},${z}z`;
 const legUrl = (a, b) =>
   `https://www.google.com/maps/dir/${a.lat},${a.lng}/${b.lat},${b.lng}`;
-const nearLinks = (s, z) => NEAR.map(([t,q]) =>
-  `<a href="${nearUrl(q, s, z)}" target="_blank" rel="noopener">${t}</a>`).join('');
+/* 住宿改走 Booking.com：Google 地圖的搜尋網址帶不進日期與人數。
+   night = 該晚第幾天（DAYS 索引）：入住＝當天，退房＝隔天；最後一天是夜班機，沒有住宿日期。 */
+const TRIP_YEAR = 2027, GUESTS = 4;
+const isoDate = (d, plus = 0) => {
+  const [m, dd] = mmdd(d).split('/').map(Number);
+  return new Date(Date.UTC(TRIP_YEAR, m-1, dd+plus)).toISOString().slice(0, 10);
+};
+const stayUrl = (s, night) => {
+  const q = new URLSearchParams({
+    ss: `${s.name}, Iceland`, latitude: s.lat, longitude: s.lng,
+    checkin: isoDate(DAYS[night].date), checkout: isoDate(DAYS[night+1].date),
+    group_adults: GUESTS,
+  });
+  return `https://www.booking.com/searchresults.html?${q}`;
+};
+const nearLinks = (s, z, night) => NEAR.map(([t,q]) => {
+  const stay = q === 'accommodation' && night != null && DAYS[night+1];
+  return stay
+    ? `<a href="${stayUrl(s, night)}" target="_blank" rel="noopener" title="Booking.com · ${isoDate(DAYS[night].date)} 入住 · ${GUESTS} 位成人">${t}</a>`
+    : `<a href="${nearUrl(q, s, z)}" target="_blank" rel="noopener">${t}</a>`;
+}).join('');
 
 let rmap = null, rTile = null, routeOn = false, leafletReady = null;
 let routeLines = null, allPts = [];
@@ -1811,10 +1830,10 @@ function setTile(){
   routeEl.classList.toggle('dim', t.dim);
 }
 
-function spotPopup(s){
+function spotPopup(s, night){
   return `<span class="pop-h">${esc(s.name)}</span>
     <span class="pop-zh">${esc(s.zh)}${s.dwell ? ` · 停留 ${hhmm(s.dwell)}` : ''}</span>
-    <span class="pop-links">${nearLinks(s, 12)}</span>`;
+    <span class="pop-links">${nearLinks(s, 12, night)}</span>`;
 }
 
 function fitAll(){
@@ -1847,7 +1866,7 @@ function buildRoute(){
       if(s === end) return;
       MARKERS.set(s, L.circleMarker([s.lat, s.lng],
         {radius:4, color:c, weight:1.5, fillColor:'#070a0f', fillOpacity:.9})
-        .addTo(rmap).bindPopup(spotPopup(s)));
+        .addTo(rmap).bindPopup(spotPopup(s, i)));
     });
 
     PINS[i] = L.marker([end.lat, end.lng], {
@@ -1855,7 +1874,7 @@ function buildRoute(){
       title:`DAY ${day.n} ${end.name}`,
       icon:L.divIcon({className:'', iconSize:[22,22], iconAnchor:[11,11],
         html:`<span class="day-pin" style="background:${c}">${day.n}</span>`})
-    }).addTo(rmap).bindPopup(spotPopup(end));
+    }).addTo(rmap).bindPopup(spotPopup(end, i));
     MARKERS.set(end, PINS[i]);
   });
 
@@ -1879,7 +1898,7 @@ function routeInfo(){
       <span class="night-leg"><b>${esc(end.name)}</b><span class="arr">→</span>${
         esc(start.name)}<span class="gap" data-gap="${i}">${
         legLabel(i, end, start)}</span></span>
-      <span class="night-links">${nearLinks(end, 10)}<a href="${
+      <span class="night-links">${nearLinks(end, 10, i)}<a href="${
         legUrl(end, start)}" target="_blank" rel="noopener">這段車程</a></span>
     </li>`;
   }).join('');
