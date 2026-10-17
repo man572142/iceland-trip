@@ -119,17 +119,6 @@
   .legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:10px;font-size:var(--t-sm);color:var(--text-4)}
   .legend span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
   .legend i{width:8px;height:8px;border-radius:50%}
-  .head-nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-  .nav-link{
-    display:inline-flex;align-items:center;gap:7px;flex:none;
-    color:var(--text-2);text-decoration:none;font-size:var(--t-sm);font-weight:500;
-    border:1px solid var(--line);padding:7px 13px;border-radius:var(--r-sm);
-    background:var(--surface);
-    transition:color .16s,border-color .16s,background .16s;
-    white-space:nowrap;
-  }
-  .nav-link .ico{--ico:16px;color:var(--aurora)}
-  .nav-link:hover{color:var(--text);border-color:var(--line-2);background:var(--surface-2)}
 
   /* ---------- Layout ---------- */
   .wrap{
@@ -147,7 +136,8 @@
   }
 
   .intro{
-    display:flex;gap:11px;
+    display:flex;flex-wrap:wrap;gap:6px 11px;align-items:flex-start;text-decoration:none;
+    transition:border-color .16s,background .16s;
     background:linear-gradient(158deg,var(--aurora-08),rgba(138,180,255,.05));
     border:1px solid var(--line);
     border-radius:var(--r-md);
@@ -155,7 +145,15 @@
     margin-bottom:14px;
     font-size:var(--t-sm);line-height:1.8;color:var(--text-2);
   }
-  .intro .ico{--ico:17px;color:var(--aurora);margin-top:2px}
+  .intro .ico{--ico:17px;color:var(--aurora);margin-top:2px;flex:none}
+  .intro>span:not(.intro-go){flex:1 1 260px;min-width:0}
+  .intro:hover{border-color:var(--aurora-45)}
+  .intro-go{
+    display:inline-flex;align-items:center;gap:4px;flex:none;margin-left:auto;
+    align-self:center;white-space:nowrap;font-weight:600;color:var(--aurora-hi);
+  }
+  .intro-go .ico{--ico:14px;margin:0;color:inherit}
+  .intro:hover .intro-go .ico{transform:translateX(2px)}
   .intro b{color:var(--aurora-hi);font-weight:600;font-variant-numeric:tabular-nums}
 
   .list-bar{
@@ -228,12 +226,12 @@
     min-width:52px;text-align:center;
     font-size:var(--t-xs);font-weight:700;letter-spacing:.09em;
     font-variant-numeric:tabular-nums;
-    color:var(--text-3);background:var(--surface-3);
-    border:1px solid var(--line-2);
+    color:var(--day-c,var(--text-3));background:var(--surface-3);
+    border:1px solid var(--day-c,var(--line-2));
     padding:5px 7px;border-radius:var(--r-sm);
     transition:color .2s,background .2s,border-color .2s;
   }
-  .day.open .day-no{color:var(--on-aurora);background:var(--aurora);border-color:var(--aurora)}
+  .day.open .day-no{color:var(--on-aurora);background:var(--day-c,var(--aurora));border-color:var(--day-c,var(--aurora))}
   .day-main{min-width:0}
   .day-title{
     display:block;font-size:var(--t-md);font-weight:600;line-height:1.35;color:var(--text);
@@ -377,12 +375,20 @@
   /* ---------- Right: map + info ---------- */
   .stage{
     display:flex;flex-direction:column;min-width:0;height:100%;
-    overflow-y:auto;background:var(--sunken);
+    overflow-y:auto;
+    background:
+      radial-gradient(640px 360px at 88% 100%, rgba(138,180,255,.13), transparent 70%),
+      radial-gradient(560px 320px at 6% 62%, rgba(69,217,189,.12), transparent 70%),
+      var(--sunken);
   }
   .stage-handle{display:none}
 
+  /* 地圖撐滿整個右欄並固定不動；資訊面板蓋在上面，一開始只露出 --peek 高（名稱＋簡介），
+     其餘往上捲才會蓋過地圖。--peek 由 setPeek() 依內容量；手機版不用 */
+  .stage{--peek:200px}
   .map-box{
-    flex:0 0 54%;position:relative;min-height:280px;
+    flex:0 0 100%;height:100%;margin-bottom:calc(-1*var(--peek));
+    position:sticky;top:0;z-index:1;min-height:280px;
     background:
       repeating-linear-gradient(135deg,transparent 0 14px,rgba(255,255,255,.012) 14px 28px),
       var(--ink-900);
@@ -415,7 +421,7 @@
   .map-toolbar #btnAll,.map-toolbar #btnRoute{display:inline-flex;align-items:center;gap:6px}
   .map-toolbar #btnAll .ico,.map-toolbar #btnRoute .ico{--ico:14px}
   .map-open{
-    position:absolute;bottom:12px;left:12px;z-index:5;
+    position:absolute;bottom:calc(12px + var(--peek));left:12px;z-index:5;
     display:inline-flex;align-items:center;gap:6px;
     background:rgba(7,10,15,.85);border:1px solid var(--line);
     color:var(--text-2);text-decoration:none;font-size:var(--t-sm);font-weight:500;
@@ -428,9 +434,11 @@
   .map-open:hover{border-color:var(--aurora-45);color:var(--aurora-hi)}
 
   .info{
+    position:relative;z-index:4;
     flex:1 1 auto;
     border-top:1px solid var(--line);
-    background:var(--sunken);
+    background:rgba(12,18,26,.36);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
     padding:20px 24px 28px;
   }
 
@@ -450,7 +458,7 @@
   .rise-3{animation-delay:.1s}
 
   .i-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-  .i-head h2{margin:0;font-size:var(--t-xl);font-weight:700;letter-spacing:-.01em;line-height:1.25}
+  .i-head h2{text-shadow:0 1px 10px rgba(0,0,0,.75);margin:0;font-size:var(--t-xl);font-weight:700;letter-spacing:-.01em;line-height:1.25}
   .i-zh{color:var(--aurora);font-size:var(--t-md);font-weight:500}
   .i-photo-note{
     margin-left:auto;color:var(--text-4);font-size:var(--t-xs);white-space:nowrap;
@@ -466,7 +474,7 @@
     margin:0 0 14px;padding:11px 14px;
     border-left:2px solid var(--aurora-45);
     border-radius:0 var(--r-sm) var(--r-sm) 0;
-    background:var(--aurora-08);
+    background:linear-gradient(var(--aurora-08),var(--aurora-08)),rgba(12,18,26,.4);
     font-size:var(--t-md);line-height:1.85;color:var(--text);
   }
   .i-facts{
@@ -475,7 +483,7 @@
     background:var(--line);border:1px solid var(--line);
     border-radius:var(--r-sm);overflow:hidden;
   }
-  .i-facts>div{background:var(--surface);padding:9px 12px}
+  .i-facts>div{background:rgba(17,25,37,.6);padding:9px 12px}
   .i-facts dt{font-size:var(--t-xs);color:var(--text-4);letter-spacing:.06em}
   .i-facts dd{margin:3px 0 0;font-size:var(--t-sm);line-height:1.7;color:var(--text-2)}
   .i-dwell{color:var(--text-3);font-size:var(--t-sm);white-space:nowrap}
@@ -576,7 +584,6 @@
   @media (max-width:940px){
     .itin-head h1{font-size:var(--t-md)}
     .legend{font-size:var(--t-xs);gap:4px 11px}
-    .nav-link{padding:6px 11px;font-size:var(--t-sm)}
 
     .wrap{grid-template-columns:1fr;height:auto}
     .itinerary{
@@ -587,7 +594,10 @@
     .stage{
       position:fixed;left:0;right:0;bottom:0;z-index:60;
       height:48vh;
-      background:var(--bg);
+      background:
+        radial-gradient(520px 300px at 90% 100%, rgba(138,180,255,.12), transparent 70%),
+        rgba(7,10,15,.9);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
       border-top:1px solid var(--line-2);
       border-radius:var(--r-lg) var(--r-lg) 0 0;
       box-shadow:var(--shadow-sheet);
@@ -609,7 +619,7 @@
       display:flex;align-items:center;gap:10px;
       flex:0 0 auto;padding:9px 10px 9px 16px;
       border-bottom:1px solid var(--line);
-      background:var(--surface);
+      background:rgba(17,25,37,.8);
       border-radius:var(--r-lg) var(--r-lg) 0 0;
       position:sticky;top:0;z-index:2;
     }
@@ -626,7 +636,8 @@
     .collapse-btn .ico{transition:transform var(--dur) var(--ease)}
     body.stage-collapsed .collapse-btn .ico{transform:rotate(180deg)}
 
-    .map-box{height:190px;flex:0 0 auto;min-height:0}
+    .stage{--peek:0px}
+    .map-box{position:relative;height:190px;flex:0 0 auto;min-height:0;margin-bottom:0}
     .info{padding:16px 16px 22px}
     .i-head h2{font-size:var(--t-lg)}
     .i-head{gap:8px}
@@ -654,7 +665,6 @@
     filter:invert(1) hue-rotate(180deg) saturate(.62) brightness(.84) contrast(1.06);
   }
   /* route-on = 右側是全程總覽（沒選景點），地圖分到多一點高度 */
-  body.route-on .map-box{flex-basis:72%}
   .leaflet-container{background:var(--ink-900);font-family:inherit}
   .leaflet-bar,.leaflet-bar a{
     background:rgba(7,10,15,.86);color:var(--text-2);border-color:var(--line);
@@ -664,6 +674,7 @@
     background:rgba(7,10,15,.74)!important;color:var(--text-4);font-size:10px;
   }
   .leaflet-control-attribution a{color:var(--text-3)}
+  .leaflet-bottom{bottom:var(--peek)}
   .day-pin{
     display:grid;place-items:center;width:22px;height:22px;border-radius:50%;
     font-size:11px;font-weight:700;letter-spacing:-.3px;
@@ -671,8 +682,10 @@
     box-shadow:0 1px 4px rgba(0,0,0,.6);
   }
   .leaflet-popup-content-wrapper,.leaflet-popup-tip{
-    background:var(--surface);color:var(--text-2);
-    border:1px solid var(--line);box-shadow:var(--shadow-2);
+    background:rgba(17,25,37,.48);color:var(--text-2);
+    border:1px solid rgba(90,115,150,.45);box-shadow:var(--shadow-2);
+    backdrop-filter:blur(12px) saturate(1.3);-webkit-backdrop-filter:blur(12px) saturate(1.3);
+    text-shadow:0 1px 6px rgba(0,0,0,.7);
   }
   .leaflet-popup-content-wrapper{border-radius:var(--r-md)}
   .leaflet-popup-content{margin:11px 13px;font-size:var(--t-sm);line-height:1.55}
@@ -763,16 +776,12 @@
         <span><i style="background:var(--glacier)"></i>城鎮 / 交通</span>
         <span><i style="background:var(--ink-400)"></i>可選</span>
       </div>
-      <div class="head-nav">
-        <a class="nav-link" href="./flights.html">
-          <svg class="ico" aria-hidden="true"><use href="#i-plane"/></svg>機票方案
-        </a>
-      </div>
     </header>
-    <p class="intro">
+    <a class="intro" href="./flights.html">
       <svg class="ico" aria-hidden="true"><use href="#i-plane"/></svg>
       <span>出發 <b>2027/4/29（四）夜間</b>，4/30 抵達冰島；回程 <b>2027/5/16（日）凌晨</b>飛離。</span>
-    </p>
+      <span class="intro-go">機票方案<svg class="ico" aria-hidden="true"><use href="#i-chev-r"/></svg></span>
+    </a>
 
     <div class="search-bar">
       <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
@@ -1407,6 +1416,8 @@ function renderDay(day){
   const el = document.createElement('li');
   const open = day.open || day.n===1;
   el.className = 'day' + (open ? ' open' : '');
+  const di = DAYS.indexOf(day);
+  if(di >= 0) el.style.setProperty('--day-c', dayColor(di));
   const bodyId = 'dayBody' + (day.key || day.n);
 
   el.innerHTML = `
@@ -1629,7 +1640,11 @@ const TILES = {
 
 const btnAll  = document.getElementById('btnAll');
 const routeEl = document.getElementById('route');
-const dayColor = i => `hsl(${166 + i*12} 74% 62%)`;
+// 16 天 16 個色相；相鄰兩天跳 7 格（約 157°），色相相近的兩天在時間和地理上都離得遠
+function dayColor(i){
+  const slot = (i*7) % 16;
+  return `hsl(${(slot*22.5 + 8) % 360} ${slot%2 ? 78 : 70}% ${slot%2 ? 66 : 58}%)`;
+}
 const endOf = day => day.spots[day.spots.length-1];
 const mmdd  = d => (d || '').replace(/（.*/, '');
 
@@ -1725,7 +1740,6 @@ function applyRoad(seg, d){
   GAPS[seg.i] = d;
   const txt = `車程 ${hhmm(d.min)} · ${d.km} km`;
   document.querySelectorAll(`[data-gap="${seg.i}"]`).forEach(el => el.textContent = txt);
-  PINS[seg.i]?.setPopupContent(endPopup(DAYS[seg.i], seg.i));
 }
 
 let snapped = false;
@@ -1803,17 +1817,9 @@ function spotPopup(s){
     <span class="pop-links">${nearLinks(s, 12)}</span>`;
 }
 
-function endPopup(day, i){
-  const end = endOf(day), next = DAYS[i+1];
-  if(!next) return `<span class="pop-h">DAY ${day.n} 收尾</span>
-    <span class="pop-zh">${esc(mmdd(day.date))} · ${esc(end.name)}</span>
-    當晚 00:50 的班機，不過夜。`;
-  const start = next.spots[0];
-  return `<span class="pop-h">DAY ${day.n} 收尾</span>
-    <span class="pop-zh">${esc(mmdd(day.date))} · ${esc(end.name)}</span>
-    隔天從 <b>${esc(start.name)}</b> 起跑，${legLabel(i, end, start)}。
-    <span class="pop-links">${nearLinks(end, 10)}<a href="${
-      legUrl(end, start)}" target="_blank" rel="noopener">這段車程</a></span>`;
+function fitAll(){
+  const peek = parseInt(getComputedStyle(routeEl).getPropertyValue('--peek')) || 0;
+  rmap.fitBounds(allPts, {paddingTopLeft:[24,24], paddingBottomRight:[24, 24+peek]});
 }
 
 function buildRoute(){
@@ -1849,14 +1855,14 @@ function buildRoute(){
       title:`DAY ${day.n} ${end.name}`,
       icon:L.divIcon({className:'', iconSize:[22,22], iconAnchor:[11,11],
         html:`<span class="day-pin" style="background:${c}">${day.n}</span>`})
-    }).addTo(rmap).bindPopup(endPopup(day, i));
+    }).addTo(rmap).bindPopup(spotPopup(end));
     MARKERS.set(end, PINS[i]);
   });
 
   // 地圖上點一下等於在左側點那個景點；視野留在原處，只開 popup
   MARKERS.forEach((m, s) => m.on('click', ()=>{ if(IDS.has(s)) select(IDS.get(s), true); }));
 
-  rmap.fitBounds(allPts, {padding:[24,24]});
+  fitAll();
   mapPh.style.opacity = '0';
   snapToRoads();   // 先直線上畫面，再逐段換成實際道路
 }
@@ -1919,9 +1925,10 @@ async function routeShow(){
   document.body.classList.remove('spot-on');
   rmap.invalidateSize();
   rmap.closePopup();
-  rmap.fitBounds(allPts, {padding:[24,24]});
+  fitAll();
 
   info.innerHTML = routeInfo();
+  watchPeek();
   renderWarn();
   btnAll.classList.add('on');
   btnAll.setAttribute('aria-pressed', 'true');
@@ -1952,6 +1959,23 @@ btnRoute.addEventListener('click', ()=>{
 // 收合、轉向、視窗縮放都會改到地圖框的尺寸，Leaflet 要重新量一次
 new ResizeObserver(()=>rmap?.invalidateSize())
   .observe(document.querySelector('.map-box'));
+
+// 面板一開始露出的高度 = 上緣到「名稱＋簡介」（總覽時是名稱＋統計）底部；其餘要往上捲
+const peekRO = new ResizeObserver(setPeek);
+function setPeek(){
+  const head = info.firstElementChild, next = head?.nextElementSibling;
+  if(!head || !next) return;
+  const h = next.getBoundingClientRect().bottom - info.getBoundingClientRect().top;
+  stage.style.setProperty('--peek', Math.round(h + 14) + 'px');
+}
+function watchPeek(){
+  peekRO.disconnect();
+  const head = info.firstElementChild;
+  if(!head) return;
+  peekRO.observe(head);
+  if(head.nextElementSibling) peekRO.observe(head.nextElementSibling);
+  setPeek();
+}
 
 /* ================= 行動版：底部面板收合 ================= */
 const stage = document.querySelector('.stage');
@@ -2017,6 +2041,7 @@ function select(id, keepView){
       ${'<div class="ph skel"></div>'.repeat(3)}
     </div>`;
 
+  watchPeek();
   loadPhotos(s, token);
 }
 
