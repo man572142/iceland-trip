@@ -1662,7 +1662,7 @@ function airKm(a, b){
    可用性保證）。每段查一次，結果連同座標指紋存進 localStorage —— 指紋變了
    表示 DAYS 動過，整份重查。任何一段查不到就保留該段的直線，地圖不會開天窗。 */
 const OSRM = 'https://router.project-osrm.org/route/v1/driving/';
-const ROADS_KEY = 'iceland-trip:roads:v3';
+const ROADS_KEY = 'iceland-trip:roads:v4';
 
 /* 彈窗的「距上一站」油費：汽油 RAV4，4 人滿載含行李，偏高估。油價與匯率是概估，出發前再改。 */
 const CAR_L100 = 8, FUEL_ISK = 310, ISK_TWD = 0.24;   // L/100 km、ISK/L、NT$/ISK
@@ -1670,7 +1670,7 @@ const CAR_L100 = 8, FUEL_ISK = 310, ISK_TWD = 0.24;   // L/100 km、ISK/L、NT$/
 const LINES = {};        // 'day3' / 'gap3' -> polyline
 const PINS  = {};        // 天數索引 -> 該天收尾的圖釘
 const GAPS  = {};        // 天數索引 -> {km, min}，OSRM 回來才有
-const LEG_KM = new Map();   // spot -> {km, f}：從上一站開過來的路程；f = 該段被導到 F 路
+const LEG_KM = new Map();   // spot -> {km, min, f}：從上一站開過來的路程；f = 該段被導到 F 路
 
 const legLabel = (i, a, b) => GAPS[i]
   ? `車程 ${hhmm(GAPS[i].min)} · ${GAPS[i].km} km`
@@ -1716,6 +1716,7 @@ async function osrm(pts){
     line: rt.geometry.coordinates.map(([lng, lat]) => [+lat.toFixed(5), +lng.toFixed(5)]),
     km:   Math.round(rt.distance/1000),
     legs: rt.legs.map(l => Math.round(l.distance/100)/10),
+    legMin: rt.legs.map(l => l.duration/60),
     legF: rt.legs.map(l => l.steps.some(st => (st.ref || '').split(/[;,]/).some(r => /^F\d/i.test(r.trim())))),
     min:  Math.round(rt.duration/60),
     f:    [...new Set(rt.legs.flatMap(l => l.steps)
@@ -1751,13 +1752,14 @@ function applyRoad(seg, d){
       const [a, b] = [seg.stops[k-1], seg.stops[k]];
       LEG_KM.set(DAYS[seg.i].spots[k], {
         km: d.legs.slice(a, b).reduce((x, y) => x + y, 0),
+        min: d.legMin.slice(a, b).reduce((x, y) => x + y, 0),
         f:  d.legF.slice(a, b).some(Boolean)
       });
     }
     return;
   }
   GAPS[seg.i] = d;
-  LEG_KM.set(DAYS[seg.i+1].spots[0], {km:d.km, f:!!d.f.length});
+  LEG_KM.set(DAYS[seg.i+1].spots[0], {km:d.km, min:d.min, f:!!d.f.length});
   const txt = `車程 ${hhmm(d.min)} · ${d.km} km`;
   document.querySelectorAll(`[data-gap="${seg.i}"]`).forEach(el => el.textContent = txt);
 }
@@ -1856,7 +1858,7 @@ function fuelLine(s){
   if(!r) return '';
   const L = r.km * CAR_L100 / 100;
   const nt = Math.round(L * FUEL_ISK * ISK_TWD / 10) * 10;
-  return `<span class="pop-fuel">距上一站 ${r.km} km · 約 ${L.toFixed(1)} L · NT$${nt.toLocaleString()}${r.f ? ' · 路線僅供參考' : ''}</span>`;
+  return `<span class="pop-fuel">距上一站 ${Math.round(r.km)} km · 約 ${hrs(r.min/60)} · 油費$${nt.toLocaleString()}${r.f ? ' · 路線僅供參考' : ''}</span>`;
 }
 
 function spotPopup(s, night){

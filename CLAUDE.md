@@ -108,9 +108,9 @@ no API key, no uptime guarantee). Segments are drawn straight first and
 redrawn as each query lands, so a slow or dead server just leaves straight
 lines — that fallback is the feature, don't replace it with a spinner.
 Geometry plus each leg's km/minutes is cached in `localStorage`
-(`iceland-trip:roads:v3`) under a hash of every coordinate, so editing
+(`iceland-trip:roads:v4`) under a hash of every coordinate, so editing
 `DAYS` refetches and nothing else does. The per-leg km also feeds the
-「距上一站 … NT$」 fuel line in each map popup (`fuelLine`; constants
+「距上一站 … 油費$」 fuel line in each map popup (`fuelLine`; constants
 `CAR_L100`／`FUEL_ISK`／`ISK_TWD` sit above `LINES` — rough, 8 L/100 km on
 purpose); legs that hit an `F`-road are tagged 「路線僅供參考」.
 
