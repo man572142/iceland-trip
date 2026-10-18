@@ -1306,6 +1306,12 @@ const DAYS = [
     n:15, title:"雷克雅維克（整理日）", date:"5/14（五）", km:20, drive:null,
     note:"不排太滿：泡湯、咖啡店、市區散步、補給，為明天啟程做準備。",
     spots:[
+      {name:"Thríhnúkagígur", zh:"三峰火山口", opt:true, lat:63.9983, lng:-21.6989, z:14,
+       q:"Thrihnukagigur volcano Iceland", type:"volcanic",
+       desc:"休眠火山的岩漿庫，是少數能走進去的一座。從 Bláfjöll 集合點步行穿過熔岩原到火山口，再搭開放式吊籃垂降約 120 公尺，落在一個大到容得下自由女神像的空洞裡；洞壁是紅、黃、紫、綠的氧化岩壁，導覽員帶著頭燈在洞底走一圈。",
+       dwell:330, walk:"熔岩原步道單程約 3.5 km，起伏小；洞內有導覽員帶路", fee:"成人約 ISK 50,000–55,000（依營運商而異）",
+       book:"只能跟團，需事先線上預約；名額少，通常滿 8 歲才能參加",
+       may:"通常 5 月上旬開季至 10 月底；5/14 應已營運，但開季日每年不同，查 insidethevolcano.com 確認。天候不佳會取消"},
       {name:"Sky Lagoon", zh:"天空潟湖", opt:true, lat:64.1197, lng:-21.9407, z:16,
        q:"Sky Lagoon Iceland", type:"bath",
        desc:"Kópavogur 海邊的無邊際地熱溫泉，離市區 15 分鐘。池緣直接切齊大西洋，泡著就是看海與遠方的 Snæfellsnes 半島。招牌是七步驟 Ritual：熱池 → 冷水池 → 景觀窗桑拿 → 冷霧 → 鹽磨砂 → 蒸氣室 → 沖洗。",
@@ -1627,7 +1633,7 @@ document.querySelectorAll('.map-toolbar button[data-t]').forEach(b=>{
 });
 
 /* ================= 全程路線 =================
-   Google 地圖的路線網址吃 10 個停靠點，16 天 74 個點塞不下，
+   Google 地圖的路線網址吃 10 個停靠點，16 天 75 個點塞不下，
    所以整段路線在頁內自己畫。Leaflet 連不上就只剩底圖的占位訊息
    —— 沒有第二張地圖可以退回。 */
 const LEAFLET = {
