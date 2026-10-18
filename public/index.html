@@ -1773,7 +1773,7 @@ const legUrl = (a, b) =>
   `https://www.google.com/maps/dir/${a.lat},${a.lng}/${b.lat},${b.lng}`;
 /* 住宿改走 Booking.com：Google 地圖的搜尋網址帶不進日期與人數。
    night = 該晚第幾天（DAYS 索引）：入住＝當天，退房＝隔天；最後一天是夜班機，沒有住宿日期。 */
-const TRIP_YEAR = 2027, GUESTS = 4, STAY_MAX = 15000;   // STAY_MAX：NT$／晚，Booking 價格篩選上限
+const TRIP_YEAR = 2027, GUESTS = 4, STAY_MAX = 13000;   // STAY_MAX：NT$／晚，Booking 價格篩選上限
 const isoDate = (d, plus = 0) => {
   const [m, dd] = mmdd(d).split('/').map(Number);
   return new Date(Date.UTC(TRIP_YEAR, m-1, dd+plus)).toISOString().slice(0, 10);
