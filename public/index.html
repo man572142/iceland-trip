@@ -636,8 +636,15 @@
     .collapse-btn .ico{transition:transform var(--dur) var(--ease)}
     body.stage-collapsed .collapse-btn .ico{transform:rotate(180deg)}
 
-    .stage{--peek:0px}
+    /* 沒選景點時地圖只佔 190px；選了景點，跟桌面一樣：地圖撐滿，
+       資訊面板半透明蓋在下緣（--hh = 把手高度，地圖釘在把手下方） */
+    .stage{--peek:0px;--hh:49px}
     .map-box{position:relative;height:190px;flex:0 0 auto;min-height:0;margin-bottom:0}
+    body.spot-on .map-box{
+      position:sticky;top:var(--hh);
+      height:calc(100% - var(--hh));min-height:280px;
+      margin-bottom:calc(-1*var(--peek));
+    }
     .info{padding:16px 16px 22px}
     .i-head h2{font-size:var(--t-lg)}
     .i-head{gap:8px}
@@ -2016,7 +2023,7 @@ function setPeek(){
   const head = info.firstElementChild, next = head?.nextElementSibling;
   if(!head || !next) return;
   const h = next.getBoundingClientRect().bottom - info.getBoundingClientRect().top;
-  stage.style.setProperty('--peek', Math.round(h + 14) + 'px');
+  stage.style.setProperty('--peek', Math.round(Math.min(h + 14, stage.clientHeight * .5)) + 'px');
 }
 function watchPeek(){
   peekRO.disconnect();
