@@ -47,29 +47,26 @@
 
 - Lóndrangar 玄武岩塔
 - Vatnshellir Cave（可選，需預約洞穴導覽）
-
-全天約 214 公里。
-
----
-
-# Day 3｜5/2（日）Snæfellsnes 半島 Day2（西端 → 北岸 → 北上）【順時針】
-
-沿 574 號繞半島西端：
-
 - Djúpalónssandur 黑沙灘
 - Saxhóll 火山口
 
-轉北岸：
+全天約 231 公里。
+
+---
+
+# Day 3｜5/2（日）Snæfellsnes 半島 Day2（北岸 → 北上）【順時針】
+
+沿北岸往東：
 
 - Kirkjufell & Kirkjufellsfoss
 - Stykkishólmur 小鎮
 
-經 Búðardalur 直接到 Hvammstangi 一帶，約 165 公里，不經 Borgarnes。想看的話可改走 1 號公路繞行（都可選）：
+經 Búðardalur 直接到 Hvammstangi 一帶，約 165 公里。想看的話可從 Stykkishólmur 改走 54、60 號公路（Brattabrekka 山口）接 1 號公路（都可選）：
 
-- Víðgelmir Cave（需預約洞穴導覽，經 Reykholt、Húsafell，多約 110 公里）
+- Víðgelmir Cave（需預約洞穴導覽，從 1 號公路轉進，來回約 85 公里）
 - Grábrók 火山口（多約 50 公里）
 
-半島南岸進、北岸出，不橫切。全天約 261 公里（含 Grábrók 約 319 公里，再含 Víðgelmir 約 386 公里）。
+全天基本約 206 公里（含 Grábrók 約 260 公里，再含 Víðgelmir 約 340 公里）。
 
 ---
 
@@ -425,31 +422,28 @@ Húsavík
 
 ---
 
-# Day 13｜5/12（三）Snæfellsnes 半島 Day1（北岸 → 西端）【逆時針】
+# Day 13｜5/12（三）Snæfellsnes 半島 Day1（北岸）【逆時針】
 
-從 Hvammstangi 經 Búðardalur 直接到 Stykkishólmur，約 165 公里，不經 Borgarnes。想看的話可改走 1 號公路繞行（都可選）：
+從 Hvammstangi 經 Búðardalur 直接到 Stykkishólmur，約 165 公里。想看的話可改走 1 號公路，經 Grábrók 轉 54、60 號公路（Brattabrekka 山口）接 Stykkishólmur（都可選）：
 
 - Grábrók 火山口（多約 50 公里）
-- Víðgelmir Cave（需預約洞穴導覽，經 Reykholt、Húsafell，多約 110 公里）
+- Víðgelmir Cave（需預約洞穴導覽，從 1 號公路轉進，來回約 85 公里）
 
 沿北岸往西：
 
 - Stykkishólmur 小鎮
 - Kirkjufell & Kirkjufellsfoss
 
-繞到半島西端：
-
-- Saxhóll 火山口
-- Djúpalónssandur 黑沙灘
-
-半島順時針一圈，北岸進、南岸出，不橫切。全天約 261 公里（含 Grábrók 約 319 公里，再含 Víðgelmir 約 386 公里）。
+全天基本約 206 公里（含 Grábrók 約 260 公里，再含 Víðgelmir 約 340 公里）。
 
 ---
 
 # Day 14｜5/13（四）Snæfellsnes 半島 Day2（西端 → 南岸 → 雷克雅維克）【逆時針】
 
-從半島西端出發：
+沿 574 號繞半島西端：
 
+- Saxhóll 火山口
+- Djúpalónssandur 黑沙灘
 - Vatnshellir Cave（可選，需預約洞穴導覽）
 - Lóndrangar 玄武岩塔
 
@@ -459,7 +453,7 @@ Húsavík
 - Búðakirkja 黑教堂
 - Ytri-Tunga 海豹灘
 
-走 1 號公路返回雷克雅維克，最後約 160 公里是沒有停點的高速段。全天約 214 公里。
+走 1 號公路返回雷克雅維克，最後約 160 公里是沒有停點的高速段。全天約 231 公里。
 
 ---
 

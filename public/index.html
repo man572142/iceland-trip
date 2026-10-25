@@ -1277,23 +1277,25 @@ const DAYS_CCW = [
     ]
   },
   {
-    n:13, title:"Snæfellsnes 半島 Day1（北岸 → 西端）", date:"5/12（三）", km:261, drive:4.3,
-    note:"從 Hvammstangi 經 Búðardalur 直接到 Stykkishólmur（約 165 公里，不經 Borgarnes），再沿北岸看 Kirkjufell，轉到 Saxhóll、Djúpalónssandur。Grábrók、Víðgelmir 要改走 1 號公路繞行，兩者都可選。半島順時針一圈，北岸進、南岸出，不橫切，全天約 261 公里（含 Grábrók 約 319 公里，再含 Víðgelmir 約 386 公里）。",
+    n:13, title:"Snæfellsnes 半島 Day1（北岸）", date:"5/12（三）", km:206, drive:3.2,
+    note:"從 Hvammstangi 經 Búðardalur 直接到 Stykkishólmur（約 165 公里），再沿北岸往西到 Kirkjufell。想看的話可改走 1 號公路，經 Grábrók 轉 54、60 號公路（Brattabrekka 山口）接 Stykkishólmur，兩者都可選：加 Grábrók 約 260 公里，再加 Víðgelmir 約 340 公里。全天基本約 206 公里。",
     spots:[
       {name:"Grábrók", zh:"格拉布羅克火山口", opt:true, lat:64.7920, lng:-21.3690, z:14,
        q:"Grabrok crater", type:"volcanic",
        desc:"3000 年前噴發的小型火山渣錐，就在 1 號公路旁。木棧道與階梯直接鋪到口緣，站上去能俯瞰底下的熔岩原與旁邊兩座更老的渣錐。",
        dwell:40, walk:"木階梯上到口緣，來回約 30 分鐘", fee:"免費",
        may:"全年開放；口緣風大",
-       detour:"改走 1 號公路，比直達路線多約 50 km，全程鋪面"},
+       detour:"改走 54、60 號公路接 1 號公路，比直達路線多約 50 km，全程鋪面"},
       {name:"Víðgelmir Cave", zh:"維澤爾米爾熔岩洞", opt:true, lat:64.7503, lng:-20.8019, z:16,
+       viaR:[[64.8531,-21.5081]],
        q:"Vidgelmir cave", type:"volcanic",
        desc:"冰島最大熔岩洞穴，全長約 1,585 公尺，西元 900 年前後由 Hallmundarhraun 熔岩流形成。洞口區常年結冰，深處露出各色礦物沉積，戴頭燈走木棧道深入地底。",
        dwell:90, walk:"洞內架設木棧道，地面平緩但需留意低矮處", fee:"成人約 ISK 9,900 起",
        book:"需參加付費導覽（頭燈、安全帽）",
        may:"全年營運，冬春洞口冰柱最壯觀",
-       detour:"改走 1 號公路、經 Reykholt 與 Húsafell 繞行，比直達路線多約 110 km，全程鋪面"},
+       detour:"從 1 號公路轉進，來回約 85 km，全程鋪面"},
       {name:"Stykkishólmur", zh:"斯蒂基斯霍爾米", kind:"city", lat:65.0757, lng:-22.7262, z:14,
+       via:[[64.8531,-21.5081]],
        q:"Stykkisholmur", type:"town",
        desc:"半島北岸最大的港口小鎮，彩色木屋沿港灣排開。走過堤道上 Súgandisey 島的燈塔，可以俯瞰整個 Breiðafjörður 的無數小島，據說多到數不完；鎮上的 Norska húsið 是冰島最早的兩層木造民宅之一。",
        dwell:60, walk:"上燈塔小島有階梯，來回 20 分鐘", fee:"免費",
@@ -1302,7 +1304,13 @@ const DAYS_CCW = [
        q:"Kirkjufell", type:"view",
        desc:"463 公尺的孤峰，形狀像倒扣的箭頭，加上前景三段式的 Kirkjufellsfoss 小瀑布，是冰島被拍最多次的構圖。經典角度是從瀑布這側回望山，不是走到山腳；瀑布側的步道很短，繞一圈就能換好幾個角度。",
        dwell:45, walk:"瀑布步道平路，繞一圈 15 分鐘", fee:"停車收費",
-       may:"全年；5 月日落近 22:00，傍晚低角度光線最好"},
+       may:"全年；5 月日落近 22:00，傍晚低角度光線最好"}
+    ]
+  },
+  {
+    n:14, title:"Snæfellsnes 半島 Day2（西端 → 南岸 → 雷克雅維克）", date:"5/13（四）", km:231, drive:3.9,
+    note:"從 Saxhóll 沿 574 號繞到半島西端：Djúpalónssandur、Vatnshellir、Lóndrangar，再沿 54 號走南岸：Arnarstapi 海崖步道 → Búðakirkja 黑教堂 → Ytri-Tunga 海豹灘，之後走 1 號公路回雷克雅維克。最後約 160 公里是沒有停點的高速段，全天約 231 公里。",
+    spots:[
       {name:"Saxhóll Crater", zh:"薩克斯霍爾火山口", lat:64.8517, lng:-23.9265, z:15,
        q:"Saxholl crater", type:"volcanic",
        desc:"半島西北側的紅色火山渣錐。金屬階梯直上口緣，頂上看得到 Neshraun 熔岩原從腳下一路鋪到海邊，另一側是 Snæfellsjökull。",
@@ -1312,13 +1320,7 @@ const DAYS_CCW = [
        q:"Djupalonssandur", type:"coast",
        desc:"半島最西端的黑卵石灘，四周奇岩嶙峋。灘上散著 1948 年觸礁的英國拖網漁船殘骸鐵件，刻意留在原地當紀念；另有四顆傳統試力石，最重 154 公斤 —— 當年漁夫得搬得動其中一顆才有資格上船工作。",
        dwell:60, walk:"停車場下到海灘有階梯與碎石坡，來回 20 分鐘", fee:"免費",
-       may:"全年。⚠️ 這裡同樣有 sneaker wave，不要靠近水線"}
-    ]
-  },
-  {
-    n:14, title:"Snæfellsnes 半島 Day2（西端 → 南岸 → 雷克雅維克）", date:"5/13（四）", km:214, drive:3.3,
-    note:"從半島西端出發，Vatnshellir、Lóndrangar 之後沿 54 號走南岸：Arnarstapi 海崖步道 → Búðakirkja 黑教堂 → Ytri-Tunga 海豹灘，再走 1 號公路回雷克雅維克。最後約 160 公里是沒有停點的高速段，全天約 214 公里。",
-    spots:[
+       may:"全年。⚠️ 這裡同樣有 sneaker wave，不要靠近水線"},
       {name:"Vatnshellir Cave", zh:"瓦特恩赫爾洞穴", opt:true, lat:64.7642, lng:-23.8834, z:16,
        q:"Vatnshellir cave", type:"volcanic",
        desc:"8000 年前熔岩流形成的地下熔岩管。戴頭燈沿旋轉鐵梯下到地底 35 公尺，看熔岩流乾涸後留在管壁上的流痕與熔岩鐘乳。全程沒有自然光，關燈那一刻是全黑的。",
@@ -1425,13 +1427,13 @@ const rev = d => DAYS_CCW[d - 1].spots.slice().reverse();
 const DAYS_CW = [
   DAYS_CCW[0],
   {
-    n:2, title:"Snæfellsnes 半島 Day1（南岸 → 西端）", date:"5/1（六）", km:214, drive:3.3,
-    note:"從雷克雅維克沿 1 號公路、54 號公路到半島南岸（前 161 公里沒有停點）：Ytri-Tunga 海豹灘 → Búðakirkja 黑教堂 → Arnarstapi 海崖步道，再到 Lóndrangar、Vatnshellir。全天約 214 公里。",
+    n:2, title:"Snæfellsnes 半島 Day1（南岸 → 西端）", date:"5/1（六）", km:231, drive:3.9,
+    note:"從雷克雅維克沿 1 號公路、54 號公路到半島南岸（前 161 公里沒有停點）：Ytri-Tunga 海豹灘 → Búðakirkja 黑教堂 → Arnarstapi 海崖步道，再到 Lóndrangar、Vatnshellir，繞過西端到 Djúpalónssandur、Saxhóll。全天約 231 公里。",
     spots:rev(14)
   },
   {
-    n:3, title:"Snæfellsnes 半島 Day2（西端 → 北岸 → 北上）", date:"5/2（日）", km:261, drive:4.3,
-    note:"沿 574 號從西端到 Saxhóll，轉北岸看 Kirkjufell 與 Stykkishólmur，再經 Búðardalur 直接到 Hvammstangi 一帶（約 165 公里，不經 Borgarnes）。Víðgelmir、Grábrók 要改走 1 號公路繞行，兩者都可選。半島南岸進、北岸出，不橫切，全天約 261 公里（含 Grábrók 約 319 公里，再含 Víðgelmir 約 386 公里）。",
+    n:3, title:"Snæfellsnes 半島 Day2（北岸 → 北上）", date:"5/2（日）", km:206, drive:3.2,
+    note:"從 Saxhóll 往東沿北岸到 Kirkjufell 與 Stykkishólmur，再經 Búðardalur 直接到 Hvammstangi 一帶（約 165 公里）。想看的話可從 Stykkishólmur 改走 54、60 號公路（Brattabrekka 山口）接 1 號公路，先到 Víðgelmir 再回 Grábrók，兩者都可選：加 Grábrók 約 260 公里，再加 Víðgelmir 約 340 公里。全天基本約 206 公里。",
     spots:rev(13)
   },
   {
