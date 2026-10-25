@@ -120,6 +120,25 @@
   .legend span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
   .legend i{width:8px;height:8px;border-radius:50%}
 
+  /* 環島方向切換 */
+  .dir-switch{
+    display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:11px;padding:3px;
+    background:var(--sunken);border:1px solid var(--line);border-radius:var(--r-sm);
+  }
+  .dir-switch button{
+    display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center;
+    text-align:left;padding:6px 10px;cursor:pointer;
+    background:transparent;border:0;border-radius:6px;
+    font-family:inherit;color:var(--text-3);
+    transition:color .16s,background .16s;
+  }
+  .dir-switch button:hover{color:var(--text);background:rgba(255,255,255,.05)}
+  .dir-switch .ico{--ico:16px;grid-row:1/span 2}
+  .dir-name{font-size:var(--t-sm);font-weight:600;line-height:1.35}
+  .dir-order{font-size:var(--t-xs);line-height:1.35;color:var(--text-4);white-space:nowrap}
+  .dir-switch button[aria-pressed="true"]{background:var(--aurora);color:var(--on-aurora)}
+  .dir-switch button[aria-pressed="true"] .dir-order{color:var(--on-aurora);opacity:.75}
+
   /* ---------- Layout ---------- */
   .wrap{
     display:grid;
@@ -771,6 +790,8 @@
   <symbol id="i-image-off" viewBox="0 0 24 24"><path d="m3 3 18 18"/><path d="M21 15.5V6a2 2 0 0 0-2-2H8.5"/><path d="M3 7.5V18a2 2 0 0 0 2 2h11"/><path d="m3.5 17.5 4.5-4.5 2.5 2.5"/></symbol>
   <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5.5h16l-6.3 7.3v5.5l-3.4 1.9v-7.4z"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m20 20-4.6-4.6"/></symbol>
+  <symbol id="i-cw" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.6h-4.6"/></symbol>
+  <symbol id="i-ccw" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v4.6h4.6"/></symbol>
   <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.4 8.6-1.9 4.9-4.9 1.9 1.9-4.9z"/></symbol>
 </defs></svg>
 
@@ -779,7 +800,19 @@
   <aside class="itinerary scroller" id="itin">
     <header class="itin-head">
       <h1>冰島 16 天行程</h1>
-      <p class="region">南岸 + 東部峽灣 + 北冰島 + 西北部 + 西部半島</p>
+      <p class="region" id="region"></p>
+      <div class="dir-switch" role="group" aria-label="環島方向">
+        <button type="button" data-dir="cw" aria-pressed="true">
+          <svg class="ico" aria-hidden="true"><use href="#i-cw"/></svg>
+          <span class="dir-name">順時針</span>
+          <span class="dir-order">西 → 北 → 東 → 南</span>
+        </button>
+        <button type="button" data-dir="ccw" aria-pressed="false">
+          <svg class="ico" aria-hidden="true"><use href="#i-ccw"/></svg>
+          <span class="dir-name">逆時針</span>
+          <span class="dir-order">南 → 東 → 北 → 西</span>
+        </button>
+      </div>
       <div class="legend" aria-label="圖例">
         <span><i style="background:var(--aurora)"></i>景點</span>
         <span><i style="background:var(--glacier)"></i>城鎮 / 交通</span>
@@ -880,8 +913,10 @@
    行程資料
    opt: 可選  |  kind: city/spot
    q:  用於 Wikimedia Commons 照片搜尋的關鍵字
+   via / viaR: 夾在這個點之前的中途點，把路線壓回一般公路；via 給逆時針、viaR 給順時針
    ========================================================= */
-const DAYS = [
+/* 逆時針（南 → 東 → 北 → 西）：景點資料只寫在這裡，順時針版（下方 DAYS_CW）用名稱重新分天 */
+const DAYS_CCW = [
   {
     n:1, title:"抵達冰島", date:"4/30（五）", km:50, drive:0.7,
     note:"2027/4/29 深夜 23:30 從桃園出發（經布拉格轉機），4/30 15:55 抵達 KEF → 前往雷克雅維克 → 市區散步。5 月上旬日落近 22:00，晚餐後仍有充足光線；此季節永晝無暗夜，看不到極光。",
@@ -913,6 +948,7 @@ const DAYS = [
     note:"黃金圈三景點之間插入 Brúarfoss，中午在 Friðheimar 番茄農場用餐，下午 Kerið，再到 Hveragerði 走 Reykjadalur 溫泉河、採買，之後往南岸方向走，銜接明天的瀑布行程。",
     spots:[
       {name:"Þingvellir National Park", zh:"辛格韋德利國家公園", lat:64.2559, lng:-21.1300, z:14,
+       viaR:[[64.2155,-20.7355]],
        q:"Thingvellir", type:"geology",
        desc:"世界遺產，北美與歐亞板塊的交界裂谷。Almannagjá 是北美板塊的斷崖，走在裂谷底部，兩側岩壁就是兩塊大陸的邊緣；同一片草原是西元 930 年起露天議會 Alþingi 的舊址，地質與國族史疊在一起。步道盡頭是 Öxarárfoss。",
        dwell:120, walk:"遊客中心 → Almannagjá → Öxarárfoss 來回約 2 km，緩坡與階梯", fee:"停車費約 ISK 1,000（P1 主停車場）",
@@ -995,7 +1031,7 @@ const DAYS = [
        q:"Dyrholaey", type:"coast",
        desc:"120 公尺高的海岬與巨大海蝕拱門。站在岬上一次看到三件事：往西整條看不到盡頭的黑沙灘、往東的 Reynisdrangar 海蝕柱，以及腳下大到能開小船穿過的拱門。下部 Lágey 貼近海面，上部 Háey 有燈塔與拱門的正面角度。",
        dwell:75, walk:"兩個停車場都是短程步行；上部道路陡且為碎石", fee:"免費",
-       may:"⚠️ 5/1–6/25 鳥類保育管制，上部 Háey 常在 5/1–5/12 全日封閉，下部 Lágey 通常仍開放，出發前查 ust.is。海鸚要 5 月中才在此定居，改到 Day 7 的 Hafnarhólmi 看"},
+       may:"⚠️ 5/1–6/25 鳥類保育管制，上部 Háey 常在 5/1–5/12 全日封閉，下部 Lágey 通常仍開放，出發前查 ust.is。海鸚要 5 月中才在此定居，改到東部的 Hafnarhólmi 看"},
       {name:"Reynisfjara Black Sand Beach", zh:"雷尼斯黑沙灘", lat:63.4058, lng:-19.0448, z:15,
        q:"Reynisfjara", type:"coast",
        desc:"黑沙灘、玄武岩柱洞窟與外海的 Reynisdrangar 海蝕柱。整面 Gardar 玄武岩柱像管風琴一樣豎在沙灘後方，最下層的柱頂可以坐上去；旁邊 Hálsanefshellir 洞窟的頂部是垂下來的六角柱。傳說外海那三根海蝕柱是被日出變成石頭的巨魔。",
@@ -1011,7 +1047,7 @@ const DAYS = [
        q:"Fjadrargljufur", type:"canyon",
        desc:"深 100 公尺、長 2 公里的蛇行峽谷，苔蘚覆蓋的岩壁一層層向內折。步道沿著上緣走，每轉一個彎就是新的一段 S 形谷壁；最深處有平台可以直接俯視谷底的 Fjaðrá 河。",
        dwell:75, walk:"上緣步道單程約 1.1 km、有爬升，來回約 1 小時", fee:"免費",
-       may:"⚠️ 步道每年春季常因融雪泥濘封閉以保護植被，近年多在 5 月中到 6 月初才重新開放 —— 行程排 5/4，押不到。出發前查 ust.is"},
+       may:"⚠️ 步道每年春季常因融雪泥濘封閉以保護植被，近年多在 5 月中到 6 月初才重新開放 —— 5 月上旬押不到。出發前查 ust.is"},
       {name:"Kirkjubæjarklaustur", zh:"教堂鎮", kind:"city", lat:63.7906, lng:-18.0594, z:14,
        q:"Kirkjubaejarklaustur", type:"town",
        desc:"Vík 與 Skaftafell 之間唯一的補給小鎮，有加油站與超市。鎮旁的 Kirkjugólf「教堂地板」是被冰河磨平的柱狀玄武岩露頭，約 80 平方公尺的六角形地磚整片攤在草地上；名字雖叫教堂地板，但上面從來沒有蓋過教堂，是天然的。",
@@ -1047,7 +1083,7 @@ const DAYS = [
        desc:"冰島最深的湖，Breiðamerkurjökull 崩落的冰山漂浮其中並緩緩流向大海。藍白色的冰山在湖上移動、翻身、裂開，常有海豹在冰塊之間浮出來；Zodiac 快艇是唯一能開進冰山之間、貼近看藍冰壁的方式。",
        dwell:90, walk:"湖岸平路；船班另計約 1 小時", fee:"岸邊免費；Zodiac 快艇每人約 ISK 14,000",
        book:"Zodiac 需事先預約",
-       may:"船班通常 5/1 開航，5/5 仍是開季頭幾天，班次少且易因冰況取消 —— 先訂並留備案。岸邊本身免費，衝擊力不減"},
+       may:"船班通常 5/1 開航，5 月初仍是開季頭幾天，班次少且易因冰況取消 —— 先訂並留備案。岸邊本身免費，衝擊力不減"},
       {name:"Diamond Beach", zh:"鑽石沙灘", lat:64.0434, lng:-16.1794, z:15,
        q:"Diamond Beach Iceland", type:"coast",
        desc:"潟湖出海口對面的黑沙灘。從潟湖流出去的冰塊被浪打回岸上，散在黑沙上像一地透明的碎鑽。",
@@ -1145,6 +1181,7 @@ const DAYS = [
     note:"上午衝瀑布，下午到 Húsavík，可選賞鯨。傍晚沿 1 號公路返回 Akureyri，順路停 Goðafoss。",
     spots:[
       {name:"Dettifoss & Selfoss", zh:"黛提瀑布 ＋ 塞爾瀑布", lat:65.8145, lng:-16.3844, z:15,
+       viaR:[[65.6404,-16.8093]],
        q:"Dettifoss", type:"waterfall",
        desc:"歐洲水量最大的瀑布，寬 100 公尺、落差 45 公尺。平均每秒 193 立方公尺的灰色冰川泥水墜進峽谷，站在西岸觀景台上地面在震，水霧會把人整個蓋住，聲音大到講話要用喊的。沿步道往上游走的 Selfoss 是完全不同的形狀：不是單一水口，而是整條寬闊水簾沿峽谷兩側鋪開、一層一層落下，走過來的人明顯少很多。",
        dwell:105, walk:"西岸停車場到 Dettifoss 觀景台來回約 1.5 km，碎石平路；續往上游到 Selfoss 再加約 30 分鐘，碎石與岩面", fee:"免費",
@@ -1221,7 +1258,7 @@ const DAYS = [
        q:"Vatnsnes peninsula", type:"wildlife",
        desc:"半島西岸的農場海岸，冰島最容易從陸上看到野生海豹的地點之一。木棧道通到海邊的觀景小屋，礁石上就是海豹固定上岸曬太陽的地方，不用出海、不用船。",
        dwell:60, walk:"停車場到觀景點木棧道來回約 15 分鐘", fee:"停車約 ISK 1,000（私人農場）",
-       may:"⚠️ 5 月是海豹上岸高峰，但此地因絨鴨繁殖期（約 4 月下旬至 6 月中）曾封閉部分或全部區域 —— 行程排 5/11，正落在區間內。出發前查 selasetur.is 或現場告示"},
+       may:"⚠️ 5 月是海豹上岸高峰，但此地因絨鴨繁殖期（約 4 月下旬至 6 月中）曾封閉部分或全部區域 —— 行程日期落在區間內。出發前查 selasetur.is 或現場告示"},
       {name:"Hvammstangi", zh:"赫維姆斯唐吉", kind:"city", lat:65.3958, lng:-20.9403, z:14,
        q:"Hvammstangi Iceland", type:"town",
        desc:"Vatnsnes 半島的門戶小鎮。港邊的 Icelandic Seal Center 不只是展覽，它會公布當天的潮汐與哪一段海岸正有海豹上岸，是這個半島最實用的一站。",
@@ -1255,7 +1292,7 @@ const DAYS = [
        dwell:90, walk:"洞內架設木棧道，地面平緩但需留意低矮處", fee:"成人約 ISK 9,900 起",
        book:"需參加付費導覽（頭燈、安全帽）",
        may:"全年營運，冬春洞口冰柱最壯觀",
-       detour:"Grábrók → Húsafell → Reykholt → Borgarnes，比直走 1 號公路多約 70 km，全程鋪面"},
+       detour:"Borgarnes 與 Grábrók 之間經 Reykholt、Húsafell 繞行，比直走 1 號公路多約 70 km，全程鋪面"},
       {name:"Borgarnes", zh:"博爾加內斯", kind:"city", lat:64.5388, lng:-21.9231, z:14,
        q:"Borgarnes Iceland", type:"town",
        desc:"轉往半島前最後一個大鎮，有加油站與餐廳，跨海堤道兩側是 Borgarfjörður。鎮上的 Landnámssetur 定居展覽館用兩個展區講冰島最早的移民與《Egil 的薩迦》，是這趟除了 Þingvellir 之外唯一的薩迦接觸點。",
@@ -1299,6 +1336,7 @@ const DAYS = [
        dwell:60, walk:"停車場下到海灘有階梯與碎石坡，來回 20 分鐘", fee:"免費",
        may:"全年。⚠️ 這裡同樣有 sneaker wave，不要靠近水線"},
       {name:"Saxhóll Crater", zh:"薩克斯霍爾火山口", lat:64.8547, lng:-23.8140, z:15,
+       viaR:[[64.8944,-23.7125]],
        q:"Saxholl crater", type:"volcanic",
        desc:"半島西北側的紅色火山渣錐。金屬階梯直上口緣，頂上看得到 Neshraun 熔岩原從腳下一路鋪到海邊，另一側是 Snæfellsjökull。",
        dwell:30, walk:"金屬階梯上到口緣，來回約 20 分鐘", fee:"免費",
@@ -1384,6 +1422,108 @@ const DAYS = [
 ];
 
 /* =========================================================
+   順時針（西 → 北 → 東 → 南）：同一批景點，從雷克雅維克反向繞一圈
+   景點用名稱取自上面，只重寫每天的標題、說明、里程。
+   Day 1／15／16 兩個方向相同，直接共用。
+   ========================================================= */
+const BY_NAME = {};
+DAYS_CCW.slice(1, 14).forEach(d => d.spots.forEach(s => {
+  if(BY_NAME[s.name]) throw new Error('景點名稱重複：' + s.name);
+  BY_NAME[s.name] = s;
+}));
+const pick = (...names) => names.map(n => {
+  if(!BY_NAME[n]) throw new Error('找不到景點：' + n);
+  return BY_NAME[n];
+});
+
+const DAYS_CW = [
+  DAYS_CCW[0],
+  {
+    n:2, title:"Snæfellsnes 半島 Day1（北岸 → 西端）", date:"5/1（六）", km:295, drive:3.9,
+    note:"從雷克雅維克沿 1 號、54／56 號公路北上，先到半島北岸的 Stykkishólmur 與 Kirkjufell，再沿 574 號繞到西端：Saxhóll、Djúpalónssandur、Vatnshellir、Lóndrangar。前 175 公里是沒有停點的高速段，全天約 295 公里。",
+    spots:pick("Stykkishólmur", "Kirkjufell & Kirkjufellsfoss", "Saxhóll Crater", "Djúpalónssandur", "Vatnshellir Cave", "Lóndrangar")
+  },
+  {
+    n:3, title:"Snæfellsnes 半島 Day2（南岸 → 北上）", date:"5/2（日）", km:275, drive:3.7,
+    note:"沿半島南岸往回走：Arnarstapi 海崖步道 → Búðakirkja → Ytri-Tunga 海豹灘，到 Borgarnes 轉 1 號公路北上。Grábrók 之前可選繞 Reykholt、Húsafell 看 Víðgelmir 熔岩洞（單向不折返），最後順路 Kolugljúfur。半島北岸進、南岸出，不橫切，全天約 275 公里（含 Víðgelmir 約 340 公里）。",
+    spots:pick("Arnarstapi", "Búðakirkja", "Ytri-Tunga", "Borgarnes", "Víðgelmir Cave", "Grábrók", "Kolugljúfur")
+  },
+  {
+    n:4, title:"Vatnsnes 半島（西北部）", date:"5/3（一）", km:240, drive:3.8,
+    note:"西北部整天：Borgarvirki 之後繞 711 號環半島礫石路，西岸 Illugastaðir 看海豹、東岸 Hvítserkur 看海蝕岩，最後順 1 號公路東行到 Víðimýri 草皮教堂。Illugastaðir 5 月可能因絨鴨繁殖期封閉（查 selasetur.is）—— 若關閉，半島仍值得繞，Hvítserkur 才是主要理由，海豹前一天已有 Ytri-Tunga。",
+    spots:pick("Borgarvirki", "Hvammstangi", "Illugastaðir", "Hvítserkur", "Víðimýrarkirkja")
+  },
+  {
+    n:5, title:"Tröllaskagi 半島（巨魔半島）", date:"5/4（二）", km:190, drive:3.0,
+    note:"沿 76／82 號公路穿隧道繞完整個 Tröllaskagi 半島，從西側的 Skagafjörður 一路翻到 Eyjafjörður，不折返。全程約 190 公里、淨車程 3 小時。",
+    spots:pick("Sauðárkrókur", "Hofsós", "Síldarminjasafnið (Herring Era Museum)", "Siglufjörður", "Ólafsfjörður", "Dalvík")
+  },
+  {
+    n:6, title:"Goðafoss + Húsavík + Dettifoss", date:"5/5（三）", km:290, drive:4.0,
+    note:"上午從 Akureyri 出發停 Goðafoss，接著到 Húsavík，可選賞鯨。下午走 87 號與 1 號公路回內陸，傍晚到 Dettifoss，再回米湖一帶。Dettifoss 走從 1 號公路進來的西岸 862 號；北段礫石路 5 月下旬才開，不走。",
+    spots:pick("Goðafoss", "Húsavík", "Whale Watching", "Dettifoss & Selfoss")
+  },
+  {...DAYS_CCW[8], n:7, date:"5/6（四）"},
+  {
+    n:8, title:"東部峽灣 Day1（Seyðisfjörður + 海鸚）", date:"5/7（五）", km:370, drive:5.3,
+    note:"從米湖沿 1 號公路穿過內陸高地 Möðrudalur 開到東部，先下 Seyðisfjörður 看藍教堂與峽灣，傍晚走 94 號公路去 Hafnarhólmi —— 18:00–22:00 正是海鸚最活躍的時段，而 5 月日落近 22:00，時間完全夠。",
+    spots:pick("Möðrudalur", "Seyðisfjörður", "Hafnarhólmi")
+  },
+  {
+    n:9, title:"東部峽灣 Day2（→ Höfn）", date:"5/8（六）", km:325, drive:5.0,
+    note:"從 Egilsstaðir 往南貼著東部峽灣開到 Höfn。可選先走 Hengifoss 步道（來回約 2.5 小時），再經 Petra 石頭博物館、Djúpivogur 蛋雕；黃昏到 Vestrahorn 拍山，晚上在 Höfn 吃龍蝦。兩個可選全排會很滿，擇一即可。",
+    spots:pick("Hengifoss", "Petra's Stone Collection", "Djúpivogur", "Vestrahorn / Stokksnes", "Höfn")
+  },
+  {
+    n:10, title:"冰河潟湖 + Skaftafell", date:"5/9（日）", km:135, drive:2.0,
+    note:"一早到潟湖拍晨光 —— 人最少、光最好，Zodiac 也是早班。先 Diamond Beach 與 Jökulsárlón，再看安靜的 Fjallsárlón；下午經 Hofskirkja 到 Skaftafell，走 Svartifoss + Sjónarnípa 完整環線（約 3 小時）。",
+    spots:pick("Diamond Beach", "Jökulsárlón", "Fjallsárlón", "Hofskirkja", "Skaftafell")
+  },
+  {
+    n:11, title:"Skaftafell → Vík", date:"5/10（一）", km:170, drive:2.4,
+    note:"從 Skaftafell 往西沿 1 號公路，停 Dverghamrar、Kirkjubæjarklaustur。Fjaðrárgljúfur 步道 5 月常仍封閉，出發前查 ust.is —— 封閉就只停 Dverghamrar，兩者都在同一段 1 號公路上。傍晚到 Vík。",
+    spots:pick("Dverghamrar", "Kirkjubæjarklaustur", "Fjaðrárgljúfur Canyon", "Vík í Mýrdal")
+  },
+  {
+    n:12, title:"南岸 Day1（黑沙灘）", date:"5/11（二）", km:50, drive:1.0,
+    note:"只剩 Vík 周邊約 50 公里，是刻意留白的半日：Dyrhólaey 上部 5/12 前常封閉、Reynisfjara 要看浪況，天候有變也吸收得掉。",
+    spots:pick("Reynisfjara Black Sand Beach", "Dyrhólaey")
+  },
+  {
+    n:13, title:"南岸 Day2（冰川 + 瀑布）→ Hveragerði", date:"5/12（三）", km:165, drive:2.6,
+    note:"沿 1 號公路往西，Sólheimajökull 冰川排在 Vík 之後第一站（它本來就在 Vík → Skógafoss 路上），接著 Skógafoss、Seljalandsfoss 兩座瀑布，下午到 Hveragerði 走 Reykjadalur 溫泉河、採買。Kvernufoss 可選，全排會很滿。",
+    spots:pick("Sólheimajökull", "Kvernufoss", "Skógafoss", "Seljalandsfoss & Gljúfrabúi", "Reykjadalur", "Bónus Hveragerði")
+  },
+  {
+    n:14, title:"Golden Circle → 雷克雅維克", date:"5/13（四）", km:210, drive:3.3,
+    note:"從 Hveragerði 往北走黃金圈：Kerið，中午在 Friðheimar 番茄農場用餐，下午 Gullfoss、Geysir，回程插入 Brúarfoss，最後到 Þingvellir，傍晚回雷克雅維克。",
+    spots:pick("Kerið Crater", "Friðheimar", "Gullfoss", "Geysir / Strokkur", "Brúarfoss", "Þingvellir National Park")
+  },
+  DAYS_CCW[14],
+  DAYS_CCW[15]
+];
+
+/* 兩個方向必須是同一批景點，不能有人漏掉或重複 */
+(function checkRoutes(){
+  const all = ds => ds.flatMap(d => d.spots);
+  const a = new Set(all(DAYS_CCW)), b = new Set(all(DAYS_CW));
+  if(all(DAYS_CW).length !== all(DAYS_CCW).length || b.size !== a.size ||
+     [...a].some(s => !b.has(s)))
+    console.error('順時針與逆時針的景點不一致', all(DAYS_CCW).length, all(DAYS_CW).length);
+})();
+
+const ROUTES = {
+  cw: {days:DAYS_CW, name:'順時針', order:'西 → 北 → 東 → 南',
+       region:'西部半島 + 西北部 + 北冰島 + 東部峽灣 + 南岸', viaKey:'viaR'},
+  ccw:{days:DAYS_CCW, name:'逆時針', order:'南 → 東 → 北 → 西',
+       region:'南岸 + 東部峽灣 + 北冰島 + 西北部 + 西部半島', viaKey:'via'}
+};
+const DIR_KEY = 'iceland-trip:dir';
+let dir = 'cw';
+try{ const v = localStorage.getItem(DIR_KEY); if(ROUTES[v]) dir = v; }catch(e){}
+let DAYS = ROUTES[dir].days;
+
+/* =========================================================
    決策輔助：體驗類型、同類計數、單日負荷
    ========================================================= */
 const TYPES = {
@@ -1392,12 +1532,16 @@ const TYPES = {
   hike:"健行", view:"景觀點", culture:"人文", town:"城鎮", food:"飲食", transit:"交通"
 };
 
-/* 每個景點是全程同類型的第幾個 —— 讓「一天五個城鎮」這種重複直接現形 */
+/* 每個景點是全程同類型的第幾個 —— 讓「一天五個城鎮」這種重複直接現形。順序跟著方向走，換方向要重算 */
 const TYPE_TOTAL = {};
 const TYPE_SEQ = new Map();
-DAYS.forEach(d=>d.spots.forEach(s=>{
-  if(s.type) TYPE_SEQ.set(s, TYPE_TOTAL[s.type] = (TYPE_TOTAL[s.type]||0) + 1);
-}));
+function indexTypes(){
+  Object.keys(TYPE_TOTAL).forEach(k => delete TYPE_TOTAL[k]);
+  TYPE_SEQ.clear();
+  DAYS.forEach(d=>d.spots.forEach(s=>{
+    if(s.type) TYPE_SEQ.set(s, TYPE_TOTAL[s.type] = (TYPE_TOTAL[s.type]||0) + 1);
+  }));
+}
 
 /* 待決定 = 標為可選，或需要事先預約；已用 fixed 定案的不算（預約仍要訂，但不必再決定） */
 const isTodo = s => Boolean((s.opt || s.book) && !s.fixed);
@@ -1509,11 +1653,8 @@ function renderDay(day){
   return el;
 }
 
-DAYS.forEach(renderDay);
-
 const countEl  = document.getElementById('dayCount');
-const countAll = `${DAYS.length} 天 · ${DAYS.reduce((n,d)=>n+d.spots.length,0)} 個地點`;
-countEl.textContent = countAll;
+let countAll = '';
 
 function setDayOpen(el, open){
   el.classList.toggle('open', open);
@@ -1566,7 +1707,7 @@ function updateCount(){
 
 /* ---------- 只看待決定：可選行程 + 需預約 ---------- */
 const onlyTodo  = document.getElementById('onlyTodo');
-const todoCount = DAYS.reduce((n,d)=>n + d.spots.filter(isTodo).length, 0);
+let todoCount = 0;
 
 onlyTodo.addEventListener('click', ()=>{
   const on = !document.body.classList.contains('filtering');
@@ -1614,6 +1755,22 @@ spotSearchClear.addEventListener('click', ()=>{
   applySearch();
   spotSearch.focus();
 });
+
+/* 依目前方向重建左側列表；搜尋字串與「只看待決定」維持原狀 */
+function buildList(){
+  dayList.replaceChildren();
+  uid = 0;
+  Object.keys(REG).forEach(k => delete REG[k]);
+  IDS.clear();
+  indexTypes();
+  DAYS.forEach(renderDay);
+  countAll = `${DAYS.length} 天 · ${DAYS.reduce((n,d)=>n+d.spots.length,0)} 個地點`;
+  todoCount = DAYS.reduce((n,d)=>n + d.spots.filter(isTodo).length, 0);
+  applySearch();
+  if(document.body.classList.contains('filtering')) shownDays().forEach(d=>setDayOpen(d, true));
+  syncToggleAll();
+}
+buildList();
 
 /* ================= 地圖 =================
    頁內的 Leaflet 是唯一的地圖。Google 地圖只剩外連按鈕（「在 Google 地圖開啟」、
@@ -1686,10 +1843,10 @@ function airKm(a, b){
 }
 
 /* 路線貼合實際道路：OSRM 的公用 demo server（免 API key、CORS 開放，但沒有
-   可用性保證）。每段查一次，結果連同座標指紋存進 localStorage —— 指紋變了
-   表示 DAYS 動過，整份重查。任何一段查不到就保留該段的直線，地圖不會開天窗。 */
+   可用性保證）。每段查一次，結果以該段座標的指紋為鍵存進 localStorage —— 座標
+   動過的段落才重查，兩個方向各查各的。任何一段查不到就保留該段的直線，地圖不會開天窗。 */
 const OSRM = 'https://router.project-osrm.org/route/v1/driving/';
-const ROADS_KEY = 'iceland-trip:roads:v4';
+const ROADS_KEY = 'iceland-trip:roads:v5';
 
 /* 彈窗的「距上一站」油費：汽油 RAV4，4 人滿載含行李，偏高估。油價與匯率是概估，出發前再改。 */
 const CAR_L100 = 8, FUEL_ISK = 310, ISK_TWD = 0.24;   // L/100 km、ISK/L、NT$/ISK
@@ -1713,10 +1870,10 @@ const hash = str => {
 function segments(){
   const out = [];
   DAYS.forEach((day, i)=>{
-    // via：夾在這個點之前的中途點，把路線壓回一般公路（OSRM 吃 lng,lat）
+    // via：夾在這個點之前的中途點，把路線壓回一般公路（OSRM 吃 lng,lat）；兩個方向各自一份
     const pts = [], stops = [];   // stops：各景點在 pts 裡的位置，用來把逐段里程對回景點
     day.spots.forEach(sp => {
-      (sp.via || []).forEach(([la, ln]) => pts.push([ln, la]));
+      (sp[ROUTES[dir].viaKey] || []).forEach(([la, ln]) => pts.push([ln, la]));
       stops.push(pts.length);
       pts.push([sp.lng, sp.lat]);
     });
@@ -1791,26 +1948,30 @@ function applyRoad(seg, d){
   document.querySelectorAll(`[data-gap="${seg.i}"]`).forEach(el => el.textContent = txt);
 }
 
-let snapped = false;
+let routeGen = 0;   // 每次重畫 +1；舊一輪還在跑的查詢看到編號變了就收手
 
 async function snapToRoads(){
-  if(snapped) return;
-  snapped = true;
+  const gen = routeGen;
   const segs = segments();
-  const fp = hash(segs.map(x => x.pts.join(';')).join('|'));
-  let store = null;
-  try{ store = JSON.parse(localStorage.getItem(ROADS_KEY) || 'null'); }catch(e){}
-  if(store?.fp !== fp) store = {fp, seg:{}};
+  let store = {};
+  try{ store = JSON.parse(localStorage.getItem(ROADS_KEY) || '{}') || {}; }catch(e){}
+  try{ localStorage.removeItem('iceland-trip:roads:v4'); }catch(e){}
+  if(Object.keys(store).length > 150) store = {};   // 兩個方向約 60 段，超過代表有舊座標堆積
 
-  for(const seg of segs){
-    if(!store.seg[seg.key]){
-      try{ store.seg[seg.key] = await osrm(seg.pts); }
-      catch(e){ continue; }                        // 這段維持直線
-      await new Promise(r => setTimeout(r, 120));  // 公用 server，別連打
+  try{
+    for(const seg of segs){
+      const k = hash(seg.pts.join(';'));
+      if(!store[k]){
+        try{ store[k] = await osrm(seg.pts); }
+        catch(e){ continue; }                        // 這段維持直線
+        await new Promise(r => setTimeout(r, 120));  // 公用 server，別連打
+      }
+      if(gen !== routeGen) return;
+      applyRoad(seg, store[k]);
     }
-    applyRoad(seg, store.seg[seg.key]);
+  } finally {
+    try{ localStorage.setItem(ROADS_KEY, JSON.stringify(store)); }catch(e){}
   }
-  try{ localStorage.setItem(ROADS_KEY, JSON.stringify(store)); }catch(e){}
 }
 
 /* 住宿／加油／超市一律丟回 Google 地圖的區域搜尋，不在行程資料裡預先假定小鎮
@@ -1905,8 +2066,26 @@ function buildRoute(){
   L.control.zoom({position:'topright'}).addTo(rmap);   // 左上角是本頁的工具列
   setTile();
   // 線自己一層，「路線」關掉時圖釘不跟著消失
-  routeLines = L.layerGroup().addTo(rmap);
+  routeLines = L.layerGroup();
+  if(btnRoute.classList.contains('on')) routeLines.addTo(rmap);
+  drawRoute();
+  mapPh.style.opacity = '0';
+}
 
+const wipe = o => Object.keys(o).forEach(k => delete o[k]);
+
+// 換方向：拆掉舊的線與圖釘，其餘（底圖、視野、工具列）留著
+function clearRoute(){
+  routeGen++;
+  routeLines?.clearLayers();
+  MARKERS.forEach(m => m.remove());
+  MARKERS.clear();
+  [LINES, PINS, GAPS, FROADS].forEach(wipe);
+  LEG_KM.clear();
+  allPts = [];
+}
+
+function drawRoute(){
   DAYS.forEach((day, i)=>{
     const c = dayColor(i), end = endOf(day);
     const line = day.spots.map(s => [s.lat, s.lng]);
@@ -1940,7 +2119,6 @@ function buildRoute(){
   MARKERS.forEach((m, s) => m.on('click', ()=>{ if(IDS.has(s)) select(IDS.get(s), true); }));
 
   fitAll();
-  mapPh.style.opacity = '0';
   snapToRoads();   // 先直線上畫面，再逐段換成實際道路
 }
 
@@ -1962,7 +2140,7 @@ function routeInfo(){
   }).join('');
 
   return `<div class="i-head rise">
-      <h2>全程路線</h2><span class="i-zh">16 天一次看完</span>
+      <h2>全程路線</h2><span class="i-zh">${ROUTES[dir].name} · 16 天一次看完</span>
     </div>
     <p class="route-sum rise rise-2">
       <span><b>${spots}</b> 個地點</span>
@@ -2017,13 +2195,37 @@ async function routeShow(){
   stage.scrollTo({top:0, behavior:'smooth'});
 }
 
-btnAll.addEventListener('click', ()=>{
+function showOverview(){
   current = null;
   PHOTOS = [];
   document.querySelectorAll('.spot.active').forEach(x=>x.classList.remove('active'));
   setMapOpen();
   routeShow();
-});
+}
+btnAll.addEventListener('click', showOverview);
+
+/* ================= 切換環島方向 =================
+   兩個方向共用同一批景點物件，只有分天和順序不同：重建列表、重畫路線，右側回到全覽。 */
+const dirBtns  = document.querySelectorAll('.dir-switch button');
+const regionEl = document.getElementById('region');
+
+function syncDirUi(){
+  dirBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.dir === dir)));
+  regionEl.textContent = ROUTES[dir].region;
+}
+
+function switchRoute(next){
+  if(next === dir || !ROUTES[next]) return;
+  dir = next;
+  DAYS = ROUTES[dir].days;
+  try{ localStorage.setItem(DIR_KEY, dir); }catch(e){}
+  syncDirUi();
+  buildList();
+  mapReady.then(()=>{ if(rmap){ clearRoute(); drawRoute(); } });
+  showOverview();
+}
+dirBtns.forEach(b => b.addEventListener('click', ()=>switchRoute(b.dataset.dir)));
+syncDirUi();
 
 const btnRoute = document.getElementById('btnRoute');
 btnRoute.addEventListener('click', ()=>{

@@ -18,13 +18,14 @@ Live site: https://iceland-trip.man572142.workers.dev/
 ## Files
 
 - `public/index.html` — the main itinerary page: day-by-day list (left) +
-  Google Maps embed and photo gallery (right). This is the site.
+  map and photo gallery (right), with a 順時針／逆時針 switch for the two route
+  directions. This is the site.
 - `public/flights.html` — flight option comparison page, linked from the
   header nav on `index.html`. Same dark visual theme, independent data/script.
 - `public/review.html` — 行程體檢報告，只列尚未解決的項目（車程負荷、缺席景點、
-  同質性、深度）。頂部有一段防回歸註記（無極光、Day 9 住 Mývatn、海鸚在
-  Hafnarhólmi）——修行程時先看那段。自成一頁，不共用 `index.html` 的樣式，
-  也未從導覽列連入。
+  同質性、深度）。頂部有一段防回歸註記（無極光、住 Mývatn 兩晚、海鸚在
+  Hafnarhólmi）——修行程時先看那段。Day 編號與里程表對應**逆時針版**。
+  自成一頁，不共用 `index.html` 的樣式，也未從導覽列連入。
 - `public/_headers` — static response headers (Cloudflare Pages/Workers
   convention: `X-Content-Type-Options`, `Referrer-Policy`).
 - `iceland_trip_itinerary.md` — the canonical written plan in Chinese
@@ -46,7 +47,22 @@ in flights.html) that's rendered into the DOM on load. There's no bundler, no
 npm dependencies, no JSX — edit the array literal and the render functions
 directly.
 
-**Itinerary data shape** (`DAYS` in `public/index.html`): each day has
+**Two route directions, one set of spots.** `DAYS_CCW` (南→東→北→西) is where
+every spot lives; `DAYS_CW` (西→北→東→南, the default) regroups the *same spot
+objects* by name with its own title/note/km/drive per day — Day 1/15/16 are
+shared. `DAYS` is whichever is active (`ROUTES[dir]`, remembered in
+`localStorage` `iceland-trip:dir`); the 順時針／逆時針 buttons call
+`switchRoute()`, which rebuilds the list, redraws the route and returns the
+right panel to the overview. Consequences:
+- Spot text must read the same in both directions — no day numbers or trip
+  dates in spot fields (Day 15/16 and Kolaportið's weekend are the exception,
+  they are fixed in both). Direction-specific text goes in the day's `note`.
+- Add a spot to `DAYS_CCW`, then name it in a day of `DAYS_CW`; `checkRoutes()`
+  logs an error when the two sets differ.
+- `via` pins a leg in the ccw direction, `viaR` in the cw one (`ROUTES[dir].viaKey`).
+- 「全程第 N／M 個」 counters follow the active order (`indexTypes()`).
+
+**Itinerary data shape** (`DAYS` / `DAYS_CCW` in `public/index.html`): each day has
 `n`, `title`, `date`, `note`, `km`, `drive` (net driving hours,
 `null` on the Reykjavík day — both taken from the load table in
 `review.html`), and a `spots[]` array. Each spot has `name`, `zh` (Chinese
@@ -108,8 +124,10 @@ no API key, no uptime guarantee). Segments are drawn straight first and
 redrawn as each query lands, so a slow or dead server just leaves straight
 lines — that fallback is the feature, don't replace it with a spinner.
 Geometry plus each leg's km/minutes is cached in `localStorage`
-(`iceland-trip:roads:v4`) under a hash of every coordinate, so editing
-`DAYS` refetches and nothing else does. The per-leg km also feeds the
+(`iceland-trip:roads:v5`) per segment, keyed by a hash of that segment's
+coordinates, so editing `DAYS` refetches only the segments that moved and the
+two directions share what they have in common. A switch mid-fetch bumps
+`routeGen`, which stops the old round from painting onto the new lines. The per-leg km also feeds the
 「距上一站 … 油費$」 fuel line in each map popup (`fuelLine`; constants
 `CAR_L100`／`FUEL_ISK`／`ISK_TWD` sit above `LINES` — rough, 8 L/100 km on
 purpose); legs that hit an `F`-road are tagged 「路線僅供參考」.
@@ -120,9 +138,11 @@ while this trip runs 4/30–15. Every query asks for `steps` purely to read
 each step's `ref`; any `F`-prefixed one is collected and named in the amber
 `#routeWarn` block. Keep that warning wired to anything that shows an OSRM
 duration: the numbers are shortest-path, not plans. When it fires, add a
-`via:[[lat,lng],…]` to the spot that ends the offending leg — those points are
-inserted before it in the OSRM query (`segments()`) and pin the line to the
-paved road (Day 2 via Laugarvatn, Day 14 via Ólafsvík).
+`via:[[lat,lng],…]` (ccw) or `viaR` (cw) to the spot that ends the offending
+leg — those points are inserted before it in the OSRM query (`segments()`) and
+pin the line to the paved road (Brúarfoss／Þingvellir via Laugarvatn,
+Kirkjufell／Saxhóll via Ólafsvík, cw Dettifoss via Hverir so it doesn't take
+862 north).
 The warning text is for travellers: no "OSRM" or road numbers in it.
 
 **Lodging is never named in `DAYS`.** The overview gives each night the leg
@@ -146,9 +166,10 @@ other should match.
 ## Making changes
 
 - **Editing the itinerary** (add/remove a day, move a stop, fix a
-  description): edit the `DAYS` array in `public/index.html` directly. Keep
-  `iceland_trip_itinerary.md` in sync if the change affects the narrative
-  plan (dates, lodging, day count) — it's the canonical write-up.
+  description): edit `DAYS_CCW` (spots) and `DAYS_CW` (day grouping) in
+  `public/index.html` directly. Keep `iceland_trip_itinerary.md` in sync if
+  the change affects the narrative plan (dates, day count) — it's the
+  canonical write-up and holds both directions.
 - **Adding a new stop**: needs `name`, `zh`, `lat`, `lng`, a reasonable `z`
   (14–17 depending on how tight the location is), `desc`, `type`, and a `q`
   string specific enough that Wikimedia Commons returns the right place
