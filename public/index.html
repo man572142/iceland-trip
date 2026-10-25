@@ -909,16 +909,21 @@ const DAYS = [
     ]
   },
   {
-    n:2, title:"Golden Circle → 南岸方向", date:"5/1（六）", km:235, drive:3.3,
-    note:"黃金圈經典三景點，中午在 Friðheimar 番茄農場用餐，下午順遊 Kerið 火山口湖，之後往南岸方向走，銜接明天的瀑布行程。",
+    n:2, title:"Golden Circle → 南岸方向", date:"5/1（六）", km:290, drive:4.0,
+    note:"黃金圈三景點之間插入 Brúarfoss，中午在 Friðheimar 番茄農場用餐，下午 Kerið，再到 Hveragerði 走 Reykjadalur 溫泉河、採買，之後往南岸方向走，銜接明天的瀑布行程。",
     spots:[
       {name:"Þingvellir National Park", zh:"辛格韋德利國家公園", lat:64.2559, lng:-21.1300, z:14,
        q:"Thingvellir", type:"geology",
        desc:"世界遺產，北美與歐亞板塊的交界裂谷。Almannagjá 是北美板塊的斷崖，走在裂谷底部，兩側岩壁就是兩塊大陸的邊緣；同一片草原是西元 930 年起露天議會 Alþingi 的舊址，地質與國族史疊在一起。步道盡頭是 Öxarárfoss。",
        dwell:120, walk:"遊客中心 → Almannagjá → Öxarárfoss 來回約 2 km，緩坡與階梯", fee:"停車費約 ISK 1,000（P1 主停車場）",
        may:"全年開放；5 月步道無雪"},
-      {name:"Geysir / Strokkur", zh:"間歇泉", lat:64.3104, lng:-20.3024, z:16,
+      {name:"Brúarfoss", zh:"藍色秘境瀑布（Brúarfoss）", lat:64.2643, lng:-20.5157, z:16,
        via:[[64.2155,-20.7355]],
+       q:"Brúarfoss waterfall Iceland", type:"waterfall",
+       desc:"Brúará 河被擠進不到兩公尺寬的岩縫，水色是不透明的乳藍；從岸邊看，整條河壓成一束藍色水流衝進下方的小峽谷。瀑布本身不高，看點是水色與河道被岩石收窄的那一段，步道沿河經過幾處小跌水。",
+       dwell:60, walk:"Hlauptunga 官方停車場步行約 10 分；或從 37 號公路邊停車處走單程約 3.5 km，平路、雨後泥濘", fee:"停車約 ISK 750／4 小時（現場 App 付費，以現場公告為準）",
+       may:"全年開放；5 月融雪期步道泥濘，早晚溫差大處路面可能結冰"},
+      {name:"Geysir / Strokkur", zh:"間歇泉", lat:64.3104, lng:-20.3024, z:16,
        q:"Strokkur geyser", type:"geothermal",
        desc:"「Geyser（間歇泉）」一詞的語源地。老 Geysir 已少噴發，旁邊的 Strokkur 每 5–10 分鐘噴一次。噴發前一兩秒，水池會先鼓成一顆透亮的藍色圓丘，那才是最好看的部分，20–30 公尺的水柱反而只是結果；周圍還有冒煙的泥漿池與矽華台地。",
        dwell:45, walk:"環狀步道平路約 1 km", fee:"免費",
@@ -938,7 +943,17 @@ const DAYS = [
        q:"Kerid crater", type:"volcanic",
        desc:"3000 年歷史的火山口湖，紅黑色火山渣壁配上不透明的藍綠湖水。可以繞口緣走一圈，也有階梯下到湖畔，從水面往上看那圈紅壁，跟從上面俯視完全是兩個地方。",
        dwell:40, walk:"口緣一圈約 15 分鐘；下到湖畔有階梯", fee:"入場約 ISK 600（私人土地，現場收）",
-       may:"全年開放"}
+       may:"全年開放"},
+      {name:"Reykjadalur", zh:"雷克雅谷溫泉河", lat:64.0331, lng:-21.2160, z:14,
+       q:"Reykjadalur hot spring river", type:"hike",
+       desc:"Hveragerði 後山的地熱山谷。步道沿冒煙的泥漿池與熱氣孔上行，終點是一段溫度由上游往下游遞減的溫泉河，可以找合適水溫的位置泡進去，岸邊只有簡易木板與更衣擋板。",
+       dwell:180, walk:"停車場單程約 3 km、爬升約 100–150 m，碎石與木棧道，約 1 小時；泥濘處多", fee:"免費（停車場約 ISK 750／車，以現場公告為準）",
+       may:"5 月初通常可走，融雪期步道泥濘；出發前看 road.is 與當天天氣"},
+      {name:"Bónus Hveragerði", zh:"Bónus 超市（Hveragerði）", kind:"city", lat:63.9955, lng:-21.1900, z:16,
+       q:"Hveragerði Iceland town", type:"food",
+       desc:"冰島平價連鎖超市（黃底粉紅豬標誌）。貨架有 skyr、麵包、乳酪、泡麵與罐頭，可採買接下來幾天的早餐與野餐食材。",
+       dwell:25,
+       may:"營業時間通常約 10:00–18:00，週日略短；以 bonus.is 為準"}
     ]
   },
   {

@@ -35,6 +35,7 @@
 上午：
 
 - Þingvellir National Park
+- Brúarfoss 藍色秘境瀑布（Hlauptunga 停車場步行約 10 分）
 - Geysir
 - Gullfoss
 
@@ -45,6 +46,8 @@
 下午：
 
 - Kerið Crater
+- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
+- Bónus Hveragerði 採買
 
 之後往南岸方向走，銜接明天的瀑布行程。
 

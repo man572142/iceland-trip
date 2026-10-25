@@ -60,7 +60,7 @@ plan, so beyond `desc`（這是什麼＋你會看到／經歷什麼，一段話�
 `dwell` (minutes), `walk`, `fee`, `book` (a string; presence marks the spot
 待決定), `may`（5 月初的開放實況）and `detour`（繞路的距離與路況，僅 7 站有）. All are
 optional and render only where present, but `dwell` and `type` are
-currently on all 75 spots — keep it that way when adding one, or the day's
+currently on all 78 spots — keep it that way when adding one, or the day's
 budget row and the homogeneity counter go quiet for that day.
 
 `type` is on every spot and drives two things: the chip in the left column,
