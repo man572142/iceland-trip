@@ -145,8 +145,10 @@ each step's `ref`; any `F`-prefixed one is collected and named in the amber
 duration: the numbers are shortest-path, not plans. When it fires, add a
 `via:[[lat,lng],…]` (ccw) or `viaR` (cw) to the spot that ends the offending
 leg — those points are inserted before it in the OSRM query (`segments()`) and
-pin the line to the paved road (Brúarfoss／Þingvellir via Laugarvatn,
-Kirkjufell／Saxhóll via Ólafsvík).
+pin the line to the paved road (Brúarfoss／Þingvellir via Laugarvatn).
+If a stop's own coordinate sits off the road network, the route snaps to the
+nearest road — possibly an `F`-road — and a `via` can't fix it; check the
+lat/lng first (Saxhóll was 5 km off, which is where its `F575` came from).
 The warning text is for travellers: no "OSRM" or road numbers in it.
 
 **Lodging is never named in `DAYS`.** The overview gives each night the leg
