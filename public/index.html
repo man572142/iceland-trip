@@ -479,16 +479,17 @@
   .i-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
   .i-head h2{text-shadow:0 1px 10px rgba(0,0,0,.75);margin:0;font-size:var(--t-xl);font-weight:700;letter-spacing:-.01em;line-height:1.25}
   .i-zh{color:var(--aurora);font-size:var(--t-md);font-weight:500}
-  .i-photo-note{
-    margin-left:auto;color:var(--text-4);font-size:var(--t-xs);white-space:nowrap;
-    display:inline-flex;align-items:center;gap:6px;
+  /* 右上角：Google 地圖的景點頁（遊客照片、評論） */
+  .i-gmap{
+    margin-left:auto;align-self:center;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:var(--t-sm);font-weight:500;color:var(--aurora-hi);text-decoration:none;
+    border:1px solid var(--aurora-28);background:var(--aurora-08);
+    padding:5px 11px;border-radius:var(--r-sm);transition:background .16s,border-color .16s;
   }
-  .i-photo-note a{
-    color:var(--text-3);text-decoration:none;
-    border-bottom:1px solid var(--line-2);
-    transition:color .16s,border-color .16s;
-  }
-  .i-photo-note a:hover{color:var(--aurora-hi);border-color:var(--aurora-45)}
+  .i-gmap:hover{background:var(--aurora-14);border-color:var(--aurora-45)}
+  .i-gmap span{color:var(--text-4);font-size:var(--t-xs)}
+  .i-gmap .ico{--ico:14px}
   .i-desc{
     margin:0 0 14px;padding:11px 14px;
     border-left:2px solid var(--aurora-45);
@@ -667,7 +668,7 @@
     .info{padding:16px 16px 22px}
     .i-head h2{font-size:var(--t-lg)}
     .i-head{gap:8px}
-    .i-photo-note{margin-left:0;flex:1 1 100%;white-space:normal}
+    .i-gmap{margin-left:0}
     .i-desc{padding:10px 12px}
     .i-facts{grid-template-columns:1fr}
     .list-bar{flex-wrap:wrap}
@@ -811,16 +812,6 @@
   .plan-go:disabled{opacity:.45;cursor:default;background:var(--aurora)}
   .plan-go .ico{--ico:14px}
   .plan-hint{flex:1 1 100%;margin:0;font-size:var(--t-xs);color:var(--text-4);line-height:1.6}
-  .i-links{margin:0 0 14px}
-  .i-links a{
-    display:inline-flex;align-items:center;gap:7px;
-    font-size:var(--t-sm);font-weight:500;color:var(--aurora-hi);text-decoration:none;
-    border:1px solid var(--aurora-28);background:var(--aurora-08);
-    padding:6px 11px;border-radius:var(--r-sm);transition:background .16s,border-color .16s;
-  }
-  .i-links a:hover{background:var(--aurora-14);border-color:var(--aurora-45)}
-  .i-links a span{color:var(--text-4);font-size:var(--t-xs)}
-  .i-links .ico{--ico:14px}
   .i-desc .src{margin-left:6px;font-size:var(--t-xs);color:var(--text-4);text-decoration:none;border-bottom:1px solid var(--line-2)}
   .i-desc .src:hover{color:var(--aurora-hi)}
   .i-desc.wait{color:var(--text-4)}
@@ -2542,13 +2533,12 @@ function select(id, keepView){
       ${s.dwell?`<span class="i-dwell">建議停留 ${hhmm(s.dwell)}</span>`:''}
       ${s.opt?'<span class="badge">可選行程</span>':''}${
         s.fixed?'<span class="badge fixed">已確定</span>':''}${seq}
-      <span class="i-photo-note" id="photoNote"></span>
+      ${gmapLink(s)}
     </div>
     ${s.desc ? `<p class="i-desc rise rise-2">${s.desc}</p>`
       : '<p class="i-desc wait rise rise-2" id="sumDesc">載入維基百科摘要…</p>'}
     ${facts.length ? `<dl class="i-facts rise rise-2">${
       facts.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>` : ''}
-    ${gmapLink(s)}
     ${planBox(s)}
     <div class="gallery rise rise-3" id="gal">
       ${'<div class="ph skel"></div>'.repeat(3)}
@@ -2561,8 +2551,8 @@ function select(id, keepView){
 }
 
 // 維基的照片有限，Google 地圖的景點頁有大量遊客照片與評論
-const gmapLink = s => `<p class="i-links rise rise-2"><a href="https://www.google.com/maps/search/?api=1&query=${
-  encodeURIComponent(placeQuery(s))}" target="_blank" rel="noopener">${icon('i-map')}在 Google 地圖開啟<span>照片・評論</span>${icon('i-ext')}</a></p>`;
+const gmapLink = s => `<a class="i-gmap" href="https://www.google.com/maps/search/?api=1&query=${
+  encodeURIComponent(placeQuery(s))}" target="_blank" rel="noopener">${icon('i-map')}在 Google 地圖開啟<span>照片・評論</span>${icon('i-ext')}</a>`;
 
 /* ================= 編輯：排入哪一天 =================
    在行程裡的景點：換天、移除；不在的：選一天加入。選單每一天都標出直線多繞幾 km，
@@ -2657,11 +2647,10 @@ function showPlace(k){
       <h2>${esc(s.name)}</h2><span class="i-zh">${esc(s.zh)}</span>
       <span class="badge${removed ? ' draft' : ''}">${removed ? '已從行程移除' : '不在行程裡'}</span>
       ${s.type ? `<span class="badge seq">${TYPES[s.type]}</span>` : ''}
-      <span class="i-photo-note" id="photoNote"></span>
+      ${gmapLink(s)}
     </div>
     ${s.desc ? `<p class="i-desc rise rise-2">${s.desc}</p>`
       : '<p class="i-desc wait rise rise-2" id="sumDesc">載入維基百科摘要…</p>'}
-    ${gmapLink(s)}
     ${planBox(s)}
     <div class="gallery rise rise-3" id="gal">
       ${'<div class="ph skel"></div>'.repeat(3)}
@@ -2970,7 +2959,6 @@ const imgSearchUrl = name =>
 
 async function loadPhotos(s, token){
   const gal  = document.getElementById('gal');
-  const note = document.getElementById('photoNote');
 
   let photos = [];
   netOk = false;
@@ -3012,13 +3000,13 @@ async function loadPhotos(s, token){
     if(token !== reqToken) return;
   }
 
-  if(!photos.length){ fallback(gal, note, s, !netOk); return; }
+  if(!photos.length){ fallback(gal, s, !netOk); return; }
 
   PHOTOS = photos;
-  renderGallery(gal, note, s, photos);
+  renderGallery(gal, s, photos);
 }
 
-function renderGallery(gal, note, s, photos){
+function renderGallery(gal, s, photos){
   gal.innerHTML = photos.map((p, n) => `
     <div class="ph">
       <button type="button" class="shot" data-i="${n}" aria-label="放大檢視：${esc(p.alt)}">
@@ -3035,12 +3023,9 @@ function renderGallery(gal, note, s, photos){
   gal.querySelectorAll('.shot').forEach(btn=>{
     btn.addEventListener('click', ()=> openLb(Number(btn.dataset.i), btn));
   });
-
-  note.innerHTML = `點圖可放大 · <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">看更多照片</a>`;
 }
 
-function fallback(gal, note, s, failed){
-  note.textContent = '';
+function fallback(gal, s, failed){
   gal.innerHTML = `
     <div class="gal-msg">
       ${icon('i-image-off')}
