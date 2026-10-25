@@ -66,20 +66,26 @@
 - Borgarnes
 - Víðgelmir Cave（可選，經 Reykholt、Húsafell 繞行，需預約洞穴導覽，多約 1 小時車程）
 - Grábrók 火山口（可選）
-- Kolugljúfur 峽谷（可選，1 號公路旁 5 公里）
 
-半島北岸進、南岸出，不橫切。全天約 275 公里（含 Víðgelmir 約 340 公里）。
+之後繼續北上到 Hvammstangi 一帶。半島北岸進、南岸出，不橫切。全天約 255 公里（含 Víðgelmir 約 320 公里）。
 
 ---
 
 # Day 4｜5/3（一）Vatnsnes 半島（西北部）【順時針】
 
-西北部整天。沿 1 號公路北上後轉入 711 號環半島礫石路：
+西北部整天。從 Hvammstangi 出發繞 711 號環半島礫石路：
 
-- Borgarvirki 玄武岩堡壘（可選）
 - Hvammstangi（Icelandic Seal Center 海豹中心）
 - Illugastaðir 海豹棲地（可選 —— 落在絨鴨繁殖期封閉區間，查 selasetur.is；Day 3 的 Ytri-Tunga 已有海豹）
 - Hvítserkur 犀牛石
+
+下半島，回 1 號公路的路上：
+
+- Borgarvirki 玄武岩堡壘（可選）
+- Kolugljúfur 峽谷（可選，1 號公路旁 5 公里）
+
+東行到：
+
 - Víðimýrarkirkja 草皮教堂（可選，Varmahlíð 附近）
 
 ---
@@ -97,7 +103,7 @@
 
 ---
 
-# Day 6｜5/5（三）Goðafoss + Húsavík + Dettifoss【順時針】
+# Day 6｜5/5（三）Goðafoss + Húsavík → 米湖【順時針】
 
 上午：
 
@@ -108,37 +114,36 @@
 
 - Whale Watching
 
-下午走 87 號與 1 號公路回內陸，傍晚：
+下午走 87 號公路到米湖：
 
-- Dettifoss ＋ Selfoss（沿步道往上游走約 15 分鐘）
-
-之後回米湖一帶。Dettifoss 走從 1 號公路進來的西岸 862 號，北段礫石路 5 月下旬才開，不走。
+- Grjótagjá Cave
+- Mývatn Nature Baths（已定案要去，出發前線上訂時段）
 
 ---
 
-# Day 7｜5/6（四）Lake Mývatn【順時針】
+# Day 7｜5/6（四）Lake Mývatn → Dettifoss → 東部【順時針】
 
-北冰島精華。
+上午繞米湖：
 
-景點：
-
-- Hverir ＋ Námafjall（後方山脊，來回約 40 分鐘）
-- Grjótagjá Cave
-- Dimmuborgir
 - Skútustaðagígar
+- Dimmuborgir
+- Hverir ＋ Námafjall（後方山脊，來回約 40 分鐘）
 
-下午：
+午後沿 1 號公路往東：
 
-Mývatn Nature Baths（已定案要去，出發前線上訂時段）
+- Dettifoss ＋ Selfoss（西岸 862 號，沿步道往上游走約 15 分鐘；北段礫石路 5 月下旬才開，不走）
+- Möðrudalur
+
+開到 Egilsstaðir。
 
 ---
 
 # Day 8｜5/7（五）東部峽灣 Day1（Seyðisfjörður + 海鸚）【順時針】
 
-沿 1 號公路經內陸高地 Möðrudalur 開到東部：
+上午：
 
-- Möðrudalur
 - Seyðisfjörður（藍教堂、峽灣小鎮）
+- Hengifoss（可選，健行來回約 2.5 小時）
 
 傍晚走 94 號公路來回 Hafnarhólmi（約 3 小時）：
 
@@ -150,7 +155,6 @@ Mývatn Nature Baths（已定案要去，出發前線上訂時段）
 
 從 Egilsstaðir 沿 1 號公路貼著東部峽灣南下：
 
-- Hengifoss（可選，健行來回約 2.5 小時）
 - Petra's Stone Collection（可選，Stöðvarfjörður）
 - Djúpivogur（石蛋雕塑）
 
@@ -158,8 +162,6 @@ Mývatn Nature Baths（已定案要去，出發前線上訂時段）
 
 - Vestrahorn / Stokksnes
 - Höfn 小鎮（晚餐吃龍蝦）
-
-Hengifoss 與 Petra 兩個可選全排會很滿，擇一即可。
 
 ---
 
@@ -216,11 +218,14 @@ Hengifoss 與 Petra 兩個可選全排會很滿，擇一即可。
 下午：
 
 - Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
-- Bónus Hveragerði 採買
 
 ---
 
 # Day 14｜5/13（四）Golden Circle → 雷克雅維克【順時針】
+
+早上：
+
+- Bónus Hveragerði 採買
 
 上午：
 
@@ -241,7 +246,7 @@ Hengifoss 與 Petra 兩個可選全排會很滿，擇一即可。
 
 ---
 
-# Day 2｜5/1（六）Golden Circle → 南岸方向【逆時針】
+# Day 2｜5/1（六）Golden Circle → Hveragerði【逆時針】
 
 上午：
 
@@ -257,14 +262,17 @@ Hengifoss 與 Petra 兩個可選全排會很滿，擇一即可。
 下午：
 
 - Kerið Crater
-- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
 - Bónus Hveragerði 採買
 
-之後往南岸方向走，銜接明天的瀑布行程。
+Reykjadalur 溫泉河留到明早，離開 Hveragerði 前先走。
 
 ---
 
 # Day 3｜5/2（日）南岸 Day1（瀑布 + 冰川）【逆時針】
+
+早上：
+
+- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
 
 沿 1 號公路續往東：
 
@@ -277,7 +285,7 @@ Hengifoss 與 Petra 兩個可選全排會很滿，擇一即可。
 - Sólheimajökull —— 停車場走到冰緣約 15 分鐘（免費）
 - 冰川健行（可選）：嚮導行程從同一停車場出發，約 3 小時，需事先預約
 
-冰川本來就在 Skógafoss → Vík 路上，排今天可消掉 Day 4 往西 35 km 的折返。全天約 110 公里。
+冰川本來就在 Skógafoss → Vík 路上，排今天可消掉 Day 4 往西 35 km 的折返。全天約 165 公里。
 
 ---
 
@@ -401,14 +409,14 @@ Húsavík
 
 # Day 12｜5/11（二）Vatnsnes 半島（西北部）【逆時針】
 
-西北部整天。沿 1 號公路西行後轉入 711 號環半島礫石路：
+西北部整天。沿 1 號公路西行，順路停 Kolugljúfur、Borgarvirki，再轉入 711 號環半島礫石路：
 
 - Víðimýrarkirkja 草皮教堂（可選，Varmahlíð 附近）
+- Kolugljúfur 峽谷（可選，1 號公路旁 5 公里）
+- Borgarvirki 玄武岩堡壘（可選）
 - Hvítserkur 犀牛石
 - Illugastaðir 海豹棲地（可選 —— 5/11 落在絨鴨繁殖期封閉區間，查 selasetur.is；押不到就把海豹留給 Day 13 的 Ytri-Tunga）
 - Hvammstangi（Icelandic Seal Center 海豹中心）
-- Borgarvirki 玄武岩堡壘（可選）
-- Kolugljúfur 峽谷（可選，1 號公路旁 5 公里，今天進來或明天出發時順路都行）
 
 ---
 

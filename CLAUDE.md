@@ -61,6 +61,11 @@ right panel to the overview. Consequences:
   logs an error when the two sets differ.
 - `via` pins a leg in the ccw direction, `viaR` in the cw one (`ROUTES[dir].viaKey`).
 - 「全程第 N／M 個」 counters follow the active order (`indexTypes()`).
+- A spot belongs to the day whose path passes it. Before placing or moving
+  one, compare its insertion cost between the neighbouring stops (OSRM
+  `table` distances) — a stop that sits beyond the night's town in the travel
+  direction (Kolugljúfur, Bónus Hveragerði) goes to the next morning, not the
+  previous evening.
 
 **Itinerary data shape** (`DAYS` / `DAYS_CCW` in `public/index.html`): each day has
 `n`, `title`, `date`, `note`, `km`, `drive` (net driving hours,
@@ -141,8 +146,7 @@ duration: the numbers are shortest-path, not plans. When it fires, add a
 `via:[[lat,lng],…]` (ccw) or `viaR` (cw) to the spot that ends the offending
 leg — those points are inserted before it in the OSRM query (`segments()`) and
 pin the line to the paved road (Brúarfoss／Þingvellir via Laugarvatn,
-Kirkjufell／Saxhóll via Ólafsvík, cw Dettifoss via Hverir so it doesn't take
-862 north).
+Kirkjufell／Saxhóll via Ólafsvík).
 The warning text is for travellers: no "OSRM" or road numbers in it.
 
 **Lodging is never named in `DAYS`.** The overview gives each night the leg
