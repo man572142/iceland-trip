@@ -1316,8 +1316,8 @@ const DAYS_CCW = [
     ]
   },
   {
-    n:14, title:"Snæfellsnes 半島 Day2（西端 → 南岸 → 雷克雅維克）", date:"5/13（四）", km:222, drive:3.7,
-    note:"從半島西端出發，Vatnshellir、Lóndrangar 之後沿 54 號走南岸：Arnarstapi 海崖步道 → Búðakirkja 黑教堂 → Ytri-Tunga 海豹灘，在 Borgarnes 補給後走 1 號公路回雷克雅維克。最後 76 公里是沒有停點的高速段，全天約 222 公里。",
+    n:14, title:"Snæfellsnes 半島 Day2（西端 → 南岸 → 雷克雅維克）", date:"5/13（四）", km:214, drive:3.3,
+    note:"從半島西端出發，Vatnshellir、Lóndrangar 之後沿 54 號走南岸：Arnarstapi 海崖步道 → Búðakirkja 黑教堂 → Ytri-Tunga 海豹灘，再走 1 號公路回雷克雅維克。最後約 160 公里是沒有停點的高速段，全天約 214 公里。",
     spots:[
       {name:"Vatnshellir Cave", zh:"瓦特恩赫爾洞穴", opt:true, lat:64.7642, lng:-23.8834, z:16,
        q:"Vatnshellir cave", type:"volcanic",
@@ -1344,12 +1344,7 @@ const DAYS_CCW = [
        q:"Ytri Tunga seal beach Snaefellsnes", type:"wildlife",
        desc:"半島南岸農場旁的金沙海灘，是半島上少見的金色沙灘。近岸礁石是海豹固定上岸的地方，退潮時常有一整群趴在石頭上。",
        dwell:45, walk:"停車場到海灘 5 分鐘平路", fee:"免費",
-       may:"5 月起進入海豹上岸高峰（5–7 月），且無繁殖期封閉問題；請保持 50 公尺以上距離"},
-      {name:"Borgarnes", zh:"博爾加內斯", kind:"city", lat:64.5388, lng:-21.9231, z:14,
-       q:"Borgarnes Iceland", type:"town",
-       desc:"半島入口的大鎮，有加油站與餐廳，跨海堤道兩側是 Borgarfjörður。鎮上的 Landnámssetur 定居展覽館用兩個展區講冰島最早的移民與《Egil 的薩迦》，是這趟除了 Þingvellir 之外唯一的薩迦接觸點。",
-       dwell:60, fee:"鎮上免費；定居展覽館成人約 ISK 2,900（含語音導覽）",
-       may:"全年營業"}
+       may:"5 月起進入海豹上岸高峰（5–7 月），且無繁殖期封閉問題；請保持 50 公尺以上距離"}
     ]
   },
   {
@@ -1430,8 +1425,8 @@ const rev = d => DAYS_CCW[d - 1].spots.slice().reverse();
 const DAYS_CW = [
   DAYS_CCW[0],
   {
-    n:2, title:"Snæfellsnes 半島 Day1（南岸 → 西端）", date:"5/1（六）", km:222, drive:3.7,
-    note:"從雷克雅維克沿 1 號公路到 Borgarnes（76 公里，沒有停點），轉 54 號走半島南岸：Ytri-Tunga 海豹灘 → Búðakirkja 黑教堂 → Arnarstapi 海崖步道，再到 Lóndrangar、Vatnshellir。全天約 222 公里。",
+    n:2, title:"Snæfellsnes 半島 Day1（南岸 → 西端）", date:"5/1（六）", km:214, drive:3.3,
+    note:"從雷克雅維克沿 1 號公路、54 號公路到半島南岸（前 161 公里沒有停點）：Ytri-Tunga 海豹灘 → Búðakirkja 黑教堂 → Arnarstapi 海崖步道，再到 Lóndrangar、Vatnshellir。全天約 214 公里。",
     spots:rev(14)
   },
   {
