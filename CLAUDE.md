@@ -48,24 +48,24 @@ npm dependencies, no JSX — edit the array literal and the render functions
 directly.
 
 **Two route directions, one set of spots.** `DAYS_CCW` (南→東→北→西) is where
-every spot lives; `DAYS_CW` (西→北→東→南, the default) regroups the *same spot
-objects* by name with its own title/note/km/drive per day — Day 1/15/16 are
-shared. `DAYS` is whichever is active (`ROUTES[dir]`, remembered in
+every spot lives; `DAYS_CW` (西→北→東→南, the default) is its exact mirror: CW day d holds
+CCW day 16-d's spot objects in reverse order (`rev(n)`), with its own
+title/note/km/drive — Day 1/15/16 are shared. `DAYS` is whichever is active (`ROUTES[dir]`, remembered in
 `localStorage` `iceland-trip:dir`); the 順時針／逆時針 buttons call
 `switchRoute()`, which rebuilds the list, redraws the route and returns the
 right panel to the overview. Consequences:
 - Spot text must read the same in both directions — no day numbers or trip
   dates in spot fields (Day 15/16 and Kolaportið's weekend are the exception,
   they are fixed in both). Direction-specific text goes in the day's `note`.
-- Add a spot to `DAYS_CCW`, then name it in a day of `DAYS_CW`; `checkRoutes()`
-  logs an error when the two sets differ.
+- Add or move a spot in `DAYS_CCW` only; `DAYS_CW` follows. Day boundaries
+  are the same in both directions — a move changes both.
 - `via` pins a leg in the ccw direction, `viaR` in the cw one (`ROUTES[dir].viaKey`).
 - 「全程第 N／M 個」 counters follow the active order (`indexTypes()`).
 - A spot belongs to the day whose path passes it. Before placing or moving
   one, compare its insertion cost between the neighbouring stops (OSRM
   `table` distances) — a stop that sits beyond the night's town in the travel
   direction (Kolugljúfur, Bónus Hveragerði) goes to the next morning, not the
-  previous evening.
+  previous evening. Judge it in the ccw direction; the cw day mirrors it.
 
 **Itinerary data shape** (`DAYS` / `DAYS_CCW` in `public/index.html`): each day has
 `n`, `title`, `date`, `note`, `km`, `drive` (net driving hours,

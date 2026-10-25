@@ -103,71 +103,78 @@
 
 ---
 
-# Day 6｜5/5（三）Goðafoss + Húsavík → 米湖【順時針】
+# Day 6｜5/5（三）Goðafoss + Húsavík + Dettifoss → 米湖【順時針】
 
-上午：
+上午從 Akureyri 出發：
 
 - Goðafoss
 - Húsavík
+- Whale Watching（可選）
 
-可選：
+下午走 85、862 號公路：
 
-- Whale Watching
+- Dettifoss ＋ Selfoss（西岸 862 號，沿步道往上游走約 15 分鐘；北段礫石路 5 月下旬才開，不走）
 
-下午走 87 號公路到米湖：
-
-- Grjótagjá Cave
-- Mývatn Nature Baths（已定案要去，出發前線上訂時段）
+再回 1 號公路開到米湖過夜。
 
 ---
 
-# Day 7｜5/6（四）Lake Mývatn → Dettifoss → 東部【順時針】
+# Day 7｜5/6（四）Lake Mývatn【順時針】
 
-上午繞米湖：
+整天繞米湖的火山與地熱地貌。
+
+早上：
+
+- Mývatn Nature Baths（已定案要去，出發前線上訂時段）
+
+景點：
 
 - Skútustaðagígar
 - Dimmuborgir
+- Grjótagjá Cave
 - Hverir ＋ Námafjall（後方山脊，來回約 40 分鐘）
-
-午後沿 1 號公路往東：
-
-- Dettifoss ＋ Selfoss（西岸 862 號，沿步道往上游走約 15 分鐘；北段礫石路 5 月下旬才開，不走）
-- Möðrudalur
-
-開到 Egilsstaðir。
 
 ---
 
-# Day 8｜5/7（五）東部峽灣 Day1（Seyðisfjörður + 海鸚）【順時針】
+# Day 8｜5/7（五）東部峽灣 Day1（Möðrudalur → Seyðisfjörður）【順時針】
 
-上午：
+沿 1 號公路經內陸高地：
 
-- Seyðisfjörður（藍教堂、峽灣小鎮）
+- Möðrudalur
+
+開到 Egilsstaðir 一帶：
+
 - Hengifoss（可選，健行來回約 2.5 小時）
 
-傍晚走 94 號公路來回 Hafnarhólmi（約 3 小時）：
+下午：
 
-- Hafnarhólmi 海鸚棲地（Borgarfjörður eystri）—— 海鸚 4 月中抵達，18:00–22:00 最活躍
+- Seyðisfjörður（藍教堂、峽灣小鎮）
 
 ---
 
 # Day 9｜5/8（六）東部峽灣 Day2（→ Höfn）【順時針】
 
-從 Egilsstaðir 沿 1 號公路貼著東部峽灣南下：
+早上走 94 號公路來回 Hafnarhólmi（約 3 小時）：
+
+- Hafnarhólmi 海鸚棲地（Borgarfjörður eystri）—— 海鸚 4 月中抵達，18:00–22:00 最活躍，上午也看得到
+
+回 Egilsstaðir 後沿 1 號公路貼著東部峽灣南下：
 
 - Petra's Stone Collection（可選，Stöðvarfjörður）
 - Djúpivogur（石蛋雕塑）
 
-黃昏：
-
-- Vestrahorn / Stokksnes
-- Höfn 小鎮（晚餐吃龍蝦）
+晚上到 Höfn 吃龍蝦。
 
 ---
 
-# Day 10｜5/9（日）冰河潟湖 + Skaftafell【順時針】
+# Day 10｜5/9（日）Vestrahorn + 冰河潟湖【順時針】
 
-上午（晨光，人最少）：
+上午：
+
+- Höfn 小鎮
+- Vestrahorn / Stokksnes
+
+接著往西：
 
 - Diamond Beach
 - Jökulsárlón
@@ -177,23 +184,20 @@
 
 - Zodiac Boat Tour（通常 5/1 開航，5 月初班次少，務必先訂）
 
-下午：
-
-- Hofskirkja 草皮教堂（Hof 村）
-- Skaftafell —— Svartifoss + Sjónarnípa 環線，約 3 小時
+晚上在 Skaftafell 附近過夜。
 
 ---
 
-# Day 11｜5/10（一）Skaftafell → Vík【順時針】
+# Day 11｜5/10（一）Skaftafell → Kirkjubæjarklaustur【順時針】
+
+- Hofskirkja 草皮教堂（Hof 村）
+- Skaftafell —— Svartifoss + Sjónarnípa 環線，約 3 小時
 
 沿 1 號公路往西：
 
 - Dverghamrar 柱狀玄武岩（可選，1 號公路旁；Fjaðrárgljúfur 封閉時的替代）
 - Kirkjubæjarklaustur（補給、Kirkjugólf 玄武岩露頭）
 - Fjaðrárgljúfur Canyon（可選 —— 步道 5 月常仍封閉，查 ust.is）
-- Vík í Mýrdal
-
-傍晚抵達 Vík。
 
 ---
 
@@ -202,20 +206,23 @@
 - Reynisfjara Black Sand Beach
 - Dyrhólaey（5/1–6/25 鳥類管制，上部 Háey 常在 5/1–5/12 封閉，出發前查 ust.is）
 
-只剩 Vík 周邊約 50 公里，刻意留白的半日：兩處都可能因鳥類管制或浪況受限，天候有變也吸收得掉。
+只剩 Vík 周邊約 40 公里，刻意留白的半日：兩處都可能因鳥類管制或浪況受限，天候有變也吸收得掉。
 
 ---
 
-# Day 13｜5/12（三）南岸 Day2（冰川 + 瀑布）→ Hveragerði【順時針】
+# Day 13｜5/12（三）南岸 Day2（Vík → Hveragerði）【順時針】
 
 沿 1 號公路往西：
 
+- Vík í Mýrdal
 - Sólheimajökull —— 停車場走到冰緣約 15 分鐘（免費）；冰川健行（可選）嚮導行程約 3 小時，需事先預約
 - Kvernufoss（可選）
 - Skógafoss
 - Seljalandsfoss ＋ Gljúfrabúi（步行約 5 分鐘）
 
-下午開到 Hveragerði。
+傍晚到 Hveragerði：
+
+- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
 
 ---
 
@@ -223,7 +230,6 @@
 
 早上：
 
-- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
 - Bónus Hveragerði 採買
 
 上午：
@@ -244,6 +250,7 @@
 傍晚回雷克雅維克。
 
 ---
+
 
 # Day 2｜5/1（六）Golden Circle → Hveragerði【逆時針】
 
