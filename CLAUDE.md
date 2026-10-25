@@ -79,7 +79,7 @@ differently from a sightseeing spot).
 **Decision fields on a spot** — the page exists to settle what stays in the
 plan, so beyond `desc`（這是什麼＋你會看到／經歷什麼，一段話）a spot may carry
 `dwell` (minutes), `walk`, `fee`, `book` (a string; presence marks the spot
-待決定), `may`（5 月初的開放實況）and `detour`（繞路的距離與路況，僅 7 站有）. All are
+待決定), `may`（5 月初的開放實況）and `detour`（繞路的距離與路況，僅 8 站有）. All are
 optional and render only where present, but `dwell` and `type` are
 currently on all 78 spots — keep it that way when adding one, or the day's
 budget row and the homogeneity counter go quiet for that day.
