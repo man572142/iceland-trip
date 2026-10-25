@@ -54,7 +54,9 @@ maintaining an image library.
 - No accounts, no analytics. Stored state is `localStorage` only: road
   geometry cache, route direction, and the unsent itinerary draft.
 - Itinerary changes made on the map leave the page as a prefilled GitHub
-  issue; a GitHub Actions workflow (Claude Code) applies them and pushes.
+  issue; a GitHub Actions workflow applies them with a fixed script and
+  pushes, then Claude Code writes the text a script can't (new-spot desc,
+  day notes).
 
 ## Brand Commitments
 

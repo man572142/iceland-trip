@@ -32,9 +32,16 @@ Live site: https://iceland-trip.man572142.workers.dev/
   `tools/places.rq` against query.wikidata.org (class → `type` key and a
   minimum sitelink count per class live in that file's `VALUES`).
 - `.github/workflows/itinerary-update.yml` — an issue titled `[行程更新]…`
-  opened by the repo owner runs `anthropics/claude-code-action`, which applies
-  the change list to the files and pushes to `main`. Needs the repo secret
-  `CLAUDE_CODE_OAUTH_TOKEN` or `ANTHROPIC_API_KEY`.
+  opened by the repo owner. Job `apply` runs `tools/apply_edits.mjs` (no AI),
+  `tools/check_itinerary.mjs`, pushes to `main` and comments a report. Job
+  `polish` runs only when that report lists text to write (new-spot `desc`,
+  title/note naming a moved or removed spot): `anthropics/claude-code-action`
+  fills it and pushes again. Needs the repo secret `CLAUDE_CODE_OAUTH_TOKEN`
+  or `ANTHROPIC_API_KEY`; without one `polish` just comments and stops.
+- `tools/` — not deployed. `itinerary.mjs` parses the data in `index.html`
+  with acorn and keeps source ranges, so `apply_edits.mjs` replaces only the
+  touched `spots` arrays and `km`/`drive` values and leaves every other byte;
+  `check_itinerary.mjs` is the gate both jobs must pass. `npm ci --prefix tools`.
 - `public/_headers` — static response headers (Cloudflare Pages/Workers
   convention: `X-Content-Type-Options`, `Referrer-Policy`).
 - `iceland_trip_itinerary.md` — the canonical written plan in Chinese
@@ -177,8 +184,14 @@ Q-id for added places) in `localStorage` `iceland-trip:edits:v1`.
 load) and re-mirrors `DAYS_CW`, so an edit that already matches the deployed
 data drops itself. 更新行程 (header) lists the changes and opens a prefilled
 GitHub new-issue URL (body: readable list + JSON; over 7,000 chars it goes
-via the clipboard). km/drive of touched days stay the old numbers until the
-workflow rewrites them — the day shows 已修改.
+via the clipboard). The JSON is `{v:1, days:{ccwN:[keys…]}, add:{Qid:{…}}}`:
+the full final order of every touched day, so the workflow reproduces the
+page's order exactly and refuses an issue whose keys no longer match `main`.
+A spot added this way lands with `desc:""` (the page shows the Wikipedia
+intro instead), `zh` = name and a per-type default `dwell` until `polish`
+writes them. km/drive move by the OSRM difference (the day's path in full,
+the two overnight legs half each), not a full recompute. Until deployed, the
+page keeps old km/drive on touched days and shows 已修改.
 
 **Lodging is never named in `DAYS`.** The overview gives each night the leg
 it falls on and Google 區域搜尋 links (住宿／加油／超市) centred there, so what

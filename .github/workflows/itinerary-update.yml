@@ -1,5 +1,7 @@
-# 網站「更新行程」開出的 Issue → Claude Code 改行程、push 到 main（Cloudflare 接著自動部署）
-# 需要 repo secret：CLAUDE_CODE_OAUTH_TOKEN（本機跑 `claude setup-token` 取得）或 ANTHROPIC_API_KEY
+# 網站「更新行程」開出的 Issue → 改行程、push 到 main（Cloudflare 接著自動部署）
+#   apply：固定規則（tools/apply_edits.mjs），排序、新增、移除、km／drive，不經 AI
+#   polish：只在有文字待補時（新景點介紹、提到舊景點的 note）才請 Claude Code 補；
+#           需要 repo secret CLAUDE_CODE_OAUTH_TOKEN（`claude setup-token`）或 ANTHROPIC_API_KEY，沒設就跳過
 name: 行程更新
 
 on:
@@ -15,6 +17,56 @@ jobs:
     # 只接 repo 擁有者自己開、標題是網站產生的那種
     if: startsWith(github.event.issue.title, '[行程更新]') && github.event.issue.user.login == github.repository_owner
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      N: ${{ github.event.issue.number }}
+      OUT: ${{ runner.temp }}/itinerary
+    outputs:
+      polish: ${{ steps.apply.outputs.polish }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --prefix tools
+
+      - name: 套用變更
+        id: apply
+        run: |
+          node tools/apply_edits.mjs "$GITHUB_EVENT_PATH" --out "$OUT"
+          node tools/check_itinerary.mjs
+          echo "polish=$(cat "$OUT/polish")" >> "$GITHUB_OUTPUT"
+
+      - name: 推上 main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "$(cat "$OUT/commit.txt")" -m "Refs #$N"
+          git push origin HEAD:main
+          {
+            echo; echo "commit $(git rev-parse --short HEAD)"
+            if [ "$(cat "$OUT/polish")" = true ]; then echo "待補的文字交給 Claude Code，完成後會再留言。"; fi
+          } >> "$OUT/report.md"
+          gh issue comment "$N" --body-file "$OUT/report.md"
+
+      - name: 不用補文字就結案
+        if: steps.apply.outputs.polish != 'true'
+        run: gh issue close "$N" --reason completed
+
+      - name: 失敗時留言
+        if: failure()
+        run: |
+          [ -f "$OUT/error.md" ] || echo "套用失敗，見 Actions 紀錄：$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" > "$OUT/error.md"
+          gh issue comment "$N" --body-file "$OUT/error.md"
+
+  polish:
+    needs: apply
+    if: needs.apply.outputs.polish == 'true'
+    runs-on: ubuntu-latest
     timeout-minutes: 40
     permissions:
       contents: write
@@ -22,34 +74,44 @@ jobs:
       id-token: write
     env:
       GH_TOKEN: ${{ github.token }}
+      N: ${{ github.event.issue.number }}
+      HAS_KEY: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' || secrets.ANTHROPIC_API_KEY != '' }}
     steps:
-      - uses: actions/checkout@v4
+      - name: 沒有 Claude 的 secret
+        if: env.HAS_KEY != 'true'
+        run: gh issue comment "$N" -R "$GITHUB_REPOSITORY" --body "沒有設定 CLAUDE_CODE_OAUTH_TOKEN／ANTHROPIC_API_KEY，待補的文字沒有處理；網站上新景點會先顯示維基百科摘要。"
 
-      - name: Git 身分
+      - uses: actions/checkout@v4
+        if: env.HAS_KEY == 'true'
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        if: env.HAS_KEY == 'true'
+        with:
+          node-version: 22
+      - name: 檢查與瀏覽器驗證用的工具
+        if: env.HAS_KEY == 'true'
         run: |
+          npm ci --prefix tools
+          pip install playwright
+          python -m playwright install --with-deps chromium
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: 瀏覽器驗證用的 Playwright
-        run: |
-          pip install playwright
-          python -m playwright install --with-deps chromium
-
       - uses: anthropics/claude-code-action@v1
+        if: env.HAS_KEY == 'true'
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ github.token }}
           claude_args: --allowedTools "Bash,Read,Edit,Write,Glob,Grep,WebFetch"
           prompt: |
-            Issue #${{ github.event.issue.number }} 是網站「更新行程」按鈕送出的行程變更清單。
+            Issue #${{ github.event.issue.number }} 的行程變更已經由固定腳本套用並推上 main（景點的天數、順序、km／drive 都已定案，不要再動）。
+            用 `gh issue view ${{ github.event.issue.number }} --comments` 讀最新那則留言的「待補」清單，只處理清單上的項目：
 
-            1. 用 `gh issue view ${{ github.event.issue.number }}` 讀內容。JSON 區塊是準確資料；天數以逆時針（DAYS_CCW）為準，順時針是鏡像。
-            2. 先讀 CLAUDE.md，照它的規則改 public/index.html：
-               - 新增：在 DAYS_CCW 那一天放完整的景點物件（name、zh、lat／lng、z、desc、q、type、dwell，適用的 walk／fee／book／may），保留 JSON 裡的 wd。用 OSRM table 的插入成本確認位置，跟清單不同就以 OSRM 為準並在留言說明。
-               - 移除、換天：只動 DAYS_CCW，DAYS_CW 跟著鏡像。
-               - 受影響的天：兩個方向的 title／note／km／drive 一起改；review.html 的里程表與 iceland_trip_itinerary.md 同步。
-            3. 照 CLAUDE.md 的「Verify before reporting done」在 Chromium 驗證（Playwright 已裝好）。
-            4. commit（訊息最後一行寫 `Closes #${{ github.event.issue.number }}`）並 `git push origin HEAD:main`。
-            5. 用 `gh issue comment` 在 issue 留言：實際改了什麼、沒照清單做的項目與原因。
-            只做清單上的變更，不要順手改別的。
+            - 新景點（desc 是空字串的那些）：照 CLAUDE.md「Writing a desc」補 desc、繁體中文 zh、z、q，查證後補 dwell 與適用的 walk／fee／book／may；保留 wd。
+            - 列出的 title／note：依現在的排法改寫，兩個方向各自的文字都要對。
+            - review.html 里程表與 iceland_trip_itinerary.md 同步到現在的行程與 km／drive。
+
+            改完跑 `node tools/check_itinerary.mjs`（不能有 ✗、不能再有 desc 待補），再照 CLAUDE.md 的「Verify before reporting done」在 Chromium 看過頁面。
+            commit（最後一行寫 `Closes #${{ github.event.issue.number }}`）後 `git push origin HEAD:main`，再用 `gh issue comment` 留言說明補了什麼。

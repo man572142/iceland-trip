@@ -10,10 +10,12 @@
 
 ## 更新行程
 
-在地圖上加入／移除景點後按左上「更新行程」，會開一張 GitHub Issue；
-`.github/workflows/itinerary-update.yml` 讓 Claude Code 依清單改檔並推上 `main`。
-需先在 repo 的 Settings → Secrets and variables → Actions 加上
-`CLAUDE_CODE_OAUTH_TOKEN`（本機執行 `claude setup-token` 取得）或 `ANTHROPIC_API_KEY`。
+在地圖上加入／移除景點後按左上「更新行程」，會開一張 GitHub Issue。
+`.github/workflows/itinerary-update.yml` 先用 `tools/apply_edits.mjs` 照清單改
+`public/index.html`（站序、新增、移除、km／drive）並推上 `main`；新景點的介紹等文字
+再交給 Claude Code 補。後者需要在 repo 的 Settings → Secrets and variables → Actions 加上
+`CLAUDE_CODE_OAUTH_TOKEN`（本機執行 `claude setup-token` 取得）或 `ANTHROPIC_API_KEY`，
+沒設就只跑第一步。
 
 ## Deployment
 

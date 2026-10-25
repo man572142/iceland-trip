@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "type": "module",
+  "description": "行程更新用的腳本（不部署）",
+  "dependencies": {
+    "acorn": "8.14.0"
+  }
+}

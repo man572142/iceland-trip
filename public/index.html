@@ -811,6 +811,16 @@
   .plan-go:disabled{opacity:.45;cursor:default;background:var(--aurora)}
   .plan-go .ico{--ico:14px}
   .plan-hint{flex:1 1 100%;margin:0;font-size:var(--t-xs);color:var(--text-4);line-height:1.6}
+  .i-links{margin:0 0 14px}
+  .i-links a{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:var(--t-sm);font-weight:500;color:var(--aurora-hi);text-decoration:none;
+    border:1px solid var(--aurora-28);background:var(--aurora-08);
+    padding:6px 11px;border-radius:var(--r-sm);transition:background .16s,border-color .16s;
+  }
+  .i-links a:hover{background:var(--aurora-14);border-color:var(--aurora-45)}
+  .i-links a span{color:var(--text-4);font-size:var(--t-xs)}
+  .i-links .ico{--ico:14px}
   .i-desc .src{margin-left:6px;font-size:var(--t-xs);color:var(--text-4);text-decoration:none;border-bottom:1px solid var(--line-2)}
   .i-desc .src:hover{color:var(--aurora-hi)}
   .i-desc.wait{color:var(--text-4)}
@@ -2335,9 +2345,9 @@ function drawPlaces(){
     if(!view.contains(ll)) return;
     L.circleMarker(ll, {renderer:placeCanvas, radius:removed ? 5 : 4,
         color:removed ? '#f2b544' : '#070a0f', weight:removed ? 2 : 1,
-        fillColor:removed ? '#0c121a' : '#c2d1e2', fillOpacity:.92})
+        opacity:removed ? .9 : .35, fillColor:removed ? '#0c121a' : '#c2d1e2', fillOpacity:removed ? .9 : .4})
       .bindTooltip(esc(n.zh && n.zh !== n.name ? `${n.zh} ${n.name}` : n.name),
-        {permanent:z >= 11, direction:'right', offset:[6, 0], className:'place-tip'})
+        {permanent:z >= 11, direction:'right', offset:[6, 0], className:'place-tip', opacity:removed ? .9 : .6})
       .on('click', () => showPlace(k))
       .addTo(placeLayer);
   });
@@ -2538,6 +2548,7 @@ function select(id, keepView){
       : '<p class="i-desc wait rise rise-2" id="sumDesc">載入維基百科摘要…</p>'}
     ${facts.length ? `<dl class="i-facts rise rise-2">${
       facts.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>` : ''}
+    ${gmapLink(s)}
     ${planBox(s)}
     <div class="gallery rise rise-3" id="gal">
       ${'<div class="ph skel"></div>'.repeat(3)}
@@ -2548,6 +2559,10 @@ function select(id, keepView){
   if(!s.desc) loadSummary(s, token);
   loadPhotos(s, token);
 }
+
+// 維基的照片有限，Google 地圖的景點頁有大量遊客照片與評論
+const gmapLink = s => `<p class="i-links rise rise-2"><a href="https://www.google.com/maps/search/?api=1&query=${
+  encodeURIComponent(placeQuery(s))}" target="_blank" rel="noopener">${icon('i-map')}在 Google 地圖開啟<span>照片・評論</span>${icon('i-ext')}</a></p>`;
 
 /* ================= 編輯：排入哪一天 =================
    在行程裡的景點：換天、移除；不在的：選一天加入。選單每一天都標出直線多繞幾 km，
@@ -2646,6 +2661,7 @@ function showPlace(k){
     </div>
     ${s.desc ? `<p class="i-desc rise rise-2">${s.desc}</p>`
       : '<p class="i-desc wait rise rise-2" id="sumDesc">載入維基百科摘要…</p>'}
+    ${gmapLink(s)}
     ${planBox(s)}
     <div class="gallery rise rise-3" id="gal">
       ${'<div class="ph skel"></div>'.repeat(3)}
@@ -2719,7 +2735,7 @@ function editsInfo(){
   return `<div class="i-head rise">
       <h2>更新行程</h2><span class="i-zh">${list.length} 項變更 · 天數依目前的${ROUTES[dir].name}</span>
     </div>
-    <p class="route-note rise rise-2" style="margin-top:0">送出後會開一張 GitHub Issue，Claude Code 依清單修改行程（補齊介紹、停留時間、車程與里程）並推上 main，部署完成後網站就會更新。</p>
+    <p class="route-note rise rise-2" style="margin-top:0">送出後會開一張 GitHub Issue：先由固定腳本照清單改好站序與車程、推上 main，幾分鐘內網站就更新；新景點的介紹與當天說明再由 Claude Code 補上。</p>
     <ol class="changes rise rise-3">${rows}</ol>
     <div class="send rise rise-3">
       <a class="plan-go" id="sendIssue" href="${esc(issueUrl())}" target="_blank" rel="noopener">開 GitHub Issue${icon('i-ext')}</a>
@@ -2742,8 +2758,12 @@ function issueBody(){
       ? `- 換天 **${nm(c.s)}**：${both(c.from)} → ${both(c.to)}，${near}`
       : `- 新增 **${nm(c.s)}** → ${both(c.to)}，${near}`;
   });
-  const data = list.map(c => ({op:kindOf(c), name:c.s.name, zh:c.s.zh || null, from:c.from || null, to:c.to || null,
-    ...(c.from ? {} : {wd:c.s.wd, lat:c.s.lat, lng:c.s.lng, type:c.s.type, wiki:c.s.wiki || null})}));
+  // tools/apply_edits.mjs 吃這段：受影響的每一天（逆時針）完整的站序，加上新景點的資料
+  const days = {}, add = {};
+  list.forEach(c => [c.from, c.to].filter(Boolean).forEach(n => days[n] = DAYS_CCW[n-1].spots.map(keyOf)));
+  list.filter(c => !c.from).forEach(c => add[c.k] =
+    {name:c.s.name, zh:c.s.zh || null, lat:c.s.lat, lng:c.s.lng, type:c.s.type, wiki:c.s.wiki || null});
+  const data = {v:1, days, add};
   return `由網站「更新行程」送出。天數以逆時針（DAYS_CCW）為準，順時針為鏡像。
 
 ${lines.join('\n')}
