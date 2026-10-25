@@ -215,9 +215,7 @@
 - Skógafoss
 - Seljalandsfoss ＋ Gljúfrabúi（步行約 5 分鐘）
 
-下午：
-
-- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
+下午開到 Hveragerði。
 
 ---
 
@@ -225,6 +223,7 @@
 
 早上：
 
+- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
 - Bónus Hveragerði 採買
 
 上午：
