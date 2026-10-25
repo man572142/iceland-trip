@@ -220,9 +220,7 @@
 - Skógafoss
 - Seljalandsfoss ＋ Gljúfrabúi（步行約 5 分鐘）
 
-傍晚到 Hveragerði：
-
-- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
+下午開到 Hveragerði。
 
 ---
 
@@ -230,6 +228,7 @@
 
 早上：
 
+- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
 - Bónus Hveragerði 採買
 
 上午：
@@ -270,17 +269,15 @@
 - Kerið Crater
 - Bónus Hveragerði 採買
 
-Reykjadalur 溫泉河留到明早，離開 Hveragerði 前先走。
+傍晚：
+
+- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
 
 ---
 
 # Day 3｜5/2（日）南岸 Day1（瀑布 + 冰川）【逆時針】
 
-早上：
-
-- Reykjadalur 溫泉河（Hveragerði 後山，單程約 3 km，可泡）
-
-沿 1 號公路續往東：
+沿 1 號公路往東：
 
 - Seljalandsfoss ＋ Gljúfrabúi（步行約 5 分鐘）
 - Skógafoss
@@ -291,7 +288,7 @@ Reykjadalur 溫泉河留到明早，離開 Hveragerði 前先走。
 - Sólheimajökull —— 停車場走到冰緣約 15 分鐘（免費）
 - 冰川健行（可選）：嚮導行程從同一停車場出發，約 3 小時，需事先預約
 
-冰川本來就在 Skógafoss → Vík 路上，排今天可消掉 Day 4 往西 35 km 的折返。全天約 165 公里。
+冰川本來就在 Skógafoss → Vík 路上，排今天可消掉 Day 4 往西 35 km 的折返。全天約 160 公里。
 
 ---
 
