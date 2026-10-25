@@ -5,7 +5,15 @@
 [點此前往](https://iceland-trip.man572142.workers.dev/)
 
 - `public/index.html` — the site (no build step, no dependencies)
+- `public/places.json` — candidate places on the map (`python3 tools/build_places.py` regenerates it from Wikidata)
 - `iceland_trip_itinerary.md` — the written plan (source notes, not deployed)
+
+## 更新行程
+
+在地圖上加入／移除景點後按左上「更新行程」，會開一張 GitHub Issue；
+`.github/workflows/itinerary-update.yml` 讓 Claude Code 依清單改檔並推上 `main`。
+需先在 repo 的 Settings → Secrets and variables → Actions 加上
+`CLAUDE_CODE_OAUTH_TOKEN`（本機執行 `claude setup-token` 取得）或 `ANTHROPIC_API_KEY`。
 
 ## Deployment
 

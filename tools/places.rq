@@ -1,0 +1,33 @@
+# 冰島候選景點：public/places.json 的來源（tools/build_places.py 會跑這支）
+# (?cls ?type ?min)：Wikidata 類別 → 本站 TYPES 鍵、最少要有幾個語言版維基條目
+SELECT ?item ?type ?coord ?sl ?en ?zh ?zhTw ?zhHant ?is ?enwiki ?desc WHERE {
+  VALUES (?cls ?type ?min) {
+    (wd:Q34038 "waterfall" 0)
+    (wd:Q35666 "glacier" 0) (wd:Q211302 "glacier" 0) (wd:Q1320719 "glacier" 0) (wd:Q11762356 "glacier" 0) (wd:Q878077 "glacier" 0) (wd:Q1567296 "glacier" 0)
+    (wd:Q177380 "geothermal" 0) (wd:Q83471 "geothermal" 0) (wd:Q201345 "geothermal" 0) (wd:Q124714 "geothermal" 2)
+    (wd:Q1501 "bath" 0) (wd:Q234052 "bath" 0) (wd:Q1341387 "bath" 0)
+    (wd:Q8072 "volcanic" 0) (wd:Q212057 "volcanic" 0) (wd:Q367004 "volcanic" 0) (wd:Q109391 "volcanic" 0)
+    (wd:Q204324 "volcanic" 0) (wd:Q27919 "volcanic" 0) (wd:Q488416 "volcanic" 2) (wd:Q2512740 "volcanic" 1)
+    (wd:Q169358 "volcanic" 0) (wd:Q3240715 "volcanic" 0) (wd:Q1901620 "volcanic" 0)
+    (wd:Q159954 "volcanic" 0) (wd:Q653139 "volcanic" 0)
+    (wd:Q150784 "canyon" 0) (wd:Q2042028 "canyon" 0) (wd:Q2662818 "canyon" 0) (wd:Q3699460 "canyon" 2)
+    (wd:Q40080 "coast" 0) (wd:Q3390872 "coast" 0) (wd:Q954501 "coast" 0) (wd:Q34763 "coast" 10) (wd:Q747957 "coast" 0) (wd:Q107679 "coast" 0) (wd:Q185113 "coast" 3)
+    (wd:Q39715 "coast" 2) (wd:Q93352 "coast" 1) (wd:Q23442 "coast" 6) (wd:Q187223 "coast" 3)
+    (wd:Q35509 "geology" 0) (wd:Q1404150 "geology" 1) (wd:Q2005428 "geology" 0) (wd:Q6633995 "geology" 0) (wd:Q23790 "geology" 0)
+    (wd:Q8502 "view" 4) (wd:Q207326 "view" 4) (wd:Q54050 "view" 4) (wd:Q23397 "view" 6)
+    (wd:Q181307 "view" 3) (wd:Q2221906 "view" 2) (wd:Q39816 "hike" 3) (wd:Q1970725 "hike" 5)
+    (wd:Q46169 "view" 0) (wd:Q179049 "view" 2) (wd:Q473972 "view" 3) (wd:Q570116 "view" 0)
+    (wd:Q16970 "culture" 2) (wd:Q800202 "culture" 0) (wd:Q33506 "culture" 2) (wd:Q207694 "culture" 1)
+    (wd:Q4989906 "culture" 1) (wd:Q839954 "culture" 1) (wd:Q1060829 "culture" 0) (wd:Q860861 "culture" 1)
+    (wd:Q3957 "town" 0) (wd:Q515 "town" 0) (wd:Q532 "town" 0) (wd:Q7930989 "town" 0) (wd:Q486972 "town" 4)
+  }
+  ?item wdt:P31 ?cls ; wdt:P17 wd:Q189 ; wdt:P625 ?coord ; wikibase:sitelinks ?sl .
+  FILTER(?sl >= ?min)
+  OPTIONAL { ?item rdfs:label ?en FILTER(lang(?en) = "en") }
+  OPTIONAL { ?item rdfs:label ?zh FILTER(lang(?zh) = "zh") }
+  OPTIONAL { ?item rdfs:label ?zhTw FILTER(lang(?zhTw) = "zh-tw") }
+  OPTIONAL { ?item rdfs:label ?zhHant FILTER(lang(?zhHant) = "zh-hant") }
+  OPTIONAL { ?item rdfs:label ?is FILTER(lang(?is) = "is") }
+  OPTIONAL { ?item schema:description ?desc FILTER(lang(?desc) = "en") }
+  OPTIONAL { ?a schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?enwiki }
+}

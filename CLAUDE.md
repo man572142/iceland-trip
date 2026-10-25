@@ -26,6 +26,15 @@ Live site: https://iceland-trip.man572142.workers.dev/
   同質性、深度）。頂部有一段防回歸註記（無極光、住 Mývatn 兩晚、海鸚在
   Hafnarhólmi）——修行程時先看那段。Day 編號與里程表對應**逆時針版**。
   自成一頁，不共用 `index.html` 的樣式，也未從導覽列連入。
+- `public/places.json` — ~1,100 candidate places (Wikidata: waterfalls,
+  glaciers, craters, beaches, churches, towns…) drawn as grey dots on the map.
+  Generated, not hand-edited: `python3 tools/build_places.py` runs
+  `tools/places.rq` against query.wikidata.org (class → `type` key and a
+  minimum sitelink count per class live in that file's `VALUES`).
+- `.github/workflows/itinerary-update.yml` — an issue titled `[行程更新]…`
+  opened by the repo owner runs `anthropics/claude-code-action`, which applies
+  the change list to the files and pushes to `main`. Needs the repo secret
+  `CLAUDE_CODE_OAUTH_TOKEN` or `ANTHROPIC_API_KEY`.
 - `public/_headers` — static response headers (Cloudflare Pages/Workers
   convention: `X-Content-Type-Options`, `Referrer-Policy`).
 - `iceland_trip_itinerary.md` — the canonical written plan in Chinese
@@ -78,7 +87,8 @@ differently from a sightseeing spot).
 
 **Decision fields on a spot** — the page exists to settle what stays in the
 plan, so beyond `desc`（這是什麼＋你會看到／經歷什麼，一段話）a spot may carry
-`dwell` (minutes), `walk`, `fee`, `book` (a string; presence marks the spot
+`wd` (Wikidata Q-id — set on spots added from the map, ties the spot to its
+`places.json` entry), `dwell` (minutes), `walk`, `fee`, `book` (a string; presence marks the spot
 待決定), `may`（5 月初的開放實況）and `detour`（繞路的距離與路況，僅 8 站有）. All are
 optional and render only where present, but `dwell` and `type` are
 currently on all 77 spots — keep it that way when adding one, or the day's
@@ -150,6 +160,25 @@ If a stop's own coordinate sits off the road network, the route snaps to the
 nearest road — possibly an `F`-road — and a `via` can't fix it; check the
 lat/lng first (Saxhóll was 5 km off, which is where its `F575` came from).
 The warning text is for travellers: no "OSRM" or road numbers in it.
+
+**Candidates and the draft.** Every `places.json` entry that doesn't match an
+itinerary spot (same `wd`; within 60 m; the same name within 15 km —
+Wikidata coordinates are often several km off; or within 4 km with one name
+containing the other, not for towns or transit) is a grey canvas dot under the route; fewer at low zoom
+(`MIN_SL`, by sitelink count), labels from z 11. A spot removed from the plan
+becomes an amber ring. Clicking either opens the same right panel as a spot
+(Wikipedia intro — zh-TW when a zh article exists — plus photos) with a day
+picker; spots in the plan get 移到這天／從行程移除. Each option shows the
+straight-line detour, and the spot lands in the cheapest slot (`bestSlot`,
+including the previous night's last stop and the next morning's first).
+Changes are `EDITS` (`[key, ccwDay]`, 0 = removed; key = spot name, or the
+Q-id for added places) in `localStorage` `iceland-trip:edits:v1`.
+`applyEdits()` replays them on `BASE_SPOTS` (a copy of `DAYS_CCW` taken at
+load) and re-mirrors `DAYS_CW`, so an edit that already matches the deployed
+data drops itself. 更新行程 (header) lists the changes and opens a prefilled
+GitHub new-issue URL (body: readable list + JSON; over 7,000 chars it goes
+via the clipboard). km/drive of touched days stay the old numbers until the
+workflow rewrites them — the day shows 已修改.
 
 **Lodging is never named in `DAYS`.** The overview gives each night the leg
 it falls on and Google 區域搜尋 links (住宿／加油／超市) centred there, so what

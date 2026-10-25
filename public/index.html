@@ -773,6 +773,77 @@
   @media (max-width:940px){
     body.route-on .map-box{height:46vh}
   }
+
+  /* ---------- 編輯行程：候選景點、草稿變更、更新行程 ---------- */
+  .head-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .edit-btn{flex:none}
+  .edit-btn:disabled{opacity:.5;cursor:default}
+  .edit-btn:disabled:hover{color:var(--text-3);border-color:var(--line);background:transparent}
+  .edit-btn.has{color:#1d1503;background:var(--sulphur);border-color:var(--sulphur);font-weight:600}
+  .edit-btn.has:hover{color:#1d1503;background:#f7c868;border-color:#f7c868}
+  .edit-n{
+    min-width:18px;padding:0 5px;border-radius:99px;text-align:center;
+    font-size:var(--t-xs);line-height:18px;font-variant-numeric:tabular-nums;
+    background:rgba(0,0,0,.18);
+  }
+  .badge.draft{background:rgba(242,181,68,.12);color:var(--sulphur);border-color:rgba(242,181,68,.32)}
+  .chip.draft{color:var(--sulphur);background:rgba(242,181,68,.09);border-color:rgba(242,181,68,.28)}
+  .day.open .chip.draft{background:rgba(242,181,68,.09)}
+
+  .plan{
+    display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+    margin:0 0 14px;padding:10px 12px;
+    background:rgba(17,25,37,.6);border:1px solid var(--line);border-radius:var(--r-sm);
+  }
+  .plan label{font-size:var(--t-xs);color:var(--text-4);letter-spacing:.06em}
+  .plan select{
+    flex:1 1 240px;min-width:0;font-family:inherit;font-size:var(--t-sm);color:var(--text);
+    background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:6px 8px;
+  }
+  .plan select:focus{outline:none;border-color:var(--aurora-45)}
+  .plan-go{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:inherit;font-size:var(--t-sm);font-weight:600;text-decoration:none;
+    color:var(--on-aurora);background:var(--aurora);
+    border:1px solid var(--aurora);border-radius:var(--r-sm);padding:6px 12px;cursor:pointer;
+  }
+  .plan-go:hover{background:var(--aurora-hi);border-color:var(--aurora-hi)}
+  .plan-go:disabled{opacity:.45;cursor:default;background:var(--aurora)}
+  .plan-go .ico{--ico:14px}
+  .plan-hint{flex:1 1 100%;margin:0;font-size:var(--t-xs);color:var(--text-4);line-height:1.6}
+  .i-desc .src{margin-left:6px;font-size:var(--t-xs);color:var(--text-4);text-decoration:none;border-bottom:1px solid var(--line-2)}
+  .i-desc .src:hover{color:var(--aurora-hi)}
+  .i-desc.wait{color:var(--text-4)}
+
+  .leaflet-tooltip.place-tip{
+    background:rgba(7,10,15,.78);color:var(--text-2);border:1px solid var(--line);
+    font-family:inherit;font-size:var(--t-xs);padding:1px 6px;border-radius:5px;box-shadow:none;
+  }
+  .leaflet-tooltip.place-tip::before{display:none}
+
+  /* 搜尋時：還沒排進行程的地點 */
+  .pool-hits{list-style:none;margin:4px 0 0;padding:0}
+  .pool-hits h3{margin:6px 4px 6px;font-size:var(--t-xs);font-weight:600;color:var(--text-4);letter-spacing:.06em}
+  .pool-hits .spot .dot{background:var(--ink-200);outline-color:rgba(194,209,226,.14)}
+  .pool-hits .spot.removed .dot{background:var(--surface);outline:2px solid var(--sulphur)}
+
+  /* 右側：變更清單 */
+  .changes{list-style:none;display:flex;flex-direction:column;gap:8px;margin:14px 0 0;padding:0}
+  .change{
+    display:flex;align-items:center;gap:10px;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:9px 12px;
+  }
+  .change-k{
+    flex:none;font-size:var(--t-xs);font-weight:700;padding:1px 7px;border-radius:99px;
+    color:var(--sulphur);background:rgba(242,181,68,.1);border:1px solid rgba(242,181,68,.3);
+  }
+  .change-k.rm{color:var(--ember);background:rgba(255,145,102,.1);border-color:rgba(255,145,102,.3)}
+  .change-t{flex:1;min-width:0;font-size:var(--t-sm);color:var(--text-3);line-height:1.6}
+  .change-t b{color:var(--text);font-weight:600}
+  .change-t button{all:unset;cursor:pointer;color:var(--text);font-weight:600;border-bottom:1px solid var(--line-2)}
+  .change-t button:hover{color:var(--aurora-hi)}
+  .send{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0 0}
+  .send-note{flex:1 1 100%;margin:0;font-size:var(--t-xs);color:var(--text-4);line-height:1.7}
 </style>
 </head>
 <body>
@@ -799,7 +870,12 @@
   <!-- ============ LEFT ============ -->
   <aside class="itinerary scroller" id="itin">
     <header class="itin-head">
-      <h1>冰島 16 天行程</h1>
+      <div class="head-row">
+        <h1>冰島 16 天行程</h1>
+        <button type="button" class="ghost-btn edit-btn" id="btnEdits" disabled title="地圖上加入／移除景點後，把變更送成 GitHub Issue">
+          更新行程<span class="edit-n" id="editN" hidden></span>
+        </button>
+      </div>
       <p class="region" id="region"></p>
       <div class="dir-switch" role="group" aria-label="環島方向">
         <button type="button" data-dir="cw" aria-pressed="true">
@@ -849,6 +925,7 @@
 
     <ol class="day-list" id="dayList"></ol>
     <p class="no-results" id="noResults" hidden>沒有符合的景點</p>
+    <ul class="pool-hits" id="poolHits" hidden></ul>
 
   </aside>
 
@@ -1516,6 +1593,96 @@ try{ const v = localStorage.getItem(DIR_KEY); if(ROUTES[v]) dir = v; }catch(e){}
 let DAYS = ROUTES[dir].days;
 
 /* =========================================================
+   草稿：在地圖上加入、移除、換天，存在 localStorage，「更新行程」送成 GitHub Issue
+   變更一律記在逆時針（DAYS_CCW）的天數上，順時針照 rev() 重新鏡像。
+   景點落在當天的哪個位置不用選：取直線距離插入成本最低的那一格（含前一晚與隔天第一站）。
+   ========================================================= */
+const BASE_SPOTS = DAYS_CCW.map(d => d.spots.slice());   // 原始行程，草稿每次都從這裡重放
+const BASE_DAY = new Map();                               // 原始景點 -> 逆時針第幾天
+DAYS_CCW.forEach(d => d.spots.forEach(s => BASE_DAY.set(s, d.n)));
+const BASE_ALL = BASE_SPOTS.flat();
+
+// 景點的鍵：原有的用名稱（KEF 頭尾各一個，補上天數）；從地圖加的用 Wikidata Q 號
+const keyOf = s => !BASE_DAY.has(s) ? s.wd
+  : BASE_ALL.filter(x => x.name === s.name).length > 1 ? `${s.name}@${BASE_DAY.get(s)}` : s.name;
+
+// 鍵 -> {spot, place}：原有景點 + places.json 裡沒對上任何原有景點的地點（spot 用到才建）
+const POOL = new Map(BASE_ALL.map(s => [keyOf(s), {spot:s, place:null}]));
+let placesReady = false;
+
+const EDITS_KEY = 'iceland-trip:edits:v1';
+let EDITS = [];   // [[鍵, 逆時針第幾天]]，0 = 移除；同一個景點只留最後一筆
+try{ EDITS = JSON.parse(localStorage.getItem(EDITS_KEY) || '[]') || []; }catch(e){}
+let PLANNED = new Set(BASE_ALL);
+const TOUCHED = new Set();   // 有變更的天（兩個方向的 day 物件都放）
+
+// 順時針第 i 天 <-> 逆時針第 14-i 天（0 起算）；Day 1／15／16 兩邊相同
+const mirror = i => i === 0 || i >= 14 ? i : 14 - i;
+const toCcw = i => dir === 'cw' ? mirror(i) : i;
+const ccwOf = s => DAYS_CCW.findIndex(d => d.spots.includes(s));
+
+function spotFor(e){
+  const p = e.place;
+  return e.spot ||= {name:p.name, zh:p.zh || '', lat:p.lat, lng:p.lng, z:15,
+    q:`${p.wiki || p.name} Iceland`, wiki:p.wiki, type:p.type, desc:'', wd:p.id};
+}
+
+// 把 s 插進逆時針第 ci 天：試每一格，取「繞進來多出的直線距離」最小的
+function bestSlot(ci, s){
+  const sp = DAYS_CCW[ci].spots.filter(x => x !== s);
+  const prev = DAYS_CCW[ci-1]?.spots.filter(x => x !== s).at(-1);
+  const next = DAYS_CCW[ci+1]?.spots.filter(x => x !== s)[0];
+  let best = {at:0, cost:Infinity};
+  for(let at = 0; at <= sp.length; at++){
+    const a = sp[at-1] || prev, b = sp[at] || next;
+    const cost = (a ? geoKm(a, s) : 0) + (b ? geoKm(s, b) : 0) - (a && b ? geoKm(a, b) : 0);
+    if(cost < best.cost) best = {at, cost, a:sp[at-1], b:sp[at]};
+  }
+  return best;
+}
+
+function applyEdits(){
+  DAYS_CCW.forEach((d, i) => d.spots = BASE_SPOTS[i].slice());
+  const hit = new Set();
+  EDITS = EDITS.filter(([k, day]) => {
+    const e = POOL.get(k);
+    if(!e) return !placesReady;          // places.json 還沒到：先留著
+    if(day && !DAYS_CCW[day-1]) return false;
+    const s = spotFor(e), from = ccwOf(s);
+    if(day === from + 1) return false;   // 跟現況一樣（例如這筆變更已經上線）
+    if(from >= 0){
+      if(DAYS_CCW[from].spots.length === 1) return false;   // 一天至少留一站
+      DAYS_CCW[from].spots.splice(DAYS_CCW[from].spots.indexOf(s), 1);
+      hit.add(from);
+    }
+    if(day){
+      DAYS_CCW[day-1].spots.splice(bestSlot(day-1, s).at, 0, s);
+      hit.add(day-1);
+    }
+    return true;
+  });
+  DAYS_CW.forEach((d, i) => { if(i > 0 && i < 14) d.spots = rev(15 - i); });
+  TOUCHED.clear();
+  hit.forEach(ci => { TOUCHED.add(DAYS_CCW[ci]); TOUCHED.add(DAYS_CW[mirror(ci)]); });
+  PLANNED = new Set(DAYS_CCW.flatMap(d => d.spots));
+  try{ localStorage.setItem(EDITS_KEY, JSON.stringify(EDITS)); }catch(e){}
+}
+
+// day：逆時針第幾天，0 = 移除。回到原本那天就等於撤銷
+function setDay(s, day){
+  const k = keyOf(s);
+  EDITS = EDITS.filter(([x]) => x !== k);
+  if(day !== (BASE_DAY.get(s) || 0)) EDITS.push([k, day]);
+  applyEdits();
+}
+
+// 列表上的標記：新加的、從別天移來的
+const draftTag = s => !BASE_DAY.has(s) ? '新增'
+  : BASE_DAY.get(s) !== ccwOf(s) + 1 ? '移入' : '';
+
+applyEdits();   // 先放原有景點的變更；從地圖加的要等 places.json
+
+/* =========================================================
    決策輔助：體驗類型、同類計數、單日負荷
    ========================================================= */
 const TYPES = {
@@ -1562,6 +1729,7 @@ function budgetHtml(day){
     <span class="key k-drive">淨車程 <b>${day.drive == null ? '—' : hrs(day.drive)}</b></span>
     ${stay}
     <span>${day.km} km</span>
+    ${TOUCHED.has(day) ? '<span class="chip draft">車程與里程為變更前</span>' : ''}
     <span class="bar" aria-hidden="true">
       <i class="b-drive" style="width:${w(drive)}%"></i>
       <i class="b-dwell" style="width:${w(dwell)}%"></i>
@@ -1576,6 +1744,8 @@ const REG = {};   // id -> spot
 const IDS = new Map();   // spot -> id（地圖圖釘點回左側用）
 
 const icon = id => `<svg class="ico" aria-hidden="true"><use href="#${id}"/></svg>`;
+const esc = str => String(str).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function renderDay(day){
   const el = document.createElement('li');
@@ -1593,6 +1763,7 @@ function renderDay(day){
           <span class="day-title">${day.title}</span>
           <span class="day-meta">
             ${day.date ? `<span class="day-date">${day.date}</span>` : ''}
+            ${TOUCHED.has(day) ? '<span class="chip draft">已修改</span>' : ''}
           </span>
         </span>
         ${icon('i-chev-r').replace('class="ico"','class="ico chev"')}
@@ -1627,7 +1798,8 @@ function renderDay(day){
     b.innerHTML = `
       <span class="dot" aria-hidden="true"></span>
       <span class="spot-txt">
-        <span class="spot-name">${s.name}${s.opt?'<span class="badge">可選</span>':''}</span>
+        <span class="spot-name">${s.name}${s.opt?'<span class="badge">可選</span>':''}${
+          draftTag(s) ? `<span class="badge draft">${draftTag(s)}</span>` : ''}</span>
         <span class="spot-zh">${s.zh}</span>
         ${meta ? `<span class="s-meta">${meta}</span>` : ''}
       </span>`;
@@ -1735,11 +1907,36 @@ function applySearch(){
     d.dataset.search = match ? '1' : '0';
   });
 
-  noResults.hidden = !(searching && !allDays().some(d=>d.dataset.search==='1'));
+  const none = !allDays().some(d=>d.dataset.search==='1');
+  const pool = renderPoolHits(searching ? q : '');
+  noResults.hidden = !(searching && none);
+  noResults.textContent = pool ? '行程裡沒有符合的景點' : '沒有符合的景點';
   updateCount();
   if(searching) shownDays().forEach(d=>setDayOpen(d, true));
   syncToggleAll();
 }
+
+/* 還沒排進行程的地點（places.json 的候選＋被移除的原有景點）也一起搜，點了就開它的詳細資訊 */
+const poolHits = document.getElementById('poolHits');
+function renderPoolHits(q){
+  const hits = !q ? [] : [...POOL].filter(([, e]) => !(e.spot && PLANNED.has(e.spot)) &&
+    [e.spot?.name, e.spot?.zh, e.place?.name, e.place?.zh]
+      .some(t => t && t.toLowerCase().includes(q))).slice(0, 12);
+  poolHits.hidden = !hits.length;
+  poolHits.innerHTML = hits.length ? '<li><h3>未排入行程 · 點開可加入</h3></li>' + hits.map(([k, e]) => {
+    const n = e.spot || e.place;
+    return `<li><button type="button" class="spot${e.spot && BASE_DAY.has(e.spot) ? ' removed' : ''}" data-k="${esc(k)}">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="spot-txt"><span class="spot-name">${esc(n.name)}</span>
+        <span class="spot-zh">${esc([n.zh, TYPES[n.type]].filter(Boolean).join(' · '))}</span></span>
+    </button></li>`;
+  }).join('') : '';
+  return hits.length;
+}
+poolHits.addEventListener('click', e => {
+  const b = e.target.closest('[data-k]');
+  if(b) showPlace(b.dataset.k);
+});
 
 spotSearch.addEventListener('input', applySearch);
 spotSearchClear.addEventListener('click', ()=>{
@@ -1827,12 +2024,13 @@ const endOf = day => day.spots[day.spots.length-1];
 const mmdd  = d => (d || '').replace(/（.*/, '');
 
 // OSRM 回來之前的墊檔值；一旦標成「直線」就不能被當成車程讀
-function airKm(a, b){
+function geoKm(a, b){
   const rad = x => x*Math.PI/180, R = 6371;
   const h = Math.sin(rad(b.lat-a.lat)/2)**2 +
             Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(rad(b.lng-a.lng)/2)**2;
-  return Math.round(2*R*Math.asin(Math.sqrt(h)));
+  return 2*R*Math.asin(Math.sqrt(h));
 }
+const airKm = (a, b) => Math.round(geoKm(a, b));
 
 /* 路線貼合實際道路：OSRM 的公用 demo server（免 API key、CORS 開放，但沒有
    可用性保證）。每段查一次，結果以該段座標的指紋為鍵存進 localStorage —— 座標
@@ -2060,6 +2258,11 @@ function buildRoute(){
   // 線自己一層，「路線」關掉時圖釘不跟著消失
   routeLines = L.layerGroup();
   if(btnRoute.classList.contains('on')) routeLines.addTo(rmap);
+  // 候選地點畫在 canvas 上、壓在路線底下；跟著視野重畫，縮小時只留維基語言版多的
+  rmap.createPane('places').style.zIndex = 390;
+  placeCanvas = L.canvas({pane:'places', padding:.3});
+  placeLayer = L.layerGroup().addTo(rmap);
+  rmap.on('moveend', drawPlaces);
   drawRoute();
   mapPh.style.opacity = '0';
 }
@@ -2077,7 +2280,8 @@ function clearRoute(){
   allPts = [];
 }
 
-function drawRoute(){
+// fit = false：草稿改動後重畫，視野留在原處
+function drawRoute(fit = true){
   DAYS.forEach((day, i)=>{
     const c = dayColor(i), end = endOf(day);
     const line = day.spots.map(s => [s.lat, s.lng]);
@@ -2110,8 +2314,33 @@ function drawRoute(){
   // 地圖上點一下等於在左側點那個景點；視野留在原處，只開 popup
   MARKERS.forEach((m, s) => m.on('click', ()=>{ if(IDS.has(s)) select(IDS.get(s), true); }));
 
-  fitAll();
+  if(fit) fitAll();
+  drawPlaces();
   snapToRoads();   // 先直線上畫面，再逐段換成實際道路
+}
+
+/* ---------- 候選地點：不在行程裡的灰點；被移出行程的原有景點是黃圈，任何縮放都畫 ---------- */
+let placeLayer = null, placeCanvas = null;
+const MIN_SL = z => z <= 6 ? 20 : z === 7 ? 10 : z === 8 ? 5 : z === 9 ? 2 : 0;
+
+function drawPlaces(){
+  if(!placeLayer) return;
+  placeLayer.clearLayers();
+  const z = rmap.getZoom(), min = MIN_SL(z), view = rmap.getBounds().pad(.25);
+  POOL.forEach((e, k) => {
+    if(e.spot && PLANNED.has(e.spot)) return;
+    const removed = Boolean(e.spot && BASE_DAY.has(e.spot));
+    if(!removed && (e.place?.sl ?? 0) < min) return;
+    const n = e.spot || e.place, ll = [n.lat, n.lng];
+    if(!view.contains(ll)) return;
+    L.circleMarker(ll, {renderer:placeCanvas, radius:removed ? 5 : 4,
+        color:removed ? '#f2b544' : '#070a0f', weight:removed ? 2 : 1,
+        fillColor:removed ? '#0c121a' : '#c2d1e2', fillOpacity:.92})
+      .bindTooltip(esc(n.zh && n.zh !== n.name ? `${n.zh} ${n.name}` : n.name),
+        {permanent:z >= 11, direction:'right', offset:[6, 0], className:'place-tip'})
+      .on('click', () => showPlace(k))
+      .addTo(placeLayer);
+  });
 }
 
 function routeInfo(){
@@ -2305,16 +2534,279 @@ function select(id, keepView){
         s.fixed?'<span class="badge fixed">已確定</span>':''}${seq}
       <span class="i-photo-note" id="photoNote"></span>
     </div>
-    <p class="i-desc rise rise-2">${s.desc}</p>
+    ${s.desc ? `<p class="i-desc rise rise-2">${s.desc}</p>`
+      : '<p class="i-desc wait rise rise-2" id="sumDesc">載入維基百科摘要…</p>'}
     ${facts.length ? `<dl class="i-facts rise rise-2">${
       facts.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>` : ''}
+    ${planBox(s)}
     <div class="gallery rise rise-3" id="gal">
       ${'<div class="ph skel"></div>'.repeat(3)}
     </div>`;
 
   watchPeek();
+  wirePlan(s);
+  if(!s.desc) loadSummary(s, token);
   loadPhotos(s, token);
 }
+
+/* ================= 編輯：排入哪一天 =================
+   在行程裡的景點：換天、移除；不在的：選一天加入。選單每一天都標出直線多繞幾 km，
+   預設選目前所在的那天，不在行程裡的預設選最順路的那天。 */
+function dayOptions(s){
+  const cur = ccwOf(s);
+  const rows = DAYS.map((d, i) => ({i, d, slot:bestSlot(toCcw(i), s)}));
+  const pick = cur >= 0 ? rows.find(r => toCcw(r.i) === cur)
+    : rows.reduce((a, b) => b.slot.cost < a.slot.cost ? b : a);
+  return {pick, html:rows.map(r => `<option value="${r.i}"${r === pick ? ' selected' : ''}>DAY ${r.d.n} · ${
+    esc(r.d.title)}${toCcw(r.i) === cur ? '（目前）' : ` · 多繞 ${Math.round(r.slot.cost)} km`}</option>`).join('')};
+}
+
+// 插在哪兩站之間：bestSlot 是逆時針順序，順時針要倒過來講
+function slotText(i, s){
+  const slot = bestSlot(toCcw(i), s);
+  let [a, b] = [slot.a, slot.b];
+  if(dir === 'cw' && i > 0 && i < 14) [a, b] = [b, a];
+  const nm = x => esc(x.zh || x.name);
+  const where = a && b ? `插在 ${nm(a)} 與 ${nm(b)} 之間`
+    : a ? `排在當天最後，${nm(a)} 之後` : b ? `排在當天第一站，${nm(b)} 之前` : '當天唯一一站';
+  return `${where} · 直線多繞約 ${Math.round(slot.cost)} km（實際車程看地圖路線）`;
+}
+
+function planBox(s){
+  const {pick, html} = dayOptions(s), on = PLANNED.has(s);
+  const alone = on && DAYS_CCW[ccwOf(s)].spots.length === 1;
+  return `<div class="plan rise rise-2">
+    <label for="planDay">${on ? '排在' : '排入'}</label>
+    <select id="planDay">${html}</select>
+    <button type="button" class="plan-go" id="planGo"${on ? ' disabled' : ''}>${on ? '移到這天' : '加入這天'}</button>
+    ${on ? `<button type="button" class="ghost-btn" id="planRm"${alone ? ' disabled title="一天至少要留一站"' : ''}>從行程移除</button>` : ''}
+    <p class="plan-hint" id="planHint">${on ? '' : slotText(pick.i, s)}</p>
+  </div>`;
+}
+
+function wirePlan(s){
+  const sel = document.getElementById('planDay'), go = document.getElementById('planGo');
+  const on = PLANNED.has(s), cur = ccwOf(s);
+  sel.addEventListener('change', () => {
+    const i = Number(sel.value), same = toCcw(i) === cur;
+    go.disabled = on && same;
+    document.getElementById('planHint').innerHTML = same ? '' : slotText(i, s);
+  });
+  go.addEventListener('click', () => { setDay(s, toCcw(Number(sel.value)) + 1); afterEdit(s); });
+  document.getElementById('planRm')?.addEventListener('click', () => { setDay(s, 0); afterEdit(s); });
+}
+
+// 草稿動過：列表、路線、灰點、按鈕全部重來，右側留在同一個景點上
+function afterEdit(s){
+  buildList();
+  syncEditBtn();
+  if(rmap){ clearRoute(); drawRoute(false); }
+  if(!s) return;
+  if(PLANNED.has(s)){
+    select(IDS.get(s), true);
+    mapReady.then(() => MARKERS.get(s)?.openPopup());
+  } else showPlace(POOL_KEY(s));
+}
+const POOL_KEY = s => [...POOL].find(([, e]) => e.spot === s)?.[0];
+
+/* 不在行程裡的地點：同一個右側面板，內容換成維基百科摘要＋排入哪一天 */
+function showPlace(k){
+  const e = POOL.get(k);
+  if(!e) return;
+  const s = spotFor(e);
+  routeOff();
+  current = s;
+  document.querySelectorAll('.spot.active').forEach(x=>x.classList.remove('active'));
+  setMapOpen();
+  mapReady.then(() => {
+    if(!rmap) return;
+    if(!rmap.getBounds().contains([s.lat, s.lng])) rmap.setView([s.lat, s.lng], Math.max(rmap.getZoom(), 9));
+    L.popup({offset:[0, -2]}).setLatLng([s.lat, s.lng])
+      .setContent(`<span class="pop-h">${esc(s.name)}</span><span class="pop-zh">${esc(s.zh)}</span>`)
+      .openOn(rmap);
+  });
+
+  stageCur.textContent = s.name;
+  stageCur.classList.remove('empty');
+  document.body.classList.add('spot-on');
+  document.body.classList.remove('stage-collapsed');
+  collapseBtn.setAttribute('aria-expanded', 'true');
+  collapseLabel.textContent = '收合';
+  stage.scrollTo({top:0, behavior:'smooth'});
+
+  const token = ++reqToken;
+  PHOTOS = [];
+  const removed = BASE_DAY.has(s);
+  info.innerHTML = `
+    <div class="i-head rise">
+      <h2>${esc(s.name)}</h2><span class="i-zh">${esc(s.zh)}</span>
+      <span class="badge${removed ? ' draft' : ''}">${removed ? '已從行程移除' : '不在行程裡'}</span>
+      ${s.type ? `<span class="badge seq">${TYPES[s.type]}</span>` : ''}
+      <span class="i-photo-note" id="photoNote"></span>
+    </div>
+    ${s.desc ? `<p class="i-desc rise rise-2">${s.desc}</p>`
+      : '<p class="i-desc wait rise rise-2" id="sumDesc">載入維基百科摘要…</p>'}
+    ${planBox(s)}
+    <div class="gallery rise rise-3" id="gal">
+      ${'<div class="ph skel"></div>'.repeat(3)}
+    </div>`;
+  watchPeek();
+  wirePlan(s);
+  if(!s.desc) loadSummary(s, token);
+  loadPhotos(s, token);
+}
+
+/* 摘要：英文條目的導言；有中文條目就改用中文（台灣正體）。都沒有就用 Wikidata 的一行描述 */
+const ZHWIKI = 'https://zh.wikipedia.org/w/api.php';
+const extract = j => Object.values(j?.query?.pages || {})[0];
+async function loadSummary(s, token){
+  const el = () => token === reqToken && document.getElementById('sumDesc');
+  const place = [...POOL.values()].find(e => e.spot === s)?.place;
+  let text = '', link = '';
+  try{
+    const en = extract(await fetchJson(api(WIKI, {action:'query', prop:'extracts|langlinks|info',
+      exintro:'1', explaintext:'1', exsentences:'3', lllang:'zh', inprop:'url',
+      titles:s.wiki || titleCandidates(s)[0], redirects:'1'}), 9000));
+    if(en?.extract){ text = en.extract; link = en.fullurl; }
+    const zt = en?.langlinks?.[0]?.['*'];
+    if(zt){
+      const zh = extract(await fetchJson(api(ZHWIKI, {action:'query', prop:'extracts|info', exintro:'1',
+        explaintext:'1', exchars:'260', inprop:'url', titles:zt, redirects:'1', variant:'zh-tw'}), 9000));
+      if(zh?.extract){ text = zh.extract; link = zh.fullurl; }
+    }
+  }catch(e){ /* 用下面的保底 */ }
+  const box = el();
+  if(!box) return;
+  box.classList.remove('wait');
+  box.innerHTML = text
+    ? `${esc(text)}<a class="src" href="${esc(link)}" target="_blank" rel="noopener">維基百科</a>`
+    : esc(place?.desc || '維基百科沒有這個地點的介紹');
+}
+
+/* ================= 更新行程：草稿 → GitHub Issue =================
+   Issue 開好後由 .github/workflows/itinerary-update.yml 交給 Claude Code 改檔、推上 main。 */
+const REPO = 'man572142/iceland-trip';
+const btnEdits = document.getElementById('btnEdits');
+const editN = document.getElementById('editN');
+
+function syncEditBtn(){
+  btnEdits.disabled = !EDITS.length;
+  btnEdits.classList.toggle('has', EDITS.length > 0);
+  editN.hidden = !EDITS.length;
+  editN.textContent = EDITS.length;
+}
+
+// 每筆變更：from／to 是逆時針第幾天（0 = 不在行程）
+function changeList(){
+  return EDITS.map(([k]) => {
+    const s = spotFor(POOL.get(k));
+    return {k, s, place:POOL.get(k).place, from:BASE_DAY.get(s) || 0, to:ccwOf(s) + 1};
+  });
+}
+const cwN = n => mirror(n - 1) + 1;
+const dayName = n => dir === 'cw' ? `Day ${cwN(n)}` : `Day ${n}`;
+const kindOf = c => !c.from ? '新增' : !c.to ? '移除' : '換天';
+
+function editsInfo(){
+  const list = changeList();
+  const rows = list.map(c => `<li class="change">
+      <span class="change-k${c.to ? '' : ' rm'}">${kindOf(c)}</span>
+      <span class="change-t"><button type="button" data-open="${esc(c.k)}">${esc(c.s.zh || c.s.name)}</button>
+        ${c.from && c.to ? `${dayName(c.from)} → <b>${dayName(c.to)}</b>`
+          : c.to ? `→ <b>${dayName(c.to)}</b>` : `原在 ${dayName(c.from)}`}</span>
+      <button type="button" class="ghost-btn" data-undo="${esc(c.k)}">復原</button>
+    </li>`).join('');
+  return `<div class="i-head rise">
+      <h2>更新行程</h2><span class="i-zh">${list.length} 項變更 · 天數依目前的${ROUTES[dir].name}</span>
+    </div>
+    <p class="route-note rise rise-2" style="margin-top:0">送出後會開一張 GitHub Issue，Claude Code 依清單修改行程（補齊介紹、停留時間、車程與里程）並推上 main，部署完成後網站就會更新。</p>
+    <ol class="changes rise rise-3">${rows}</ol>
+    <div class="send rise rise-3">
+      <a class="plan-go" id="sendIssue" href="${esc(issueUrl())}" target="_blank" rel="noopener">開 GitHub Issue${icon('i-ext')}</a>
+      <button type="button" class="ghost-btn" id="dropEdits">全部捨棄</button>
+      <p class="send-note">需要登入有這個 repo 權限的 GitHub 帳號；開好之後這裡的草稿會保留，等網站更新後自動消失。</p>
+    </div>`;
+}
+
+function issueBody(){
+  const list = changeList();
+  const both = n => `逆時針 Day ${n}／順時針 Day ${cwN(n)}`;
+  const nm = x => x.zh ? `${x.name}（${x.zh}）` : x.name;
+  const at = ({a, b}) => a && b ? `插在 ${nm(a)} 與 ${nm(b)} 之間`
+    : a ? `排在當天最後，${nm(a)} 之後` : b ? `排在當天第一站，${nm(b)} 之前` : '當天唯一一站';
+  const lines = list.map(c => {
+    if(!c.to) return `- 移除 **${nm(c.s)}**：原在${both(c.from)}`;
+    const sp = DAYS_CCW[c.to - 1].spots, i = sp.indexOf(c.s);
+    const near = `逆時針順序${at({a:sp[i-1], b:sp[i+1]})}`;
+    return c.from
+      ? `- 換天 **${nm(c.s)}**：${both(c.from)} → ${both(c.to)}，${near}`
+      : `- 新增 **${nm(c.s)}** → ${both(c.to)}，${near}`;
+  });
+  const data = list.map(c => ({op:kindOf(c), name:c.s.name, zh:c.s.zh || null, from:c.from || null, to:c.to || null,
+    ...(c.from ? {} : {wd:c.s.wd, lat:c.s.lat, lng:c.s.lng, type:c.s.type, wiki:c.s.wiki || null})}));
+  return `由網站「更新行程」送出。天數以逆時針（DAYS_CCW）為準，順時針為鏡像。
+
+${lines.join('\n')}
+
+\`\`\`json
+${JSON.stringify(data)}
+\`\`\`
+`;
+}
+
+const issueTitle = () => {
+  const n = {}; changeList().forEach(c => n[kindOf(c)] = (n[kindOf(c)] || 0) + 1);
+  return '[行程更新] ' + Object.entries(n).map(([k, v]) => `${k} ${v}`).join('、');
+};
+const ISSUE_MAX = 7000;   // GitHub 的網址太長會 414，超過就改用剪貼簿
+function issueUrl(body = issueBody()){
+  return `https://github.com/${REPO}/issues/new?` + new URLSearchParams({title:issueTitle(), body});
+}
+
+function showEdits(){
+  if(!EDITS.length){ showOverview(); return; }
+  routeOff();
+  current = null;
+  PHOTOS = [];
+  ++reqToken;
+  document.querySelectorAll('.spot.active').forEach(x=>x.classList.remove('active'));
+  rmap?.closePopup();
+  document.body.classList.add('spot-on');
+  document.body.classList.remove('stage-collapsed');
+  collapseBtn.setAttribute('aria-expanded', 'true');
+  collapseLabel.textContent = '收合';
+  stageCur.textContent = '更新行程';
+  stageCur.classList.remove('empty');
+  info.innerHTML = editsInfo();
+  watchPeek();
+  stage.scrollTo({top:0, behavior:'smooth'});
+}
+btnEdits.addEventListener('click', showEdits);
+
+info.addEventListener('click', async e => {
+  const t = e.target.closest('[data-undo],[data-open],#dropEdits,#sendIssue');
+  if(!t) return;
+  if(t.dataset.undo){
+    const s = spotFor(POOL.get(t.dataset.undo));
+    setDay(s, BASE_DAY.get(s) || 0);
+    afterEdit(null);
+    showEdits();
+  } else if(t.dataset.open){
+    const s = spotFor(POOL.get(t.dataset.open));
+    PLANNED.has(s) ? select(IDS.get(s)) : showPlace(t.dataset.open);
+  } else if(t.id === 'dropEdits'){
+    if(!confirm(`捨棄全部 ${EDITS.length} 項變更？`)) return;
+    EDITS = [];
+    applyEdits();
+    afterEdit(null);
+    showOverview();
+  } else if(t.href.length > ISSUE_MAX){
+    // 內容太長：先複製到剪貼簿，Issue 頁面只帶標題
+    e.preventDefault();
+    try{ await navigator.clipboard.writeText(issueBody()); }catch(err){}
+    window.open(issueUrl('（變更清單已複製到剪貼簿，請貼在這裡）'), '_blank', 'noopener');
+  }
+});
 
 /* ========== 實景照片：維基百科 Action API（免 API key、CORS 開放） ==========
    只用 en.wikipedia.org/w/api.php 這一個端點。
@@ -2349,7 +2841,7 @@ async function fetchJson(url, timeoutMs){
 // "Sólfar (Sun Voyager)" → ["Sun Voyager","Sólfar"]；"Geysir / Strokkur" → ["Geysir","Strokkur"]
 // 括號內外取較長的當首選，避免拿 "(KEF)" 這種縮寫去查條目。
 function titleCandidates(s){
-  const out = [];
+  const out = s.wiki ? [s.wiki] : [];   // 從地圖加的地點帶著英文維基條目名
   s.name.split(' / ').map(t=>t.trim()).filter(Boolean).forEach(n=>{
     const m = n.match(/^(.*?)\s*\(([^)]+)\)$/);
     if(m){
@@ -2452,9 +2944,6 @@ async function searchCommons(q, s){
     .filter(Boolean)
     .slice(0, 6);
 }
-
-const esc = str => String(str).replace(/[&<>"']/g, c =>
-  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 const imgSearchUrl = name =>
   'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(name + ' Iceland');
@@ -2624,9 +3113,41 @@ document.addEventListener('keydown', e=>{
   }
 });
 
+/* ================= 候選地點：public/places.json（tools/build_places.py 從 Wikidata 產生） =================
+   跟原有景點對得上的不另外畫點：同一個 Wikidata、60 m 內、15 km 內同名（Wikidata 座標常偏好幾 km），
+   或 4 km 內名稱包含。
+   地點名稱包含景點名稱只算在非城鎮的景點上 —— Húsavíkurkirkja 不是 Húsavík。 */
+const fold = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  .replace(/ð/g, 'd').replace(/þ/g, 'th').replace(/æ/g, 'ae').replace(/ø/g, 'o');
+
+function loadPlaces(list){
+  list.forEach(p => {
+    const a = fold(p.name);
+    const hit = BASE_ALL.find(s => s.wd === p.id) || BASE_ALL.find(s => {
+      const d = geoKm(s, p), parts = fold(s.name).split(/\s*[&/()]\s*/).filter(Boolean);
+      if(d < 15 && parts.includes(a)) return true;   // "Dettifoss & Selfoss" 含 Dettifoss
+      return d < .06 || d < 4 && s.type !== 'transit' && parts.some(b =>
+        a.length > 3 && b.includes(a) || s.type !== 'town' && b.length > 3 && a.includes(b));
+    });
+    if(hit) POOL.get(keyOf(hit)).place ||= p;
+    else POOL.set(p.id, {spot:null, place:p});
+  });
+  placesReady = true;
+  const pending = EDITS.some(([k]) => !BASE_ALL.some(s => keyOf(s) === k));
+  applyEdits();
+  syncEditBtn();
+  if(pending){   // 草稿裡有從地圖加的點，現在才排得進去
+    buildList();
+    if(rmap){ clearRoute(); drawRoute(false); }
+    if(routeOn){ info.innerHTML = routeInfo(); watchPeek(); renderWarn(); }
+  } else drawPlaces();
+}
+
 /* ================= 初始 ================= */
 setMapOpen();
 routeShow();   // 全覽就是預設檢視
+syncEditBtn();
+fetch('./places.json').then(r => r.ok ? r.json() : []).catch(() => []).then(loadPlaces);
 </script>
 </body>
 </html>

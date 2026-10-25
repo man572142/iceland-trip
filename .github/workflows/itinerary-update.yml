@@ -1,0 +1,55 @@
+# 網站「更新行程」開出的 Issue → Claude Code 改行程、push 到 main（Cloudflare 接著自動部署）
+# 需要 repo secret：CLAUDE_CODE_OAUTH_TOKEN（本機跑 `claude setup-token` 取得）或 ANTHROPIC_API_KEY
+name: 行程更新
+
+on:
+  issues:
+    types: [opened]
+
+concurrency:
+  group: itinerary-update
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    # 只接 repo 擁有者自己開、標題是網站產生的那種
+    if: startsWith(github.event.issue.title, '[行程更新]') && github.event.issue.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: write
+      issues: write
+      id-token: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Git 身分
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: 瀏覽器驗證用的 Playwright
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+          claude_args: --allowedTools "Bash,Read,Edit,Write,Glob,Grep,WebFetch"
+          prompt: |
+            Issue #${{ github.event.issue.number }} 是網站「更新行程」按鈕送出的行程變更清單。
+
+            1. 用 `gh issue view ${{ github.event.issue.number }}` 讀內容。JSON 區塊是準確資料；天數以逆時針（DAYS_CCW）為準，順時針是鏡像。
+            2. 先讀 CLAUDE.md，照它的規則改 public/index.html：
+               - 新增：在 DAYS_CCW 那一天放完整的景點物件（name、zh、lat／lng、z、desc、q、type、dwell，適用的 walk／fee／book／may），保留 JSON 裡的 wd。用 OSRM table 的插入成本確認位置，跟清單不同就以 OSRM 為準並在留言說明。
+               - 移除、換天：只動 DAYS_CCW，DAYS_CW 跟著鏡像。
+               - 受影響的天：兩個方向的 title／note／km／drive 一起改；review.html 的里程表與 iceland_trip_itinerary.md 同步。
+            3. 照 CLAUDE.md 的「Verify before reporting done」在 Chromium 驗證（Playwright 已裝好）。
+            4. commit（訊息最後一行寫 `Closes #${{ github.event.issue.number }}`）並 `git push origin HEAD:main`。
+            5. 用 `gh issue comment` 在 issue 留言：實際改了什麼、沒照清單做的項目與原因。
+            只做清單上的變更，不要順手改別的。

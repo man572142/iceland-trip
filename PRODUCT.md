@@ -51,8 +51,10 @@ maintaining an image library.
   view time (no stored images, no API key) — requires network access to
   render.
 - Map is Leaflet in-page; road geometry comes from OSRM's public demo server.
-- No accounts, no analytics. The only stored state is a `localStorage`
-  cache of road geometry.
+- No accounts, no analytics. Stored state is `localStorage` only: road
+  geometry cache, route direction, and the unsent itinerary draft.
+- Itinerary changes made on the map leave the page as a prefilled GitHub
+  issue; a GitHub Actions workflow (Claude Code) applies them and pushes.
 
 ## Brand Commitments
 
