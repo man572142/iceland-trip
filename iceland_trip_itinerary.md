@@ -203,6 +203,7 @@ Húsavík
 從 Hvammstangi 沿 1 號公路南下。沿路：
 
 - Grábrók 火山口（可選）
+- Víðgelmir Cave（可選，繞道 Húsafell → Reykholt 回 Borgarnes，需預約洞穴導覽，多約 1 小時車程）
 - Borgarnes
 
 轉 54 號走半島南岸：
@@ -211,7 +212,7 @@ Húsavík
 - Búðakirkja 黑教堂
 - Arnarstapi—Hellnar 海崖步道（單程 2.5 公里、約 1 小時）
 
-半島走逆時針一圈，南岸進、北岸出，不橫切。全天約 275 公里。
+半島走逆時針一圈，南岸進、北岸出，不橫切。全天約 275 公里（含 Víðgelmir 約 340 公里）。
 
 ---
 
@@ -228,7 +229,6 @@ Húsavík
 
 - Kirkjufell & Kirkjufellsfoss
 - Stykkishólmur 小鎮
-- Víðgelmir Cave（可選，繞道 Húsafell，需預約洞穴導覽，來回多約 1 小時）
 
 下午返回雷克雅維克。全天約 295 公里，最後 175 公里是沒有停點的高速段。
 

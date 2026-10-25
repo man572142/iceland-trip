@@ -122,7 +122,7 @@ each step's `ref`; any `F`-prefixed one is collected and named in the amber
 duration: the numbers are shortest-path, not plans. When it fires, add a
 `via:[[lat,lng],…]` to the spot that ends the offending leg — those points are
 inserted before it in the OSRM query (`segments()`) and pin the line to the
-paved road (Day 2 via Laugarvatn, Day 14 via Ólafsvík / Borgarnes / Reykholt).
+paved road (Day 2 via Laugarvatn, Day 14 via Ólafsvík).
 The warning text is for travellers: no "OSRM" or road numbers in it.
 
 **Lodging is never named in `DAYS`.** The overview gives each night the leg

@@ -1227,13 +1227,20 @@ const DAYS = [
   },
   {
     n:13, title:"Snæfellsnes 半島 Day1（南岸）", date:"5/12（三）", km:275, drive:3.7,
-    note:"從 Hvammstangi 沿 1 號公路南下，經 Grábrók、Borgarnes 後轉 54 號走半島南岸：Ytri-Tunga 海豹灘 → Búðakirkja 黑教堂 → Arnarstapi 海崖步道。半島走逆時針一圈，南岸進、北岸出，不橫切，全天約 275 公里。",
+    note:"從 Hvammstangi 沿 1 號公路南下，Grábrók 之後可選繞 Húsafell 看 Víðgelmir 熔岩洞，經 Reykholt 回到 Borgarnes（單向不折返），再轉 54 號走半島南岸：Ytri-Tunga 海豹灘 → Búðakirkja 黑教堂 → Arnarstapi 海崖步道。半島走逆時針一圈，南岸進、北岸出，不橫切，全天約 275 公里（含 Víðgelmir 約 340 公里）。",
     spots:[
       {name:"Grábrók", zh:"格拉布羅克火山口", opt:true, lat:64.7920, lng:-21.3690, z:14,
        q:"Grabrok crater", type:"volcanic",
        desc:"3000 年前噴發的小型火山渣錐，就在 1 號公路旁。木棧道與階梯直接鋪到口緣，站上去能俯瞰底下的熔岩原與旁邊兩座更老的渣錐。",
        dwell:40, walk:"木階梯上到口緣，來回約 30 分鐘", fee:"免費",
        may:"全年開放；口緣風大"},
+      {name:"Víðgelmir Cave", zh:"維澤爾米爾熔岩洞", opt:true, lat:64.7503, lng:-20.8019, z:16,
+       q:"Vidgelmir cave", type:"volcanic",
+       desc:"冰島最大熔岩洞穴，全長約 1,585 公尺，西元 900 年前後由 Hallmundarhraun 熔岩流形成。洞口區常年結冰，深處露出各色礦物沉積，戴頭燈走木棧道深入地底。",
+       dwell:90, walk:"洞內架設木棧道，地面平緩但需留意低矮處", fee:"成人約 ISK 9,900 起",
+       book:"需參加付費導覽（頭燈、安全帽）",
+       may:"全年營運，冬春洞口冰柱最壯觀",
+       detour:"Grábrók → Húsafell → Reykholt → Borgarnes，比直走 1 號公路多約 70 km，全程鋪面"},
       {name:"Borgarnes", zh:"博爾加內斯", kind:"city", lat:64.5388, lng:-21.9231, z:14,
        q:"Borgarnes Iceland", type:"town",
        desc:"轉往半島前最後一個大鎮，有加油站與餐廳，跨海堤道兩側是 Borgarfjörður。鎮上的 Landnámssetur 定居展覽館用兩個展區講冰島最早的移民與《Egil 的薩迦》，是這趟除了 Þingvellir 之外唯一的薩迦接觸點。",
@@ -1258,7 +1265,7 @@ const DAYS = [
   },
   {
     n:14, title:"Snæfellsnes 半島 Day2（西端 → 北岸）", date:"5/13（四）", km:295, drive:3.9,
-    note:"沿 574 號繞半島西端一圈：Lóndrangar、Vatnshellir、Djúpalónssandur、Saxhóll，再轉到北岸看 Kirkjufell，經 Stykkishólmur 返回雷克雅維克。約 295 公里，但最後 175 公里是沒有停點的高速段（可選繞道 Húsafell 的 Víðgelmir 熔岩洞，來回多約 1 小時車程）。",
+    note:"沿 574 號繞半島西端一圈：Lóndrangar、Vatnshellir、Djúpalónssandur、Saxhóll，再轉到北岸看 Kirkjufell，經 Stykkishólmur 返回雷克雅維克。約 295 公里，最後 175 公里是沒有停點的高速段。",
     spots:[
       {name:"Lóndrangar", zh:"隆德朗加玄武岩塔", lat:64.7350, lng:-23.7840, z:15,
        q:"Londrangar", type:"coast",
@@ -1291,15 +1298,7 @@ const DAYS = [
        q:"Stykkisholmur", type:"town",
        desc:"半島北岸最大的港口小鎮，彩色木屋沿港灣排開。走過堤道上 Súgandisey 島的燈塔，可以俯瞰整個 Breiðafjörður 的無數小島，據說多到數不完；鎮上的 Norska húsið 是冰島最早的兩層木造民宅之一。",
        dwell:60, walk:"上燈塔小島有階梯，來回 20 分鐘", fee:"免費",
-       may:"全年"},
-      {name:"Víðgelmir Cave", zh:"維澤爾米爾熔岩洞", opt:true, lat:64.7503, lng:-20.8019, z:16,
-       via:[[64.5388,-21.9231],[64.6650,-21.2910]],
-       q:"Vidgelmir cave", type:"volcanic",
-       desc:"冰島最大熔岩洞穴，全長約 1,585 公尺，西元 900 年前後由 Hallmundarhraun 熔岩流形成。洞口區常年結冰，深處露出各色礦物沉積，戴頭燈走木棧道深入地底。",
-       dwell:90, walk:"洞內架設木棧道，地面平緩但需留意低矮處", fee:"成人約 ISK 9,900 起",
-       book:"需參加付費導覽（頭燈、安全帽）",
-       may:"全年營運，冬春洞口冰柱最壯觀",
-       detour:"位於 Húsafell 附近，從返程主線繞道約 1 小時"}
+       may:"全年"}
     ]
   },
   {
