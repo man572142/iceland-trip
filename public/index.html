@@ -811,7 +811,6 @@
   .plan-go:hover{background:var(--aurora-hi);border-color:var(--aurora-hi)}
   .plan-go:disabled{opacity:.45;cursor:default;background:var(--aurora)}
   .plan-go .ico{--ico:14px}
-  .plan-hint{flex:1 1 100%;margin:0;font-size:var(--t-xs);color:var(--text-4);line-height:1.6}
   .i-desc .src{margin-left:6px;font-size:var(--t-xs);color:var(--text-4);text-decoration:none;border-bottom:1px solid var(--line-2)}
   .i-desc .src:hover{color:var(--aurora-hi)}
   .i-desc.wait{color:var(--text-4)}
@@ -2322,7 +2321,7 @@ function drawRoute(fit = true){
 
 /* ---------- 候選地點：不在行程裡的灰點；被移出行程的原有景點是黃圈，任何縮放都畫 ---------- */
 let placeLayer = null, placeCanvas = null;
-const MIN_SL = z => z <= 6 ? 20 : z === 7 ? 10 : z === 8 ? 5 : z === 9 ? 2 : 0;
+const MIN_SL = z => z <= 6 ? 30 : z === 7 ? 20 : z === 8 ? 12 : z === 9 ? 6 : z === 10 ? 3 : z === 11 ? 1 : 0;
 
 function drawPlaces(){
   if(!placeLayer) return;
@@ -2555,26 +2554,15 @@ const gmapLink = s => `<a class="i-gmap" href="https://www.google.com/maps/searc
   encodeURIComponent(placeQuery(s))}" target="_blank" rel="noopener">${icon('i-map')}在 Google 地圖開啟<span>照片・評論</span>${icon('i-ext')}</a>`;
 
 /* ================= 編輯：排入哪一天 =================
-   在行程裡的景點：換天、移除；不在的：選一天加入。選單每一天都標出直線多繞幾 km，
-   預設選目前所在的那天，不在行程裡的預設選最順路的那天。 */
+   在行程裡的景點：換天、移除；不在的：選一天加入。預設選目前所在的那天，
+   不在行程裡的預設選最順路的那天。 */
 function dayOptions(s){
   const cur = ccwOf(s);
   const rows = DAYS.map((d, i) => ({i, d, slot:bestSlot(toCcw(i), s)}));
   const pick = cur >= 0 ? rows.find(r => toCcw(r.i) === cur)
     : rows.reduce((a, b) => b.slot.cost < a.slot.cost ? b : a);
   return {pick, html:rows.map(r => `<option value="${r.i}"${r === pick ? ' selected' : ''}>DAY ${r.d.n} · ${
-    esc(r.d.title)}${toCcw(r.i) === cur ? '（目前）' : ` · 多繞 ${Math.round(r.slot.cost)} km`}</option>`).join('')};
-}
-
-// 插在哪兩站之間：bestSlot 是逆時針順序，順時針要倒過來講
-function slotText(i, s){
-  const slot = bestSlot(toCcw(i), s);
-  let [a, b] = [slot.a, slot.b];
-  if(dir === 'cw' && i > 0 && i < 14) [a, b] = [b, a];
-  const nm = x => esc(x.zh || x.name);
-  const where = a && b ? `插在 ${nm(a)} 與 ${nm(b)} 之間`
-    : a ? `排在當天最後，${nm(a)} 之後` : b ? `排在當天第一站，${nm(b)} 之前` : '當天唯一一站';
-  return `${where} · 直線多繞約 ${Math.round(slot.cost)} km（實際車程看地圖路線）`;
+    esc(r.d.title)}${toCcw(r.i) === cur ? '（目前）' : ''}</option>`).join('')};
 }
 
 function planBox(s){
@@ -2585,7 +2573,6 @@ function planBox(s){
     <select id="planDay">${html}</select>
     <button type="button" class="plan-go" id="planGo"${on ? ' disabled' : ''}>${on ? '移到這天' : '加入這天'}</button>
     ${on ? `<button type="button" class="ghost-btn" id="planRm"${alone ? ' disabled title="一天至少要留一站"' : ''}>從行程移除</button>` : ''}
-    <p class="plan-hint" id="planHint">${on ? '' : slotText(pick.i, s)}</p>
   </div>`;
 }
 
@@ -2595,7 +2582,6 @@ function wirePlan(s){
   sel.addEventListener('change', () => {
     const i = Number(sel.value), same = toCcw(i) === cur;
     go.disabled = on && same;
-    document.getElementById('planHint').innerHTML = same ? '' : slotText(i, s);
   });
   go.addEventListener('click', () => { setDay(s, toCcw(Number(sel.value)) + 1); afterEdit(s); });
   document.getElementById('planRm')?.addEventListener('click', () => { setDay(s, 0); afterEdit(s); });

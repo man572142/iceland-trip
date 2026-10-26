@@ -39,6 +39,8 @@ def sparql(q):
     raise SystemExit('Wikidata 查不到')
 
 
+AREA = re.compile(r'(mountain\b(?! and)|lake\b|volcanic system|ice cap|main island|seamount|lava field)', re.I)
+
 got = []
 for t in dict.fromkeys(t for _, t, _ in rows):
     vals = ' '.join(f'(wd:{q} "{tt}" {m})' for q, tt, m in rows if tt == t)
@@ -57,6 +59,8 @@ for b in sorted(got, key=lambda b: -int(v(b, 'sl'))):
         continue
     name = v(b, 'en') or v(b, 'is')
     if not name or re.fullmatch(r'Q\d+', name):
+        continue
+    if AREA.match(v(b, 'desc') or ''):   # 山名、湖名、地區名不是可以去的景點
         continue
     seen.add(qid)
     p = {'id': qid, 'name': name, 'lat': round(lat, 5), 'lng': round(lng, 5),
