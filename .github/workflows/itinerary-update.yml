@@ -24,10 +24,11 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       N: ${{ github.event.issue.number }}
-      OUT: ${{ runner.temp }}/itinerary
     outputs:
       polish: ${{ steps.apply.outputs.polish }}
     steps:
+      # runner context 不能用在 job 層的 env
+      - run: echo "OUT=$RUNNER_TEMP/itinerary" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
