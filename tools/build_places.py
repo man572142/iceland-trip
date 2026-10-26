@@ -11,6 +11,8 @@ import json, re, sys, time, urllib.parse, urllib.request, collections, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = (ROOT / 'tools' / 'places.rq').read_text()
 OUT = ROOT / 'public' / 'places.json'
+# Wikidata 的座標常錯：place_fixes.json 以 OSM 校正（Q-id → [lat, lng]；null = 整筆丟掉）。新增校正要對過 OSM。
+FIXES = json.loads((ROOT / 'tools' / 'place_fixes.json').read_text(encoding='utf-8'))
 UA = 'iceland-trip-places/1.0 (https://github.com/man572142/iceland-trip)'
 
 try:
@@ -54,7 +56,10 @@ for b in sorted(got, key=lambda b: -int(v(b, 'sl'))):
     qid = v(b, 'item').rsplit('/', 1)[-1]
     if qid in seen:
         continue
+    if FIXES.get(qid, 0) is None:
+        continue
     lng, lat = map(float, re.findall(r'-?[\d.]+', v(b, 'coord'))[:2])
+    lat, lng = FIXES.get(qid) or (lat, lng)
     if not (62.5 < lat < 67.5 and -25 < lng < -13):   # 本島與近海，排除海外座標錯誤
         continue
     name = v(b, 'en') or v(b, 'is')
