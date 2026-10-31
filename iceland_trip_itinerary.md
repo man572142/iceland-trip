@@ -54,55 +54,28 @@
 
 ---
 
-# Day 3｜5/2（日）Snæfellsnes 半島 Day2（北岸 → 北上）【順時針】
+# Day 3｜5/2（日）Snæfellsnes 半島 Day2（北岸 → 1 號公路東行）【順時針】
 
 沿北岸往東：
 
 - Kirkjufell & Kirkjufellsfoss
 - Stykkishólmur 小鎮
 
-經 Búðardalur 直接到 Hvammstangi 一帶，約 165 公里。想看的話可從 Stykkishólmur 改走 54、60 號公路（Brattabrekka 山口）接 1 號公路（都可選）：
+經 Búðardalur 接 1 號公路，一路東行到 Akureyri 一帶（Stykkishólmur 到 Akureyri 約 360 公里）。全天基本約 425 公里、淨車程 6.3 小時，是全程最長的一天。沿途停點都是可選：
 
-- Víðgelmir Cave（需預約洞穴導覽，從 1 號公路轉進，來回約 85 公里）
+- Hvítserkur 犀牛石（多約 25 公里，711 號東岸段是礫石路）
+- Borgarvirki 玄武岩堡壘
+- Kolugljúfur 峽谷（1 號公路旁 5 公里）
+- Víðimýrarkirkja 草皮教堂（Varmahlíð 附近）
+
+想看的話可從 Stykkishólmur 改走 54、60 號公路（Brattabrekka 山口）接 1 號公路：
+
+- Víðgelmir Cave（需預約洞穴導覽，來回約 85 公里）
 - Grábrók 火山口（多約 50 公里）
 
-全天基本約 206 公里（含 Grábrók 約 260 公里，再含 Víðgelmir 約 340 公里）。
-
 ---
 
-# Day 4｜5/3（一）Vatnsnes 半島（西北部）【順時針】
-
-西北部整天。從 Hvammstangi 出發繞 711 號環半島礫石路：
-
-- Hvammstangi（Icelandic Seal Center 海豹中心）
-- Illugastaðir 海豹棲地（可選 —— 落在絨鴨繁殖期封閉區間，查 selasetur.is；Day 2 的 Ytri-Tunga 已有海豹）
-- Hvítserkur 犀牛石
-
-下半島，回 1 號公路的路上：
-
-- Borgarvirki 玄武岩堡壘（可選）
-- Kolugljúfur 峽谷（可選，1 號公路旁 5 公里）
-
-東行到：
-
-- Víðimýrarkirkja 草皮教堂（可選，Varmahlíð 附近）
-
----
-
-# Day 5｜5/4（二）Tröllaskagi 半島（巨魔半島）【順時針】
-
-沿 76／82 號公路穿隧道繞完整個半島，不折返，從 Skagafjörður 翻到 Eyjafjörður。全程約 190 公里、淨車程 3 小時。
-
-- Sauðárkrókur
-- Hofsós（懸崖無邊際泳池）
-- Síldarminjasafnið（鯡魚時代博物館，可選）
-- Siglufjörður（午餐）
-- Ólafsfjörður（Múlagöng、Héðinsfjarðargöng 兩條隧道）
-- Dalvík
-
----
-
-# Day 6｜5/5（三）Goðafoss + Húsavík + Dettifoss → 米湖【順時針】
+# Day 4｜5/3（一）Goðafoss + Húsavík + Dettifoss → 米湖【順時針】
 
 上午從 Akureyri 出發：
 
@@ -118,7 +91,7 @@
 
 ---
 
-# Day 7｜5/6（四）Lake Mývatn【順時針】
+# Day 5｜5/4（二）Lake Mývatn【順時針】
 
 整天繞米湖的火山與地熱地貌。
 
@@ -135,29 +108,41 @@
 
 ---
 
-# Day 8｜5/7（五）東部峽灣 Day1（Möðrudalur → Seyðisfjörður）【順時針】
+# Day 6｜5/5（三）米湖 → Stuðlagil → Egilsstaðir【順時針】
 
 沿 1 號公路經內陸高地：
 
 - Möðrudalur
 
-開到 Egilsstaðir 一帶：
+轉 923 號公路（礫石路，單程約 19 公里）：
 
-- Hengifoss（可選，健行來回約 2.5 小時）
+- Stuðlagil 峽谷（柱狀玄武岩夾青綠色河水；西岸觀景台步行約 5 分鐘，東岸步道來回約 3.5–7 公里）
 
-下午：
-
-- Seyðisfjörður（藍教堂、峽灣小鎮）
+回 1 號公路下到 Egilsstaðir 一帶。
 
 ---
 
-# Day 9｜5/8（六）東部峽灣 Day2（→ Höfn）【順時針】
+# Day 7｜5/6（四）東部峽灣 Day1（Hafnarhólmi + Seyðisfjörður）【順時針】
+
+以 Egilsstaðir 為基地的兩段來回。
 
 早上走 94 號公路來回 Hafnarhólmi（約 3 小時）：
 
 - Hafnarhólmi 海鸚棲地（Borgarfjörður eystri）—— 海鸚 4 月中抵達，18:00–22:00 最活躍，上午也看得到
 
-回 Egilsstaðir 後沿 1 號公路貼著東部峽灣南下：
+下午：
+
+- Seyðisfjörður（藍教堂、峽灣小鎮；Fjarðarheiði 山口 5 月初可能受雪或風影響，查 road.is）
+
+---
+
+# Day 8｜5/7（五）東部峽灣 Day2（Egilsstaðir → Höfn）【順時針】
+
+早上：
+
+- Hengifoss（可選，健行來回約 2.5 小時）
+
+沿 1 號公路貼著東部峽灣南下：
 
 - Petra's Stone Collection（可選，Stöðvarfjörður）
 - Djúpivogur（石蛋雕塑）
@@ -166,7 +151,7 @@
 
 ---
 
-# Day 10｜5/9（日）Vestrahorn + 冰河潟湖【順時針】
+# Day 9｜5/8（六）Vestrahorn + 冰河潟湖【順時針】
 
 上午：
 
@@ -177,7 +162,6 @@
 
 - Diamond Beach
 - Jökulsárlón
-- Fjallsárlón
 
 可選：
 
@@ -187,9 +171,18 @@
 
 ---
 
+# Day 10｜5/9（日）Fjallsárlón + Svínafellsjökull 冰川【順時針】
+
+- Fjallsárlón
+- Hofskirkja 草皮教堂（Hof 村）
+- Svínafellsjökull 冰川嚮導健行（約 3 小時，需事先預約）
+
+晚上留在 Skaftafell 一帶。
+
+---
+
 # Day 11｜5/10（一）Skaftafell → Kirkjubæjarklaustur【順時針】
 
-- Hofskirkja 草皮教堂（Hof 村）
 - Skaftafell —— Svartifoss + Sjónarnípa 環線，約 3 小時
 
 沿 1 號公路往西：
@@ -300,7 +293,7 @@
 
 ---
 
-# Day 5｜5/4（二）Skaftafell 國家公園【逆時針】
+# Day 5｜5/4（二）Vík → Skaftafell【逆時針】
 
 景點：
 
@@ -308,17 +301,25 @@
 - Kirkjubæjarklaustur（補給、Kirkjugólf 玄武岩露頭）
 - Dverghamrar 柱狀玄武岩（可選，1 號公路旁；Fjaðrárgljúfur 封閉時的替代）
 - Skaftafell —— Svartifoss + Sjónarnípa 環線，約 3 小時
-- Hofskirkja 草皮教堂（Hof 村）
 
-潟湖留到隔天早上拍晨光。
+晚上留在 Skaftafell 一帶。
 
 ---
 
-# Day 6｜5/5（三）冰河潟湖 + Vestrahorn【逆時針】
+# Day 6｜5/5（三）Svínafellsjökull 冰川 + Fjallsárlón【逆時針】
+
+- Svínafellsjökull 冰川嚮導健行（約 3 小時，需事先預約）
+- Hofskirkja 草皮教堂（Hof 村）
+- Fjallsárlón
+
+Jökulsárlón 與 Diamond Beach 留到隔天早上拍晨光。
+
+---
+
+# Day 7｜5/6（四）冰河潟湖 + Vestrahorn【逆時針】
 
 上午：
 
-- Fjallsárlón
 - Jökulsárlón
 - Diamond Beach
 
@@ -333,33 +334,48 @@
 
 ---
 
-# Day 7｜5/6（四）東部峽灣 Day1【逆時針】
+# Day 8｜5/7（五）東部峽灣 Day1（Höfn → Egilsstaðir）【逆時針】
 
 從 Höfn 沿 1 號公路貼著東部峽灣北上：
 
 - Djúpivogur（石蛋雕塑）
 - Petra's Stone Collection（可選，Stöðvarfjörður）
 
-翻山抵達 Egilsstaðir。傍晚走 94 號公路來回 Hafnarhólmi（約 3 小時）：
+翻山抵達 Egilsstaðir 一帶：
+
+- Hengifoss（可選，健行來回約 2.5 小時）
+
+---
+
+# Day 9｜5/8（六）東部峽灣 Day2（Seyðisfjörður + Hafnarhólmi）【逆時針】
+
+以 Egilsstaðir 為基地的兩段來回。
+
+上午：
+
+- Seyðisfjörður（藍教堂、峽灣小鎮；Fjarðarheiði 山口 5 月初可能受雪或風影響，查 road.is）
+
+傍晚走 94 號公路來回 Hafnarhólmi（約 3 小時）：
 
 - Hafnarhólmi 海鸚棲地（Borgarfjörður eystri）—— 海鸚 4 月中抵達，18:00–22:00 最活躍
 
 ---
 
-# Day 8｜5/7（五）東部峽灣 Day2【逆時針】
+# Day 10｜5/9（日）Stuðlagil → 內陸高地【逆時針】
 
-上午：
+轉 923 號公路（礫石路，單程約 19 公里）：
 
-- Seyðisfjörður（藍教堂、峽灣小鎮）
-- Hengifoss（可選，健行來回約 2.5 小時）
+- Stuðlagil 峽谷（柱狀玄武岩夾青綠色河水；西岸觀景台步行約 5 分鐘，東岸步道來回約 3.5–7 公里）
 
-下午：
+回 1 號公路，穿過內陸高地：
 
-沿 1 號公路經內陸高地 Möðrudalur，開往米湖。
+- Möðrudalur
+
+開往米湖。
 
 ---
 
-# Day 9｜5/8（六）Lake Mývatn【逆時針】
+# Day 11｜5/10（一）Lake Mývatn【逆時針】
 
 北冰島精華。
 
@@ -376,7 +392,7 @@ Mývatn Nature Baths（已定案要去，出發前線上訂時段）
 
 ---
 
-# Day 10｜5/9（日）Dettifoss + Húsavík【逆時針】
+# Day 12｜5/11（二）Dettifoss + Húsavík【逆時針】
 
 上午：
 
@@ -390,41 +406,22 @@ Húsavík
 
 - Whale Watching
 
-沿 1 號公路返回 Akureyri，順路：
+沿 1 號公路返回 Akureyri 方向，順路：
 
 - Goðafoss
 
 ---
 
-# Day 11｜5/10（一）Tröllaskagi 半島（巨魔半島）【逆時針】
+# Day 13｜5/12（三）1 號公路西行 → Snæfellsnes 北岸【逆時針】
 
-沿 82／76 號公路穿隧道繞完整個半島，不折返 Akureyri，直接翻到西側的 Skagafjörður。全程約 190 公里、淨車程 3 小時。
+從 Goðafoss 經 Akureyri 沿 1 號公路向西，在 Hvammstangi 一帶轉往 Búðardalur，直接到 Stykkishólmur（約 360 公里）。全天基本約 425 公里、淨車程 6.3 小時，是全程最長的一天。沿途停點都是可選：
 
-- Dalvík
-- Ólafsfjörður（Múlagöng、Héðinsfjarðargöng 兩條隧道）
-- Siglufjörður（午餐）
-- Síldarminjasafnið（鯡魚時代博物館，可選）
-- Hofsós（懸崖無邊際泳池）
-- Sauðárkrókur
+- Víðimýrarkirkja 草皮教堂（Varmahlíð 附近）
+- Kolugljúfur 峽谷（1 號公路旁 5 公里）
+- Borgarvirki 玄武岩堡壘
+- Hvítserkur 犀牛石（多約 25 公里，711 號東岸段是礫石路）
 
----
-
-# Day 12｜5/11（二）Vatnsnes 半島（西北部）【逆時針】
-
-西北部整天。沿 1 號公路西行，順路停 Kolugljúfur、Borgarvirki，再轉入 711 號環半島礫石路：
-
-- Víðimýrarkirkja 草皮教堂（可選，Varmahlíð 附近）
-- Kolugljúfur 峽谷（可選，1 號公路旁 5 公里）
-- Borgarvirki 玄武岩堡壘（可選）
-- Hvítserkur 犀牛石
-- Illugastaðir 海豹棲地（可選 —— 5/11 落在絨鴨繁殖期封閉區間，查 selasetur.is；押不到就把海豹留給 Day 14 的 Ytri-Tunga）
-- Hvammstangi（Icelandic Seal Center 海豹中心）
-
----
-
-# Day 13｜5/12（三）Snæfellsnes 半島 Day1（北岸）【逆時針】
-
-從 Hvammstangi 經 Búðardalur 直接到 Stykkishólmur，約 165 公里。想看的話可改走 1 號公路，經 Grábrók 轉 54、60 號公路（Brattabrekka 山口）接 Stykkishólmur（都可選）：
+想看的話可改走 1 號公路，經 Grábrók 轉 54、60 號公路（Brattabrekka 山口）接 Stykkishólmur：
 
 - Grábrók 火山口（多約 50 公里）
 - Víðgelmir Cave（需預約洞穴導覽，從 1 號公路轉進，來回約 85 公里）
@@ -433,8 +430,6 @@ Húsavík
 
 - Stykkishólmur 小鎮
 - Kirkjufell & Kirkjufellsfoss
-
-全天基本約 206 公里（含 Grábrók 約 260 公里，再含 Víðgelmir 約 340 公里）。
 
 ---
 
@@ -544,10 +539,8 @@ Kolaportið 跳蚤市場只在週末營業，Day 15（週五）撲空；要逛�
 
 ✅ Húsavík
 
-✅ Siglufjörður / Tröllaskagi 半島
+✅ Stuðlagil 峽谷
 
-✅ Hofsós 懸崖泳池
+✅ Svínafellsjökull 冰川健行
 
 ✅ Hvítserkur 犀牛石
-
-✅ Vatnsnes 半島野生海豹

@@ -1117,8 +1117,8 @@ const DAYS_CCW = [
     ]
   },
   {
-    n:5, title:"Skaftafell 國家公園", date:"5/4（二）", km:170, drive:2.4,
-    note:"從 Vík 往東進 Vatnajökull 國家公園。重點是 Skaftafell 的 Svartifoss + Sjónarnípa 完整環線（約 3 小時）。Fjaðrárgljúfur 步道 5 月初常仍封閉，出發前查 ust.is —— 封閉就改停 Dverghamrar，兩者都在同一段 1 號公路上。潟湖留到隔天早上拍晨光。",
+    n:5, title:"Vík → Skaftafell", date:"5/4（二）", km:160, drive:2.4,
+    note:"從 Vík 往東進 Vatnajökull 國家公園，重點是 Skaftafell 的 Svartifoss + Sjónarnípa 完整環線（約 3 小時），晚上留在 Skaftafell 一帶。Fjaðrárgljúfur 步道 5 月初常仍封閉，出發前查 ust.is —— 封閉就改停 Dverghamrar，兩者都在同一段 1 號公路上。",
     spots:[
       {name:"Fjaðrárgljúfur Canyon", zh:"羽毛峽谷", opt:true, lat:63.7714, lng:-18.1719, z:15,
        q:"Fjadrargljufur", type:"canyon",
@@ -1138,23 +1138,35 @@ const DAYS_CCW = [
        q:"Skaftafell", type:"hike",
        desc:"Vatnajökull 國家公園的核心區，步道網四通八達，是這天的主菜。Svartifoss 從一整圈向內彎的黑色玄武岩柱下方落下，柱列像風琴管把瀑布圍成半圓（Hallgrímskirkja 的立面就是從這裡來的）。再往上接 Sjónarnípa 稜線，走到崖邊可以整條俯瞰 Skaftafellsjökull 冰舌從 Vatnajökull 冰帽流下來。",
        dwell:180, walk:"只到 Svartifoss 來回約 1.5 小時（爬升 150 m）；接 Sjónarnípa 環線約 3 小時", fee:"停車費約 ISK 1,000（依時數計）",
-       may:"5 月初兩條步道通常都無雪可走；高處仍可能有殘雪與泥濘"},
+       may:"5 月初兩條步道通常都無雪可走；高處仍可能有殘雪與泥濘"}
+    ]
+  },
+  {
+    n:6, title:"Svínafellsjökull 冰川 + Fjallsárlón", date:"5/5（三）", km:50, drive:1.1,
+    note:"上午走 Svínafellsjökull 冰川嚮導健行（約 3 小時，出發前線上預約），接著看 Hofskirkja 草皮教堂，傍晚到安靜的 Fjallsárlón。Jökulsárlón 與 Diamond Beach 留到隔天早上拍晨光。",
+    spots:[
+      {name:"Svínafellsjökull", zh:"斯維納菲爾冰川", wd:"Q2142443", lat:64.0227, lng:-16.8027, z:14,
+       q:"Svinafellsjokull glacier", type:"glacier",
+       desc:"Vatnajökull 冰帽向 Öræfi 平原伸出的一條冰舌，位在 Skaftafell 東邊約 10 公里。嚮導團發冰爪與冰斧，帶隊走上冰舌表面，看冰隙、冰磧與融水溝；冰面的冰隙與融水溝每年位置不同，路線由嚮導當天決定。",
+       dwell:240, walk:"嚮導團全程約 3 小時、實際在冰上約 1 小時（各業者不同）；上冰前有一段碎石步行", fee:"嚮導團每人約 ISK 13,000–20,000（依業者與時長）",
+       book:"需參加嚮導團並事先預約（集合點因業者而異，訂位時確認）",
+       may:"5 月初班次與起始時間依業者而定，出發前查官網"},
       {name:"Hofskirkja", zh:"霍夫草皮教堂", lat:63.90704, lng:-16.70673, z:16,
        q:"Hofskirkja turf church", type:"culture",
        desc:"1884 年建成，冰島最後一批用傳統工法蓋的草皮教堂之一。石牆外包草磚、屋頂長滿草，連周圍的墓塚都是一個個長草的土丘，遠看像草地上排列的綠色小丘，分不出哪裡是建築、哪裡是地形。",
        dwell:20, fee:"免費",
-       may:"外觀全年可看；內部開放時間不固定"}
-    ]
-  },
-  {
-    n:6, title:"冰河潟湖 + Vestrahorn", date:"5/5（三）", km:165, drive:2.3,
-    note:"一早到潟湖拍晨光 —— 人最少、光最好，Zodiac 也是早班。順路看安靜的 Fjallsárlón，下午移動到 Höfn，黃昏拍 Vestrahorn，晚上吃龍蝦。",
-    spots:[
+       may:"外觀全年可看；內部開放時間不固定"},
       {name:"Fjallsárlón", zh:"菲亞德爾冰河湖", lat:64.0128, lng:-16.3808, z:15,
        q:"Fjallsarlon", type:"glacier",
        desc:"Jökulsárlón 西邊 10 公里的小型冰河湖。Fjallsjökull 冰舌本體直接懸在湖的另一頭，這是大潟湖看不到的畫面（冰川已退得太遠）；冰山離岸也更近，遊客少很多。",
        dwell:45, walk:"停車場到湖畔觀景步道 5–10 分鐘", fee:"免費",
-       may:"5 月湖面浮冰通常已散開"},
+       may:"5 月湖面浮冰通常已散開"}
+    ]
+  },
+  {
+    n:7, title:"冰河潟湖 + Vestrahorn", date:"5/6（四）", km:110, drive:2.2,
+    note:"一早到 Jökulsárlón 拍晨光 —— 人最少、光最好，Zodiac 也是早班。Fjallsárlón 前一天已看過，上午看完 Diamond Beach 後移動到 Höfn，黃昏拍 Vestrahorn，晚上吃龍蝦。",
+    spots:[
       {name:"Jökulsárlón", zh:"傑古沙龍冰河潟湖", lat:64.04801, lng:-16.17969, z:14,
        q:"Jokulsarlon", type:"glacier",
        desc:"冰島最深的湖，Breiðamerkurjökull 崩落的冰山漂浮其中並緩緩流向大海。藍白色的冰山在湖上移動、翻身、裂開，常有海豹在冰塊之間浮出來；Zodiac 快艇是唯一能開進冰山之間、貼近看藍冰壁的方式。",
@@ -1179,18 +1191,37 @@ const DAYS_CCW = [
     ]
   },
   {
-    n:7, title:"東部峽灣 Day1", date:"5/6（四）", km:395, drive:5.4,
-    note:"從 Höfn 沿 1 號公路貼著東部峽灣北上，翻山抵達 Egilsstaðir，傍晚再開 94 號公路去 Hafnarhólmi 看海鸚 —— 18:00–22:00 正是海鸚最活躍的時段，而 5 月日落近 22:00，時間完全夠。",
+    n:8, title:"東部峽灣 Day1（Höfn → Egilsstaðir）", date:"5/7（五）", km:290, drive:4.2,
+    note:"從 Höfn 沿 1 號公路貼著東部峽灣北上，翻山抵達 Egilsstaðir 一帶。今天不排海鸚，時間夠的話走 Hengifoss 步道（來回約 2.5 小時）；Hafnarhólmi 留到明天。",
     spots:[
       {name:"Djúpivogur", zh:"迪尤皮沃古爾", kind:"city", lat:64.6552, lng:-14.2884, z:14,
        q:"Djupivogur Iceland", type:"town",
        desc:"東部峽灣第一個漁村，也是冰島第一個加入 Cittaslow 慢城運動的地方。港邊的 Eggin í Gleðivík 是 34 顆放大的花崗岩鳥蛋，沿碼頭排成一列，每一顆對應一種在當地繁殖的鳥。",
        dwell:40, walk:"蛋雕沿碼頭一列，平路 10 分鐘", fee:"免費"},
       {name:"Petra's Stone Collection", zh:"佩特拉石頭博物館", opt:true, lat:64.83573, lng:-13.88069, z:16,
+       viaR:[[65.2635,-14.3955]],
        q:"Petra's Stone Collection Stodvarfjordur", type:"culture",
        desc:"Stöðvarfjörður 小鎮上 Petra Sveinsdóttir 畢生從東部峽灣撿回來的礦石收藏，堆滿整棟房子與整座庭院。沸石、瑪瑙、方解石按她自己的邏輯排列，不是博物館那種分類陳列；房子還維持著她住過的樣子。",
        dwell:45, fee:"成人約 ISK 1,800",
        may:"5 月上旬可能縮短營業時段，出發前查官網"},
+      {name:"Hengifoss", zh:"亨吉瀑布", opt:true, lat:65.07352, lng:-14.88049, z:15,
+       via:[[65.2635,-14.3955]],
+       q:"Hengifoss Iceland", type:"waterfall",
+       desc:"冰島第三高瀑布，128 公尺，位在 Lagarfljót 湖西岸。看點不在瀑布本身，在崖壁：一層黑玄武岩夾一層紅黏土的水平橫紋一路疊上去，每一條紅線都是兩次熔岩流之間長出來的土壤。步道中段還會經過柱狀玄武岩包圍的 Litlanesfoss。",
+       dwell:150, walk:"來回 5 km、爬升約 350 m，階梯與碎石坡，約 2.5 小時", fee:"免費",
+       may:"5 月初步道通常已無雪可走，但融雪期泥濘"}
+    ]
+  },
+  {
+    n:9, title:"東部峽灣 Day2（Seyðisfjörður + Hafnarhólmi）", date:"5/8（六）", km:161, drive:2.5,
+    note:"以 Egilsstaðir 為基地的兩段來回：上午下 Seyðisfjörður 看藍教堂與峽灣，傍晚走 94 號公路去 Hafnarhólmi 看海鸚 —— 18:00–22:00 正是海鸚最活躍的時段，而 5 月日落近 22:00，時間完全夠。",
+    spots:[
+      {name:"Seyðisfjörður", zh:"塞濟斯菲厴澤", kind:"city", lat:65.2637, lng:-14.0079, z:14,
+       q:"Seydisfjordur blue church", type:"town",
+       desc:"藏在峽灣底的彩色小鎮，也是往丹麥渡輪的港口。開下 Fjarðarheiði 山口那一刻整座小鎮攤在眼前，是東部最好的一個俯瞰；鎮上藍色木教堂前那條彩虹階梯是全冰島最常被拍的街景。",
+       dwell:90, walk:"鎮上平路散步", fee:"免費",
+       may:"93 號公路 Fjarðarheiði 山口海拔 620 m，5 月初仍可能因雪或強風暫時封閉，出發前查 road.is",
+       detour:"從 Egilsstaðir 來回 54 km，翻山約 50 分鐘"},
       {name:"Hafnarhólmi", zh:"海鸚岩（Borgarfjörður eystri）", lat:65.54247, lng:-13.75678, z:15,
        q:"Hafnarholmi puffin colony", type:"wildlife",
        desc:"全冰島最好接近的海鸚棲地。木棧道與觀景平台直接架在繁殖岩上，海鸚的巢穴就在腳邊幾公尺，不用望遠鏡，也不用搭船出海；同一片岩壁上還有三趾鷗與暴風鸌在築巢。",
@@ -1200,20 +1231,15 @@ const DAYS_CCW = [
     ]
   },
   {
-    n:8, title:"東部峽灣 Day2", date:"5/7（五）", km:290, drive:4.2,
-    note:"上午繞去 Seyðisfjörður 看藍教堂與峽灣，可選走 Hengifoss 步道。下午沿 1 號公路經內陸高地 Möðrudalur，開往米湖。",
+    n:10, title:"Stuðlagil → 內陸高地", date:"5/9（日）", km:178, drive:2.9,
+    note:"離開東部峽灣，先轉 923 號公路進 Stuðlagil 峽谷（單程約 19 公里，礫石路），回 1 號公路後穿過內陸高地，經 Möðrudalur 開往米湖。",
     spots:[
-      {name:"Seyðisfjörður", zh:"塞濟斯菲厴澤", kind:"city", lat:65.2637, lng:-14.0079, z:14,
-       q:"Seydisfjordur blue church", type:"town",
-       desc:"藏在峽灣底的彩色小鎮，也是往丹麥渡輪的港口。開下 Fjarðarheiði 山口那一刻整座小鎮攤在眼前，是東部最好的一個俯瞰；鎮上藍色木教堂前那條彩虹階梯是全冰島最常被拍的街景。",
-       dwell:90, walk:"鎮上平路散步", fee:"免費",
-       may:"93 號公路 Fjarðarheiði 山口海拔 620 m，5 月初仍可能因雪或強風暫時封閉，出發前查 road.is",
-       detour:"從 Egilsstaðir 來回 54 km，翻山約 50 分鐘"},
-      {name:"Hengifoss", zh:"亨吉瀑布", opt:true, lat:65.07352, lng:-14.88049, z:15,
-       q:"Hengifoss Iceland", type:"waterfall",
-       desc:"冰島第三高瀑布，128 公尺，位在 Lagarfljót 湖西岸。看點不在瀑布本身，在崖壁：一層黑玄武岩夾一層紅黏土的水平橫紋一路疊上去，每一條紅線都是兩次熔岩流之間長出來的土壤。步道中段還會經過柱狀玄武岩包圍的 Litlanesfoss。",
-       dwell:150, walk:"來回 5 km、爬升約 350 m，階梯與碎石坡，約 2.5 小時", fee:"免費",
-       may:"5 月初步道通常已無雪可走，但融雪期泥濘"},
+      {name:"Stuðlagil Canyon", zh:"斯圖拉吉爾峽谷", wd:"Q97260351", lat:65.1623, lng:-15.3081, z:15,
+       q:"Studlagil canyon Iceland", type:"canyon",
+       desc:"Jökla 河切出的玄武岩峽谷，兩壁是一整排高低錯落的柱狀玄武岩，谷底是青綠色的河水。上游蓋了 Kárahnjúkar 水壩、水量大減後，谷壁的岩柱才完整露出來。西岸 Grund 的觀景台從上方俯視整段峽谷；東岸步道沿谷緣往下走，可以走到靠近河面的位置。",
+       dwell:120, walk:"西岸 Grund 觀景台步行約 5 分鐘；東岸步道依停車場不同，來回約 3.5–7 km", fee:"免費（停車場可能另收費）",
+       may:"春季河水通常較清、呈青綠色；夏末水庫溢流後會轉為混濁，出發前查近況。923 號為礫石路，融雪期可能泥濘",
+       detour:"從 1 號公路轉 923 號單程約 19 km，原路折返"},
       {name:"Möðrudalur", zh:"默茲呂達魯爾", kind:"city", lat:65.3746, lng:-15.8813, z:13,
        q:"Modrudalur Iceland", type:"town",
        desc:"冰島海拔最高（469 m）的有人居住農場，位在 1 號公路的高地段，四周是完全無樹的火山荒原，能見度好時看得到 Herðubreið 桌狀山。黑色小教堂是農場主人 1949 年為亡妻親手蓋的；農場咖啡館供應自製 kleina 與羊肉湯，也是 Egilsstaðir 到米湖 190 km 之間唯一的補給點。",
@@ -1222,7 +1248,7 @@ const DAYS_CCW = [
     ]
   },
   {
-    n:9, title:"Lake Mývatn", date:"5/8（六）", km:60, drive:1.0,
+    n:11, title:"Lake Mývatn", date:"5/10（一）", km:60, drive:1.0,
     note:"北冰島精華，一整天都在火山與地熱地貌裡繞。下午泡 Mývatn Nature Baths 收尾。",
     spots:[
       {name:"Hverir (Hverarönd) & Námafjall", zh:"赫維爾地熱區 ＋ 納馬菲亞山", lat:65.6404, lng:-16.8093, z:16,
@@ -1254,7 +1280,7 @@ const DAYS_CCW = [
     ]
   },
   {
-    n:10, title:"Dettifoss + Húsavík", date:"5/9（日）", km:305, drive:4.0,
+    n:12, title:"Dettifoss + Húsavík", date:"5/11（二）", km:305, drive:4.0,
     note:"上午衝瀑布，下午到 Húsavík，可選賞鯨。傍晚沿 1 號公路返回 Akureyri，順路停 Goðafoss。",
     spots:[
       {name:"Dettifoss & Selfoss", zh:"黛提瀑布 ＋ 塞爾瀑布", lat:65.8145, lng:-16.3844, z:15,
@@ -1281,43 +1307,8 @@ const DAYS_CCW = [
     ]
   },
   {
-    n:11, title:"Tröllaskagi 半島（巨魔半島）", date:"5/10（一）", km:190, drive:3.0,
-    note:"沿 82／76 號公路穿隧道繞完整個 Tröllaskagi 半島，不折返 Akureyri，直接翻到西側的 Skagafjörður。全程約 190 公里、淨車程 3 小時。",
-    spots:[
-      {name:"Dalvík", zh:"達爾維克", kind:"city", lat:65.9711, lng:-18.5286, z:14,
-       q:"Dalvik Iceland", type:"town",
-       desc:"Eyjafjörður 西岸的漁港，往 Grímsey 北極圈島的渡輪由此出發。鎮上就是港口加一條主街，真正的畫面在路上 —— 82 號公路一路貼著 Eyjafjörður 峽灣走。",
-       dwell:20, fee:"免費"},
-      {name:"Ólafsfjörður", zh:"歐拉夫斯菲厄澤", lat:66.0653, lng:-18.6547, z:14,
-       q:"Olafsfjordur", type:"town",
-       desc:"穿過 3.4 公里 Múlagöng 隧道後的峽灣小鎮，接著再穿 Héðinsfjarðargöng 往 Siglufjörður。看點是隧道本身：Múlagöng 是單線會車隧道，開進去要留意避車彎；出來後三面陡壁夾著一潭水，鎮本身很安靜。",
-       dwell:20, fee:"免費",
-       may:"兩條隧道全年開放"},
-      {name:"Siglufjörður", zh:"錫格盧菲厄澤", kind:"city", lat:66.1517, lng:-18.9108, z:14,
-       q:"Siglufjordur", type:"town",
-       desc:"曾是全球鯡魚漁業重鎮的峽灣小鎮，冰島本島最北的城鎮。20 世紀前半這裡是「大西洋的鯡魚之都」，人口是現在的數倍；整排老船屋現在改成餐廳與旅館，四面環山的港灣是這條半島公路上最完整的一個小鎮。",
-       dwell:120, walk:"港區平路", fee:"免費"},
-      {name:"Síldarminjasafnið (Herring Era Museum)", zh:"鯡魚時代博物館", opt:true, lat:66.1505, lng:-18.9145, z:16,
-       q:"Herring Era Museum Siglufjordur", type:"culture",
-       desc:"還原 20 世紀鯡魚榮景的港區博物館群，冰島評價最高的博物館之一。五棟原址保留的工廠與船屋，甲板、鹽漬桶、女工宿舍都按當年原樣擺著，不是玻璃櫃展示；夏季週末有醃鯡魚的現場示範。",
-       dwell:90, fee:"成人約 ISK 2,500",
-       may:"5 月上旬多為縮短時段（常見午後才開），6 月才進入每日全時營運 —— 出發前查官網"},
-      {name:"Hofsós", zh:"霍夫索斯", lat:65.8944, lng:-19.4147, z:15,
-       q:"Hofsos Iceland", type:"bath",
-       desc:"Skagafjörður 東岸的小村，招牌是懸在海崖上的地熱泳池。25 公尺的無邊際泳池直接架在海崖邊，池緣的視線切齊峽灣與外海的 Drangey 島；水溫約 29°C，是泳池不是溫泉，可以真的游。港邊另有一小段柱狀玄武岩海岸。",
-       dwell:90, fee:"泳池入場約 ISK 1,200（毛巾另租）",
-       may:"全年營運，但 5 月上旬可能是淡季時段，出發前查營業時間"},
-      {name:"Sauðárkrókur", zh:"紹達克羅屈爾", kind:"city", lat:65.7461, lng:-19.6394, z:14,
-       q:"Saudarkrokur Iceland", type:"town",
-       desc:"Skagafjörður 灣底的西北部第一大鎮，冰島馬產區的中心。周邊馬場可預約 1–2 小時騎乘；冰島馬有第五種步態 tölt —— 四拍、快而不顛，騎的時候身體幾乎不上下晃。",
-       dwell:30, fee:"免費（馬場騎乘每人約 ISK 12,000–15,000）",
-       book:"騎馬需事先預約",
-       may:"馬場全年營業"}
-    ]
-  },
-  {
-    n:12, title:"Vatnsnes 半島（西北部）", date:"5/11（二）", km:210, drive:3.5,
-    note:"西北部整天：先看草皮教堂，Kolugljúfur、Borgarvirki 順路停，再繞 711 號環半島礫石路看 Hvítserkur 海蝕岩與野生海豹，最後到 Hvammstangi。Illugastaðir 5 月可能因絨鴨繁殖期封閉（查 selasetur.is）—— 若關閉，半島仍值得繞，Hvítserkur 才是主要理由，海豹順延到 Day 14 的 Ytri-Tunga。",
+    n:13, title:"1 號公路西行 → Snæfellsnes 北岸", date:"5/12（三）", km:425, drive:6.3,
+    note:"從 Goðafoss 經 Akureyri 沿 1 號公路向西，在 Hvammstangi 一帶轉往 Búðardalur，直接到 Stykkishólmur（約 360 公里），再沿北岸往西到 Kirkjufell。基本約 425 公里、淨車程 6.3 小時，是全程最長的一天，沿途停點都是可選：Víðimýri 草皮教堂、Kolugljúfur、Borgarvirki、Hvítserkur（多約 25 公里）。想看的話可改走 1 號公路，經 Grábrók 轉 54、60 號公路（Brattabrekka 山口）接 Stykkishólmur：加 Grábrók 多約 50 公里，再加 Víðgelmir 多約 85 公里。",
     spots:[
       {name:"Víðimýrarkirkja", zh:"維濟米爾教堂", opt:true, lat:65.5388, lng:-19.47037, z:16,
        q:"Vidimyrarkirkja turf church", type:"culture",
@@ -1335,28 +1326,12 @@ const DAYS_CCW = [
        desc:"10 公尺高的玄武岩柱狀岩台，維京時代被改建成天然要塞。頂上 360 度可以同時看到 Húnafjörður、Vesturhóp 湖與整片農地。",
        dwell:30, walk:"短陡坡 5 分鐘", fee:"免費",
        may:"全年開放"},
-      {name:"Hvítserkur", zh:"犀牛石", lat:65.6061, lng:-20.6383, z:16,
+      {name:"Hvítserkur", zh:"犀牛石", opt:true, lat:65.6061, lng:-20.6383, z:16,
        q:"Hvitserkur", type:"coast",
        desc:"矗立在 Húnaflói 灣淺灘上的 15 公尺玄武岩海蝕柱。兩個被海蝕穿出來的洞讓它看起來像一頭低頭喝水的犀牛（或巨龍）。退潮能走下黑沙灘繞到它腳邊，漲潮時只能從崖上觀景台看，兩種完全不同的畫面。",
        dwell:60, walk:"崖上觀景台就在停車場旁；下到沙灘有陡階梯，來回 20 分鐘", fee:"免費",
        may:"全年；先查當天潮汐",
-       detour:"環半島的 711 號東岸段是礫石路，行車慢"},
-      {name:"Illugastaðir", zh:"伊魯加斯塔濟海豹棲地", opt:true, lat:65.6056, lng:-20.8776, z:15,
-       q:"Vatnsnes peninsula", type:"wildlife",
-       desc:"半島西岸的農場海岸，冰島最容易從陸上看到野生海豹的地點之一。木棧道通到海邊的觀景小屋，礁石上就是海豹固定上岸曬太陽的地方，不用出海、不用船。",
-       dwell:60, walk:"停車場到觀景點木棧道來回約 15 分鐘", fee:"停車約 ISK 1,000（私人農場）",
-       may:"⚠️ 5 月是海豹上岸高峰，但此地因絨鴨繁殖期（約 4 月下旬至 6 月中）曾封閉部分或全部區域 —— 行程日期落在區間內。出發前查 selasetur.is 或現場告示"},
-      {name:"Hvammstangi", zh:"赫維姆斯唐吉", kind:"city", lat:65.3958, lng:-20.9403, z:14,
-       q:"Hvammstangi Iceland", type:"town",
-       desc:"Vatnsnes 半島的門戶小鎮。港邊的 Icelandic Seal Center 不只是展覽，它會公布當天的潮汐與哪一段海岸正有海豹上岸，是這個半島最實用的一站。",
-       dwell:45, fee:"海豹中心成人約 ISK 1,500",
-       may:"5 月上旬可能縮短時段，出發前查 selasetur.is"}
-    ]
-  },
-  {
-    n:13, title:"Snæfellsnes 半島 Day1（北岸）", date:"5/12（三）", km:206, drive:3.2,
-    note:"從 Hvammstangi 經 Búðardalur 直接到 Stykkishólmur（約 165 公里），再沿北岸往西到 Kirkjufell。想看的話可改走 1 號公路，經 Grábrók 轉 54、60 號公路（Brattabrekka 山口）接 Stykkishólmur，兩者都可選：加 Grábrók 約 260 公里，再加 Víðgelmir 約 340 公里。全天基本約 206 公里。",
-    spots:[
+       detour:"從 1 號公路繞過去約多 25 km；東岸 711 號段是礫石路，行車慢"},
       {name:"Grábrók", zh:"格拉布羅克火山口", opt:true, lat:64.77144, lng:-21.53123, z:14,
        q:"Grabrok crater", type:"volcanic",
        desc:"3000 年前噴發的小型火山渣錐，就在 1 號公路旁。木棧道與階梯直接鋪到口緣，站上去能俯瞰底下的熔岩原與旁邊兩座更老的渣錐。",
@@ -1502,55 +1477,55 @@ const DAYS_CCW = [
 const rev = d => DAYS_CCW[d - 1].spots.slice().reverse();
 
 const DAYS_CW = [
-  DAYS_CCW[0],
+DAYS_CCW[0],
   {
     n:2, title:"Snæfellsnes 半島 Day1（南岸 → 西端）", date:"5/1（六）", km:231, drive:3.9,
     note:"從雷克雅維克沿 1 號公路、54 號公路到半島南岸（前 161 公里沒有停點）：Ytri-Tunga 海豹灘 → Búðakirkja 黑教堂 → Arnarstapi 海崖步道，再到 Lóndrangar、Vatnshellir，繞過西端到 Djúpalónssandur、Saxhóll。全天約 231 公里。",
     spots:rev(14)
   },
   {
-    n:3, title:"Snæfellsnes 半島 Day2（北岸 → 北上）", date:"5/2（日）", km:206, drive:3.2,
-    note:"從 Saxhóll 往東沿北岸到 Kirkjufell 與 Stykkishólmur，再經 Búðardalur 直接到 Hvammstangi 一帶（約 165 公里）。想看的話可從 Stykkishólmur 改走 54、60 號公路（Brattabrekka 山口）接 1 號公路，先到 Víðgelmir 再回 Grábrók，兩者都可選：加 Grábrók 約 260 公里，再加 Víðgelmir 約 340 公里。全天基本約 206 公里。",
+    n:3, title:"Snæfellsnes 半島 Day2（北岸 → 1 號公路東行）", date:"5/2（日）", km:425, drive:6.3,
+    note:"從 Saxhóll 往東沿北岸到 Kirkjufell 與 Stykkishólmur，再經 Búðardalur 接 1 號公路，一路東行到 Akureyri 一帶（Stykkishólmur 到 Akureyri 約 360 公里）。基本約 425 公里、淨車程 6.3 小時，沿途停點都是可選：Hvítserkur（多約 25 公里）、Borgarvirki、Kolugljúfur、Víðimýri 草皮教堂。想看的話可從 Stykkishólmur 改走 54、60 號公路（Brattabrekka 山口）接 1 號公路，先到 Víðgelmir 再回 Grábrók：加 Grábrók 多約 50 公里，再加 Víðgelmir 多約 85 公里。",
     spots:rev(13)
   },
   {
-    n:4, title:"Vatnsnes 半島（西北部）", date:"5/3（一）", km:210, drive:3.5,
-    note:"西北部整天：從 Hvammstangi 出發繞 711 號環半島礫石路，西岸 Illugastaðir 看海豹、東岸 Hvítserkur 看海蝕岩，下半島後 Borgarvirki、Kolugljúfur 都在回 1 號公路的路上，最後東行到 Víðimýri 草皮教堂。Illugastaðir 5 月可能因絨鴨繁殖期封閉（查 selasetur.is）—— 若關閉，半島仍值得繞，Hvítserkur 才是主要理由，海豹 Day 2 已有 Ytri-Tunga。",
+    n:4, title:"Goðafoss + Húsavík + Dettifoss → 米湖", date:"5/3（一）", km:305, drive:4,
+    note:"上午從 Akureyri 出發停 Goðafoss，接著到 Húsavík，可選賞鯨。下午走 85、862 號公路到 Dettifoss 西岸，再回 1 號公路開到米湖過夜。Dettifoss 北段礫石路 5 月下旬才開，不走。",
     spots:rev(12)
   },
   {
-    n:5, title:"Tröllaskagi 半島（巨魔半島）", date:"5/4（二）", km:190, drive:3.0,
-    note:"沿 76／82 號公路穿隧道繞完整個 Tröllaskagi 半島，從西側的 Skagafjörður 一路翻到 Eyjafjörður，不折返。全程約 190 公里、淨車程 3 小時。",
+    n:5, title:"Lake Mývatn", date:"5/4（二）", km:60, drive:1,
+    note:"一整天都在米湖的火山與地熱地貌裡繞。早上先泡 Mývatn Nature Baths（出發前線上訂時段），之後 Skútustaðagígar、Dimmuborgir、Grjótagjá，最後到 Hverir。",
     spots:rev(11)
   },
   {
-    n:6, title:"Goðafoss + Húsavík + Dettifoss → 米湖", date:"5/5（三）", km:305, drive:4.0,
-    note:"上午從 Akureyri 出發停 Goðafoss，接著到 Húsavík，可選賞鯨。下午走 85、862 號公路到 Dettifoss 西岸，再回 1 號公路開到米湖過夜。Dettifoss 北段礫石路 5 月下旬才開，不走。",
+    n:6, title:"米湖 → Stuðlagil → Egilsstaðir", date:"5/5（三）", km:178, drive:2.9,
+    note:"從米湖沿 1 號公路穿內陸高地，經 Möðrudalur 後轉 923 號公路進 Stuðlagil 峽谷（單程約 19 公里，礫石路），再回 1 號公路下到 Egilsstaðir 一帶。",
     spots:rev(10)
   },
   {
-    n:7, title:"Lake Mývatn", date:"5/6（四）", km:60, drive:1.0,
-    note:"一整天都在米湖的火山與地熱地貌裡繞。早上先泡 Mývatn Nature Baths（出發前線上訂時段），之後 Skútustaðagígar、Dimmuborgir、Grjótagjá，最後到 Hverir。",
+    n:7, title:"東部峽灣 Day1（Hafnarhólmi + Seyðisfjörður）", date:"5/6（四）", km:161, drive:2.5,
+    note:"以 Egilsstaðir 為基地的兩段來回：早上走 94 號公路去 Hafnarhólmi 看海鸚（傍晚最活躍，上午也有），回 Egilsstaðir 後下 Seyðisfjörður 看藍教堂與峽灣。",
     spots:rev(9)
   },
   {
-    n:8, title:"東部峽灣 Day1（Möðrudalur → Seyðisfjörður）", date:"5/7（五）", km:290, drive:4.2,
-    note:"從米湖沿 1 號公路穿內陸高地，經 Möðrudalur 到 Egilsstaðir 一帶，可選走 Hengifoss 步道（來回約 2.5 小時），下午下 Seyðisfjörður 看藍教堂與峽灣。",
+    n:8, title:"東部峽灣 Day2（Egilsstaðir → Höfn）", date:"5/7（五）", km:290, drive:4.2,
+    note:"早上可選走 Hengifoss 步道（來回約 2.5 小時），再沿 1 號公路貼著東部峽灣南下：Petra 石頭博物館（可選）、Djúpivogur 蛋雕，晚上到 Höfn 吃龍蝦。",
     spots:rev(8)
   },
   {
-    n:9, title:"東部峽灣 Day2（→ Höfn）", date:"5/8（六）", km:395, drive:5.4,
-    note:"早上先走 94 號公路到 Hafnarhólmi 看海鸚（傍晚最活躍，上午也有），回 Egilsstaðir 後沿 1 號公路貼著東部峽灣南下：Petra 石頭博物館（可選）、Djúpivogur 蛋雕，晚上到 Höfn 吃龍蝦。",
+    n:9, title:"Vestrahorn + 冰河潟湖", date:"5/8（六）", km:110, drive:2.2,
+    note:"早上從 Höfn 到 Vestrahorn 拍山，再往西 Diamond Beach 與 Jökulsárlón，要搭 Zodiac 先訂；Fjallsárlón 留到隔天，晚上在 Skaftafell 一帶過夜。",
     spots:rev(7)
   },
   {
-    n:10, title:"Vestrahorn + 冰河潟湖", date:"5/9（日）", km:165, drive:2.3,
-    note:"早上從 Höfn 到 Vestrahorn 拍山，再往西 Diamond Beach 與 Jökulsárlón，Zodiac 通常是早班，要搭先訂；最後看安靜的 Fjallsárlón，晚上在 Skaftafell 附近過夜。",
+    n:10, title:"Fjallsárlón + Svínafellsjökull 冰川", date:"5/9（日）", km:50, drive:1.1,
+    note:"先看安靜的 Fjallsárlón，經 Hofskirkja 草皮教堂，再上 Svínafellsjökull 冰川嚮導健行（約 3 小時，出發前線上預約）。晚上留在 Skaftafell 一帶。",
     spots:rev(6)
   },
   {
-    n:11, title:"Skaftafell → Kirkjubæjarklaustur", date:"5/10（一）", km:170, drive:2.4,
-    note:"經 Hofskirkja 到 Skaftafell，走 Svartifoss + Sjónarnípa 完整環線（約 3 小時），再沿 1 號公路往西停 Dverghamrar、Kirkjubæjarklaustur。Fjaðrárgljúfur 步道 5 月常仍封閉，出發前查 ust.is —— 封閉就只停 Dverghamrar，兩者都在同一段 1 號公路上。",
+    n:11, title:"Skaftafell → Kirkjubæjarklaustur", date:"5/10（一）", km:160, drive:2.4,
+    note:"走 Svartifoss + Sjónarnípa 完整環線（約 3 小時），再沿 1 號公路往西停 Dverghamrar、Kirkjubæjarklaustur。Fjaðrárgljúfur 步道 5 月常仍封閉，出發前查 ust.is —— 封閉就只停 Dverghamrar，兩者都在同一段 1 號公路上。",
     spots:rev(5)
   },
   {
@@ -1568,8 +1543,8 @@ const DAYS_CW = [
     note:"早上先在 Hveragerði 走 Reykjadalur 溫泉河、到 Bónus 採買，再往北走黃金圈：Kerið，中午在 Friðheimar 番茄農場用餐，下午 Gullfoss、Geysir，回程插入 Brúarfoss，最後 Þingvellir，傍晚回雷克雅維克。",
     spots:rev(2)
   },
-  DAYS_CCW[14],
-  DAYS_CCW[15]
+DAYS_CCW[14],
+DAYS_CCW[15]
 ];
 
 /* 兩個方向必須是同一批景點，不能有人漏掉或重複 */
@@ -1610,7 +1585,7 @@ const keyOf = s => !BASE_DAY.has(s) ? s.wd
 const POOL = new Map(BASE_ALL.map(s => [keyOf(s), {spot:s, place:null}]));
 let placesReady = false;
 
-const EDITS_KEY = 'iceland-trip:edits:v1';
+const EDITS_KEY = 'iceland-trip:edits:v2';
 let EDITS = [];   // [[鍵, 逆時針第幾天]]，0 = 移除；同一個景點只留最後一筆
 try{ EDITS = JSON.parse(localStorage.getItem(EDITS_KEY) || '[]') || []; }catch(e){}
 let PLANNED = new Set(BASE_ALL);
