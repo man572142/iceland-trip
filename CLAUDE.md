@@ -22,9 +22,9 @@ Live site: https://iceland-trip.man572142.workers.dev/
   directions. This is the site.
 - `public/flights.html` — flight option comparison page, linked from the
   header nav on `index.html`. Same dark visual theme, independent data/script.
-- `public/review.html` — 行程體檢報告，只列尚未解決的項目（車程負荷、缺席景點、
+- `public/review.html` — 行程體檢報告（**順時針版**），只列尚未解決的項目（車程負荷、缺席景點、
   同質性、深度）。頂部有一段防回歸註記（無極光、住 Mývatn 兩晚、海鸚在
-  Hafnarhólmi）——修行程時先看那段。Day 編號與里程表對應**逆時針版**。
+  Hafnarhólmi）——修行程時先看那段。Day 編號與里程表對應順時針版；逆時針只留作備案。
   自成一頁，不共用 `index.html` 的樣式，也未從導覽列連入。
 - `public/places.json` — ~1,100 candidate places (Wikidata: waterfalls,
   glaciers, craters, beaches, churches, towns…) drawn as grey dots on the map.
