@@ -75,19 +75,17 @@
 
 ---
 
-# Day 4｜5/3（一）Goðafoss + Húsavík + Dettifoss → 米湖【順時針】
+# Day 4｜5/3（一）Goðafoss + Dettifoss → 米湖【順時針】
 
-上午從 Akureyri 出發：
+從 Akureyri 沿 1 號公路往東：
 
 - Goðafoss
-- Húsavík
-- Whale Watching（可選）
 
-下午走 85、862 號公路：
+經過米湖續行，轉 862 號南段：
 
-- Dettifoss ＋ Selfoss（西岸 862 號，沿步道往上游走約 15 分鐘；北段礫石路 5 月下旬才開，不走）
+- Dettifoss ＋ Selfoss（西岸，沿步道往上游走約 15 分鐘；北段礫石路 5 月下旬才開，不走）
 
-再回 1 號公路開到米湖過夜。
+原路回 1 號公路，開回米湖過夜。這天留作緩衝。
 
 ---
 
@@ -392,23 +390,17 @@ Mývatn Nature Baths（已定案要去，出發前線上訂時段）
 
 ---
 
-# Day 12｜5/11（二）Dettifoss + Húsavík【逆時針】
+# Day 12｜5/11（二）Dettifoss + Goðafoss【逆時針】
 
-上午：
+從米湖沿 1 號公路往東，轉 862 號南段：
 
 - Dettifoss ＋ Selfoss（沿步道往上游走約 15 分鐘）
 
-下午：
-
-Húsavík
-
-可選：
-
-- Whale Watching
-
-沿 1 號公路返回 Akureyri 方向，順路：
+原路回 1 號公路西行，順路：
 
 - Goðafoss
+
+傍晚到 Akureyri。這天留作緩衝。
 
 ---
 
@@ -536,8 +528,6 @@ Kolaportið 跳蚤市場只在週末營業，Day 15（週五）撲空；要逛�
 ✅ Dimmuborgir
 
 ✅ Dettifoss
-
-✅ Húsavík
 
 ✅ Stuðlagil 峽谷
 
