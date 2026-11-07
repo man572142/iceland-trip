@@ -49,6 +49,9 @@ Live site: https://iceland-trip.man572142.workers.dev/
   below for how it relates to `index.html`.
 - `.claude/launch.json` — dev-server entry so the editor's browser preview
   can run `npx wrangler dev`; not part of the deployed site.
+- `.claude/skills/verify/` — the `verify` skill: `driver.mjs` serves the checkout
+  through Wrangler and runs Playwright journeys; `features/` is the map of what
+  to check. Not deployed.
 - `wrangler.jsonc` — Cloudflare Workers config. This is a **static-assets-only
   Worker** (no Worker script) — `assets.directory` points at `public/`. This
   is Workers, not Pages, despite the static-hosting look; don't add
@@ -179,7 +182,7 @@ picker; spots in the plan get 移到這天／從行程移除. Each option shows 
 straight-line detour, and the spot lands in the cheapest slot (`bestSlot`,
 including the previous night's last stop and the next morning's first).
 Changes are `EDITS` (`[key, ccwDay]`, 0 = removed; key = spot name, or the
-Q-id for added places) in `localStorage` `iceland-trip:edits:v1`.
+Q-id for added places) in `localStorage` `iceland-trip:edits:v2`.
 `applyEdits()` replays them on `BASE_SPOTS` (a copy of `DAYS_CCW` taken at
 load) and re-mirrors `DAYS_CW`, so an edit that already matches the deployed
 data drops itself. 更新行程 (header) lists the changes and opens a prefilled
@@ -237,13 +240,14 @@ other should match.
   先訂位」) goes in `desc`, not `book`, or the spot turns 待決定.
   Prices and opening dates change yearly — keep them hedged（約、通常）and
   point at the source to re-check (road.is, ust.is, the operator's site).
-- **Verify before reporting done.** Load the page in Chromium (Playwright,
-  `python3 -m http.server` on `public/`), exercise the changed behaviour, read
-  the actual DOM/hrefs, and look at a screenshot. Reading code or unit-testing
-  a helper is not verification. Say plainly what could not be checked.
-- **No build/lint/test commands** — this is plain HTML/CSS/JS served as-is.
-  Validate changes by opening the file in a browser or running
-  `npx wrangler dev` for a local preview against the real Worker config.
+- **Verify before reporting done.** Use the `verify` skill: load the page in
+  Chromium through the real Worker config, exercise the changed behaviour, read
+  the actual DOM/hrefs, and look at a screenshot. Don't use a plain static file
+  server: it skips the Worker's `.html` redirects and `_headers`. Reading code
+  or unit-testing a helper is not verification. Say plainly what could not be
+  checked.
+- **No build/lint commands** — this is plain HTML/CSS/JS served as-is.
+  `npx wrangler dev` gives a local preview against the real Worker config.
 - **Deployment is automatic**: pushing to `main` builds and deploys via
   Cloudflare Workers. Manual deploy (`npx wrangler deploy`) is rarely needed.
 - Content in this repo (itinerary notes, spot descriptions, UI text) is
