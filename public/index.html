@@ -444,8 +444,8 @@
   .map-toolbar button:hover{color:var(--text);background:rgba(255,255,255,.05)}
   .map-toolbar button.on{background:var(--aurora);color:var(--on-aurora);font-weight:600}
   .map-toolbar .divider{width:1px;height:18px;background:var(--line);margin:0 2px}
-  .map-toolbar #btnAll,.map-toolbar #btnRoute{display:inline-flex;align-items:center;gap:6px}
-  .map-toolbar #btnAll .ico,.map-toolbar #btnRoute .ico{--ico:14px}
+  .map-toolbar #btnRoute{display:inline-flex;align-items:center;gap:6px}
+  .map-toolbar #btnRoute .ico{--ico:14px}
   .map-open{
     position:absolute;bottom:calc(12px + var(--peek));left:12px;z-index:5;
     display:inline-flex;align-items:center;gap:6px;
@@ -715,7 +715,6 @@
   .route-map.dim .leaflet-tile-pane{
     filter:invert(1) hue-rotate(180deg) saturate(.62) brightness(.84) contrast(1.06);
   }
-  /* route-on = 右側是全程總覽（沒選景點），地圖分到多一點高度 */
   .leaflet-container{background:var(--ink-900);font-family:inherit}
   .leaflet-bar,.leaflet-bar a{
     background:rgba(7,10,15,.86);color:var(--text-2);border-color:var(--line);
@@ -753,53 +752,7 @@
   }
   .pop-links a:hover{border-color:var(--aurora-45);color:var(--aurora-hi)}
 
-  /* 右側：每晚落在哪一段 */
-  .route-sum{
-    display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline;
-    font-size:var(--t-sm);color:var(--text-3);margin:0;
-  }
-  .route-sum b{color:var(--text);font-size:var(--t-md);font-weight:600}
   .route-note{font-size:var(--t-sm);color:var(--text-4);margin:12px 0 0;line-height:1.65}
-  .route-note .dash{
-    display:inline-block;width:18px;border-top:2px dashed var(--text-3);
-    transform:translateY(-3px);margin:0 2px;
-  }
-  .nights{list-style:none;display:flex;flex-direction:column;gap:8px;margin:14px 0 0;padding:0}
-  .night{
-    display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;
-    background:var(--surface);border:1px solid var(--line);
-    border-left:3px solid var(--night-c,var(--aurora));
-    border-radius:var(--r-sm);padding:9px 12px;
-  }
-  .night-n{
-    grid-row:1/span 2;font-size:var(--t-xs);font-weight:700;line-height:1.35;
-    color:var(--night-c,var(--aurora));white-space:nowrap;
-  }
-  .night-n span{display:block;color:var(--text-4);font-weight:500}
-  .night-leg{font-size:var(--t-sm);color:var(--text-3);min-width:0}
-  .night-leg b{color:var(--text-2);font-weight:600}
-  .night-leg .arr{color:var(--line-2);margin:0 6px}
-  .night-leg .gap{color:var(--text-4);font-size:var(--t-xs);margin-left:7px;white-space:nowrap}
-  .night-links{display:flex;flex-wrap:wrap;gap:5px}
-  .night-links a{
-    font-size:var(--t-xs);text-decoration:none;color:var(--text-3);
-    border:1px solid var(--line);padding:3px 8px;border-radius:5px;
-  }
-  .night-links a:hover{border-color:var(--aurora-45);color:var(--aurora-hi)}
-  .route-warn{
-    display:flex;gap:9px;margin:12px 0 0;padding:10px 12px;
-    background:rgba(242,181,68,.07);border:1px solid rgba(242,181,68,.3);
-    border-radius:var(--r-sm);font-size:var(--t-sm);color:var(--text-3);line-height:1.6;
-  }
-  .route-warn[hidden]{display:none}
-  .route-warn b{color:var(--sulphur);font-weight:600}
-  .route-warn .ico{--ico:17px;color:var(--sulphur);flex:none;margin-top:2px}
-
-  /* 手機上地圖框固定 190px，全島路線看不清 —— 路線檢視時放大 */
-  @media (max-width:940px){
-    body.route-on .map-box{height:46vh}
-  }
-
   /* ---------- 編輯行程：候選景點、草稿變更、更新行程 ---------- */
   .head-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
   .edit-btn{flex:none}
@@ -959,9 +912,6 @@
         <button type="button" data-t="k" aria-pressed="false">衛星</button>
         <button type="button" data-t="p" aria-pressed="false">地形</button>
         <span class="divider" aria-hidden="true"></span>
-        <button type="button" id="btnAll">
-          <svg class="ico" aria-hidden="true"><use href="#i-compass"/></svg>全覽
-        </button>
         <button type="button" id="btnRoute" class="on" aria-pressed="true">
           <svg class="ico" aria-hidden="true"><use href="#i-route"/></svg>路線
         </button>
@@ -2015,7 +1965,7 @@ buildList();
 
 /* ================= 地圖 =================
    頁內的 Leaflet 是唯一的地圖。Google 地圖只剩外連按鈕（「在 Google 地圖開啟」、
-   當日路線、區域搜尋）—— 點景點不換地圖，全程路線就不會被蓋掉。 */
+   當日路線、區域搜尋）—— 點景點不換地圖。 */
 // "Sólfar (Sun Voyager)" → "Sun Voyager, Iceland"；"Geysir / Strokkur" → "Geysir, Iceland"
 const placeQuery = s => `${titleCandidates(s)[0] || s.name}, Iceland`;
 
@@ -2044,7 +1994,7 @@ document.querySelectorAll('.map-toolbar button[data-t]').forEach(b=>{
   });
 });
 
-/* ================= 全程路線 =================
+/* ================= 路線 =================
    Google 地圖的路線網址吃 10 個停靠點，16 天的點塞不下，
    所以整段路線在頁內自己畫。Leaflet 連不上就只剩底圖的占位訊息
    —— 沒有第二張地圖可以退回。 */
@@ -2065,7 +2015,6 @@ const TILES = {
      attr:'<a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'}
 };
 
-const btnAll  = document.getElementById('btnAll');
 const routeEl = document.getElementById('route');
 // 16 天 16 個色相；相鄰兩天跳 7 格（約 157°），色相相近的兩天在時間和地理上都離得遠
 function dayColor(i){
@@ -2075,14 +2024,12 @@ function dayColor(i){
 const endOf = day => day.spots[day.spots.length-1];
 const mmdd  = d => (d || '').replace(/（.*/, '');
 
-// OSRM 回來之前的墊檔值；一旦標成「直線」就不能被當成車程讀
 function geoKm(a, b){
   const rad = x => x*Math.PI/180, R = 6371;
   const h = Math.sin(rad(b.lat-a.lat)/2)**2 +
             Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(rad(b.lng-a.lng)/2)**2;
   return 2*R*Math.asin(Math.sqrt(h));
 }
-const airKm = (a, b) => Math.round(geoKm(a, b));
 
 /* 路線貼合實際道路：OSRM 的公用 demo server（免 API key、CORS 開放，但沒有
    可用性保證）。每段查一次，結果以該段座標的指紋為鍵存進 localStorage —— 座標
@@ -2095,12 +2042,7 @@ const CAR_L100 = 8, FUEL_ISK = 310, ISK_TWD = 0.24;   // L/100 km、ISK/L、NT$/
 
 const LINES = {};        // 'day3' / 'gap3' -> polyline
 const PINS  = {};        // 天數索引 -> 該天收尾的圖釘
-const GAPS  = {};        // 天數索引 -> {km, min}，OSRM 回來才有
 const LEG_KM = new Map();   // spot -> {km, min, f}：從上一站開過來的路程；f = 該段被導到 F 路
-
-const legLabel = (i, a, b) => GAPS[i]
-  ? `車程 ${hhmm(GAPS[i].min)} · ${GAPS[i].km} km`
-  : `直線 ${airKm(a, b)} km`;
 
 const hash = str => {
   let h = 0;
@@ -2151,27 +2093,8 @@ async function osrm(pts){
   };
 }
 
-/* OSRM 算的是最短路徑，不管季節 —— 冰島的 F 字頭道路多半 6 月才開放且限四驅，
-   這趟是 4/30–5/15。走到 F 路的段落要講出來，不能讓車程數字看起來像可行方案。 */
-const FROADS = {};
-
-function renderWarn(){
-  const box = document.getElementById('routeWarn');
-  if(!box) return;
-  const hits = Object.entries(FROADS).filter(([, v]) => v.f.length);
-  if(!hits.length){ box.hidden = true; return; }
-  box.hidden = false;
-  box.innerHTML = `${icon('i-route')}<span><b>地圖上有路線被導到高地山路</b>：${
-    hits.map(([, v]) => v.label).join('、')
-  }。這是畫圖的誤差，實際開車不會走那裡（高地山路通常 6 月才開，且限四驅）；這幾段的線和車程數字別當真，以一般公路為準。</span>`;
-}
-
 function applyRoad(seg, d){
   LINES[seg.key]?.setLatLngs(d.line);
-  FROADS[seg.key] = {f: d.f || [], label: seg.gap
-    ? `Day ${DAYS[seg.i].n} 到 Day ${DAYS[seg.i+1].n} 之間`
-    : `Day ${DAYS[seg.i].n}`};
-  renderWarn();
   if(!seg.gap){
     for(let k=1; k<seg.stops.length; k++){
       const [a, b] = [seg.stops[k-1], seg.stops[k]];
@@ -2183,10 +2106,7 @@ function applyRoad(seg, d){
     }
     return;
   }
-  GAPS[seg.i] = d;
   LEG_KM.set(DAYS[seg.i+1].spots[0], {km:d.km, min:d.min, f:!!d.f.length});
-  const txt = `車程 ${hhmm(d.min)} · ${d.km} km`;
-  document.querySelectorAll(`[data-gap="${seg.i}"]`).forEach(el => el.textContent = txt);
 }
 
 let routeGen = 0;   // 每次重畫 +1；舊一輪還在跑的查詢看到編號變了就收手
@@ -2220,8 +2140,6 @@ async function snapToRoads(){
 const NEAR = [['住宿','accommodation'], ['加油','petrol station'], ['超市','supermarket']];
 const nearUrl = (q, s, z) =>
   `https://www.google.com/maps/search/${encodeURIComponent(q)}/@${s.lat},${s.lng},${z}z`;
-const legUrl = (a, b) =>
-  `https://www.google.com/maps/dir/${a.lat},${a.lng}/${b.lat},${b.lng}`;
 /* 住宿改走 Booking.com：Google 地圖的搜尋網址帶不進日期與人數。
    night = 該晚第幾天（DAYS 索引）：入住＝當天，退房＝隔天；最後一天是夜班機，沒有住宿日期。 */
 const TRIP_YEAR = 2027, GUESTS = 4, STAY_MAX = 13000;   // STAY_MAX：NT$／晚，Booking 價格篩選上限
@@ -2244,7 +2162,7 @@ const nearLinks = (s, z, night) => NEAR.map(([t,q]) => {
     : `<a href="${nearUrl(q, s, z)}" target="_blank" rel="noopener">${t}</a>`;
 }).join('');
 
-let rmap = null, rTile = null, routeOn = false, leafletReady = null;
+let rmap = null, rTile = null, leafletReady = null;
 let routeLines = null, allPts = [];
 const MARKERS = new Map();   // spot -> 該點在地圖上的圖釘
 
@@ -2268,7 +2186,7 @@ function loadLeaflet(){
   });
 }
 
-/* 唯一的地圖，所以一進頁面就建 —— 不再等「全覽」被點。 */
+/* 唯一的地圖，所以一進頁面就建。 */
 const mapReady = loadLeaflet().then(buildRoute).catch(()=>{
   mapPh.querySelector('span').textContent = '地圖元件連不上，請重新整理，或用左下角的 Google 地圖連結';
 });
@@ -2281,7 +2199,7 @@ function setTile(){
   routeEl.classList.toggle('dim', t.dim);
 }
 
-// 路線還沒回來時不顯示；該段被導到高地山路的，數字照放但註明僅供參考（總警告在全覽）
+// 路線還沒回來時不顯示；該段被導到高地山路的，數字照放但註明僅供參考
 function fuelLine(s){
   const r = LEG_KM.get(s);
   if(!r) return '';
@@ -2326,7 +2244,7 @@ function clearRoute(){
   routeLines?.clearLayers();
   MARKERS.forEach(m => m.remove());
   MARKERS.clear();
-  [LINES, PINS, GAPS, FROADS].forEach(wipe);
+  [LINES, PINS].forEach(wipe);
   LEG_KM.clear();
   allPts = [];
 }
@@ -2398,88 +2316,22 @@ function drawPlaces(){
   });
 }
 
-function routeInfo(){
-  const spots = DAYS.reduce((n,d) => n + d.spots.length, 0);
-  const totKm = DAYS.reduce((n,d) => n + (d.km || 0), 0);
-  const totHr = DAYS.reduce((n,d) => n + (d.drive || 0), 0);
+const EMPTY_INFO = document.getElementById('info').innerHTML;
 
-  const nights = DAYS.slice(0, -1).map((day, i)=>{
-    const end = endOf(day), start = DAYS[i+1].spots[0];
-    return `<li class="night" style="--night-c:${dayColor(i)}">
-      <span class="night-n">DAY ${day.n}<span>${esc(mmdd(day.date))}</span></span>
-      <span class="night-leg"><b>${esc(end.name)}</b><span class="arr">→</span>${
-        esc(start.name)}<span class="gap" data-gap="${i}">${
-        legLabel(i, end, start)}</span></span>
-      <span class="night-links">${nearLinks(end, 10, i)}<a href="${
-        legUrl(end, start)}" target="_blank" rel="noopener">這段車程</a></span>
-    </li>`;
-  }).join('');
-
-  return `<div class="i-head rise">
-      <h2>全程路線</h2><span class="i-zh">16 天一次看完</span>
-    </div>
-    <p class="route-sum rise rise-2">
-      <span><b>${spots}</b> 個地點</span>
-      <span><b>${totKm.toLocaleString()}</b> km</span>
-      <span>淨開車 <b>${totHr.toFixed(1)}</b> 小時</span>
-      <span><b>${DAYS.length-1}</b> 晚</span>
-    </p>
-    <p class="route-note rise rise-2">實線是當天的移動，<span class="dash"></span>虛線是兩天之間的那一段
-      —— 當晚住哪就落在虛線上。路線與車程由網路路線服務計算，可能和實際不同，第一次開啟時逐段更新。
-      下面每一列的連結直接搜該段附近實際有什麼。</p>
-    <div class="route-warn rise rise-2" id="routeWarn" hidden></div>
-    <ol class="nights rise rise-3">${nights}</ol>`;
-}
-
-// 地圖不收起來，只是右側從總覽換成某個景點
-function routeOff(){
-  if(!routeOn) return;
-  routeOn = false;
-  document.body.classList.remove('route-on');
-  btnAll.classList.remove('on');
-  btnAll.setAttribute('aria-pressed', 'false');
-}
-
-async function routeShow(){
-  await mapReady;
-  if(!rmap){
-    info.innerHTML = `
-      <div class="info-empty">
-        ${icon('i-map')}
-        <p class="lead">地圖載入失敗</p>
-        <p class="hint">地圖元件連不上，重新整理再試一次</p>
-      </div>`;
-    return;
-  }
-  routeOn = true;
-  document.body.classList.add('route-on');
-  document.body.classList.remove('spot-on');
-  rmap.invalidateSize();
-  rmap.closePopup();
-  fitAll();
-
-  info.innerHTML = routeInfo();
-  watchPeek();
-  renderWarn();
-  btnAll.classList.add('on');
-  btnAll.setAttribute('aria-pressed', 'true');
-  stageCur.textContent = '全程路線';
-  stageCur.classList.remove('empty');
-  document.body.classList.remove('stage-collapsed');
-  collapseBtn.setAttribute('aria-expanded', 'true');
-  collapseLabel.textContent = '收合';
-  stage.scrollTo({top:0, behavior:'smooth'});
-}
-
-function showOverview(){
+// 沒選景點的預設右側：地圖退回全島視野，面板回到提示
+function showHome(){
   current = null;
+  ++reqToken;
   drawPlaces();
   PHOTOS = [];
   document.querySelectorAll('.spot.active').forEach(x=>x.classList.remove('active'));
   setMapOpen();
-  routeShow();
+  document.body.classList.remove('spot-on');
+  stageCur.textContent = '尚未選擇景點';
+  stageCur.classList.add('empty');
+  info.innerHTML = EMPTY_INFO;
+  mapReady.then(() => { if(rmap){ rmap.closePopup(); fitAll(); } });
 }
-btnAll.addEventListener('click', showOverview);
 
 const btnRoute = document.getElementById('btnRoute');
 btnRoute.addEventListener('click', ()=>{
@@ -2493,7 +2345,7 @@ btnRoute.addEventListener('click', ()=>{
 new ResizeObserver(()=>rmap?.invalidateSize())
   .observe(document.querySelector('.map-box'));
 
-// 面板一開始露出的高度 = 上緣到「名稱＋簡介」（總覽時是名稱＋統計）底部；其餘要往上捲
+// 面板一開始露出的高度 = 上緣到「名稱＋簡介」底部；其餘要往上捲
 const peekRO = new ResizeObserver(setPeek);
 function setPeek(){
   const head = info.firstElementChild, next = head?.nextElementSibling;
@@ -2527,7 +2379,6 @@ let reqToken = 0;
 
 // keepView：從地圖圖釘點進來的，視野不要再跳
 function select(id, keepView){
-  routeOff();
   const s = REG[id];
   current = s;
   drawPlaces();
@@ -2639,7 +2490,6 @@ function showPlace(k, center){
   const e = POOL.get(k);
   if(!e) return;
   const s = spotFor(e);
-  routeOff();
   current = s;
   document.querySelectorAll('.spot.active').forEach(x=>x.classList.remove('active'));
   setMapOpen();
@@ -2797,8 +2647,7 @@ function issueUrl(body = issueBody()){
 }
 
 function showEdits(){
-  if(!EDITS.length){ showOverview(); return; }
-  routeOff();
+  if(!EDITS.length){ showHome(); return; }
   current = null;
   drawPlaces();
   PHOTOS = [];
@@ -2833,7 +2682,7 @@ info.addEventListener('click', async e => {
     EDITS = [];
     applyEdits();
     afterEdit(null);
-    showOverview();
+    showHome();
   } else if(t.href.length > ISSUE_MAX){
     // 內容太長：先複製到剪貼簿，Issue 頁面只帶標題
     e.preventDefault();
@@ -3247,13 +3096,11 @@ function loadPlaces(list){
   if(pending){   // 草稿裡有從地圖加的點，現在才排得進去
     buildList();
     if(rmap){ clearRoute(); drawRoute(false); }
-    if(routeOn){ info.innerHTML = routeInfo(); watchPeek(); renderWarn(); }
   } else drawPlaces();
 }
 
 /* ================= 初始 ================= */
 setMapOpen();
-routeShow();   // 全覽就是預設檢視
 syncEditBtn();
 const placesLoaded = fetch('./places.json').then(r => r.ok ? r.json() : []).catch(() => []).then(loadPlaces);
 </script>

@@ -78,20 +78,13 @@ export default async function(t){
   });
 
   await t.step('click a day pin on the map', async () => {
-    await page.locator('#btnAll').click();
-    await infoTitle(page).filter({hasText:'全程路線'}).waitFor();
+    await page.evaluate(() => fitAll());   // 前面選過景點，地圖已拉近
     await page.waitForTimeout(600);   // fitBounds 動畫結束前圖釘還在移動
     const i = Math.floor(days.length / 2);
     const end = days[i].spots.at(-1).name;
     await page.locator(`.leaflet-marker-icon[title="DAY ${days[i].n} ${end}"]`).click();
     t.eq(await infoTitle(page).innerText(), end, 'panel shows that day\'s last stop');
     t.check(await page.locator('body').evaluate(b => b.classList.contains('spot-on')), 'spot view');
-  });
-
-  await t.step('全覽 returns to the overview', async () => {
-    await page.locator('#btnAll').click();
-    await infoTitle(page).filter({hasText:'全程路線'}).waitFor();
-    t.eq(await page.locator('.spot.active').count(), 0, 'no active row');
   });
 
   await t.step('Wikimedia unreachable: failure message with an image-search link', async () => {

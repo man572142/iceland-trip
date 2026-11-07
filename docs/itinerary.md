@@ -11,7 +11,7 @@ The trip's data is `DAYS` in `public/index.html`, clockwise (西 → 北 → 東
 3. Sync the same change into `iceland_trip_itinerary.md` and the load table in `review.html`.
 4. Update the place's `decision` in `tools/candidates.json`; adding a place not yet there means adding it with its sources ([edit-pipeline.md](edit-pipeline.md#the-candidate-pool)).
 5. Run `node tools/check_itinerary.mjs` (first `npm ci --prefix tools`). No `✗` may remain.
-6. In 全覽, read `#routeWarn`. If it fires, fix the leg as in [map.md](map.md#f-roads).
+6. In the spot's popup, check the 路線僅供參考 flag. If it shows, fix the leg as in [map.md](map.md#f-roads).
 7. Run the `verify` skill.
 
 Adding or removing a day also means changing `tools/check_itinerary.mjs`, which pins the
@@ -81,7 +81,7 @@ Two parts, at most 4 lines in the day list at desktop width (about 110 character
 
 1. **How the day starts and the first drive**: from the previous day's last stop to this day's
    first stop, with time and distance from OSRM（「從雷克雅維克出發，約 2 小時（122 公里）到第一站
-   Hraunfossar」）. That is the overnight leg the overview row shows. Name its start as a stop,
+   Hraunfossar」）. That is the day's departure drive. Name its start as a stop,
    never as where the night is spent ([Lodging](#lodging)). Round time to 5 minutes under an hour,
    to the quarter hour above it. Day 1 starts from KEF; Day 15 has no first drive.
 2. **What the day is about**: its character and highlights（冰河潟湖日、冰川日、全程車程最長的一天）,
@@ -113,5 +113,5 @@ re-check (road.is, ust.is, the operator's site).
 
 The trip never assumes where a night is spent, because the group picks lodging itself: no
 overnight towns in titles or notes, and `km`/`drive` count the day's path plus half of each
-overnight leg. Each night's overview row links to a live search around the day's last stop
-([map.md](map.md#night-links)).
+adjacent departure drive. The day's last-stop popup links to a live search around it
+([map.md](map.md#stay-links)).

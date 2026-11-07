@@ -32,8 +32,7 @@ Preconditions:
 - **Nearby (stubbed).** New page with `commons.wikimedia.org` and `upload.wikimedia.org` fulfilled. The `.cred` titles show the featured picture first, drop the map, the 1890 photo and the small image, and keep at most 2 per author. The API is called at 1000 m then 5000 m with the spot's `lat|lng`. `#gal .gal-more` links to Google Images and Flickr.
 - **All images broken.** Same, with `upload.wikimedia.org` blocked. `#gal .gal-msg b` reads `找不到這個地點的照片`.
 - **Lightbox.** Choose the first `.shot`. `#lb` has class `on`. `#lbNext` changes `#lbCap` when there is more than one photo. `Escape` closes it and focus returns to the photo.
-- **Pin.** Choose `全覽`, wait for the fit animation, and choose `.leaflet-marker-icon[title="DAY <n> <last stop>"]`. `#info h2` shows that stop.
-- **Back.** Choose `#btnAll`. `#info h2` reads `全程路線` and no `.spot.active` remains.
+- **Pin.** Run `fitAll()`, wait for the fit animation, and choose `.leaflet-marker-icon[title="DAY <n> <last stop>"]`. `#info h2` shows that stop.
 - **Photos fail.** New page with `en.wikipedia.org` and `commons.wikimedia.org` blocked. `#gal .gal-msg b` reads `照片載入失敗` and its link goes to Google Images.
 - **Phone.** New 390×844 page. Open a spot, then choose `#collapseBtn` twice. `body` gains `stage-collapsed` and `#collapseLabel` reads `展開`, then `收合`. The page has no horizontal scroll.
 

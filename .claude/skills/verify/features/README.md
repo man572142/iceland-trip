@@ -26,7 +26,7 @@ Each feature file has an H1, one paragraph, then these H2s in order: `Sub-featur
 ## Features
 
 - [Itinerary list](./itinerary-list.md) covers the day list, expand and collapse, the 只看待決定 filter, and search.
-- [Map and route overview](./map-route.md) covers the overview panel, roads, stay links, tile and line buttons, and the failure fallbacks.
+- [Map and route](./map-route.md) covers the pins, roads, stay links, tile and line buttons, and the failure fallbacks.
 - [Spot detail](./spot-detail.md) covers selecting a spot, photos, the lightbox, map pins, and the phone bottom sheet.
 - [Edit draft](./edit-draft.md) covers adding, moving and removing spots, draft persistence, and the 更新行程 issue link.
 - [Discovery](./discovery.md) covers spot highlights and the day's 附近還有 row, through to the draft and issue link.

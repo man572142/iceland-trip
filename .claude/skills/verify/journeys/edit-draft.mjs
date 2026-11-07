@@ -115,7 +115,7 @@ export default async function(t){
   await t.step('全部捨棄 restores the deployed plan', async () => {
     page.once('dialog', d => d.accept());
     await page.locator('#dropEdits').click();
-    await infoTitle(page).filter({hasText:'全程路線'}).waitFor();
+    await page.locator('#info .lead', {hasText:'從左側點選任一景點'}).waitFor();
     t.eq(await listNames(page), base, 'list == baseline');
     t.check(await page.locator('#btnEdits').isDisabled(), 'button disabled again');
     t.eq(await edits(page), [], 'storage emptied');

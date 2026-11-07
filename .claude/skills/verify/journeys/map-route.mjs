@@ -15,22 +15,21 @@ export default async function(t){
   await t.open('/');
   await mapReady(page);
   const days = await readDays(page);
-  const spots = days.reduce((n, d) => n + d.spots.length, 0);
 
-  await t.step('overview is the default: pins, summary, nights', async () => {
-    t.eq(await infoTitle(page).innerText(), '全程路線', 'overview panel');
-    t.eq(await page.locator('#btnAll').getAttribute('aria-pressed'), 'true', '全覽 pressed');
+  await t.step('default view: empty prompt, one pin per day', async () => {
+    t.check(await page.locator('#info .lead', {hasText:'從左側點選任一景點'}).isVisible(), 'empty prompt');
     t.eq(await page.locator('.day-pin').count(), days.length, 'one numbered pin per day');
     const last = (await listNames(page))[1].at(-1);
     await page.locator(`.leaflet-marker-icon[title="DAY 2 ${last}"]`).waitFor({state:'attached'});
     t.check(true, 'Day 2 pin at that day\'s last listed stop');
-    t.eq(await page.locator('.route-sum b').first().innerText(), String(spots), 'summary spot count');
-    t.eq(await page.locator('.nights .night').count(), days.length - 1, 'one row per night');
   });
 
   await t.step('住宿 link carries dates, party size and price cap', async () => {
-    const href = await page.locator('.night').first().locator('a', {hasText:'住宿'}).getAttribute('href');
-    const u = new URL(href);
+    const stayHref = async i => {
+      await page.evaluate(i => PINS[i].openPopup(), i);
+      return page.locator('.leaflet-popup-content .pop-links a', {hasText:'住宿'}).last().getAttribute('href');
+    };
+    const u = new URL(await stayHref(0));
     t.eq(u.hostname, 'www.booking.com', 'goes to Booking');
     const [m, d] = days[0].date.match(/\d+/g).map(Number);
     t.check(new RegExp(`-0?${m}-0?${d}$`).test(u.searchParams.get('checkin')), 'checkin = that day', u.searchParams.get('checkin'));
@@ -39,17 +38,18 @@ export default async function(t){
     t.check(u.searchParams.get('nflt')?.startsWith('price=TWD-'), 'price filter', u.searchParams.get('nflt'));
     const at = await page.evaluate(() => DAYS.slice(0, -1).map(d => d.spots.at(-1)));
     for(const [i, s] of at.entries()){
-      const stay = new URL(await page.locator('.night').nth(i).locator('a', {hasText:'住宿'}).getAttribute('href'));
+      const stay = new URL(await stayHref(i));
       t.eq(stay.searchParams.get('ss'), `${s.name}, Iceland`, `night ${i+1} centres on ${s.name}`);
     }
     for(const label of ['加油', '超市']){
-      const g = await page.locator('.night').first().locator('a', {hasText:label}).getAttribute('href');
+      await page.evaluate(() => PINS[0].openPopup());
+      const g = await page.locator('.leaflet-popup-content .pop-links a', {hasText:label}).last().getAttribute('href');
       t.check(g.startsWith('https://www.google.com/maps/search/'), `${label} stays on Google`);
     }
   });
 
   await t.step('roads arrive from OSRM and replace the straight lines', async () => {
-    await page.waitForFunction(() => document.querySelector('[data-gap="0"]')?.textContent.includes('車程'), null, {timeout:60000});
+    await page.waitForFunction(() => LINES.gap0.getLatLngs().length > 2, null, {timeout:60000});
     t.check((await page.evaluate(() => LINES.gap0.getLatLngs().length)) > 2, 'gap line follows the road');
   });
 
@@ -58,7 +58,7 @@ export default async function(t){
     const before = t.requests.length;
     await page.reload();
     await mapReady(page);
-    await page.waitForFunction(() => document.querySelector('[data-gap="0"]')?.textContent.includes('車程'));
+    await page.waitForFunction(() => LINES.gap0.getLatLngs().length > 2);
     t.eq(t.requests.slice(before).filter(u => u.includes(OSRM)).length, 0, 'no OSRM requests after reload');
   });
 
@@ -71,8 +71,6 @@ export default async function(t){
     await pop.waitFor({state:'visible'});
     t.eq(await pop.locator('.pop-h').innerText(), spot.name, 'popup names the spot');
     t.check(/距上一站 .* 油費\$/.test(await pop.locator('.pop-fuel').innerText()), 'fuel line', await pop.locator('.pop-fuel').innerText());
-    await page.locator('#btnAll').click();
-    await infoTitle(page).filter({hasText:'全程路線'}).waitFor();
   });
 
   await t.step('路線 hides the lines, keeps the pins', async () => {
@@ -100,31 +98,30 @@ export default async function(t){
     t.check(true, 'OSM tiles back');
   });
 
-  await t.step('dead routing server: straight lines stay, no warning, page usable', async () => {
+  await t.step('dead routing server: straight lines stay, page usable', async () => {
     page = await t.newPage({block:[OSRM]});
     await t.open('/');
     await mapReady(page);
     await page.waitForTimeout(1500);   // 給第一輪查詢失敗的時間
     t.eq(await page.evaluate(() => LINES.gap0.getLatLngs().length), 2, 'gap line still straight');
-    t.check((await page.locator('[data-gap="0"]').innerText()).startsWith('直線'), 'label says straight-line');
-    t.check(await page.locator('#routeWarn').isHidden(), 'no road warning');
-    t.check(await page.locator('.nights .night').first().isVisible(), 'overview still rendered');
+    t.eq(await page.locator('.day-pin').count(), days.length, 'pins still drawn');
   });
 
-  await t.step('route on an F-road raises the traveller warning', async () => {
+  await t.step('leg on an F-road is flagged in the popup', async () => {
     page = await t.newPage({fulfill:{[OSRM]:froadRoute}});
     await t.open('/');
-    const warn = page.locator('#routeWarn');
-    await warn.waitFor({state:'visible'});
-    const text = await warn.innerText();
-    t.check(text.includes('高地山路'), 'warning names the problem', text.slice(0, 40));
+    await mapReady(page);
+    const spot = pickSpot(days, {minDay:2});
+    await page.waitForFunction(n => [...LEG_KM.keys()].some(s => s.name === n), spot.name, {timeout:30000});
+    await openSpot(page, spot.name);
+    const text = await page.locator('.leaflet-popup-content .pop-fuel').innerText();
+    t.check(text.includes('路線僅供參考'), 'popup flags the leg', text);
     t.check(!/OSRM|F\d/.test(text), 'no server or road numbers in the text');
   });
 
   await t.step('dead Leaflet CDN: message instead of a map, list still works', async () => {
     page = await t.newPage({block:[CDN, OSRM]});
     await t.open('/');
-    await page.locator('#info .lead', {hasText:'地圖載入失敗'}).waitFor();
     t.check((await page.locator('.map-ph span').innerText()).includes('連不上'), 'placeholder message');
     t.eq(await page.locator('#dayList > li.day').count(), days.length, 'day list rendered');
   });

@@ -15,8 +15,8 @@ low zoom by sitelink count (`MIN_SL`), with labels at higher zoom. The matching 
 `loadPlaces()`. A spot removed from the plan becomes an amber ring. Clicking either opens the
 same right panel as a spot (Wikipedia intro, zh-TW when a zh article exists, plus photos) with a
 day picker; spots in the plan get 移到這天／從行程移除. Each option shows the straight-line detour,
-and the spot lands in the cheapest slot (`bestSlot`), counting the previous night's last stop and
-the next morning's first. The place whose panel is open is drawn whatever `MIN_SL` says.
+and the spot lands in the cheapest slot (`bestSlot`), counting the previous day's last stop and
+the next day's first. The place whose panel is open is drawn whatever `MIN_SL` says.
 
 A day's `nearby` items ([itinerary.md](itinerary.md#highlights-and-nearby)) enter the same pool in
 `loadPlaces()`, using their `places.json` entry when `wd` has one and their own fields otherwise.
@@ -48,7 +48,7 @@ Changes are `EDITS` (`[key, day]`, 0 = removed; key = spot name, or Q-id for add
 already matches the deployed data drops itself. Change `EDITS_KEY` whenever a stored draft's day
 numbers would mean something else, so an old draft is never replayed under the new meaning.
 
-km/drive move by the OSRM difference (the day's path in full, the two overnight legs half each),
+km/drive move by the OSRM difference (the day's path in full, the two adjacent departure drives half each),
 not a full recompute. Until deployed, the page keeps old km/drive on touched days and shows 已修改.
 
 ## The issue

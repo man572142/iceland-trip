@@ -16,7 +16,7 @@ Live site: https://iceland-trip.man572142.workers.dev/
 
 - **Trip content** (a spot, a day, `desc`, decision fields, `title`/`note`/`km`/`drive`):
   [docs/itinerary.md](docs/itinerary.md)
-- **Map, routes, photos, night links** (Leaflet, OSRM, `via`, `#routeWarn`, Booking):
+- **Map, routes, photos, stay links** (Leaflet, OSRM, `via`, Booking):
   [docs/map.md](docs/map.md)
 - **Candidates, the candidate pool (`tools/candidates.json`), the draft, 更新行程, `tools/`, the update workflow**:
   [docs/edit-pipeline.md](docs/edit-pipeline.md)

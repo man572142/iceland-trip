@@ -1,4 +1,4 @@
-# Map, routes, photos and night links
+# Map, routes, photos and stay links
 
 All of this lives in `public/index.html`.
 
@@ -9,11 +9,11 @@ and opens that spot's popup, so the whole route stays on screen. If Leaflet neve
 placeholder message stays. Google Maps appears only as outbound links.
 
 The route lives here because a `maps/dir/` URL caps at 10 stops: one coloured polyline per day,
-a dashed segment across each gap between days, a numbered pin at every day's last stop.
+a dashed segment for each departure drive (previous day's last stop to this day's first stop), a numbered pin at every day's last stop.
 
 - Lines sit in their own layer group, so 「路線」 hides them and keeps the pins.
-- 「全覽」 refits to the whole trip and puts the route summary in the right panel
-  (`body.route-on`).
+- With no spot selected the right panel shows the empty prompt and the map fits the whole trip
+  (`showHome`). There is no separate route-overview page.
 - The road/satellite/terrain buttons swap `TILES`. The dark look is a CSS filter on the tile
   pane, off for imagery.
 - Layers added before the map has a view throw inside Leaflet, so `buildRoute` sets a view
@@ -37,8 +37,8 @@ constants above `LINES`). Legs that hit an `F`-road are tagged 「路線僅供�
 OSRM routes by distance, not season, and will send you over an `F`-road: a highland track,
 4x4-only and usually shut until June, which is after this trip. So its numbers are
 shortest-path, not plans. Every query asks for `steps` purely to read each step's `ref`; any
-`F`-prefixed one is named in the amber `#routeWarn`. Keep that warning wired to anything that
-shows an OSRM duration. Its text is for travellers, so it speaks without "OSRM" or road numbers.
+`F`-prefixed one marks the leg 路線僅供參考 in the popup (`LEG_KM.f`). Keep that flag wired to
+anything that shows an OSRM duration. Its text is for travellers, so it speaks without "OSRM" or road numbers.
 
 When it fires:
 
@@ -61,10 +61,10 @@ Fetched live at page view by `loadPhotos()` from Wikimedia (no key), never store
 Above the photos, 更多照片 links to Google Images (name + Iceland) and Flickr's nearby search.
 If every image fails to load, the gallery shows the no-photo message instead of an empty grid.
 
-## Night links
+## Stay links
 
-The overview gives each night the leg it falls on, with 住宿／加油／超市 links centred on the day's
-last stop.
+Every map popup carries 住宿／加油／超市 links centred on that spot; the day's last-stop pin is
+the one to use for finding a bed.
 住宿 goes to Booking.com, because a Google Maps search URL can't carry dates or party size:
 `stayUrl()` fills check-in, check-out, coordinates and a price cap from `TRIP_YEAR`, `GUESTS` and
 `STAY_MAX`. The last day has no night (red-eye flight) and falls back to Google, as 加油／超市

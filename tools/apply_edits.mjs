@@ -4,7 +4,7 @@
 
    - 受影響那幾天的 DAYS spots 照 Issue JSON 的順序重排
    - 新景點用 Issue 帶來的座標與類型建一個最小景點物件：desc 留空（網頁改顯示維基百科摘要）、dwell 依類型預設
-   - km／drive：原數字加上 OSRM 的路線差（當天路線全額 + 前後兩段夜間移動各一半，住處假設在中點）
+   - km／drive：原數字加上 OSRM 的路線差（當天路線全額 + 前後兩段啟程車程各一半，住處假設在中點）
    - 排進行程的地點從各天的 nearby 拿掉（nearby 只列沒排的，檢查會擋）
    - 寫不出來的（介紹、中文名、提到舊景點的 note）列成待補，交給後面的 Claude Code 步驟
    - 這次變更弄過期的候選池結論只列在報告裡，不擋流程
@@ -188,7 +188,7 @@ fs.writeFileSync(path.join(outDir, 'report.md'), `已照清單改好 \`public/in
 **變更**
 ${[...changes.map(c => c.text), ...leftNearby].map(x => `- ${x}`).join('\n')}
 
-**車程與里程**（原數字加上 OSRM 算出的路線差；前後兩段夜間移動各算一半）
+**車程與里程**（原數字加上 OSRM 算出的路線差；前後兩段啟程車程各算一半）
 ${kmRows.join('\n') || '- 沒有變動'}
 
 **待補**

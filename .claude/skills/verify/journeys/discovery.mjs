@@ -116,8 +116,7 @@ export default async function(t){
       await settled(page);
     }
     t.check(await dotDrawn(page, near), 'still drawn below its sitelink threshold');
-    await page.locator('#btnAll').click();
-    await infoTitle(page).filter({hasText:'全程路線'}).waitFor();
+    await page.evaluate(() => showHome());
     await settled(page);
     t.eq(await page.evaluate(k => MIN_SL(rmap.getZoom()) > (POOL.get(k).place.sl ?? -1), near.wd) && await dotDrawn(page, near), false,
       'leaving the panel returns it to normal thinning');

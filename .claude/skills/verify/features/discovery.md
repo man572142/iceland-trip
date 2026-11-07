@@ -30,7 +30,7 @@ Preconditions:
 - **Row.** Open the day. `.near-toggle` reads `附近還有 N 處` with `aria-expanded="false"`, its items are hidden, it is the last child of `.day-body-pad`, and it has no fill or border.
 - **Expand.** Focus `.near-toggle` and press Enter. `aria-expanded` flips, `.near-item[data-k="<Q-id>"]` shows name, zh and `why`, and it sits inside `.day-body-inner` without clipping.
 - **Panel.** Choose the item. `#info h2` names it, `.badge` reads `不在行程裡`, `.i-facts dd` holds `why`, `#sumDesc a.src` exists, `#planGo` is enabled, `rmap` has moved, `elementFromPoint` at the place's pixel is inside the map, and `.pop-h` names it.
-- **Marker.** Zoom out with `.leaflet-control-zoom-out` until `MIN_SL` exceeds the place's `sl`. `placeLayer` still holds a layer at its position. Choose `#btnAll` and the layer goes.
+- **Marker.** Zoom out with `.leaflet-control-zoom-out` until `MIN_SL` exceeds the place's `sl`. `placeLayer` still holds a layer at its position. Call `showHome()` and the layer goes.
 - **Add.** Choose the item, select its day in `#planDay`, and choose `#planGo`. `#editN` reads `1`, storage holds `[[Q-id, day]]`, the item leaves the row, and the row goes with its last item. A reload keeps this.
 - **Issue.** Choose `#btnEdits` and read the `#sendIssue` href without opening it. `add[Q-id]` carries the name, zh, coordinates and type, and `days` equals the page's order and holds the Q-id.
 - **Undo.** Choose `[data-undo]`. The row returns and storage is empty.
