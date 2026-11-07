@@ -110,9 +110,9 @@ jobs:
             Issue #${{ github.event.issue.number }} 的行程變更已經由固定腳本套用並推上 main（景點的天數、順序、km／drive 都已定案，不要再動）。
             用 `gh issue view ${{ github.event.issue.number }} --comments` 讀最新那則留言的「待補」清單，只處理清單上的項目：
 
-            - 新景點（desc 是空字串的那些）：照 CLAUDE.md「Writing a desc」補 desc、繁體中文 zh、z、q，查證後補 dwell 與適用的 walk／fee／book／may；保留 wd。
+            - 新景點（desc 是空字串的那些）：照 docs/itinerary.md「Writing a desc」補 desc、繁體中文 zh、z、q，查證後補 dwell 與適用的 walk／fee／book／may；保留 wd。
             - 列出的 title／note：依現在的排法改寫，兩個方向各自的文字都要對。
             - review.html 里程表與 iceland_trip_itinerary.md 同步到現在的行程與 km／drive。
 
-            改完跑 `node tools/check_itinerary.mjs`（不能有 ✗、不能再有 desc 待補），再照 CLAUDE.md 的「Verify before reporting done」在 Chromium 看過頁面。
+            改完跑 `node tools/check_itinerary.mjs`（不能有 ✗、不能再有 desc 待補），再用 verify skill 在 Chromium 看過頁面。
             commit（最後一行寫 `Closes #${{ github.event.issue.number }}`）後 `git push origin HEAD:main`，再用 `gh issue comment` 留言說明補了什麼。

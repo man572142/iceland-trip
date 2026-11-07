@@ -16,7 +16,7 @@ trip together and referencing the site during the trip itself.
 A personal itinerary planner for a 16-day Iceland trip (2027/4/30–5/15):
 lays out the day-by-day plan as an interactive map with real-world photos so
 the group can see where they're going and what it looks like, plus a
-separate flight-options comparison page. Success is a clear, browsable plan
+separate page with the confirmed flights and the earlier price comparison. Success is a clear, browsable plan
 the group actually uses while planning and on the road — not a product for
 outside users.
 
@@ -33,11 +33,11 @@ maintaining an image library.
 - Planning phase now, at a desk, iterating on the itinerary content and map.
 - On-trip phase later (2027/4/30–5/15): pulled up on mobile in Iceland to
   check the day's stops, lodging, and route.
-- Itinerary runs a single clockwise loop around Iceland (Reykjavík → south
-  coast → east → north → back), no backtracking.
+- The itinerary is a ring road loop, shown clockwise by default (west → north
+  → east → south) with counter-clockwise kept as a fallback.
 - Confirmed flights: outbound 4/29–4/30 via Prague to Keflavík; return
-  5/16–5/17 via Frankfurt. Source of truth for dates/flights/lodging is
-  `iceland_trip_itinerary.md` (written in Traditional Chinese).
+  5/16–5/17 via Frankfurt. `iceland_trip_itinerary.md` (written in Traditional
+  Chinese) holds the written plan.
 
 ## Capabilities and Constraints
 
@@ -62,21 +62,19 @@ maintaining an image library.
 
 No formal brand. Existing dark visual theme (near-black background, teal
 `--accent`/indigo `--accent-2`/gold accents, Noto Sans TC) is established in
-both pages independently (each defines its own `:root` and is expected to
-diverge on purpose per page) — see `CLAUDE.md` for the current split.
+both pages independently (each defines its own `:root`).
 
 ## Evidence on Hand
 
 Real trip data only: confirmed flights, day-by-day stops, and lodging as
 written in `iceland_trip_itinerary.md`. No testimonials, pricing, or
-third-party proof needed — this isn't that kind of site. Do not invent trip
-content; the itinerary markdown file is canonical for dates/lodging/day
-count.
+third-party proof needed — this isn't that kind of site. Take trip content
+only from the itinerary data and the markdown plan.
 
 ## Product Principles
 
-1. The written itinerary (`iceland_trip_itinerary.md`) is the source of
-   truth for trip facts; the HTML pages render it, not the other way round.
+1. Spots and day order live in `DAYS_CCW`/`DAYS_CW` in `public/index.html`;
+   `iceland_trip_itinerary.md` is kept in step with them.
 2. Keep it a zero-dependency static page — no framework, no build step, no
    backend — so it stays trivial to edit and deploy.
 3. Content is for the group, in Traditional Chinese; keep it concise and

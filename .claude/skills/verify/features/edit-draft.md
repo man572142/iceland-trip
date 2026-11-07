@@ -40,7 +40,7 @@ Preconditions:
 
 ## Gotchas
 
-- Never open `#sendIssue`. An issue from the repo owner runs the workflow that pushes to `main`. The driver blocks `github.com`, and `report.json` `blocked` must stay empty for this journey.
+- `report.json` `blocked` must hold no `github.com` URL for this journey: it reads the `#sendIssue` href and never opens it. The OSRM entries there are expected.
 - Grey dots are on a canvas, so they have no DOM handle. Read a dot's pixel position from `rmap`, confirm `elementFromPoint` is the canvas and not a route line, and use the mouse.
 - Added spots wait for `places.json`. After a reload, wait for `placesReady` before reading `#editN`.
 - A day cannot lose its last spot. `#planRm` is disabled there, so pick spots from days with at least three.
