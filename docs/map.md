@@ -2,13 +2,6 @@
 
 All of this lives in `public/index.html`.
 
-## Direction
-
-`DAYS` is whichever direction is active (`ROUTES[dir]`, remembered under `DIR_KEY`). The
-順時針／逆時針 buttons call `switchRoute()`, which rebuilds the list, redraws the route and
-returns the right panel to the overview. 「全程第 N／M 個」 counters follow the active order
-(`indexTypes()`).
-
 ## Map
 
 One Leaflet map (cdnjs with SRI), built on load and never replaced. Selecting a spot pans it
@@ -33,9 +26,8 @@ Segments draw straight first and redraw as each query lands, so a slow or dead s
 straight lines. That fallback is the feature; keep it in place of any spinner.
 
 Geometry and each leg's km/minutes are cached in `localStorage` (`ROADS_KEY`) per segment,
-keyed by a hash of its coordinates, so editing `DAYS` refetches only moved segments and the two
-directions share the rest. A switch mid-fetch bumps `routeGen`, which stops the old round
-painting onto the new lines.
+keyed by a hash of its coordinates, so editing `DAYS` refetches only moved segments. A redraw
+mid-fetch bumps `routeGen`, which stops the old round painting onto the new lines.
 
 Per-leg km feeds the 「距上一站 … 油費$」 line in each popup (`fuelLine`; deliberately rough
 constants above `LINES`). Legs that hit an `F`-road are tagged 「路線僅供參考」.
@@ -52,19 +44,20 @@ When it fires:
 
 1. Check the coordinate of the stop that ends the leg. A stop off the road network snaps to the
    nearest road, possibly an `F`-road, and no pin can fix that.
-2. Otherwise add `via:[[lat,lng],…]` (counter-clockwise) or `viaR` (clockwise) to that stop. The
-   points are inserted before it in the query (`segments()`, `ROUTES[dir].viaKey`), pinning the
-   line to the paved road.
+2. Otherwise add `via:[[lat,lng],…]` to that stop. The points are inserted before it in the query
+   (`segments()`), pinning the line to the paved road.
 
 ## Photos
 
-Fetched live at page view by `loadPhotos()`, never stored in the repo: the Wikimedia Commons API
-(`origin=*` for CORS, no key) searched with the spot's `q`, falling back to a Wikipedia summary
-thumbnail. Relevance is tuned through `q`.
+Fetched live at page view by `loadPhotos()`, never stored in the repo, through the Wikimedia APIs
+(`origin=*` for CORS, no key). The spot's name is tried first as an English Wikipedia title; then `q`
+as a Wikipedia search; then `q` on Commons. A name that matches another place's article shows that
+place, so such a stop needs a more specific `name`, and `q` needs testing in that same order.
 
 ## Night links
 
-The overview gives each night the leg it falls on, with 住宿／加油／超市 links centred there.
+The overview gives each night the leg it falls on, with 住宿／加油／超市 links centred on the day's
+last stop.
 住宿 goes to Booking.com, because a Google Maps search URL can't carry dates or party size:
 `stayUrl()` fills check-in, check-out, coordinates and a price cap from `TRIP_YEAR`, `GUESTS` and
 `STAY_MAX`. The last day has no night (red-eye flight) and falls back to Google, as 加油／超市

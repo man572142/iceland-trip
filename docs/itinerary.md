@@ -1,44 +1,36 @@
 # Editing the itinerary
 
-The trip's data is `DAYS_CCW` and `DAYS_CW` in `public/index.html`.
+The trip's data is `DAYS` in `public/index.html`, clockwise (西 → 北 → 東 → 南). Each day holds its
+`spots` in travel order.
 
 ## Steps
 
 1. Read the 「已修正 · 別改回去」 callout at the top of `public/review.html`. Each item is a
    settled decision; a change that reverses one needs the user's say-so.
-2. Put spots in `DAYS_CCW`; `DAYS_CW` follows through its mirror. Write `title`, `note`,
-   `km` and `drive` in each direction separately.
-3. Sync the same change into `iceland_trip_itinerary.md` (both directions) and the load
-   table in `review.html` (clockwise day numbers).
-4. Run `node tools/check_itinerary.mjs` (first `npm ci --prefix tools`). No `✗` may remain.
-5. In 全覽, read `#routeWarn`. If it fires, fix the leg as in [map.md](map.md#f-roads).
-6. Run the `verify` skill.
+2. Put the spot in its day's `spots`, and update that day's `title`, `note`, `km` and `drive`.
+3. Sync the same change into `iceland_trip_itinerary.md` and the load table in `review.html`.
+4. Update the place's `decision` in `tools/candidates.json`; adding a place not yet there means adding it with its sources ([edit-pipeline.md](edit-pipeline.md#the-candidate-pool)).
+5. Run `node tools/check_itinerary.mjs` (first `npm ci --prefix tools`). No `✗` may remain.
+6. In 全覽, read `#routeWarn`. If it fires, fix the leg as in [map.md](map.md#f-roads).
+7. Run the `verify` skill.
 
 Adding or removing a day also means changing `tools/check_itinerary.mjs`, which pins the
-day count and the mirror.
-
-## Two directions, one set of spots
-
-`DAYS_CCW` (南→東→北→西) holds every spot. `DAYS_CW` (西→北→東→南, the default) is its
-**mirror**: clockwise day d is counter-clockwise day 16-d's spot objects reversed
-(`rev(n)`), with Day 1/15/16 shared. Day boundaries therefore match in both, and a move
-changes both.
-
-Spot text must read the same in both directions: day numbers and trip dates go in the
-day's `note`. Day 15/16 and Kolaportið's weekend are fixed in both, so they may name theirs.
+day count.
 
 ## Placing a spot
 
 A spot belongs to the day whose path passes it. Compare its insertion cost between the
-neighbouring stops (OSRM `table` distances), judging in the counter-clockwise direction.
-A stop beyond the night's town in the travel direction (Kolugljúfur, Bónus Hveragerði)
-goes to the next morning.
+neighbouring stops (OSRM `table` distances). A stop past the day's last one in the travel
+direction goes to the next morning.
+
+A spot can change days, so day numbers and trip dates go in the day's `note`, not in spot text.
+Day 15/16 and Kolaportið's weekend are fixed, so they may name theirs.
 
 ## Fields
 
 A day has `n`, `title`, `date`, `note`, `km`, `drive` (net driving hours, `null` on the
-Reykjavík day) and `spots[]`. Clockwise `km`/`drive` equal the `review.html` load table, whose
-caption defines how they are measured.
+Reykjavík day) and `spots[]`. `km`/`drive` equal the `review.html` load table, whose caption
+defines how they are measured. It may also have `nearby`; see [Highlights and nearby](#highlights-and-nearby).
 
 A spot needs these, which the checker enforces:
 
@@ -46,7 +38,7 @@ A spot needs these, which the checker enforces:
 |---|---|
 | `name`, `zh` | Name and Chinese name. |
 | `lat`, `lng`, `z` | Position and map zoom (14–17 by how tight the location is). |
-| `q` | Wikimedia search string. Plain city names collide, so qualify with country/region words. |
+| `q` | Wikimedia search string. Plain city names collide, so qualify with country/region words. See [map.md](map.md#photos) for when it applies. |
 | `desc` | See [Writing a `desc`](#writing-a-desc). |
 | `type` | A key of `TYPES`. Drives the list chip and the 「全程第 N／M 個」 counter that makes homogeneity visible. To add a key, add it to `TYPES`. Type by *experience*: a town you stop at for its pool is `bath`. |
 | `dwell` | Minutes. Feeds the day's `budget` row (net driving + summed `dwell`, on a shared 12 h ruler). |
@@ -65,9 +57,24 @@ surrounding day has them:
 | `fixed: true` | Settled by the group. Keeps the 需預約 chip but leaves 待決定, so when a decision lands, set `fixed` and keep `book`. |
 | `may` | Opening status in early May. |
 | `detour` | Extra distance and road condition of a side road（來回 54 km、礫石路）. |
-| `via`, `viaR` | Road pins. See [map.md](map.md#f-roads). |
+| `via` | Road pins. See [map.md](map.md#f-roads). |
+| `highlights` | Things to see inside the stop. See [Highlights and nearby](#highlights-and-nearby). |
 
 The 「只看待決定」 filter is `opt` or `book`, minus `fixed`.
+
+## Highlights and nearby
+
+A highlight is inside a stop. A `nearby` place is deliberately left out of the plan, with its
+reason. Both are optional and capped by the checker, because the page must stay restrained.
+
+| Field | Item | Shown |
+|---|---|---|
+| Spot `highlights` | `{t, d, min}`: name, one short sentence, optional minutes | Spot panel only |
+| Day `nearby` | `{name, zh, wd, lat, lng, type, why}` | A collapsed row at the end of the day; each item opens the candidate panel |
+
+`why` is one short sentence stating the fact that explains the omission（「從米湖經 Húsavík 來回約
+3.6 小時，所以沒排」）. A place in `nearby` must not also be a spot, and appears in only one day's
+`nearby`; the checker enforces both.
 
 ## Writing a `desc`
 
@@ -87,6 +94,7 @@ re-check (road.is, ust.is, the operator's site).
 
 ## Lodging
 
-`DAYS` names no lodging or overnight towns, because nothing here can tell whether a town is
-bookable. Each night's overview row links to a live search around the leg it falls on instead
+The trip never assumes where a night is spent, because the group picks lodging itself: no
+overnight towns in titles or notes, and `km`/`drive` count the day's path plus half of each
+overnight leg. Each night's overview row links to a live search around the day's last stop
 ([map.md](map.md#night-links)).

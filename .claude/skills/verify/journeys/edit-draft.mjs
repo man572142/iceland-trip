@@ -91,15 +91,18 @@ export default async function(t){
     t.eq(await infoTitle(page).innerText(), '更新行程', 'panel');
     t.eq(await page.locator('.change').count(), 3, 'three rows');
     t.eq(await page.locator('.change .change-k').allInnerTexts(), ['移除', '換天', '新增'], 'kinds in order');
+    const moveRow = `Day ${moved.day + 1} → Day ${movedTo + 1}`;
+    t.check((await page.locator('.change').nth(1).innerText()).includes(moveRow), 'row names the days as listed', moveRow);
     // 只讀 href，絕不點 #sendIssue
     const href = await page.locator('#sendIssue').getAttribute('href');
     const u = new URL(href);
     t.eq(u.origin + u.pathname, 'https://github.com/man572142/iceland-trip/issues/new', 'issue endpoint');
     t.check(u.searchParams.get('title').startsWith('[行程更新]'), 'title prefix the workflow matches', u.searchParams.get('title'));
     const json = JSON.parse(u.searchParams.get('body').match(/```json\n(.*)\n```/s)[1]);
-    t.eq(json.v, 1, 'payload version');
+    t.eq(json.v, 2, 'payload version');
+    t.check(u.searchParams.get('body').includes(moveRow), 'body names the days as listed', moveRow);
     t.check(json.add[cand.k]?.name === cand.name, 'candidate in add{}');
-    const page_days = await page.evaluate(ns => ns.map(n => DAYS_CCW[n - 1].spots.map(keyOf)), Object.keys(json.days));
+    const page_days = await page.evaluate(ns => ns.map(n => DAYS[n - 1].spots.map(keyOf)), Object.keys(json.days));
     t.eq(Object.values(json.days), page_days, 'days{} == the page\'s full order');
   });
 

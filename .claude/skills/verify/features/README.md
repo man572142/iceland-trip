@@ -6,7 +6,7 @@ This directory is the maintained source for verifying the site's user-facing beh
 
 - `driver up` reports `READY`, and `driver doctor` has no `FAIL`. `driver` is defined in [SKILL.md](../SKILL.md).
 - Drive only an instance started by this checkout's `driver up`.
-- A journey starts from an empty `localStorage`, so a fresh visitor sees the clockwise route and no draft.
+- A journey starts from an empty `localStorage`, so a fresh visitor sees the deployed plan and no draft.
 
 ## Driving conventions
 
@@ -26,10 +26,10 @@ Each feature file has an H1, one paragraph, then these H2s in order: `Sub-featur
 ## Features
 
 - [Itinerary list](./itinerary-list.md) covers the day list, expand and collapse, the 只看待決定 filter, and search.
-- [Route direction](./route-direction.md) covers the 順時針／逆時針 switch, mirroring, and persistence.
 - [Map and route overview](./map-route.md) covers the overview panel, roads, stay links, tile and line buttons, and the failure fallbacks.
 - [Spot detail](./spot-detail.md) covers selecting a spot, photos, the lightbox, map pins, and the phone bottom sheet.
 - [Edit draft](./edit-draft.md) covers adding, moving and removing spots, draft persistence, and the 更新行程 issue link.
+- [Discovery](./discovery.md) covers spot highlights and the day's 附近還有 row, through to the draft and issue link.
 - [Flights page](./flights.md) covers navigation, the confirmed flights, and the price archive.
 
 ## Not mapped yet

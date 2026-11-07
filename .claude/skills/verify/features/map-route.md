@@ -4,7 +4,7 @@ The overview is the default right panel: the whole trip on one Leaflet map with 
 
 ## Sub-features
 
-- `map-overview` shows pins, summary and night rows.
+- `map-overview` shows pins at each day's last stop, summary and night rows.
 - `map-stay` sends 住宿 to Booking with dates, party size and price cap. 加油 and 超市 stay on Google.
 - `map-roads` replaces straight lines with road geometry and caches it per segment.
 - `map-fuel` adds the distance and fuel line to a spot's popup.
@@ -29,8 +29,8 @@ Preconditions:
 - Baseline state.
 - `driver doctor` has no `WARN` for OSRM or the Leaflet CDN.
 
-- **Overview.** Load `/`. `#info h2` reads `全程路線`, `#btnAll` is pressed, `.day-pin` count equals the day count, the first `.route-sum b` equals the spot count, and `.nights .night` count is one less than the day count.
-- **Stay link.** Read the `住宿` href in the first `.night`. It is `www.booking.com` with `checkin` on that day, a later `checkout`, `group_adults` and `nflt=price=TWD-…`.
+- **Overview.** Load `/`. `#info h2` reads `全程路線`, `#btnAll` is pressed, `.day-pin` count equals the day count, a pin titled `DAY 2 <that day's last stop in the list>` exists, the first `.route-sum b` equals the spot count, and `.nights .night` count is one less than the day count.
+- **Stay link.** Read the `住宿` href in the first `.night`. It is `www.booking.com` with `checkin` on that day, a later `checkout`, `group_adults` and `nflt=price=TWD-…`. Every night centres on its day's last stop.
 - **Roads.** Wait for `[data-gap="0"]` to contain `車程`. `LINES.gap0` then has more than two points.
 - **Cache.** Wait for `ROADS_KEY` in `localStorage` to have entries, then reload. No request goes to the OSRM host.
 - **Fuel line.** Open a spot past Day 2. `.leaflet-popup-content .pop-fuel` matches `距上一站 … 油費$`.

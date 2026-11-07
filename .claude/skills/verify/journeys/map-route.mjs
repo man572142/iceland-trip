@@ -1,4 +1,4 @@
-import {mapReady, readDays, infoTitle, openSpot, pickSpot} from './lib.mjs';
+import {listNames, mapReady, readDays, infoTitle, openSpot, pickSpot} from './lib.mjs';
 
 const OSRM = 'router.project-osrm.org';
 const CDN = 'cdnjs.cloudflare.com';
@@ -21,6 +21,9 @@ export default async function(t){
     t.eq(await infoTitle(page).innerText(), '全程路線', 'overview panel');
     t.eq(await page.locator('#btnAll').getAttribute('aria-pressed'), 'true', '全覽 pressed');
     t.eq(await page.locator('.day-pin').count(), days.length, 'one numbered pin per day');
+    const last = (await listNames(page))[1].at(-1);
+    await page.locator(`.leaflet-marker-icon[title="DAY 2 ${last}"]`).waitFor({state:'attached'});
+    t.check(true, 'Day 2 pin at that day\'s last listed stop');
     t.eq(await page.locator('.route-sum b').first().innerText(), String(spots), 'summary spot count');
     t.eq(await page.locator('.nights .night').count(), days.length - 1, 'one row per night');
   });
@@ -34,6 +37,11 @@ export default async function(t){
     t.check(u.searchParams.get('checkout') > u.searchParams.get('checkin'), 'checkout after checkin', u.searchParams.get('checkout'));
     t.check(Number(u.searchParams.get('group_adults')) > 0, 'group_adults set');
     t.check(u.searchParams.get('nflt')?.startsWith('price=TWD-'), 'price filter', u.searchParams.get('nflt'));
+    const at = await page.evaluate(() => DAYS.slice(0, -1).map(d => d.spots.at(-1)));
+    for(const [i, s] of at.entries()){
+      const stay = new URL(await page.locator('.night').nth(i).locator('a', {hasText:'住宿'}).getAttribute('href'));
+      t.eq(stay.searchParams.get('ss'), `${s.name}, Iceland`, `night ${i+1} centres on ${s.name}`);
+    }
     for(const label of ['加油', '超市']){
       const g = await page.locator('.night').first().locator('a', {hasText:label}).getAttribute('href');
       t.check(g.startsWith('https://www.google.com/maps/search/'), `${label} stays on Google`);

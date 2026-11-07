@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="冰島 16 天順時針行程（2027/4/30–5/15）尚未解決的項目：每日負荷（車程 + 停留）、季節封閉風險、缺席景點、同質性與深度。">
+<meta name="description" content="冰島 16 天順時針行程（2027/4/30–5/15）尚未解決的項目：每日負荷（車程 + 停留）、季節封閉風險、取捨與同質性。">
 <style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>冰島 16 天行程體檢</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -513,22 +513,26 @@ footer a{color:var(--ink-2)}
     <span>待辦清單</span>
   </div>
   <h1>冰島 16 天行程體檢</h1>
-  <p class="standfirst">只列還沒解決的事：每日負荷（車程 + 停留）、一天超過 13 小時的黃金圈日、兩段順時針才有的回頭路、一個缺席景點，以及出發前必須重新確認的開季日期、路況與火山狀態。Day 編號與里程表對應<strong>順時針版</strong>（西 → 北 → 東 → 南）；逆時針版只留作備案，未納入這次體檢。</p>
+  <p class="standfirst">只列還沒解決的事：每日負荷（車程 + 停留）、Day 8 的可選取捨，以及出發前必須重新確認的開季日期、路況與火山狀態。路線方向為西 → 北 → 東 → 南。</p>
 </header>
 
 <div class="callout good">
   <span class="ctag">已修正 · 別改回去</span>
   <ul>
     <li><strong>這個季節沒有極光。</strong>4/30–5/15 在北緯 64° 沒有天文暗夜（午夜太陽高度約 <span class="num">−10°</span> 至 <span class="num">−7°</span>），極光季是 9 月初到 4 月中。別再加回來——真正的資產是日落近 22:00 的低角度長光。</li>
-    <li><strong>海鸚在 Hafnarhólmi，不在 Dyrhólaey。</strong>Dyrhólaey 每年 5/1–6/25 管制、上部 Háey 常在 5/1–5/12 封閉，且海鸚 5 月中才在那裡定居。</li>
-    <li><strong>Sólheimajökull 排在 Vík 往西那天。</strong>冰川本來就在 Vík → Skógafoss 的路上，也把同一天的三座瀑布隔開。</li>
-    <li><strong>Dettifoss 不走 862 北段。</strong>Ásbyrgi → Dettifoss 那段是礫石路、冬季不維護，通常 5 月下旬到 6 月初才開；東岸 864 號要 6 月。Day 4 從 1 號公路走 862 南段進出、原路折返。</li>
-    <li><strong>Snæfellsnes 南岸進、北岸出。</strong>Day 2 從雷克雅維克直達南岸，繞西端到 Saxhóll；Day 3 從 Kirkjufell、Stykkishólmur 經 Búðardalur 接 1 號公路東行到 Akureyri。不橫切半島，也不繞回 Borgarnes。</li>
-    <li><strong>Tröllaskagi 與 Vatnsnes 整段移出，別加回來。</strong>Tröllaskagi 偏離 1 號公路約 100 km，五個港灣小鎮是同一種風景；Vatnsnes 只剩 Hvítserkur 一個賣點，海豹 Ytri-Tunga 已有。Hvítserkur、Borgarvirki、Kolugljúfur、Víðimýrarkirkja 留在 Day 3 當可選停點；省下的兩天給了東部與 Skaftafell。</li>
-    <li><strong>Húsavík 與賞鯨移出，Day 4 留作緩衝。</strong>從 Húsavík 到 Dettifoss 只能繞回米湖（北邊那條 5 月不開），拿掉後 Day 4 只剩 Goðafoss 與 Dettifoss，合計 5.2 h。先不補景點。</li>
-    <li><strong>米湖溫泉已定案。</strong>全程唯一不受 Reykjanes 火山活動影響的大型溫泉，先泡到它，藍湖就只是加分。行前線上訂時段。</li>
+    <li><strong>選點規則。</strong>經典不漏；新景點靠近舊景點也不取代舊的；動物至少佔一成，馬、海豹、鳥都要有。不賞鯨、不上離島、不去西峽灣。怎麼選出來的見 <code>tools/candidates.json</code>。</li>
+    <li><strong>行程不預設過夜地點。</strong>住宿用每晚列的景點座標連結自己找；里程不靠假設的住處計算。</li>
+    <li><strong>全程只泡米湖溫泉。</strong>Vök、藍湖、Sky Lagoon、Reykjadalur 都拿掉了，別加回來。官網已改名 Earth Lagoon Mývatn，標示 12:00 才開，所以排在 Day 5 傍晚收尾。</li>
+    <li><strong>兩個冰川健行都排。</strong>Svínafellsjökull（Day 10）與 Sólheimajökull（Day 12）都不是可選，出發前訂。</li>
+    <li><strong>Sólheimajökull 排在 Vík 往西那天。</strong>冰川本來就在 Vík → Skógafoss 的路上；Vík 只經過，不停。</li>
+    <li><strong>海鸚在 Hafnarhólmi，不在 Dyrhólaey。</strong>Day 7 把 Hafnarhólmi 排在 Seyðisfjörður 之後，傍晚才是海鸚回巢的時段。</li>
+    <li><strong>Vestrahorn 排 Day 8 傍晚，Fjallsárlón 排 Day 9。</strong>原本的兩段回頭路都消掉了。</li>
+    <li><strong>Dettifoss 走 862 西岸、原路折返。</strong>東岸 864 號 5 月底才開。862 往北到 Ásbyrgi 已鋪面（見 01 節），所以 Ásbyrgi 是 Day 4 的可選。</li>
+    <li><strong>Snæfellsnes 南岸進、北岸出。</strong>Day 2 從雷克雅維克直達南岸，繞西端到 Saxhóll；Day 3 從 Kirkjufell、Stykkishólmur 經 Búðardalur 接 1 號公路東行。不橫切半島，也不繞回 Borgarnes。</li>
+    <li><strong>Tröllaskagi 整段移出，別加回來；Vatnsnes 是 Day 3 的可選。</strong>Tröllaskagi 偏離 1 號公路約 100 km，五個港灣小鎮是同一種風景。Vatnsnes 不必整圈排：必停的是 Hvammstangi 的海豹中心，Illugastaðir 海豹觀察點、Hvítserkur 與 Borgarvirki、Kolugljúfur、Víðimýrarkirkja 都標可選。</li>
+    <li><strong>Day 4 不是緩衝日。</strong>Akureyri 市中心、Goðafoss、Dettifoss 排滿，Ásbyrgi 可選；Húsavík 移到「附近還有」，賞鯨不排。緩衝只留 Day 15。</li>
     <li><strong>Fjaðrárgljúfur 標可選，Dverghamrar 當備案。</strong>步道春季常封閉、<span class="num">5/10</span> 押不到。Dverghamrar 在同一段 1 號公路旁、全年開放、20 分鐘。</li>
-    <li><strong>海豹押 Day 2 的 Ytri-Tunga。</strong>5–7 月是高峰，沒有繁殖期封閉問題。</li>
+    <li><strong>騎馬排 Day 13 下午的 Eldhestar。</strong>1 小時行程官網列全年、每天 13:30 與 14:45；備案寫在該站的預約欄。</li>
     <li><strong>Kolaportið 排 Day 16 早上。</strong>只在週末營業，Day 15 是週五會撲空；Day 16（週六）班機 <span class="num">00:50</span> 才起飛。</li>
   </ul>
 </div>
@@ -537,32 +541,32 @@ footer a{color:var(--ink-2)}
   <div class="vcard">
     <div class="vq">Q1 — 季節</div>
     <div class="vtitle">選季正確，封閉風險集中在幾個日期</div>
-    <span class="vscore s-over">10 項待確認</span>
-    <div class="vbody">順時針把 Dettifoss 排到全程最早的 5/3，Jökulsárlón 船班延到 5/8（較穩）；Dyrhólaey 5/11 仍在 Háey 封閉區間內。會直接改行程的：Fjaðrárgljúfur、Reykjanes 火山、Dettifoss 862。</div>
+    <span class="vscore s-over">要重查</span>
+    <div class="vbody">會直接改行程的：Fjaðrárgljúfur、Reykjanes 火山、863 號（Víti）、Illugastaðir 的封閉日期。Jökulsárlón 的兩種船都沒有公布確切首航日。</div>
   </div>
   <div class="vcard">
     <div class="vq">Q2 — 路線</div>
-    <div class="vtitle">黃金圈日排不下，南岸前兩天很空</div>
-    <span class="vscore s-over">Day 14：13.6 h</span>
-    <div class="vbody">Reykjadalur 3 小時接黃金圈全套，可選全砍也還有 12.3 h；同時 Day 12 只有 4.3 h。另有兩段順時針才有的回頭路：Day 9 的 Vestrahorn、Day 10 的 Fjallsárlón。Day 2、16 也超過 9 h。</div>
+    <div class="vtitle">Day 8 的可選全去排不下</div>
+    <span class="vscore s-over">Day 8：16.5 h</span>
+    <div class="vbody">Hengifoss、馴鹿團、Petra 要取捨；可選都不去約 8 h。其餘 9 h 以上的天見 02 節。</div>
   </div>
   <div class="vcard">
     <div class="vq">Q3 — 經典覆蓋</div>
-    <div class="vtitle">覆蓋率高，還缺一處</div>
-    <span class="vscore s-slack">缺 1 處</span>
-    <div class="vbody">Vök Baths——順時針 Day 6 傍晚抵達 Egilsstaðir，那天只有 5.6 h，正好排得進。Ásbyrgi 是 5 月進不去。</div>
+    <div class="vtitle">多來源候選都有結論</div>
+    <span class="vscore s-ok">檢查把關</span>
+    <div class="vbody">檢查腳本會擋下沒有結論的多來源候選；結論的理由失效就要重新判斷。</div>
   </div>
   <div class="vcard">
     <div class="vq">Q4 — 同質性</div>
-    <div class="vtitle">沒有明顯的重複熱點</div>
-    <span class="vscore s-slack">城鎮 ×8</span>
-    <div class="vbody">Day 13 有三座瀑布，第一站 Sólheimajökull 冰川先把節奏打斷；港灣小鎮已隨 Tröllaskagi 移出。行程頁會即時算出每個景點是全程同類的第幾個。</div>
+    <div class="vtitle">同類型集中在少數幾天</div>
+    <span class="vscore s-slack">Day 2、5、13</span>
+    <div class="vbody">Day 13 有三座瀑布，靠 Skógar 博物館與騎馬隔開。檢查腳本會列出同一天同類型達三個的日子，行程頁也會算出每個景點是全程同類的第幾個。</div>
   </div>
   <div class="vcard">
     <div class="vq">Q5 — 深度</div>
     <div class="vtitle">骨架深，內容偏精選集</div>
-    <span class="vscore s-slack">7.5 / 10</span>
-    <div class="vbody">米湖溫泉與 Svínafellsjökull 冰川健行已排定，Skaftafell、Reykjadalur 兩段 3 小時步行都不是可選。其餘深度項目仍全部標「可選」。</div>
+    <span class="vscore s-slack">可選仍多</span>
+    <div class="vbody">米湖溫泉、兩個冰川健行、騎馬與 Skaftafell 步行都排定。其餘深度項目（Hengifoss、馴鹿團、Zodiac、Thríhnúkagígur）仍是可選或待訂。</div>
   </div>
 </div>
 
@@ -580,25 +584,31 @@ footer a{color:var(--ink-2)}
     <div><span class="tn">0</span><span class="tl">天文暗夜小時數</span></div>
   </div>
 
-  <p>傍晚 18:00 之後還有 4–5 小時的可用光線，<strong>沒有「天黑前要趕到」的限制</strong>——Day 3、Day 14 這種長天可以拖到 21:00 收工。</p>
+  <p>傍晚 18:00 之後還有 4–5 小時的可用光線，<strong>沒有「天黑前要趕到」的限制</strong>——Day 3、Day 7、Day 8 這種長天可以拖到 21:00 收工。</p>
 
   <h3>出發前必須重新確認</h3>
-  <p>逐年變動的開季日期、路況與火山狀態，2027 年的班表要接近出發才會公布。<strong>前三項會直接改變當天的行程</strong>：</p>
+  <p>逐年變動的開季日期、路況與火山狀態，2027 年的班表要接近出發才會公布。<strong>前四項會直接改變當天的行程</strong>：</p>
   <ul>
-    <li><strong>Dettifoss 西岸 862 號</strong>（Day 4，<span class="num">5/3</span>）：1 號 → 西岸停車場那段已鋪柏油，但偶有春季封閉，順時針又把它排到全程最早的日期。查 road.is。北段（往 Ásbyrgi）與東岸 864 號 5 月都不開。封閉時這天只剩 Goðafoss。</li>
-    <li><strong>Fjaðrárgljúfur 步道</strong>（Day 11，<span class="num">5/10</span>）：春季常因融雪泥濘封閉，近年多在 5 月中到 6 月初才重開。查 ust.is。封閉就只停 <span class="place">Dverghamrar</span>。</li>
-    <li><strong>Reykjanes 火山活動</strong>（Day 16）：半島自 2021 年起多次噴發，藍湖與 Grindavík 周邊數度因疏散令關閉，這天四個景點加藍湖都在範圍內。查 safetravel.is 與 vedur.is。<strong>Plan B</strong>：改泡市區側的 Sky Lagoon，走 41 號公路（不經 Grindavík）直達 KEF；藍湖選可免費改期的方案。</li>
-    <li><strong>Dyrhólaey</strong>（Day 12，<span class="num">5/11</span>）：上部 Háey 常在 5/1–5/12 封閉，這天仍在區間內；下部 Lágey 通常開放。查 ust.is。</li>
-    <li><strong>Jökulsárlón 船班</strong>（Day 9，<span class="num">5/8</span>）：Zodiac 與兩棲船通常 5/1 開航，5/8 已過開季頭幾天，但仍會因冰況取消。先訂並留備案，岸邊本身免費。</li>
-    <li><strong>Stuðlagil 923 號</strong>（Day 6，<span class="num">5/5</span>）：礫石路，融雪期可能泥濘；河水春季通常青綠。查 road.is 與近期照片。</li>
-    <li><strong>Seyðisfjörður 93 號 Fjarðarheiði 山口</strong>（Day 7，<span class="num">5/6</span>）：海拔 620 m，5 月初仍可能因雪或強風暫時封閉。查 road.is；封閉時這天只剩 Hafnarhólmi。</li>
-    <li><strong>Svínafellsjökull 冰川健行</strong>（Day 10，<span class="num">5/9</span>）：5 月初班次依業者而定，先訂；天候不佳會取消，Day 11 只有 6.6 h，可以改期過去。</li>
-    <li><strong>Þríhnúkagígur</strong>（Day 15，<span class="num">5/14</span>）：開季日每年不同，各來源從 5 月初到 5 月中都有。查 insidethevolcano.com，沒開就是整理日。</li>
-    <li><strong>季節性室內點</strong>（Víðimýrarkirkja Day 3 <span class="num">5/2</span>、Petra 石頭博物館 Day 8 <span class="num">5/7</span>）：多數 5 月中或 6 月才進入夏季全時開放，5 月上旬可能縮短或不開。</li>
+    <li><strong>Fjaðrárgljúfur 步道</strong>（Day 11，<span class="num">5/10</span>）：春季常因融雪泥濘封閉，近年多在 5 月中到 6 月初才重開。查 ust.is。封閉就停 <span class="place">Dverghamrar</span> 與 Eldhraun。</li>
+    <li><strong>Reykjanes 火山活動</strong>（Day 16）：半島自 2021 年起多次噴發，這天的景點都在範圍內。查 safetravel.is 與 vedur.is。<strong>Plan B</strong>：留在雷克雅維克，走 41 號公路（不經 Grindavík）直達 KEF。</li>
+    <li><strong>863 號路況</strong>（Víti，Day 6，<span class="num">5/5</span>）：沒有來源講 5 月初的積雪，只知道冬季有雪。查 road.is；不通就直接走 Hverir。</li>
+    <li><strong>Illugastaðir 海豹觀察點</strong>（Day 3，<span class="num">5/2</span>）：絨鴨封閉日期來源互相衝突，海豹中心 2024 年公告 5/6–6/20，Visit Iceland 寫 5、6 月，另有來源寫到 6/29。查 selasetur.is；封閉就只去 Hvítserkur。</li>
+    <li><strong>Dettifoss 西岸 862 號</strong>（Day 4，<span class="num">5/3</span>）：Visit Akureyri 與 Visit North Iceland 都說已全段鋪面，往北接 85 號；1 月到 3、4 月沒有冬季服務，也可能臨時封閉。查 road.is。東岸 864 號 5 月底才開。</li>
+    <li><strong>米湖溫泉時段</strong>（Day 5，<span class="num">5/4</span>）：官網 earthlagoon.is 標示每天 12:00–22:00 並註明依季節調整，5 月初的確切時段未公布。</li>
+    <li><strong>Hverfjall 通道</strong>（Day 5）：ust.is 說通往西北停車場的路夏季小客車可通、冬季常不通。進不去就從 1 號公路旁停車多走約 3 km。</li>
+    <li><strong>Dyrhólaey</strong>（Day 12，<span class="num">5/11</span>）：上部 Háey 常在 5/1–5/12 封閉，south.is 另寫約 5 月中到 6 月下旬、開放時段 09:00–19:00，日期每年不同。查 ust.is。</li>
+    <li><strong>Jökulsárlón 船班</strong>（Day 9，<span class="num">5/8</span>）：icelagoon.is 寫 Zodiac 5 月到 10 月底，未公布首航日；水陸兩用船寫 5–11 月，但 Hey Iceland 列每日航班從 5/15 起，5/8 可能還沒開。先訂並留備案，岸邊本身免費。</li>
+    <li><strong>Stuðlagil 河水與 923 號</strong>（Day 6，<span class="num">5/5</span>）：east.is 說春季融雪與水庫溢流會讓河水轉灰褐色，5 月初不保證藍綠色；粉紅腳雁 5/1–6/10 築巢，走標示步道。923 號礫石路全年開放。</li>
+    <li><strong>Seyðisfjörður 93 號 Fjarðarheiði 山口</strong>（Day 7，<span class="num">5/6</span>）：海拔 620 m，5 月初仍可能因雪或強風臨時封閉。查 road.is；封閉時這天只剩 Hafnarhólmi。5/6 又是耶穌升天日，店家與博物館時段未確認。</li>
+    <li><strong>馴鹿吉普車團</strong>（Day 8，<span class="num">5/7</span>）：業者列 10/1–6/15 營運，最少 2 人，官網未列價。查 tinna-adventure.is。</li>
+    <li><strong>Svínafellsjökull 冰川健行</strong>（Day 10，<span class="num">5/9</span>）：業者列全年出團，但 2018 年起有落石警示，部分業者改走鄰近冰舌，訂位時確認。天候不佳會取消，Day 11 只有 7.5 h，可以改期過去。</li>
+    <li><strong>Thríhnúkagígur</strong>（Day 15，<span class="num">5/14</span>）：業者訂票頁寫每年 5/5–10/30，2027 年場次 2026 年 11 月中開放訂位；Guide to Iceland 寫 6–10 月，以業者為準。</li>
+    <li><strong>Eldhestar 騎馬</strong>（Day 13，<span class="num">5/12</span>）：官網列全年、每天 13:30 與 14:45，沒有明寫新手等級，也沒列價。訂位時確認。</li>
+    <li><strong>季節性室內點</strong>（Víðimýrarkirkja Day 3 <span class="num">5/2</span>、海豹中心 Day 3、鳥類博物館 Day 5 只開 14:00–16:00、Petra Day 8、Skógar 博物館 Day 13）：都以 2026 年或更早的班表為準。</li>
   </ul>
 
   <h3>不要為了「湊齊」而改的東西</h3>
-  <p>天然冰洞是 11–3 月限定；高地 F 道（Landmannalaugar、Þórsmörk、Askja）與西峽灣主要景觀道路（Dynjandisheiði、612 號 Látrabjarg）5 月多半未開；魯冰花 6 月才開；Krafla / Víti（863 號）5 月初常仍積雪。想要冰洞：Vík 出發的 Katla 冰洞全年運作，Perlan 有人造冰洞。</p>
+  <p>天然冰洞是 11–3 月限定；高地 F 道（Landmannalaugar、Þórsmörk、Askja）與西峽灣主要景觀道路 5 月多半未開；魯冰花 6 月才開。想要冰洞：Perlan 有人造冰洞。</p>
 </section>
 
 <section id="s2">
@@ -607,7 +617,7 @@ footer a{color:var(--ink-2)}
     <h2>自駕路線流暢度與平均度</h2>
   </div>
 
-  <p>單一順時針環線，兩個半島（Snæfellsnes、Reykjanes）都是單向穿越。來回路：Day 4 的 Dettifoss（862 南段進出，沒有替代走法）、Day 7 以 Egilsstaðir 為基地的 Hafnarhólmi 與 Seyðisfjörður（刻意的）；另有 Day 9 的 Vestrahorn、Day 10 的 Fjallsárlón 兩段是逆時針鏡像過來才出現的，都能消掉。</p>
+  <p>單一順時針環線，兩個半島（Snæfellsnes、Reykjanes）都是單向穿越。來回路：Day 4 的 Dettifoss 與 Ásbyrgi（862 號進出）、Day 7 的 Seyðisfjörður 與 Hafnarhólmi（刻意的）。</p>
 
   <p>目前的每日負荷：</p>
 
@@ -625,86 +635,66 @@ footer a{color:var(--ink-2)}
         </tr>
       </thead>
       <tbody>
-        <tr><td class="tday">1</td><td class="troute">KEF → 雷克雅維克</td><td class="tnum">51</td><td class="tnum">0.9 h</td><td class="tnum">3.1 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:29%"></span></span><span class="mval">4.0 h</span></span></td><td><span class="chip c-slack">抵達日</span></td></tr>
-        <tr><td class="tday">2</td><td class="troute">→ Snæfellsnes 南岸 → 西端</td><td class="tnum">251</td><td class="tnum">4.1 h</td><td class="tnum">6.7 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:77%"></span></span><span class="mval">10.8 h</span></span></td><td><span class="chip c-over">滿</span></td></tr>
-        <tr><td class="tday">3</td><td class="troute">北岸 → 1 號公路東行 → Akureyri</td><td class="tnum">412</td><td class="tnum">6.1 h</td><td class="tnum">1.8 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:56%"></span></span><span class="mval">7.9 h</span></span></td><td><span class="chip c-over">車程最長</span></td></tr>
-        <tr><td class="tday">4</td><td class="troute">Goðafoss + Dettifoss → 米湖</td><td class="tnum">184</td><td class="tnum">2.7 h</td><td class="tnum">2.4 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:37%"></span></span><span class="mval">5.2 h</span></span></td><td><span class="chip c-slack">緩衝</span></td></tr>
-        <tr><td class="tday">5</td><td class="troute">米湖環線</td><td class="tnum">58</td><td class="tnum">1.6 h</td><td class="tnum">6.2 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:56%"></span></span><span class="mval">7.8 h</span></span></td><td><span class="chip c-ok">景點密</span></td></tr>
-        <tr><td class="tday">6</td><td class="troute">米湖 → Stuðlagil → Egilsstaðir</td><td class="tnum">204</td><td class="tnum">3.1 h</td><td class="tnum">2.5 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:40%"></span></span><span class="mval">5.6 h</span></span></td><td><span class="chip c-slack">較輕</span></td></tr>
-        <tr><td class="tday">7</td><td class="troute">Hafnarhólmi + Seyðisfjörður</td><td class="tnum">202</td><td class="tnum">3.2 h</td><td class="tnum">3.0 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:44%"></span></span><span class="mval">6.2 h</span></span></td><td><span class="chip c-ok">適中</span></td></tr>
-        <tr><td class="tday">8</td><td class="troute">Egilsstaðir → 東峽灣 → Höfn</td><td class="tnum">325</td><td class="tnum">4.7 h</td><td class="tnum">3.9 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:62%"></span></span><span class="mval">8.7 h</span></span></td><td><span class="chip c-ok">適中</span></td></tr>
-        <tr><td class="tday">9</td><td class="troute">Höfn → Vestrahorn → 冰河潟湖</td><td class="tnum">149</td><td class="tnum">2.4 h</td><td class="tnum">4.2 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:48%"></span></span><span class="mval">6.7 h</span></span></td><td><span class="chip c-ok">適中</span></td></tr>
-        <tr><td class="tday">10</td><td class="troute">Fjallsárlón + Svínafellsjökull 冰川</td><td class="tnum">95</td><td class="tnum">2.0 h</td><td class="tnum">5.1 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:51%"></span></span><span class="mval">7.1 h</span></span></td><td><span class="chip c-ok">冰川預約</span></td></tr>
-        <tr><td class="tday">11</td><td class="troute">Skaftafell → Kirkjubæjarklaustur</td><td class="tnum">91</td><td class="tnum">1.4 h</td><td class="tnum">5.2 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:47%"></span></span><span class="mval">6.6 h</span></span></td><td><span class="chip c-ok">適中</span></td></tr>
-        <tr><td class="tday">12</td><td class="troute">→ 黑沙灘 → Vík</td><td class="tnum">122</td><td class="tnum">2.0 h</td><td class="tnum">2.2 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:31%"></span></span><span class="mval">4.3 h</span></span></td><td><span class="chip c-slack">半日</span></td></tr>
-        <tr><td class="tday">13</td><td class="troute">Vík → 南岸瀑布 → Hveragerði</td><td class="tnum">158</td><td class="tnum">2.5 h</td><td class="tnum">4.4 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:50%"></span></span><span class="mval">7.0 h</span></span></td><td><span class="chip c-ok">適中</span></td></tr>
-        <tr><td class="tday">14</td><td class="troute">Reykjadalur + 黃金圈 → 雷克雅維克</td><td class="tnum">209</td><td class="tnum">3.5 h</td><td class="tnum">10.1 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:97%"></span></span><span class="mval">13.6 h</span></span></td><td><span class="chip c-over">最滿</span></td></tr>
+        <tr><td class="tday">1</td><td class="troute">KEF → 雷克雅維克</td><td class="tnum">112</td><td class="tnum">1.9 h</td><td class="tnum">3.1 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:36%"></span></span><span class="mval">5.0 h</span></span></td><td><span class="chip c-slack">抵達日</span></td></tr>
+        <tr><td class="tday">2</td><td class="troute">→ Snæfellsnes 南岸 → 西端</td><td class="tnum">291</td><td class="tnum">4.7 h</td><td class="tnum">7.4 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:86%"></span></span><span class="mval">12.1 h</span></span></td><td><span class="chip c-over">滿</span></td></tr>
+        <tr><td class="tday">3</td><td class="troute">北岸 → 海豹中心 → 往東</td><td class="tnum">452</td><td class="tnum">7.0 h</td><td class="tnum">5.9 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:92%"></span></span><span class="mval">12.9 h</span></span></td><td><span class="chip c-over">車程最長</span></td></tr>
+        <tr><td class="tday">4</td><td class="troute">Akureyri + Goðafoss + Dettifoss + Ásbyrgi</td><td class="tnum">259</td><td class="tnum">3.9 h</td><td class="tnum">5.4 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:66%"></span></span><span class="mval">9.3 h</span></span></td><td><span class="chip c-over">滿</span></td></tr>
+        <tr><td class="tday">5</td><td class="troute">米湖環線 → 溫泉</td><td class="tnum">97</td><td class="tnum">1.9 h</td><td class="tnum">7.2 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:65%"></span></span><span class="mval">9.1 h</span></span></td><td><span class="chip c-over">滿</span></td></tr>
+        <tr><td class="tday">6</td><td class="troute">Víti + Hverir → Möðrudalur → Stuðlagil</td><td class="tnum">195</td><td class="tnum">3.5 h</td><td class="tnum">6.0 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:68%"></span></span><span class="mval">9.5 h</span></span></td><td><span class="chip c-over">滿</span></td></tr>
+        <tr><td class="tday">7</td><td class="troute">Seyðisfjörður + Hafnarhólmi</td><td class="tnum">204</td><td class="tnum">3.1 h</td><td class="tnum">3.3 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:46%"></span></span><span class="mval">6.4 h</span></span></td><td><span class="chip c-ok">適中</span></td></tr>
+        <tr><td class="tday">8</td><td class="troute">東部峽灣 → Vestrahorn → Höfn</td><td class="tnum">393</td><td class="tnum">6.1 h</td><td class="tnum">10.4 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:100%"></span></span><span class="mval">16.5 h</span></span></td><td><span class="chip c-over">要取捨</span></td></tr>
+        <tr><td class="tday">9</td><td class="troute">Diamond Beach + 冰河潟湖 + Fjallsárlón</td><td class="tnum">61</td><td class="tnum">1.4 h</td><td class="tnum">3.0 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:31%"></span></span><span class="mval">4.4 h</span></span></td><td><span class="chip c-slack">較輕</span></td></tr>
+        <tr><td class="tday">10</td><td class="troute">Hofskirkja + Svínafellsjökull 冰川</td><td class="tnum">31</td><td class="tnum">0.6 h</td><td class="tnum">4.3 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:35%"></span></span><span class="mval">4.9 h</span></span></td><td><span class="chip c-slack">較輕</span></td></tr>
+        <tr><td class="tday">11</td><td class="troute">Skaftafell → Kirkjubæjarklaustur → Eldhraun</td><td class="tnum">127</td><td class="tnum">1.9 h</td><td class="tnum">5.6 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:54%"></span></span><span class="mval">7.5 h</span></span></td><td><span class="chip c-ok">適中</span></td></tr>
+        <tr><td class="tday">12</td><td class="troute">黑沙灘 + Dyrhólaey → Sólheimajökull 冰川</td><td class="tnum">87</td><td class="tnum">1.5 h</td><td class="tnum">5.3 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:49%"></span></span><span class="mval">6.8 h</span></span></td><td><span class="chip c-ok">適中</span></td></tr>
+        <tr><td class="tday">13</td><td class="troute">南岸瀑布 + Skógar 博物館 → 騎馬</td><td class="tnum">125</td><td class="tnum">2.1 h</td><td class="tnum">5.3 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:53%"></span></span><span class="mval">7.4 h</span></span></td><td><span class="chip c-ok">適中</span></td></tr>
+        <tr><td class="tday">14</td><td class="troute">黃金圈</td><td class="tnum">187</td><td class="tnum">3.1 h</td><td class="tnum">7.1 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:73%"></span></span><span class="mval">10.2 h</span></span></td><td><span class="chip c-over">滿</span></td></tr>
         <tr><td class="tday">15</td><td class="troute">雷克雅維克市區</td><td class="tnum">—</td><td class="tnum">—</td><td class="tnum">—</td><td><span class="meter"><span class="track"><span class="bar" style="--w:0%"></span></span><span class="mval">—</span></span></td><td><span class="chip c-ok">全可選</span></td></tr>
-        <tr><td class="tday">16</td><td class="troute">Reykjanes → 藍湖 → KEF</td><td class="tnum">122</td><td class="tnum">2.2 h</td><td class="tnum">7.3 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:68%"></span></span><span class="mval">9.5 h</span></span></td><td><span class="chip c-over">滿</span></td></tr>
+        <tr><td class="tday">16</td><td class="troute">Reykjanes → KEF</td><td class="tnum">124</td><td class="tnum">2.3 h</td><td class="tnum">6.8 h</td><td><span class="meter"><span class="track"><span class="bar" style="--w:65%"></span></span><span class="mval">9.1 h</span></span></td><td><span class="chip c-over">滿</span></td></tr>
       </tbody>
     </table>
   </div>
-  <p class="caption">里程與淨車程依順時針順序重算：前一晚過夜點 → 當天各景點（含可選）→ 當晚過夜點，取 OSRM 道路距離。停留為各景點 <code>dwell</code> 加總（含可選），合計 = 淨車程 + 停留，刻度取 14 h；合計 ≥ 9 h 標「滿」。Day 3 只計必停的 Kirkjufell 與 Stykkishólmur，可選停點見下方。Day 15 四個項目全是可選、加起來 14 h，只能挑。</p>
-
-  <div class="callout warn">
-    <span class="ctag">先決定這一個</span>
-    <h4>Day 14 排不下：13.6 h，可選全砍還有 12.3 h</h4>
-    <p>早上 Reykjadalur 來回 <span class="num">3</span> h，接著 Kerið、Friðheimar、Gullfoss、Geysir、Brúarfoss、Þingvellir——黃金圈本身就是一整天。同時前兩天 Day 12 只有 <span class="num">4.3</span> h、Day 13 <span class="num">7.0</span> h。<strong>建議把南岸往前推半天</strong>：Day 12 在 Dyrhólaey 之後繼續往西走 Sólheimajökull、Kvernufoss、Skógafoss，住 Skógar 一帶；Day 13 只剩 Seljalandsfoss 與 Reykjadalur，住 Hveragerði；Day 14 從 Bónus 出發走黃金圈。</p>
-    <p>結果：Day 12 <span class="num">7.9</span> h、Day 13 <span class="num">6.2</span> h、Day 14 <span class="num">10.4</span> h（不去 Friðheimar 是 <span class="num">9.1</span> h）。只把 Reykjadalur 挪到 Day 13 傍晚也行，但 Day 13 會變 <span class="num">10.1</span> h。兩種都動到天與天的分界，逆時針版會一起變。</p>
-  </div>
+  <p class="caption">里程與淨車程取 OSRM 道路距離：當天第一站到最後一站全額（含可選），加上前後兩段夜間移動各一半，不假設住在哪裡。停留為各景點 <code>dwell</code> 加總（含可選），合計 = 淨車程 + 停留，刻度取 14 h；合計 ≥ 9 h 標「滿」。Day 15 三項全是可選，只能挑，不計。</p>
 
   <h3>還沒解決的幾天</h3>
 
-  <h4>Day 8–9 — Vestrahorn 從 Höfn 往回開</h4>
-  <p>Day 8 從 Djúpivogur 南下時會經過 Stokksnes 路口，但 Vestrahorn 排在 Day 9 早上，從 Höfn 往東折返。<strong>移到 Day 8 傍晚</strong>（黃昏正是拍山的光）：Day 8 必停部分 <span class="num">5.3</span> h、Hengifoss 與 Petra 都去是 <span class="num">10.5</span> h；Day 9 降到 <span class="num">4.6</span> h，少開 <span class="num">26</span> km。Day 8 要取捨的是 Hengifoss（<span class="num">2.5</span> h 步道）。</p>
-
-  <h4>Day 9–10 — 第 9 晚住哪</h4>
-  <p>Day 9 的說明寫住 Skaftafell 一帶，但 Day 10 第一站是 Fjallsárlón，等於往東開回 <span class="num">45</span> km 再往西。第 9 晚住 Jökulsárlón 與 Hof 之間（Hnappavellir 一帶），或把 Fjallsárlón 併進 Day 9 傍晚（就在 Jökulsárlón 西邊 10 km），都能消掉這段。</p>
+  <h4>Day 8 — 三個可選全去排不下（16.5 h）</h4>
+  <p>Hengifoss 步道 <span class="num">2.5</span> h、Petra、馴鹿團 <span class="num">3–4</span> h，都在 Djúpivogur 之前，傍晚還有 Vestrahorn。可選都不去少約 <span class="num">79</span> km，合計約 <span class="num">8</span> h；只去 Hengifoss 與 Petra 合計約 <span class="num">12.4</span> h。Petra 順路在馴鹿團之前；它的 09:00–17:00 只是 2025 年的資料。</p>
 
   <h4>Day 2–3 — 一落地就是兩個長天</h4>
-  <p>Day 2 <span class="num">10.8</span> h：前 160 km 沒有停點，之後南岸到西端連停七處；Vatnshellir 是洩壓閥，砍掉回到 <span class="num">9.8</span> h。Day 3 是全程車程最長（<span class="num">412</span> km、<span class="num">6.1</span> h），必停只有兩處，可選停點各自的合計：</p>
+  <p>Day 2 <span class="num">12.1</span> h：雷克雅維克過來前 160 km 沒有停點，之後南岸到西端連停七處，Vatnshellir 是洩壓閥。Hraunfossar 順路繞過去多約 <span class="num">100</span> km、<span class="num">1.5</span> h 車程與 <span class="num">45</span> 分鐘停留。Day 3 是全程車程最長（全部可選都去 <span class="num">12.9</span> h），必停只有 Kirkjufell、Stykkishólmur 與海豹中心，可選各自多花：</p>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>Day 3 加上</th><th>里程</th><th>合計</th></tr></thead>
+      <thead><tr><th>Day 3 加上</th><th>多跑</th><th>多花（含停留）</th></tr></thead>
       <tbody>
-        <tr><td>只停必停點</td><td class="tnum">412</td><td class="tnum">7.9 h</td></tr>
-        <tr><td>Víðimýrarkirkja（5/2 可能未開）</td><td class="tnum">414</td><td class="tnum">8.4 h</td></tr>
-        <tr><td>Kolugljúfur</td><td class="tnum">422</td><td class="tnum">8.5 h</td></tr>
-        <tr><td>Borgarvirki</td><td class="tnum">431</td><td class="tnum">8.6 h</td></tr>
-        <tr><td>Grábrók（改走 54、60 號）</td><td class="tnum">451</td><td class="tnum">9.1 h</td></tr>
-        <tr><td>Hvítserkur</td><td class="tnum">459</td><td class="tnum">9.6 h</td></tr>
-        <tr><td>Hvítserkur + Kolugljúfur</td><td class="tnum">480</td><td class="tnum">10.5 h</td></tr>
-        <tr><td>Grábrók + Víðgelmir</td><td class="tnum">568</td><td class="tnum">12.4 h</td></tr>
+        <tr><td>Víðimýrarkirkja（5/2 可能未開）</td><td class="tnum">1 km</td><td class="tnum">0.6 h</td></tr>
+        <tr><td>Kolugljúfur</td><td class="tnum">13 km</td><td class="tnum">0.8 h</td></tr>
+        <tr><td>Borgarvirki</td><td class="tnum">23 km</td><td class="tnum">1.0 h</td></tr>
+        <tr><td>Hvítserkur</td><td class="tnum">46 km</td><td class="tnum">1.8 h</td></tr>
+        <tr><td>Illugastaðir（封閉日期來源互相衝突）</td><td class="tnum">51 km</td><td class="tnum">1.9 h</td></tr>
+        <tr><td>Illugastaðir + Hvítserkur</td><td class="tnum">51 km</td><td class="tnum">2.9 h</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Víðgelmir 單獨就多 <span class="num">3</span> h 以上，放在這天不實際。合理的是一到兩個 1 號公路旁的短停。</p>
+  <p>合理的是一到兩個短停，或把 Vatnsnes 那圈一次走完。</p>
 
-  <h4>Day 16 — <span class="num">9.5</span> h</h4>
-  <p>沒有路線問題；藍湖 3 h 加還車報到，班機 <span class="num">00:50</span>。早上要逛 Kolaportið 的話，Brimketill 是現成的洩壓閥。</p>
+  <h4>Day 6 與 Day 14 — 剛好滿</h4>
+  <p>Day 6 <span class="num">9.5</span> h，不去 Víti 少 <span class="num">18</span> km 與 <span class="num">105</span> 分鐘停留；Day 14 <span class="num">10.2</span> h，不去 Friðheimar 少 <span class="num">75</span> 分鐘。</p>
+
+  <h4>Day 16 — <span class="num">9.1</span> h</h4>
+  <p>沒有路線問題，班機 <span class="num">00:50</span>。早上要逛 Kolaportið（週六 <span class="num">11:00</span> 開）的話，Garðskagi 與 Brimketill 是現成的洩壓閥。</p>
 </section>
 
 <section id="s3">
   <div class="sechead">
     <span class="secnum">03</span>
-    <h2>還缺的經典景點</h2>
+    <h2>經典景點的取捨</h2>
   </div>
 
-  <p>南岸、冰河潟湖、東部峽灣、Stuðlagil、米湖、Dettifoss、Snæfellsnes、黃金圈、Reykjanes 全中。Tröllaskagi 與 Vatnsnes 是主動捨棄的（見頁首）。還缺這一處：</p>
-
-  <div class="tablewrap">
-    <table>
-      <thead>
-        <tr><th>景點</th><th>可插入</th><th>為什麼該補</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Vök Baths</strong></td><td class="tday">Day 6</td><td class="tnote">東部唯一地熱溫泉，漂浮在湖面上，位在 Egilsstaðir 旁。Day 6 傍晚抵達、合計 5.6 h；米湖溫泉前一天才泡過，邊際效益有限</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <p>南岸、冰河潟湖、東部峽灣、Stuðlagil、米湖、Dettifoss、Snæfellsnes、黃金圈、Reykjanes 全中。各區候選與來源在 <code>tools/candidates.json</code>，多來源的候選都要有結論，每天的「附近還有」列出刻意沒排的地點與原因。</p>
 
   <h4>合理地沒排、不用補的</h4>
-  <p>西峽灣（5 月路未全開，且需 4 天以上）、Landmannalaugar／Þórsmörk／Askja（F 道 6 月才開）、Vestmannaeyjar 與 Grímsey（各需一整天加船班）、<span class="place">Ásbyrgi</span> 與 <span class="place">Hljóðaklettar</span>（862 北段 5 月下旬才開，只能經 Húsavík 繞 85 號進出）。</p>
+  <p>西峽灣（5 月路未全開，且需 4 天以上）、Landmannalaugar／Þórsmörk／Askja（F 道 6 月才開）、Vestmannaeyjar 與 Grímsey（各需一整天加船班）。</p>
 </section>
 
 <section id="s4">
@@ -713,22 +703,14 @@ footer a{color:var(--ink-2)}
     <h2>同質性與替代方案</h2>
   </div>
 
-  <p>行程頁上的 69 個景點每個都標了體驗類型，重複度最高的三類：</p>
+  <p>行程頁上每個景點都標了體驗類型，檢查腳本會印出風景、動物、人文的比例，並列出同一天同類型達三個的日子。</p>
 
-  <div class="tally">
-    <div><span class="tn">8</span><span class="tl">城鎮／漁村</span></div>
-    <div><span class="tn">10</span><span class="tl">海岸與海蝕地形</span></div>
-    <div><span class="tn">8</span><span class="tl">瀑布</span></div>
-  </div>
-
-  <p>瀑布性格差異夠大（可繞到水簾後的、水量歐洲第一的、峽谷型的），分散在北部與南岸。最集中的是 Day 13 的 Kvernufoss、Skógafoss、Seljalandsfoss；照 02 節的建議調整後，前兩座移到 Day 12，正好拆開。海岸的 10 處有 4 處在 Day 2 的 Snæfellsnes，那是半島本身的樣子，不算重複。</p>
+  <p>瀑布性格差異夠大（可繞到水簾後的、水量歐洲第一的、峽谷型的），分散在北部與南岸。最集中的是 Day 13 的 Kvernufoss、Skógafoss、Seljalandsfoss，中間隔著 Skógar 博物館。Day 2 的海岸集中在 Snæfellsnes，那是半島本身的樣子，不算重複。</p>
 
   <h3>其他值得補的異質性</h3>
   <ul>
-    <li><strong>飲食</strong>：只有 Friðheimar 番茄湯和 Höfn 龍蝦。可加 Efstidalur 農場冰淇淋（黃金圈，牛舍旁）、Vogafjós（米湖的牛棚餐廳，Day 5）。</li>
-    <li><strong>騎冰島馬</strong>：<em>全程最大的體驗空缺</em>。多數地區都有馬場可預約 1–2 小時的 tölt 騎乘；Day 3 經過的 Skagafjörður（Varmahlíð 一帶）是養馬重鎮，但那天車程已長，放在 Day 5–7 任一個傍晚較實際。</li>
-    <li><strong>薩迦文學</strong>：除了 Þingvellir 之外掛零。Borgarnes 的 <span class="place">Landnámssetur</span>（Egil's Saga）就在 Day 2 前 160 km 的路上，但那天已 10.8 h。</li>
-    <li><strong>與人的接觸</strong>：整趟仍可以完全不跟冰島人講到一句話。馬場、農場民宿、在地嚮導任一個都能改變這件事。</li>
+    <li><strong>飲食</strong>：只有 Friðheimar 番茄湯和 Höfn 龍蝦。可加 Efstidalur 農場冰淇淋（黃金圈，牛舍旁）、Vogafjós（米湖的牛棚餐廳，時段各目錄互相矛盾）。</li>
+    <li><strong>薩迦文學</strong>：除了 Þingvellir 之外掛零。Borgarnes 的 <span class="place">Landnámssetur</span>（Egil's Saga）就在 Day 2 的路上，但那天含可選已 12.1 h。</li>
   </ul>
 </section>
 
@@ -738,43 +720,29 @@ footer a{color:var(--ink-2)}
     <h2>旅遊深度</h2>
   </div>
 
-  <div class="scorebox">
-    <span class="scoren">7.5<small> / 10</small></span>
-    <span class="scoretext">骨架是深度旅行，內容仍偏精選集。米湖溫泉、Svínafellsjökull 冰川健行、Skaftafell 與 Reykjadalur 兩段步行已排定；其餘深度項目仍全部標「可選」。</span>
-  </div>
-
   <h3>深度做得好的地方</h3>
   <ul>
     <li>16 天遠超一般 8–10 天環島。</li>
-    <li>米湖、Egilsstaðir 各住 2 晚，雷克雅維克收尾 2 晚。</li>
-    <li>東部峽灣排了三天（含 Stuðlagil 與 Hafnarhólmi），<strong>明顯高於觀光標準線。</strong></li>
+    <li>東部排了三天（含 Stuðlagil 與 Hafnarhólmi），<strong>明顯高於觀光標準線。</strong></li>
     <li>Day 15 緩衝日在倒數第二天，前面任何一天的天候延誤都能在這裡吸收。</li>
   </ul>
 
   <h3>還沒解決的深度問題</h3>
 
-  <h4>「可選」太多</h4>
-  <p>Zodiac、Hengifoss、Vatnshellir、Friðheimar、藍湖、Sky Lagoon、Þríhnúkagígur——<strong>還是可選</strong>。行程一緊，可選項會第一個被砍。行程頁的「只看待決定」篩選目前列出 <span class="num">22</span> 項。</p>
+  <h4>「可選」還很多</h4>
+  <p>Zodiac、Hengifoss、馴鹿團、Vatnshellir、Friðheimar、Thríhnúkagígur——<strong>還是可選</strong>。行程一緊，可選項會第一個被砍。行程頁的「只看待決定」篩選會列出全部。</p>
 
-  <h4>長步行有了，但都在 3 小時內</h4>
-  <p>Skaftafell 環線、Reykjadalur、Svínafellsjökull 冰川各約 3 h，Arnarstapi 海崖 2 h。5 月封掉了高地路線（Landmannalaugar、Fimmvörðuháls，Glymur 的木橋通常也要 6 月才架），所以這已接近 5 月能排的上限。</p>
+  <h4>長步行都在 3 小時內</h4>
+  <p>Skaftafell 環線與兩個冰川健行各約 3 h，Arnarstapi 海崖 2 h。5 月封掉了高地路線（Landmannalaugar、Fimmvörðuháls），這已接近 5 月能排的上限。</p>
 
-  <h4>文化面仍然很薄</h4>
-  <p>跟人有關的只有 Hofskirkja、Búðakirkja、Petra 石頭博物館、Víðimýrarkirkja，後兩個是可選，且 5 月上旬可能未開。</p>
-
-  <h3>把 7.5 拉到 8.5 的三個動作</h3>
-  <p>都不動路線骨架、不加天數：</p>
-  <ol>
-    <li><strong>把兩個「待訂」變成現在就訂</strong>：Sólheimajökull 冰川健行（Day 13）、Jökulsárlón Zodiac（Day 9）。<em>邊際效益最高</em>——不改行程，只是把深度從「也許」變成「一定」。米湖溫泉與 Svínafellsjökull 已經這樣做了。</li>
-    <li><strong>加一次與人的接觸</strong>：騎冰島馬（Day 4 緩衝日或 Day 5–7 任一傍晚）。</li>
-    <li><strong>再加一個文化錨點</strong>：Skógasafn（Skógar，照 02 節調整後就在 Day 12 的終點）或 Glaumbær（Day 3，Varmahlíð 附近、1 號公路旁，5 月上旬可能未開）。</li>
-  </ol>
+  <h4>文化面仍然偏薄</h4>
+  <p>跟人有關的主要是 Akureyri、Hofskirkja、Búðakirkja、Skógar 博物館與 Petra、Víðimýrarkirkja，後兩個是可選。Glaumbær 5/2 是週日不開，留在 Day 3 的「附近還有」。</p>
 </section>
 
 <footer>
   <p><a href="https://iceland-trip.man572142.workers.dev/">← 回到行程地圖</a></p>
-  <p>體檢對象：<code>public/index.html</code> 的 <code>DAYS_CW</code>（16 天、69 個景點）。里程與淨車程依順時針順序以 OSRM 重算（過夜點取當晚所在城鎮）；停留時間取自各景點的 <code>dwell</code> 欄位，合計 = 淨車程 + 停留。</p>
-  <p>季節性資料來源：<a href="https://ust.is/english/visiting-iceland/protected-areas/south/dyrholaey/access-and-management/">Umhverfisstofnun — Dyrhólaey 進出管理</a>、<a href="https://ust.is/english/visiting-iceland/protected-areas/south/fjadrargljufur/">Umhverfisstofnun — Fjaðrárgljúfur 步道開放狀態</a>、<a href="https://www.east.is/en/place/hafnarholmi">Visit Austurland — Hafnarhólmi</a>、<a href="https://icelagoon.is/">Jökulsárlón 船班</a>、<a href="https://www.northiceland.is/en/place/dettifoss-waterfall">Visit North Iceland — Dettifoss 與 862 號路況</a>、<a href="https://www.insidethevolcano.com/">Inside the Volcano</a>。開季日期與營業時間逐年變動，2027 年班表公布後請重新確認；道路狀況出發前查 <a href="https://www.road.is/">road.is</a>，Reykjanes 火山狀態查 <a href="https://safetravel.is/">safetravel.is</a> 與 <a href="https://en.vedur.is/">vedur.is</a>。</p>
+  <p>體檢對象：<code>public/index.html</code> 的 <code>DAYS</code>。里程與淨車程依順時針順序以 OSRM 重算，算法見 02 節表格下方；停留時間取自各景點的 <code>dwell</code> 欄位，合計 = 淨車程 + 停留。</p>
+  <p>季節性資料來源：<a href="https://ust.is/english/visiting-iceland/protected-areas/south/dyrholaey/access-and-management/">Umhverfisstofnun — Dyrhólaey 進出管理</a>、<a href="https://www.south.is/en/travel-info/newsblog/visiting-dyrholaey-what-to-know-before-you-go">South Iceland — Dyrhólaey</a>、<a href="https://ust.is/english/visiting-iceland/protected-areas/south/fjadrargljufur/">Umhverfisstofnun — Fjaðrárgljúfur 步道開放狀態</a>、<a href="https://ust.is/english/visiting-iceland/protected-areas/north-east/hverfjall">Umhverfisstofnun — Hverfjall</a>、<a href="https://www.east.is/en/place/hafnarholmi">Visit Austurland — Hafnarhólmi</a>、<a href="https://east.is/en/place/studlagil-canyon">Visit Austurland — Stuðlagil</a>、<a href="https://icelagoon.is/tours/zodiac-boat-tour/">Jökulsárlón Zodiac</a>、<a href="https://icelagoon.is/tours/amphibian-tours/">Jökulsárlón 水陸兩用船</a>、<a href="https://www.visitakureyri.is/en/see-and-do/attractions/dettifoss">Visit Akureyri — Dettifoss 與 862 號</a>、<a href="https://www.northiceland.is/en/place/dettifoss-waterfall">Visit North Iceland — Dettifoss</a>、<a href="https://insidethevolcano.com/book-now">Inside the Volcano 訂票頁</a>、<a href="https://www.earthlagoon.is/">Earth Lagoon Mývatn</a>、<a href="https://fuglasafn.is">Fuglasafn Sigurgeirs</a>、<a href="https://selasetur.is/en/opening-hours-and-price/">Icelandic Seal Center</a>、<a href="https://eldhestar.is/tour-category/half-day-tours/">Eldhestar</a>、<a href="https://www.tinna-adventure.is/?p=6899">Tinna Adventure 馴鹿團</a>、<a href="https://www.skogasafn.is/opening-hours-and-bookings/">Skógar Museum</a>。各區候選的完整來源在 <code>tools/candidates.json</code>。開季日期與營業時間逐年變動，2027 年班表公布後請重新確認；道路狀況出發前查 <a href="https://www.road.is/">road.is</a>，Reykjanes 火山狀態查 <a href="https://safetravel.is/">safetravel.is</a> 與 <a href="https://en.vedur.is/">vedur.is</a>。</p>
 </footer>
 
 </div>

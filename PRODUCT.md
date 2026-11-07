@@ -32,9 +32,8 @@ maintaining an image library.
 
 - Planning phase now, at a desk, iterating on the itinerary content and map.
 - On-trip phase later (2027/4/30–5/15): pulled up on mobile in Iceland to
-  check the day's stops, lodging, and route.
-- The itinerary is a ring road loop, shown clockwise by default (west → north
-  → east → south) with counter-clockwise kept as a fallback.
+  check the day's stops, route, and lodging search.
+- The itinerary is a clockwise ring road loop (west → north → east → south).
 - Confirmed flights: outbound 4/29–4/30 via Prague to Keflavík; return
   5/16–5/17 via Frankfurt. `iceland_trip_itinerary.md` (written in Traditional
   Chinese) holds the written plan.
@@ -52,7 +51,7 @@ maintaining an image library.
   render.
 - Map is Leaflet in-page; road geometry comes from OSRM's public demo server.
 - No accounts, no analytics. Stored state is `localStorage` only: road
-  geometry cache, route direction, and the unsent itinerary draft.
+  geometry cache and the unsent itinerary draft.
 - Itinerary changes made on the map leave the page as a prefilled GitHub
   issue; a GitHub Actions workflow applies them with a fixed script and
   pushes, then Claude Code writes the text a script can't (new-spot desc,
@@ -66,14 +65,14 @@ both pages independently (each defines its own `:root`).
 
 ## Evidence on Hand
 
-Real trip data only: confirmed flights, day-by-day stops, and lodging as
+Real trip data only: confirmed flights, day-by-day stops as
 written in `iceland_trip_itinerary.md`. No testimonials, pricing, or
 third-party proof needed — this isn't that kind of site. Take trip content
 only from the itinerary data and the markdown plan.
 
 ## Product Principles
 
-1. Spots and day order live in `DAYS_CCW`/`DAYS_CW` in `public/index.html`;
+1. Spots and day order live in `DAYS` in `public/index.html`;
    `iceland_trip_itinerary.md` is kept in step with them.
 2. Keep it a zero-dependency static page — no framework, no build step, no
    backend — so it stays trivial to edit and deploy.

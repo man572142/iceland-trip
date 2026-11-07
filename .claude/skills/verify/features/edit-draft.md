@@ -34,7 +34,7 @@ Preconditions:
 - **Move.** Open a spot, `#planGo` is disabled, select another value in `#planDay`, and choose `#planGo`. The spot moves, `#editN` reads `2`, and its row has a `移入` badge.
 - **Add.** Search a candidate and choose `#poolHits [data-k="<Q-id>"]`. `#sumDesc` fills in. Choose `#planGo`. `#editN` reads `3` and the row has a `新增` badge.
 - **Persist.** Reload. `#editN` reads `3` and the list is unchanged.
-- **Issue.** Choose `#btnEdits`. `#info h2` reads `更新行程`, and `.change-k` lists `移除`, `換天`, `新增`. Read the `#sendIssue` href without opening it. It targets `github.com/man572142/iceland-trip/issues/new`, its title starts with `[行程更新]`, and the body's JSON has `v:1`, the candidate in `add`, and `days` equal to the page's `DAYS_CCW` order.
+- **Issue.** Choose `#btnEdits`. `#info h2` reads `更新行程`, and `.change-k` lists `移除`, `換天`, `新增`. Read the `#sendIssue` href without opening it. It targets `github.com/man572142/iceland-trip/issues/new`, its title starts with `[行程更新]`, and the body's JSON has `v:2`, the candidate in `add`, and `days` equal to the page's `DAYS` order. The row and the body name the moved spot's days as `Day N`, matching its list position.
 - **Undo.** Choose the first `[data-undo]`. Two rows remain and the removed spot returns.
 - **Drop.** Accept the dialog on `#dropEdits`. The list equals the baseline, `#btnEdits` is disabled, and storage is empty.
 
