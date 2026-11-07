@@ -80,16 +80,19 @@ reason. Both are optional and capped by the checker, because the page must stay 
 
 Two parts, at most 4 lines in the day list at desktop width (about 110 characters):
 
-1. **How the day runs**: the first stop and the day's longest drive between stops, with its time and
-   distance from OSRM（「第一站 Ytri-Tunga，Hraunfossar 過去約 1.5 小時、100 公里」）. Round time to
-   5 minutes under an hour, to the quarter hour above it. Never name where the day starts from or
-   where the night falls ([Lodging](#lodging)).
-2. **What the day is about**: its character and highlights（冰川日、瀑布日、全程最長的移動日）, and a
-   choice that spans several stops.
+1. **How the day starts and the first drive**: from the previous day's last stop to this day's
+   first stop, with time and distance from OSRM（「從雷克雅維克出發，約 2 小時（122 公里）到第一站
+   Hraunfossar（可選）」）. That is the overnight leg the overview row shows. Name its start as a stop,
+   never as where the night is spent ([Lodging](#lodging)). Round time to 5 minutes under an hour,
+   to the quarter hour above it. Day 1 starts from KEF; Day 15 has no first drive.
+2. **What the day is about**: its character and highlights（冰河潟湖日、冰川日、全程車程最長的一天）,
+   plus a choice that spans several stops（「全去排不下，要取捨」）or a time that sets the day's pace
+   （「09:00 出發才趕得上 14:45 那團」）.
 
-Leave out the stop order and a stop-by-stop list (the spot list shows them), the day's total
-km (the header shows it), and anything a spot field already holds: closures and road status
-in `may`／`detour`, reservations in `book`, walking times in `dwell`／`walk`.
+Leave out the stop order and a stop-by-stop list (the spot list shows them), the day's total km
+(the header shows it), the longest leg unless it is what the day is about, pointers to other
+days, and anything a spot field already holds: opening hours, closures and road status in
+`may`／`detour`, reservations in `book`, walking times in `dwell`／`walk`.
 
 ## Writing a `desc`
 
