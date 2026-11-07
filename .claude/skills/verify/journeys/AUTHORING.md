@@ -32,6 +32,6 @@ export default async function(t){
 
 Rules:
 
-- Act through the UI: `click`, `fill`, `selectOption`, mouse. Use `page.evaluate` only to read. `DAYS`, `DAYS_CCW`, `POOL`, `rmap` and similar are readable because they are top-level script bindings. Calling `select()`, `setDay()` or `switchRoute()` proves nothing, because it skips the path the user takes.
+- Act through the UI: `click`, `fill`, `selectOption`, mouse. Use `page.evaluate` only to read. `DAYS`, `POOL`, `rmap` and similar are readable because they are top-level script bindings. Calling `select()` or `setDay()` proves nothing, because it skips the path the user takes.
 - Read trip content from the page with the helpers in `lib.mjs`. The itinerary changes often, so spot names and counts stay out of a journey.
-- Use the stable handles: element ids, `data-dir`, `data-t`, `data-k`, `data-undo`, ARIA state, and UI labels.
+- Use the stable handles: element ids, `data-t`, `data-k`, `data-undo`, ARIA state, and UI labels.

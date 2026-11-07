@@ -39,7 +39,12 @@ jobs:
         id: apply
         run: |
           node tools/apply_edits.mjs "$GITHUB_EVENT_PATH" --out "$OUT"
-          node tools/check_itinerary.mjs
+          if ! node tools/check_itinerary.mjs --stale-ok > "$OUT/check.txt"; then
+            { echo "沒有套用：這次變更違反行程規則。"; echo; grep '✗' "$OUT/check.txt" || cat "$OUT/check.txt"; } > "$OUT/error.md"
+            cat "$OUT/check.txt"
+            exit 1
+          fi
+          cat "$OUT/check.txt"
           echo "polish=$(cat "$OUT/polish")" >> "$GITHUB_OUTPUT"
 
       - name: 推上 main
@@ -111,8 +116,8 @@ jobs:
             用 `gh issue view ${{ github.event.issue.number }} --comments` 讀最新那則留言的「待補」清單，只處理清單上的項目：
 
             - 新景點（desc 是空字串的那些）：照 docs/itinerary.md「Writing a desc」補 desc、繁體中文 zh、z、q，查證後補 dwell 與適用的 walk／fee／book／may；保留 wd。
-            - 列出的 title／note：依現在的排法改寫，兩個方向各自的文字都要對。
+            - 列出的 title／note：依現在的排法改寫。
             - review.html 里程表與 iceland_trip_itinerary.md 同步到現在的行程與 km／drive。
 
-            改完跑 `node tools/check_itinerary.mjs`（不能有 ✗、不能再有 desc 待補），再用 verify skill 在 Chromium 看過頁面。
+            改完跑 `node tools/check_itinerary.mjs --stale-ok`（不能有 ✗、不能再有 desc 待補），再用 verify skill 在 Chromium 看過頁面。
             commit（最後一行寫 `Closes #${{ github.event.issue.number }}`）後 `git push origin HEAD:main`，再用 `gh issue comment` 留言說明補了什麼。

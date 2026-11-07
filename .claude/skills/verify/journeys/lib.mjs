@@ -4,7 +4,7 @@
 export const listNames = page => page.$$eval('#dayList > li.day', els =>
   els.map(el => [...el.querySelectorAll('.spot-name')].map(n => n.firstChild.textContent.trim())));
 
-// 目前方向的 DAYS，唯讀
+// 頁面當下的 DAYS，唯讀
 export const readDays = page => page.evaluate(() => DAYS.map(d => ({
   n:d.n, km:d.km, drive:d.drive, date:d.date,
   spots:d.spots.map(s => ({name:s.name, zh:s.zh, type:s.type, kind:s.kind || null, todo:isTodo(s)}))

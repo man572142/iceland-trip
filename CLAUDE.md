@@ -18,19 +18,20 @@ Live site: https://iceland-trip.man572142.workers.dev/
   [docs/itinerary.md](docs/itinerary.md)
 - **Map, routes, photos, night links** (Leaflet, OSRM, `via`, `#routeWarn`, Booking):
   [docs/map.md](docs/map.md)
-- **Candidates, the draft, 更新行程, `tools/`, the update workflow**:
+- **Candidates, the candidate pool (`tools/candidates.json`), the draft, 更新行程, `tools/`, the update workflow**:
   [docs/edit-pipeline.md](docs/edit-pipeline.md)
 
 ## Files
 
 - `public/index.html` — the site: day list (left), map and photo gallery (right).
-  Data in `DAYS_CCW` / `DAYS_CW`.
+  Data in `DAYS`, clockwise (西 → 北 → 東 → 南).
 - `public/flights.html` — confirmed flights and the price archive, linked from the
   itinerary. Data in `OLD_FLIGHTS` / `NEW_FLIGHTS`.
-- `public/review.html` — open issues with the clockwise plan; its 「已修正 · 別改回去」
+- `public/review.html` — open issues with the plan; its 「已修正 · 別改回去」
   callout lists settled decisions. Styled on its own, not linked from the site.
 - `public/photo-debug.html` — photo source diagnostic.
-- `iceland_trip_itinerary.md` — the written plan for both directions, not deployed.
+- `iceland_trip_itinerary.md` — the written plan, not deployed.
+- `tools/candidates.json` — researched candidates with sources and each one's decision, not deployed.
 - `PRODUCT.md` — product context for the `impeccable` design skill.
 - `.claude/skills/verify/` — the `verify` skill.
 - `.claude/skills/impeccable/`, `.claude/agents/impeccable-*` — vendored design skill;

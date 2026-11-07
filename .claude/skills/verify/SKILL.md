@@ -62,7 +62,7 @@ Every run writes to `.claude/skills/verify/evidence/<run-id>/<journey>/`, which 
 Proof standards:
 
 - Look at the screenshot of the step that matters, and read the actual DOM values. A visual change needs more than a passing exit code.
-- Prove side effects as well as the screen: `localStorage` for drafts, direction and roads, and the decoded issue URL for 更新行程.
+- Prove side effects as well as the screen: `localStorage` for drafts and roads, and the decoded issue URL for 更新行程.
 - Stub only external services (OSRM, the Wikimedia APIs, the Leaflet CDN), and only for a state the live service will not produce on demand. `report.json` lists the blocked URLs.
 - Editing `DAYS` needs one more check: `node tools/check_itinerary.mjs`.
 - External pages that links point to (Booking, Google Maps, GitHub) are verified only by URL.
