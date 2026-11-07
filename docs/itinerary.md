@@ -76,6 +76,21 @@ reason. Both are optional and capped by the checker, because the page must stay 
 3.6 小時，所以沒排」）. A place in `nearby` must not also be a spot, and appears in only one day's
 `nearby`; the checker enforces both.
 
+## Writing a day `note`
+
+Two parts, at most 4 lines in the day list at desktop width (about 110 characters):
+
+1. **How the day runs**: the first stop and the day's longest drive between stops, with its time and
+   distance from OSRM（「第一站 Ytri-Tunga，Hraunfossar 過去約 1.5 小時、100 公里」）. Round time to
+   5 minutes under an hour, to the quarter hour above it. Never name where the day starts from or
+   where the night falls ([Lodging](#lodging)).
+2. **What the day is about**: its character and highlights（冰川日、瀑布日、全程最長的移動日）, and a
+   choice that spans several stops.
+
+Leave out the stop order and a stop-by-stop list (the spot list shows them), the day's total
+km (the header shows it), and anything a spot field already holds: closures and road status
+in `may`／`detour`, reservations in `book`, walking times in `dwell`／`walk`.
+
 ## Writing a `desc`
 
 One paragraph: what the place is, then what you do or see there —「能繞到水簾正後方，從內側

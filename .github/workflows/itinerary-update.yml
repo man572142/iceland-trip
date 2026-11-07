@@ -116,7 +116,7 @@ jobs:
             用 `gh issue view ${{ github.event.issue.number }} --comments` 讀最新那則留言的「待補」清單，只處理清單上的項目：
 
             - 新景點（desc 是空字串的那些）：照 docs/itinerary.md「Writing a desc」補 desc、繁體中文 zh、z、q，查證後補 dwell 與適用的 walk／fee／book／may；保留 wd。
-            - 列出的 title／note：依現在的排法改寫。
+            - 列出的 title／note：依現在的排法改寫，note 照 docs/itinerary.md「Writing a day note」。
             - review.html 里程表與 iceland_trip_itinerary.md 同步到現在的行程與 km／drive。
 
             改完跑 `node tools/check_itinerary.mjs --stale-ok`（不能有 ✗、不能再有 desc 待補），再用 verify skill 在 Chromium 看過頁面。
