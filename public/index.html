@@ -767,6 +767,7 @@
     background:rgba(242,181,68,.07);border:1px solid rgba(242,181,68,.3);
     border-radius:var(--r-sm);font-size:var(--t-sm);color:var(--text-3);line-height:1.6;
   }
+  .route-warn[hidden]{display:none}
   .route-warn b{color:var(--sulphur);font-weight:600}
   .route-warn .ico{--ico:17px;color:var(--sulphur);flex:none;margin-top:2px}
 
@@ -3010,7 +3011,7 @@ function renderLb(){
   if(!p) return;
   if(!lbImg){ lbImg = document.createElement('img'); lbFig.prepend(lbImg); }
   // 大圖網址偶爾載入失敗（如維基媒體放大失敗），退回已知可用的縮圖
-  lbImg.onerror = () => { if(lbImg.src !== p.thumb) lbImg.src = p.thumb; };
+  lbImg.onerror = e => { if(e.target.src !== p.thumb) e.target.src = p.thumb; };
   lbImg.src = p.full;
   lbImg.alt = p.alt;
   lbCap.innerHTML = `<a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.title)}</a>`
