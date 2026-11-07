@@ -1008,7 +1008,7 @@
 const DAYS = [
   {
     n:1, title:"抵達冰島", date:"4/30（五）", km:112, drive:1.9,
-    note:"2027/4/29 深夜 23:30 從桃園出發（經布拉格轉機），4/30 15:55 抵達 KEF → 前往雷克雅維克 → 市區散步。5 月上旬日落近 22:00，晚餐後仍有充足光線；此季節永晝無暗夜，看不到極光。",
+    note:"4/30 15:55 抵達 KEF，約 50 分鐘（49 公里）到雷克雅維克，傍晚在市區散步。5 月上旬日落近 22:00，晚餐後天還亮；這季節看不到極光。",
     spots:[
       {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
        q:"Keflavik International Airport", type:"transit",
@@ -1034,7 +1034,7 @@ const DAYS = [
   },
   {
     n:2, title:"Snæfellsnes 半島 Day1（南岸 → 西端）", date:"5/1（六）", km:291, drive:4.7,
-    note:"沿 1 號公路、54 號公路到半島南岸（雷克雅維克過來前 161 公里沒有停點）：Ytri-Tunga 海豹灘 → Búðakirkja 黑教堂 → Arnarstapi 海崖步道，再到 Lóndrangar、Vatnshellir，繞過西端到 Djúpalónssandur、Saxhóll。全天約 291 公里、淨車程 4.7 小時。Hraunfossar 是可選的第一站：從 Borgarnes 來回約 115 公里、1.7 小時，順路繞過去多約 100 公里、1.5 小時。5 月初不是 Ytri-Tunga 的海豹旺季；Day 3 的海豹中心與 Vatnsnes、Day 8–9 的 Stokksnes 與 Jökulsárlón 還有機會。",
+    note:"第一站 Hraunfossar（可選），到 Ytri-Tunga 約 2 小時（137 公里）是最長一段。這天是半島南岸到西端的海岸日：海崖、黑教堂、熔岩洞與黑沙灘。5 月初不是 Ytri-Tunga 的海豹旺季，Day 3、Day 8–9 還有機會。",
     spots:[
       {name:"Hraunfossar & Barnafoss", zh:"熔岩瀑布與巴納瀑布", opt:true, wd:"Q427971", lat:64.70279, lng:-20.97985, z:15,
        q:"Hraunfossar waterfall Iceland", type:"waterfall",
@@ -1046,7 +1046,7 @@ const DAYS = [
        ],
        dwell:45, walk:"停車場到觀景台短步道", fee:"瀑布免費；停車費各來源不一，以現場公告為準",
        may:"列為全年開放；518 號公路 5 月初路況沒有官方資料，查 road.is",
-       detour:"從 Borgarnes 走 50、518 號單程約 57 km，全程鋪面"},
+       detour:"從 Borgarnes 走 50、518 號單程約 57 km，全程鋪面；順路繞過去多約 100 km、1.5 小時"},
       {name:"Ytri-Tunga", zh:"伊特里通加海豹灘", lat:64.80366, lng:-23.08111, z:15,
        q:"Ytri Tunga seal beach Snaefellsnes", type:"wildlife",
        desc:"半島南岸農場旁的金沙海灘，是半島上少見的金色沙灘。近岸礁石是海豹固定上岸的地方，退潮時常有一整群趴在石頭上。",
@@ -1095,7 +1095,7 @@ const DAYS = [
   },
   {
     n:3, title:"Snæfellsnes 北岸 → 海豹中心 → 北部", date:"5/2（日）", km:452, drive:7.0,
-    note:"從 Saxhóll 往東沿北岸到 Kirkjufell 與 Stykkishólmur，再經 Búðardalur 接 1 號公路，轉進 Hvammstangi 的海豹中心，一路往東。全部可選都去約 452 公里、淨車程 7.0 小時。必停只有前三站，其餘都是可選，單獨加上各多：Víðimýrarkirkja 2 公里、Kolugljúfur 13 公里、Borgarvirki 24 公里、Hvítserkur 46 公里、Illugastaðir 51 公里。後兩者在 Vatnsnes 同一圈上，一起去也只多約 51 公里、0.9 小時。Illugastaðir 的封閉日期來源互相衝突，封閉就只去 Hvítserkur。",
+    note:"第一站 Kirkjufell，Stykkishólmur 到海豹中心約 2.5 小時（164 公里）是最長一段。全程車程最長的移動日，必停只有前三站；Hvítserkur 與 Illugastaðir 同在 Vatnsnes 一圈，一起去只多約 51 公里、0.9 小時。",
     spots:[
       {name:"Kirkjufell & Kirkjufellsfoss", zh:"教會山與教會山瀑布", lat:64.92715, lng:-23.30737, z:15,
        q:"Kirkjufell", type:"view",
@@ -1140,7 +1140,7 @@ const DAYS = [
       {name:"Víðimýrarkirkja", zh:"維濟米爾教堂", opt:true, lat:65.5388, lng:-19.47037, z:16,
        q:"Vidimyrarkirkja turf church", type:"culture",
        desc:"1834 年建成的草皮教堂，冰島僅存幾座之一。厚草牆包著木構、屋頂長草，內部的長凳與講道壇是 17–18 世紀的原件，是少數還能走進去看內裝的草皮教堂。",
-       dwell:25, fee:"成人約 ISK 1,500",
+       dwell:25, detour:"在 1 號公路旁，只多約 2 km", fee:"成人約 ISK 1,500",
        may:"5 月上旬可能尚未進入夏季開放時段，出發前查（國家博物館管理）"}
     ],
     nearby:[
@@ -1154,7 +1154,7 @@ const DAYS = [
   },
   {
     n:4, title:"Akureyri + Goðafoss + Dettifoss", date:"5/3（一）", km:259, drive:3.9,
-    note:"早上逛 Akureyri 市中心，再沿 1 號公路往東停 Goðafoss，經過米湖續行，轉 862 號南段到 Dettifoss 西岸。可選：沿 862 號往北到 Ásbyrgi 再折返，多約 77 公里、1.2 小時車程與 1 小時步行。含可選約 259 公里、淨車程 3.9 小時。",
+    note:"第一站 Akureyri，Goðafoss 到 Dettifoss 約 1.5 小時（99 公里）是最長一段。北部第二大城加兩座大瀑布，上午留給市區；Ásbyrgi 可選，多約 1.2 小時車程與 1 小時步行。",
     spots:[
       {name:"Akureyri", zh:"阿克雷里", kind:"city", wd:"Q29042", lat:65.68353, lng:-18.0878, z:15,
        q:"Akureyri Iceland town", type:"town",
@@ -1193,7 +1193,7 @@ const DAYS = [
   },
   {
     n:5, title:"Lake Mývatn 環湖 → 溫泉收尾", date:"5/4（二）", km:97, drive:1.9,
-    note:"繞米湖一圈，最後泡溫泉：Grjótagjá → Hverfjall → Dimmuborgir → Höfði（可選）→ Skútustaðagígar → 14:00 到鳥類博物館（只開到 16:00）→ 傍晚 Mývatn Nature Baths。溫泉官網標示 12:00 才開，這天的泡湯排在傍晚，出發前線上訂時段。全天約 97 公里、淨車程 1.9 小時。",
+    note:"第一站 Grjótagjá，全天都在米湖周邊，每段車程不到 20 分鐘。火山口、熔岩迷宮與賞鳥排滿，14:00 到鳥類博物館（只開到 16:00），傍晚泡溫泉收尾。",
     spots:[
       {name:"Grjótagjá Cave", zh:"格約塔格亞洞穴", lat:65.6260, lng:-16.8830, z:17,
        q:"Grjotagja", type:"geothermal",
@@ -1239,7 +1239,7 @@ const DAYS = [
   },
   {
     n:6, title:"Hverir → Möðrudalur → Stuðlagil", date:"5/5（三）", km:195, drive:3.5,
-    note:"早上先走 863 號看 Víti 與 Leirhnjúkur（可選，863 號 5 月初積雪狀況不明，當天查 road.is），回 1 號公路停 Hverir 與 Námafjall，再穿內陸高地，經 Möðrudalur 後轉 923 號公路進 Stuðlagil（單程約 19 公里，礫石路），全天約 195 公里、淨車程 3.5 小時；不去 Víti 少約 18 公里、0.3 小時。",
+    note:"第一站 Víti（可選），Hverir 到 Möðrudalur 約 1.25 小時（67 公里）是最長一段。從地熱荒原穿過內陸高地到 Stuðlagil 玄武岩峽谷，這天看的是北部到東部的地貌變化。",
     spots:[
       {name:"Víti (Krafla)", zh:"維提火山口", opt:true, wd:"Q14552532", lat:65.71768, lng:-16.75755, z:14,
        q:"Víti crater Krafla", type:"volcanic",
@@ -1270,7 +1270,7 @@ const DAYS = [
   },
   {
     n:7, title:"Seyðisfjörður + Hafnarhólmi 傍晚海鸚", date:"5/6（四）", km:204, drive:3.1,
-    note:"把海鸚最活躍的時段留給傍晚：先翻 Fjarðarheiði 山口下 Seyðisfjörður，經 Egilsstaðir 走 94 號公路到 Hafnarhólmi，可以看到 22:00 前。兩處都是原路進出，Hafnarhólmi 到 Egilsstaðir 單程約 1 小時。全天約 204 公里、淨車程 3.1 小時。5/6 是耶穌升天日（冰島國定假日），店家與咖啡館營業時間未確認。",
+    note:"第一站 Seyðisfjörður，到 Hafnarhólmi 約 1.5 小時（99 公里）。先看彩虹街與藍教堂的峽灣小鎮，傍晚留給海鸚最活躍的時段，可以看到 22:00 前。5/6 是耶穌升天日，店家時段未確認。",
     spots:[
       {name:"Seyðisfjörður", zh:"塞濟斯菲厴澤", kind:"city", lat:65.2637, lng:-14.0079, z:14,
        q:"Seydisfjordur blue church", type:"town",
@@ -1282,13 +1282,13 @@ const DAYS = [
        ],
        dwell:105, walk:"鎮上平路散步", fee:"免費",
        may:"93 號公路 Fjarðarheiði 山口海拔 620 m，5 月初仍可能因雪或強風臨時封閉，出發前查 road.is",
-       detour:"從 Egilsstaðir 來回 54 km，翻山約 50 分鐘"},
+       detour:"與 Egilsstaðir 相距 27 km，翻山約 25 分鐘"},
       {name:"Hafnarhólmi", zh:"海鸚岩（Borgarfjörður eystri）", lat:65.54247, lng:-13.75678, z:15,
        q:"Hafnarholmi puffin colony", type:"wildlife",
        desc:"全冰島最好接近的海鸚棲地。木棧道與觀景平台直接架在繁殖岩上，海鸚的巢穴就在腳邊幾公尺，不用望遠鏡，也不用搭船出海；同一片岩壁上還有三趾鷗與暴風鸌在築巢。",
        dwell:90, walk:"停車場走木階梯上觀景平台，約 5 分鐘", fee:"免費",
        may:"east.is：海鸚 4 月中到 8 月初在此築巢，近年 4 月上中旬就有首見紀錄。18:00–22:00 是牠們回巢最活躍的時段，5 月日落近 22:00，傍晚光線與活動量都對。未公布開放時段或 5 月限制",
-       detour:"從 Egilsstaðir 走 94 號公路來回約 150 km，已鋪柏油"}
+       detour:"與 Egilsstaðir 相距約 75 km，走 94 號公路，已鋪柏油"}
     ],
     nearby:[
       {name:"Klifbrekkufossar", zh:"克利夫布雷庫瀑布", wd:"Q110387268", lat:65.1795, lng:-14.08156, type:"waterfall",
@@ -1297,7 +1297,7 @@ const DAYS = [
   },
   {
     n:8, title:"東部峽灣 → Vestrahorn 夕陽 → Höfn", date:"5/7（五）", km:393, drive:6.1,
-    note:"早上的 Hengifoss、Stöðvarfjörður 的 Petra 與 Breiðdalsvík 的馴鹿團都是可選，步道約 2.5 小時、吉普車團 3–4 小時，全部都去排不下，要取捨。之後沿 1 號公路到 Djúpivogur，傍晚到 Stokksnes 拍 Vestrahorn（日落近 22:00），晚上到 Höfn 吃龍蝦。含全部可選約 393 公里、淨車程 6.1 小時；可選都不去少約 79 公里、1.1 小時。",
+    note:"第一站 Hengifoss（可選），到 Petra 約 1.5 小時（109 公里）是最長一段。東部峽灣一路南下，Hengifoss、Petra、馴鹿團全去排不下，要取捨；傍晚拍 Vestrahorn（日落近 22:00），晚餐吃 Höfn 龍蝦。",
     spots:[
       {name:"Hengifoss", zh:"亨吉瀑布", opt:true, lat:65.07352, lng:-14.88049, z:15,
        q:"Hengifoss Iceland", type:"waterfall",
@@ -1348,7 +1348,7 @@ const DAYS = [
   },
   {
     n:9, title:"Diamond Beach + 冰河潟湖 + Fjallsárlón", date:"5/8（六）", km:61, drive:1.4,
-    note:"從 Höfn 往西到 Diamond Beach 與 Jökulsárlón，要搭船先訂，海豹有機會但不保證；再到 Fjallsárlón。全天約 61 公里、淨車程 1.4 小時。",
+    note:"第一站 Diamond Beach，全天車程很短，最長到 Fjallsárlón 約 30 分鐘（14 公里）。這天是冰河潟湖日：看冰山漂流與冰塊散落的黑沙灘；要搭船先訂，海豹有機會但不保證。",
     spots:[
       {name:"Diamond Beach", zh:"鑽石沙灘", lat:64.0434, lng:-16.1794, z:15,
        q:"Diamond Beach Iceland", type:"coast",
@@ -1370,7 +1370,7 @@ const DAYS = [
   },
   {
     n:10, title:"Hofskirkja + Svínafellsjökull 冰川", date:"5/9（日）", km:31, drive:0.6,
-    note:"早上看 Hofskirkja 草皮教堂，再上 Svínafellsjökull 冰川嚮導健行（約 3 小時，出發前線上預約，時段決定這天的節奏）。全天約 31 公里、淨車程 0.6 小時。",
+    note:"第一站 Hofskirkja，到 Svínafellsjökull 約 15 分鐘（14 公里）。這天是冰川日：先看草皮教堂，再穿冰爪跟嚮導走冰舌，健行時段決定這天的節奏。",
     spots:[
       {name:"Hofskirkja", zh:"霍夫草皮教堂", lat:63.90704, lng:-16.70673, z:16,
        q:"Hofskirkja turf church", type:"culture",
@@ -1391,7 +1391,7 @@ const DAYS = [
   },
   {
     n:11, title:"Skaftafell → Kirkjubæjarklaustur → Eldhraun", date:"5/10（一）", km:127, drive:1.9,
-    note:"走 Svartifoss + Sjónarnípa 完整環線（約 3 小時），再沿 1 號公路往西停 Dverghamrar 與 Kirkjubæjarklaustur，過了鎮再往西約 10 公里到 Fjaðrárgljúfur 與 Eldhraun。Fjaðrárgljúfur 步道 5 月常仍封閉，出發前查 ust.is；封閉就停 Dverghamrar 與 Eldhraun，兩者都在 1 號公路旁。全天約 127 公里、淨車程 1.9 小時。",
+    note:"第一站 Skaftafell，到 Dverghamrar 約 50 分鐘（57 公里）是最長一段。先走 Svartifoss 與 Sjónarnípa 環線，再看沿路的玄武岩、苔原熔岩與峽谷。Fjaðrárgljúfur 5 月常封閉，可用 Dverghamrar 與 Eldhraun 代替。",
     spots:[
       {name:"Skaftafell", zh:"斯卡夫塔山自然保護區", lat:64.0166, lng:-16.9662, z:13,
        q:"Skaftafell", type:"hike",
@@ -1428,7 +1428,7 @@ const DAYS = [
   },
   {
     n:12, title:"黑沙灘 + Dyrhólaey → Sólheimajökull 冰川健行", date:"5/11（二）", km:87, drive:1.5,
-    note:"沿 1 號公路往西，經過 Vík（南岸的補給點，不停）到 Reynisfjara 與 Dyrhólaey，再往西上 Sólheimajökull 嚮導冰川健行。全天約 87 公里、淨車程 1.5 小時。Dyrhólaey 上部 5 月初常封閉，Reynisfjara 要看浪況；健行要先訂，時段決定這天前兩站能停多久。",
+    note:"第一站 Reynisfjara，全天最長到 Sólheimajökull 約 25 分鐘（24 公里）。黑沙灘、海岬加冰川健行，健行要先訂，時段決定前兩站能停多久。Vík 在路上可補給，不排停留。",
     spots:[
       {name:"Reynisfjara Black Sand Beach", zh:"雷尼斯黑沙灘", lat:63.4058, lng:-19.0448, z:15,
        q:"Reynisfjara", type:"coast",
@@ -1454,7 +1454,7 @@ const DAYS = [
   },
   {
     n:13, title:"Skógar → 南岸瀑布 → Eldhestar 騎馬", date:"5/12（三）", km:125, drive:2.1,
-    note:"走 Kvernufoss（可選）、Skógafoss、Skógar 博物館，再到 Seljalandsfoss 與 Gljúfrabúi，下午到 Hveragerði 旁的 Eldhestar 騎 1 小時冰島馬（官網每天 13:30、14:45 出發）。全天約 125 公里、淨車程 2.1 小時；全部都停的話 09:00 出發才趕得上 14:45 那團。",
+    note:"第一站 Kvernufoss（可選），Seljalandsfoss 到 Eldhestar 約 1.25 小時（82 公里）是最長一段。先看南岸瀑布，下午騎冰島馬；全部都停的話 09:00 開始才趕得上 14:45 那團。",
     spots:[
       {name:"Kvernufoss", zh:"克維努瀑布", opt:true, lat:63.5289, lng:-19.4805, z:17,
        q:"Kvernufoss", type:"waterfall",
@@ -1492,7 +1492,7 @@ const DAYS = [
   },
   {
     n:14, title:"Golden Circle", date:"5/13（四）", km:187, drive:3.1,
-    note:"早上先在 Hveragerði 的 Bónus 採買，再往北走黃金圈：Kerið，中午在 Friðheimar 番茄農場用餐（可選），下午 Gullfoss、Geysir，回程插入 Brúarfoss，最後 Þingvellir。全天約 187 公里、淨車程 3.1 小時。",
+    note:"第一站 Hveragerði 的 Bónus，Brúarfoss 到 Þingvellir 約 1 小時（50 公里）是最長一段。這天是黃金圈：火山口、巨瀑、間歇泉與板塊裂谷，中午可在 Friðheimar 用餐。",
     spots:[
       {name:"Bónus Hveragerði", zh:"Bónus 超市（Hveragerði）", kind:"city", lat:63.9955, lng:-21.1900, z:16,
        q:"Hveragerði Iceland town", type:"food",
@@ -1572,7 +1572,7 @@ const DAYS = [
   },
   {
     n:16, title:"Reykjanes 半島 → 返程", date:"5/15（六）", km:124, drive:2.3,
-    note:"走 42 號公路經 Kleifarvatn 到 Seltún，沿南岸到 Brimketill（可選）、Gunnuhver、Reykjanesviti，往北經板塊橋到 Hafnarberg 海鳥崖，再到 Garðskagi（可選）與 KEF。全天約 124 公里、淨車程 2.3 小時；兩個可選都不去少約 28 公里、0.5 小時。Kolaportið 週六 11:00 才開，想逛就晚點出發，這時先省 Garðskagi。⚠️ Reykjanes 自 2021 年起火山活動頻繁，這天的景點都在受影響範圍內：出發前查 safetravel.is 與 vedur.is。Plan B —— 半島若封閉，就留在雷克雅維克，再走 41 號公路（機場聯外道，不經 Grindavík，約 50 公里、50 分鐘）直達 KEF。回程班機 5/16 凌晨 00:50 起飛（經法蘭克福轉機），5/17 06:15 抵達桃園。",
+    note:"第一站 Seltún，到 Brimketill 約 35 分鐘（40 公里）是最長一段。半島看地熱、海崖與板塊橋；Kolaportið 週六 11:00 才開，想逛就晚點出發。火山活動查 safetravel.is，半島封閉就留市區，走 41 號公路到 KEF（約 50 分鐘）。班機 5/16 00:50。",
     spots:[
       {name:"Seltún (Krýsuvík)", zh:"塞爾通地熱區", wd:"Q16425194", lat:63.8957, lng:-22.0528, z:15,
        q:"Seltun Krysuvik geothermal", type:"geothermal",
