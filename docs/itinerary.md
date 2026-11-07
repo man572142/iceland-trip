@@ -48,7 +48,6 @@ surrounding day has them:
 
 | Field | Meaning |
 |---|---|
-| `opt: true` | Side trip or optional activity. Counts as 待決定. |
 | `kind: "city"` | Transit hub or town, styled differently. |
 | `wd` | Wikidata Q-id. Set on spots added from the map; ties the spot to its `places.json` entry. |
 | `walk` | Walking distance and terrain. |
@@ -60,12 +59,12 @@ surrounding day has them:
 | `via` | Road pins. See [map.md](map.md#f-roads). |
 | `highlights` | Things to see inside the stop. See [Highlights and nearby](#highlights-and-nearby). |
 
-The 「只看待決定」 filter is `opt` or `book`, minus `fixed`.
+The 「只看待決定」 filter is `book` minus `fixed`.
 
 ## Highlights and nearby
 
 A highlight is inside a stop. A `nearby` place is deliberately left out of the plan, with its
-reason. Both are optional and capped by the checker, because the page must stay restrained.
+reason. There is no optional tier: a place is either a spot or in `nearby`. Both are optional and capped by the checker, because the page must stay restrained.
 
 | Field | Item | Shown |
 |---|---|---|
@@ -82,7 +81,7 @@ Two parts, at most 4 lines in the day list at desktop width (about 110 character
 
 1. **How the day starts and the first drive**: from the previous day's last stop to this day's
    first stop, with time and distance from OSRM（「從雷克雅維克出發，約 2 小時（122 公里）到第一站
-   Hraunfossar（可選）」）. That is the overnight leg the overview row shows. Name its start as a stop,
+   Hraunfossar」）. That is the overnight leg the overview row shows. Name its start as a stop,
    never as where the night is spent ([Lodging](#lodging)). Round time to 5 minutes under an hour,
    to the quarter hour above it. Day 1 starts from KEF; Day 15 has no first drive.
 2. **What the day is about**: its character and highlights（冰河潟湖日、冰川日、全程車程最長的一天）,

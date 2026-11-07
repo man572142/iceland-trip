@@ -32,7 +32,7 @@
 
 # Day 2｜5/1（六）Snæfellsnes 半島 Day1（南岸 → 西端）
 
-可選（從 Borgarnes 來回約 115 公里、1.7 小時，順路繞過去多約 100 公里、1.5 小時）：
+先繞到 Hraunfossar（從 Borgarnes 來回約 115 公里、1.7 小時，順路繞過去多約 100 公里、1.5 小時）：
 
 - Hraunfossar ＋ Barnafoss（Deildartunguhver 在路上）
 
@@ -45,7 +45,7 @@
 繞到半島西端：
 
 - Lóndrangar 玄武岩塔
-- Vatnshellir Cave（可選，需預約洞穴導覽）
+- Vatnshellir Cave（需預約洞穴導覽）
 - Djúpalónssandur 黑沙灘
 - Saxhóll 火山口
 
@@ -64,7 +64,7 @@
 
 - Icelandic Seal Center（Hvammstangi，離 1 號公路約 7 公里）
 
-一路往東。全部可選都去約 357 公里、淨車程 5.5 小時。必停只有前三站，其餘都是可選，單獨加上各多：
+一路往東，全天約 357 公里、淨車程 5.5 小時。繞 Vatnsnes 的各站單獨算各多：
 
 - Illugastaðir 海豹觀察點（51 公里，711 號礫石路；絨鴨封閉日期來源互相衝突，5/6–6/20、5–6 月、到 6/29 都有，查 selasetur.is）
 - Hvítserkur 犀牛石（46 公里，與 Illugastaðir 同一圈，一起去也只多約 51 公里）
@@ -79,14 +79,14 @@
 
 早上：
 
-- Víðimýrarkirkja 草皮教堂（可選，1 號公路旁只多約 2 公里，Varmahlíð 附近；5 月上旬可能未開）
+- Víðimýrarkirkja 草皮教堂（1 號公路旁只多約 2 公里，Varmahlíð 附近；5 月上旬可能未開）
 - Akureyri 市中心（步行逛完；愛心紅綠燈、Akureyrarkirkja 教堂、Hafnarstræti 主街）
 
 沿 1 號公路往東：
 
 - Goðafoss
 
-含可選約 207 公里、淨車程 3.2 小時。
+全天約 207 公里、淨車程 3.2 小時。
 
 附近還有：Lystigarðurinn（植物要到 5 月底以後才長起來）、Húsavík（不搭賞鯨船，從 Goðafoss 繞過去多約 52 公里、0.8 小時）。
 
@@ -96,14 +96,14 @@
 
 從 1 號公路轉 863 號：
 
-- Víti ＋ Leirhnjúkur（可選，863 號 5 月初積雪狀況不明，查 road.is）
+- Víti ＋ Leirhnjúkur（863 號 5 月初積雪狀況不明，查 road.is）
 
 繞米湖一圈，泡溫泉：
 
 - Grjótagjá Cave
 - Hverfjall（口緣環線約 3.2 公里；通往停車場的路 5 月初狀況未確認）
 - Dimmuborgir
-- Höfði（可選）
+- Höfði
 - Skútustaðagígar
 - Sigurgeir's Bird Museum（官網 5 月每天 14:00–16:00；米湖的鴨類還在陸續抵達）
 
@@ -120,7 +120,7 @@
 
 早上北上，轉 862 號：
 
-- Ásbyrgi 馬蹄形峽谷（可選，從 Dettifoss 沿 862 號往北來回約 77 公里、約 1.2 小時車程加 1 小時停留）
+- Ásbyrgi 馬蹄形峽谷（從 Dettifoss 沿 862 號往北來回約 77 公里、約 1.2 小時車程加 1 小時停留）
 - Dettifoss ＋ Selfoss（西岸，沿步道往上游走約 30 分鐘）
 
 沿 1 號公路經內陸高地：
@@ -141,7 +141,7 @@
 
 早上：
 
-- Hengifoss（可選，健行來回約 2.5 小時，中段經過 Litlanesfoss）
+- Hengifoss（健行來回約 2.5 小時，中段經過 Litlanesfoss）
 
 白天：
 
@@ -157,10 +157,10 @@
 
 # Day 8｜5/7（五）東部峽灣 → Vestrahorn 夕陽 → Höfn
 
-兩個可選全去排不下，要取捨：
+白天兩站都排，這天合計約 13.7 小時：
 
-- Petra's Stone Collection（可選，Stöðvarfjörður）
-- Wild Reindeer Experience（可選，吉普車團 3–4 小時，在 Breiðdalsvík 集合，需預約）
+- Petra's Stone Collection（Stöðvarfjörður）
+- Wild Reindeer Experience（吉普車團 3–4 小時，在 Breiðdalsvík 集合，需預約）
 
 沿 1 號公路南下：
 
@@ -174,7 +174,7 @@
 
 - Höfn 吃龍蝦
 
-含全部可選約 376 公里、淨車程 5.8 小時；可選都不去少約 67 公里、1.0 小時。附近還有：Hallormsstaðaskógur、Fáskrúðsfjörður 法國漁民博物館。
+全天約 376 公里、淨車程 5.8 小時；Petra 與馴鹿團都不去少約 67 公里、1.0 小時。附近還有：Hallormsstaðaskógur、Fáskrúðsfjörður 法國漁民博物館。
 
 ---
 
@@ -183,9 +183,6 @@
 - Diamond Beach
 - Jökulsárlón（海豹有機會但不保證）
 - Fjallsárlón
-
-可選：
-
 - Zodiac Boat Tour（官網寫 5 月到 10 月底，沒有公布首航日；水陸兩用船每日航班可能 5/15 才開，務必先訂）
 
 全天約 61 公里、淨車程 1.4 小時。
@@ -207,9 +204,9 @@
 
 沿 1 號公路往西：
 
-- Dverghamrar 柱狀玄武岩（可選，1 號公路旁；Fjaðrárgljúfur 封閉時的替代）
+- Dverghamrar 柱狀玄武岩（1 號公路旁，全年可看）
 - Kirkjubæjarklaustur（補給、Kirkjugólf 玄武岩露頭）
-- Fjaðrárgljúfur Canyon（可選 —— 步道 5 月常仍封閉，查 ust.is）
+- Fjaðrárgljúfur Canyon（步道 5 月常仍封閉，查 ust.is）
 - Eldhraun 熔岩苔原（1 號公路旁，不要踩上苔蘚）
 
 全天約 127 公里、淨車程 1.9 小時。附近還有：Foss á Síðu。
@@ -233,7 +230,7 @@
 
 # Day 13｜5/12（三）Skógar → 南岸瀑布 → Eldhestar 騎馬
 
-- Kvernufoss（可選）
+- Kvernufoss
 - Skógafoss
 - Skógar 博物館
 - Seljalandsfoss ＋ Gljúfrabúi（步行約 5 分鐘）
@@ -242,7 +239,7 @@
 
 - Eldhestar 冰島馬騎乘（Hveragerði 旁，1 小時行程官網每天 13:30、14:45，需預約；備案 Íshestar、Safarihestar、Hestasport）
 
-全天約 125 公里、淨車程 2.1 小時；全部都停的話 09:00 出發才趕得上 14:45 那團。附近還有：Raufarhólshellir、Stokkseyri。
+全天約 125 公里、淨車程 2.1 小時；09:00 出發才趕得上 14:45 那團。附近還有：Raufarhólshellir、Stokkseyri。
 
 ---
 
@@ -258,7 +255,7 @@
 
 中午：
 
-- Friðheimar 番茄農場（可選午餐）
+- Friðheimar 番茄農場（午餐）
 
 下午：
 
@@ -273,7 +270,7 @@
 
 # Day 15｜5/14（五）雷克雅維克（緩衝日）
 
-三項都可選，也用來吸收前面的天候延誤：
+也用來吸收前面的天候延誤：
 
 - Thríhnúkagígur 火山口（需事先預約導覽，自駕全程約 4 小時；業者寫每年 5/5–10/30，2027 年場次 2026 年 11 月中開放訂位）
 - Perlan
@@ -289,14 +286,14 @@
 走 42 號公路（經 Kleifarvatn）繞 Reykjanes 半島：
 
 - Seltún 地熱區
-- Brimketill 熔岩海蝕池（可選）
+- Brimketill 熔岩海蝕池
 - Gunnuhver 地熱區
 - Reykjanesviti 燈塔 & Valahnúkamöl 海崖
 - Bridge Between Continents（大陸板塊橋）
 - Hafnarberg 海鳥崖（停車處單程步行 20–30 分鐘）
-- Garðskagi 燈塔海岸（可選，賞鳥與岸邊海豹）
+- Garðskagi 燈塔海岸（賞鳥與岸邊海豹）
 
-全天約 124 公里、淨車程 2.3 小時；兩個可選都不去少約 28 公里、0.5 小時。KEF 機場就在半島上，觀光後直接前往機場。
+全天約 124 公里、淨車程 2.3 小時；Brimketill 與 Garðskagi 都不去少約 28 公里、0.5 小時。KEF 機場就在半島上，觀光後直接前往機場。
 
 ⚠️ Reykjanes 自 2021 年起火山活動頻繁，這天的景點都在受影響範圍內，出發前查 safetravel.is 與 vedur.is。半島若封閉：留在雷克雅維克，再走 41 號公路（機場聯外道，不經 Grindavík，約 50 公里）直達 KEF。
 
@@ -318,15 +315,15 @@ Kolaportið 跳蚤市場只在週末營業，週六 11:00 開，Day 15（週五�
 
 ✅ Búðakirkja 黑教堂 / Lóndrangar
 
-✅ Hraunfossar（可選）
+✅ Hraunfossar
 
-✅ 海豹：Ytri-Tunga、冰島海豹中心、Illugastaðir（可選）、Stokksnes
+✅ 海豹：Ytri-Tunga、冰島海豹中心、Illugastaðir、Stokksnes
 
 ✅ 冰島馬騎乘（Eldhestar）
 
 ✅ 海鸚與海鳥：Hafnarhólmi、Hafnarberg
 
-✅ 野生馴鹿（可選）
+✅ 野生馴鹿
 
 ✅ Seljalandsfoss
 
@@ -370,4 +367,4 @@ Kolaportið 跳蚤市場只在週末營業，週六 11:00 開，Day 15（週五�
 
 ✅ Svínafellsjökull 與 Sólheimajökull 冰川健行
 
-✅ Hvítserkur 犀牛石（可選）
+✅ Hvítserkur 犀牛石

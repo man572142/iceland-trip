@@ -39,7 +39,7 @@ export default async function(t){
     t.eq(await page.locator('#onlyTodo').getAttribute('aria-pressed'), 'true', 'pressed');
     t.check((await page.locator('#dayCount').innerText()).startsWith(`${todo.length} 個待決定`), 'count text', await page.locator('#dayCount').innerText());
     const shown = await page.locator('#dayList .spot-name:visible').evaluateAll(ns => ns.map(n => n.firstChild.textContent.trim()));
-    t.eq(shown, todo, 'visible spots == opt/book minus fixed');
+    t.eq(shown, todo, 'visible spots == book minus fixed');
     await page.locator('#onlyTodo').click();
   });
 

@@ -285,7 +285,6 @@
     outline:3px solid var(--aurora-14);
     transition:outline-color .16s;
   }
-  .spot.opt .dot{background:var(--text-4);outline-color:rgba(126,147,172,.16)}
   .spot.city .dot{background:var(--glacier);outline-color:var(--glacier-14)}
   .spot.active .dot{outline-color:var(--aurora-28)}
   /* the rail must not show through the marker */
@@ -905,7 +904,6 @@
       <div class="legend" aria-label="圖例">
         <span><i style="background:var(--aurora)"></i>景點</span>
         <span><i style="background:var(--glacier)"></i>城鎮 / 交通</span>
-        <span><i style="background:var(--ink-400)"></i>可選</span>
       </div>
     </header>
     <a class="intro" href="./flights.html">
@@ -1001,7 +999,7 @@
 <script>
 /* =========================================================
    行程資料
-   opt: 可選  |  kind: city/spot
+   kind: city/spot
    q:  座標附近找不到照片時，維基條目／Commons 搜尋的關鍵字
    via: 夾在這個點之前的中途點，把路線壓回一般公路
    ========================================================= */
@@ -1034,9 +1032,9 @@ const DAYS = [
   },
   {
     n:2, title:"Snæfellsnes 半島 Day1（南岸 → 西端）", date:"5/1（六）", km:291, drive:4.7,
-    note:"從雷克雅維克出發，約 2 小時（122 公里）到第一站 Hraunfossar（可選）。這天是 Snæfellsnes 半島南岸到西端的海岸日：海豹灘、熔岩原上的黑教堂、玄武岩海崖、熔岩洞與黑卵石灘。",
+    note:"從雷克雅維克出發，約 2 小時（122 公里）到第一站 Hraunfossar。這天是 Snæfellsnes 半島南岸到西端的海岸日：海豹灘、熔岩原上的黑教堂、玄武岩海崖、熔岩洞與黑卵石灘。",
     spots:[
-      {name:"Hraunfossar & Barnafoss", zh:"熔岩瀑布與巴納瀑布", opt:true, wd:"Q427971", lat:64.70279, lng:-20.97985, z:15,
+      {name:"Hraunfossar & Barnafoss", zh:"熔岩瀑布與巴納瀑布", wd:"Q427971", lat:64.70279, lng:-20.97985, z:15,
        q:"Hraunfossar waterfall Iceland", type:"waterfall",
        desc:"Hallmundarhraun 熔岩原底下滲出的泉水，沿著長長一段岩壁分成許多細流落入 Hvítá 河。上游的 Barnafoss 是窄谷裡的急流，名字來自兩個孩子從天然石橋落水的傳說。",
        highlights:[
@@ -1067,7 +1065,7 @@ const DAYS = [
        desc:"75 與 61 公尺高的兩根玄武岩尖塔，是古火山頸被海浪削掉外圍後剩下的岩芯，現在單獨立在海邊，上頭密布海鳥巢。崖頂觀景台看的是輪廓，從 Malarrif 燈塔那側走過去才感覺得到高度。",
        dwell:45, walk:"崖頂觀景台就在停車場旁；從 Malarrif 走近約 25 分鐘來回", fee:"免費",
        may:"全年開放；崖上有暴風鸌與海鸚築巢，5 月初可能還沒到高峰"},
-      {name:"Vatnshellir Cave", zh:"瓦特恩赫爾洞穴", opt:true, lat:64.74812, lng:-23.81798, z:16,
+      {name:"Vatnshellir Cave", zh:"瓦特恩赫爾洞穴", lat:64.74812, lng:-23.81798, z:16,
        q:"Vatnshellir cave", type:"volcanic",
        desc:"8000 年前熔岩流形成的地下熔岩管。戴頭燈沿旋轉鐵梯下到地底 35 公尺，看熔岩流乾涸後留在管壁上的流痕與熔岩鐘乳。全程沒有自然光，關燈那一刻是全黑的。",
        dwell:60, walk:"陡的旋轉鐵梯上下，洞內地面不平", fee:"成人約 ISK 6,500",
@@ -1095,7 +1093,7 @@ const DAYS = [
   },
   {
     n:3, title:"Snæfellsnes 北岸 → 海豹中心 → 北部", date:"5/2（日）", km:357, drive:5.5,
-    note:"從 Saxhóll 出發，約 40 分鐘（44 公里）到第一站 Kirkjufell。看完北岸的孤峰與港鎮，一路東行到海豹中心；之後的 Vatnsnes 海豹點、犀牛石、堡壘與 Kolugljúfur 都是可選。",
+    note:"從 Saxhóll 出發，約 40 分鐘（44 公里）到第一站 Kirkjufell。看完北岸的孤峰與港鎮，一路東行到海豹中心，再繞 Vatnsnes 看海豹點、犀牛石、堡壘與 Kolugljúfur。",
     spots:[
       {name:"Kirkjufell & Kirkjufellsfoss", zh:"教會山與教會山瀑布", lat:64.92715, lng:-23.30737, z:15,
        q:"Kirkjufell", type:"view",
@@ -1113,25 +1111,25 @@ const DAYS = [
        dwell:45, walk:"館內平路", fee:"成人 ISK 1,900（查 selasetur.is）",
        may:"官網公布的班表是 5/1–9/30 每天 10:00–18:00，週日也開；2027 年班表未公布，查 selasetur.is",
        detour:"Hvammstangi 在 72 號公路上，離 1 號公路約 7 km"},
-      {name:"Illugastaðir Seal Hide", zh:"伊魯加斯塔濟海豹觀察點", opt:true, lat:65.60692, lng:-20.87833, z:15,
+      {name:"Illugastaðir Seal Hide", zh:"伊魯加斯塔濟海豹觀察點", lat:65.60692, lng:-20.87833, z:15,
        q:"Vatnsnes seals Iceland", type:"wildlife",
        desc:"Vatnsnes 半島西岸的海豹觀察小屋。從停車場沿海岸走到觀察屋，隔著海面看礁石上的斑海豹；能看到幾隻取決於潮汐，帶望遠鏡。",
        dwell:60, walk:"停車場到觀察屋約 800–900 m", fee:"停車約 ISK 1,000（以現場公告為準）",
        may:"絨鴨築巢期封閉，日期來源互相衝突：海豹中心 2024 年公告 5/6–6/20，Visit Iceland 寫 5、6 月，另有來源寫到 6/29。5 月第一週可能開也可能已封，2027 年日期未定，查 selasetur.is",
        detour:"從 Hvammstangi 走 711 號礫石路單程約 26 km"},
-      {name:"Hvítserkur", zh:"犀牛石", opt:true, lat:65.6061, lng:-20.6383, z:16,
+      {name:"Hvítserkur", zh:"犀牛石", lat:65.6061, lng:-20.6383, z:16,
        q:"Hvitserkur", type:"coast",
        desc:"矗立在 Húnaflói 灣淺灘上的 15 公尺玄武岩海蝕柱。兩個被海蝕穿出來的洞讓它看起來像一頭低頭喝水的犀牛（或巨龍）。退潮能走下黑沙灘繞到它腳邊，漲潮時只能從崖上觀景台看，兩種完全不同的畫面。",
        dwell:60, walk:"崖上觀景台就在停車場旁；下到沙灘有陡階梯，來回 20 分鐘", fee:"免費",
        may:"全年；絨鴨封閉期間仍可到達。先查當天潮汐，走既有路徑別踩進鳥巢區",
        detour:"從 Hvammstangi 走 711 號繞 Vatnsnes，比直走 1 號公路多約 46 km；礫石路，行車慢"},
-      {name:"Borgarvirki", zh:"博爾加維爾基堡壘", opt:true, lat:65.4748, lng:-20.59661, z:15,
+      {name:"Borgarvirki", zh:"博爾加維爾基堡壘", lat:65.4748, lng:-20.59661, z:15,
        q:"Borgarvirki", type:"view",
        desc:"10 公尺高的玄武岩柱狀岩台，維京時代被改建成天然要塞。頂上 360 度可以同時看到 Húnafjörður、Vesturhóp 湖與整片農地。",
        dwell:30, walk:"短陡坡 5 分鐘", fee:"免費",
        may:"全年可到；通往的道路春季可能濕滑或積雪，來源未確認",
        detour:"從 1 號公路轉 717 號，多約 24 km"},
-      {name:"Kolugljúfur", zh:"科盧峽谷", opt:true, lat:65.33193, lng:-20.56959, z:15,
+      {name:"Kolugljúfur", zh:"科盧峽谷", lat:65.33193, lng:-20.56959, z:15,
        q:"Kolugljufur", type:"canyon",
        desc:"Víðidalsá 切出的深峽谷，Kolufossar 分段墜入谷底，從橋上可以直接俯視整段峽谷與瀑布。傳說這是女巨人 Kola 挖來住的 —— 她躺在谷底，伸手就能從河裡抓鮭魚。",
        dwell:30, walk:"橋邊觀景平台，平路", fee:"免費",
@@ -1149,9 +1147,9 @@ const DAYS = [
   },
   {
     n:4, title:"Víðimýrarkirkja + Akureyri + Goðafoss", date:"5/3（一）", km:207, drive:3.2,
-    note:"從 Kolugljúfur 出發，約 1 小時 15 分（88 公里）到第一站 Víðimýrarkirkja（可選）。上午逛北部最大城 Akureyri，下午看馬蹄形的 Goðafoss；這天停留最少，是北部較輕的一天。",
+    note:"從 Kolugljúfur 出發，約 1 小時 15 分（88 公里）到第一站 Víðimýrarkirkja。上午逛北部最大城 Akureyri，下午看馬蹄形的 Goðafoss；這天停留最少，是北部較輕的一天。",
     spots:[
-      {name:"Víðimýrarkirkja", zh:"維濟米爾教堂", opt:true, lat:65.5388, lng:-19.47037, z:16,
+      {name:"Víðimýrarkirkja", zh:"維濟米爾教堂", lat:65.5388, lng:-19.47037, z:16,
        q:"Vidimyrarkirkja turf church", type:"culture",
        desc:"1834 年建成的草皮教堂，冰島僅存幾座之一。厚草牆包著木構、屋頂長草，內部的長凳與講道壇是 17–18 世紀的原件，是少數還能走進去看內裝的草皮教堂。",
        dwell:25, detour:"在 1 號公路旁，只多約 2 km", fee:"成人約 ISK 1,500",
@@ -1181,9 +1179,9 @@ const DAYS = [
   },
   {
     n:5, title:"Víti → Lake Mývatn 環湖 → 溫泉 → Hverir", date:"5/4（二）", km:142, drive:2.9,
-    note:"從 Goðafoss 出發，約 1 小時（64 公里）到第一站 Víti（可選）。全天在米湖周邊：火山口、熔岩迷宮與偽火山口，14:00 到鳥類博物館，傍晚泡溫泉，再到旁邊的 Hverir 看地熱。",
+    note:"從 Goðafoss 出發，約 1 小時（64 公里）到第一站 Víti。全天在米湖周邊：火山口、熔岩迷宮與偽火山口，14:00 到鳥類博物館，傍晚泡溫泉，再到旁邊的 Hverir 看地熱。",
     spots:[
-      {name:"Víti (Krafla)", zh:"維提火山口", opt:true, wd:"Q14552532", lat:65.71768, lng:-16.75755, z:14,
+      {name:"Víti (Krafla)", zh:"維提火山口", wd:"Q14552532", lat:65.71768, lng:-16.75755, z:14,
        q:"Víti crater Krafla", type:"volcanic",
        desc:"Krafla 火山區的爆裂火口，1724 年噴發留下，火口內是藍綠色的湖水，可以沿口緣走。",
        highlights:[
@@ -1207,7 +1205,7 @@ const DAYS = [
        desc:"字面意思是「黑暗城堡」，巨大的黑色岩柱與拱門迷宮。熔岩湖底下的水被煮成蒸氣衝出來，把熔岩撐成一根根中空的柱子，湖水退去後就留下這片石林。Kirkjan「教堂」是其中最大的拱形岩洞，可以走進去；傳說這裡是山怪 Grýla 一家的住處。",
        dwell:75, walk:"步道分 10 分鐘到 1 小時多種長度；Kirkjan 環線約 45 分鐘", fee:"免費",
        may:"全年可步行；5 月初步道是否積雪或泥濘沒有資料，查 visitmyvatn.is"},
-      {name:"Höfði Peninsula", zh:"霍夫迪岬", opt:true, lat:65.5878, lng:-16.9478, z:15,
+      {name:"Höfði Peninsula", zh:"霍夫迪岬", lat:65.5878, lng:-16.9478, z:15,
        q:"Höfði Mývatn lava pillars", type:"view",
        desc:"伸入米湖東岸的岬角。林間步道穿過樺樹林走到湖邊，看得到水中的熔岩柱，也是看水鳥的地點之一。",
        dwell:45, walk:"林間步道，平緩",
@@ -1241,9 +1239,9 @@ const DAYS = [
   },
   {
     n:6, title:"Ásbyrgi + Dettifoss → Möðrudalur → Stuðlagil", date:"5/5（三）", km:255, drive:4.0,
-    note:"從 Hverir 出發，約 1 小時 15 分（77 公里）到第一站 Ásbyrgi（可選）。先北上看 Ásbyrgi 與歐洲水量最大的 Dettifoss，再穿過無樹的內陸高地，到柱狀玄武岩夾著河水的 Stuðlagil，看北部到東部的地貌變化。",
+    note:"從 Hverir 出發，約 1 小時 15 分（77 公里）到第一站 Ásbyrgi。先北上看 Ásbyrgi 與歐洲水量最大的 Dettifoss，再穿過無樹的內陸高地，到柱狀玄武岩夾著河水的 Stuðlagil，看北部到東部的地貌變化。",
     spots:[
-      {name:"Ásbyrgi", zh:"馬蹄形峽谷", opt:true, wd:"Q252506", lat:66.01444, lng:-16.50333, z:14,
+      {name:"Ásbyrgi", zh:"馬蹄形峽谷", wd:"Q252506", lat:66.01444, lng:-16.50333, z:14,
        q:"Ásbyrgi canyon Iceland", type:"canyon",
        desc:"約 3.5 公里長的馬蹄形峽谷，崖壁高約 100 公尺，中間立著一座叫 Eyjan 的岩島。史前冰川洪水沖刷而成，傳說是奧丁的八足馬 Sleipnir 踩出的蹄印。谷底是樺樹林，步道走到盡頭的 Botnstjörn 小池。",
        dwell:60, walk:"停車場到 Botnstjörn 平路短步道", fee:"免費",
@@ -1270,9 +1268,9 @@ const DAYS = [
   },
   {
     n:7, title:"Hengifoss + Seyðisfjörður + Hafnarhólmi 傍晚海鸚", date:"5/6（四）", km:286, drive:4.3,
-    note:"從 Stuðlagil 出發，約 1.5 小時（101 公里）到第一站 Hengifoss（可選）。先看紅黑橫紋的崖壁瀑布，再到峽灣底的彩色小鎮與藍教堂，傍晚留給 Hafnarhólmi 的海鸚，22:00 前都看得到。5/6 是耶穌升天日，店家時段未確認。",
+    note:"從 Stuðlagil 出發，約 1.5 小時（101 公里）到第一站 Hengifoss。先看紅黑橫紋的崖壁瀑布，再到峽灣底的彩色小鎮與藍教堂，傍晚留給 Hafnarhólmi 的海鸚，22:00 前都看得到。5/6 是耶穌升天日，店家時段未確認。",
     spots:[
-      {name:"Hengifoss", zh:"亨吉瀑布", opt:true, lat:65.07352, lng:-14.88049, z:15,
+      {name:"Hengifoss", zh:"亨吉瀑布", lat:65.07352, lng:-14.88049, z:15,
        q:"Hengifoss Iceland", type:"waterfall",
        desc:"冰島第三高瀑布，128 公尺，位在 Lagarfljót 湖西岸。看點不在瀑布本身，在崖壁：一層黑玄武岩夾一層紅黏土的水平橫紋一路疊上去，每一條紅線都是兩次熔岩流之間長出來的土壤。",
        highlights:[
@@ -1305,15 +1303,15 @@ const DAYS = [
   },
   {
     n:8, title:"東部峽灣 → Vestrahorn 夕陽 → Höfn", date:"5/7（五）", km:376, drive:5.8,
-    note:"從 Hafnarhólmi 出發，約 2 小時 15 分（149 公里）到第一站 Petra's Stone Collection（可選）。東部峽灣一路南下，Petra 與馴鹿團兩個可選要取捨；傍晚拍 Vestrahorn，晚餐吃 Höfn 龍蝦。",
+    note:"從 Hafnarhólmi 出發，約 2 小時 15 分（149 公里）到第一站 Petra's Stone Collection。東部峽灣一路南下，白天看石頭收藏、跟吉普車團找馴鹿，是全程最滿的一天；傍晚拍 Vestrahorn，晚餐吃 Höfn 龍蝦。",
     spots:[
-      {name:"Petra's Stone Collection", zh:"佩特拉石頭博物館", opt:true, lat:64.83573, lng:-13.88069, z:16,
+      {name:"Petra's Stone Collection", zh:"佩特拉石頭博物館", lat:64.83573, lng:-13.88069, z:16,
        via:[[65.2635,-14.3955]],
        q:"Petra's Stone Collection Stodvarfjordur", type:"culture",
        desc:"Stöðvarfjörður 小鎮上 Petra Sveinsdóttir 畢生從東部峽灣撿回來的礦石收藏，堆滿整棟房子與整座庭院。沸石、瑪瑙、方解石按她自己的邏輯排列，不是博物館那種分類陳列；房子還維持著她住過的樣子。",
        dwell:45, fee:"成人約 ISK 2,000",
        may:"Grapevine 2025 年寫 5/1–10/15 每天 09:00–17:00；Guide to Iceland 寫 6–9 月。官網 steinapetra.is 未查到，出發前確認"},
-      {name:"Wild Reindeer Experience", zh:"野生馴鹿吉普車團", opt:true, lat:64.79014, lng:-14.00346, z:14,
+      {name:"Wild Reindeer Experience", zh:"野生馴鹿吉普車團", lat:64.79014, lng:-14.00346, z:14,
        q:"Reindeer Múlaþing municipality 20240718", type:"wildlife",
        desc:"Tinna Adventure 的四驅吉普車團（最多 10 人），開進東部的山谷找野生馴鹿。冰島只有東部有野生馴鹿群，冬春棲息在較低的谷地；能不能看到要看當天。",
        dwell:240, fee:"官網未列價，向 Tinna Adventure 詢價",
@@ -1398,7 +1396,7 @@ const DAYS = [
        desc:"Vatnajökull 國家公園的核心區，步道網四通八達，是這天的主菜。Svartifoss 從一整圈向內彎的黑色玄武岩柱下方落下，柱列像風琴管把瀑布圍成半圓（Hallgrímskirkja 的立面就是從這裡來的）。再往上接 Sjónarnípa 稜線，走到崖邊可以整條俯瞰 Skaftafellsjökull 冰舌從 Vatnajökull 冰帽流下來。",
        dwell:180, walk:"只到 Svartifoss 來回約 1.5 小時（爬升 150 m）；接 Sjónarnípa 環線約 3 小時", fee:"停車費約 ISK 1,000（依時數計）",
        may:"5 月初兩條步道通常都無雪可走；高處仍可能有殘雪與泥濘"},
-      {name:"Dverghamrar", zh:"侏儒岩", opt:true, lat:63.84942, lng:-17.86039, z:16,
+      {name:"Dverghamrar", zh:"侏儒岩", lat:63.84942, lng:-17.86039, z:16,
        q:"Dverghamrar Iceland", type:"geology",
        desc:"1 號公路旁的柱狀玄武岩露頭，1975 年起列為自然保護遺跡。整齊的六角柱疊成一面矮崖，上層蓋著被海浪磨圓的塊狀玄武岩 —— 冰河期末海平面比現在高，這裡曾經是海岸線。冰島民間傳說裡這是侏儒的住處，名字因此而來。",
        dwell:20, walk:"路邊停車，走幾步就到", fee:"免費",
@@ -1410,7 +1408,7 @@ const DAYS = [
          {t:"Kirkjugólf", d:"被冰河磨平的柱狀玄武岩露頭，約 80 平方公尺的六角形地磚攤在草地上；名字叫教堂地板，上面從沒蓋過教堂", min:20}
        ],
        dwell:40, walk:"Kirkjugólf 從路邊走 10 分鐘平路", fee:"免費"},
-      {name:"Fjaðrárgljúfur Canyon", zh:"羽毛峽谷", opt:true, lat:63.7714, lng:-18.1719, z:15,
+      {name:"Fjaðrárgljúfur Canyon", zh:"羽毛峽谷", lat:63.7714, lng:-18.1719, z:15,
        q:"Fjadrargljufur", type:"canyon",
        desc:"深 100 公尺、長 2 公里的蛇行峽谷，苔蘚覆蓋的岩壁一層層向內折。步道沿著上緣走，每轉一個彎就是新的一段 S 形谷壁；最深處有平台可以直接俯視谷底的 Fjaðrá 河。",
        dwell:75, walk:"上緣步道單程約 1.1 km、有爬升，來回約 1 小時", fee:"免費",
@@ -1454,9 +1452,9 @@ const DAYS = [
   },
   {
     n:13, title:"Skógar → 南岸瀑布 → Eldhestar 騎馬", date:"5/12（三）", km:125, drive:2.1,
-    note:"從 Sólheimajökull 出發，約 15 分鐘（12 公里）到第一站 Kvernufoss（可選）。上午是南岸瀑布，其中兩座能走到水簾後方；下午騎冰島馬，全部都停的話 09:00 出發才趕得上 14:45 那團。",
+    note:"從 Sólheimajökull 出發，約 15 分鐘（12 公里）到第一站 Kvernufoss。上午是南岸瀑布，其中兩座能走到水簾後方；下午騎冰島馬，09:00 出發才趕得上 14:45 那團。",
     spots:[
-      {name:"Kvernufoss", zh:"克維努瀑布", opt:true, lat:63.5289, lng:-19.4805, z:17,
+      {name:"Kvernufoss", zh:"克維努瀑布", lat:63.5289, lng:-19.4805, z:17,
        q:"Kvernufoss", type:"waterfall",
        desc:"Skógar 博物館後方小峽谷裡的瀑布。同樣能走到水簾後方，但藏在農地後的峽谷裡，遊客常只有個位數，跟 Skógafoss 停車場的人潮是兩個世界。",
        dwell:45, walk:"從 Skógar 博物館旁停車場沿溪走 15 分鐘，須翻一道柵欄，路面泥濘", fee:"免費",
@@ -1504,7 +1502,7 @@ const DAYS = [
        desc:"3000 年歷史的火山口湖，紅黑色火山渣壁配上不透明的藍綠湖水。可以繞口緣走一圈，也有階梯下到湖畔，從水面往上看那圈紅壁，跟從上面俯視完全是兩個地方。",
        dwell:40, walk:"口緣一圈約 15 分鐘；下到湖畔有階梯", fee:"入場約 ISK 600（私人土地，現場收）",
        may:"全年開放"},
-      {name:"Friðheimar", zh:"番茄農場", opt:true, lat:64.17741, lng:-20.44455, z:16,
+      {name:"Friðheimar", zh:"番茄農場", lat:64.17741, lng:-20.44455, z:16,
        q:"Fridheimar tomato farm", type:"food",
        desc:"地熱溫室番茄農場餐廳。在溫室裡吃飯，四周是結果的番茄藤與嗡嗡飛的授粉大黃蜂；招牌是番茄湯配現烤麵包無限續，另有番茄啤酒與 Bloody Mary，同場地還有冰島馬展示場次。",
        dwell:75, fee:"番茄湯自助約 ISK 3,300／人",
@@ -1539,20 +1537,20 @@ const DAYS = [
   },
   {
     n:15, title:"雷克雅維克（緩衝日）", date:"5/14（五）", km:20, drive:null,
-    note:"緩衝日：三項都可選，也用來吸收前面的天候延誤。補給、咖啡店、市區散步，為明天啟程做準備。",
+    note:"緩衝日：Thríhnúkagígur 火山口、Perlan 與市區散步，也用來吸收前面的天候延誤；順便補給，為明天啟程做準備。",
     spots:[
-      {name:"Thríhnúkagígur", zh:"三峰火山口", opt:true, lat:63.9983, lng:-21.6989, z:14,
+      {name:"Thríhnúkagígur", zh:"三峰火山口", lat:63.9983, lng:-21.6989, z:14,
        q:"Thrihnukagigur volcano Iceland", type:"volcanic",
        desc:"休眠火山的岩漿庫，是少數能走進去的一座。從 Bláfjöll 集合點步行穿過熔岩原到火山口，再搭開放式吊籃垂降約 120 公尺，落在一個大到容得下自由女神像的空洞裡；洞壁是紅、黃、紫、綠的氧化岩壁，導覽員帶著頭燈在洞底走一圈。",
        dwell:240, walk:"熔岩原步道來回近 6 km，需中等體力；洞內有導覽員帶路", fee:"成人 ISK 53,000（訂票頁）",
        book:"只能跟團，需事先線上預約；滿 8 歲才能參加",
        may:"業者訂票頁：每年 5/5–10/30 營運，2027 年場次 2026 年 11 月中開放訂位，查 insidethevolcano.com。自駕到集合點全程約 4 小時，天候不佳會取消"},
-      {name:"Perlan", zh:"珍珠樓", opt:true, lat:64.1290, lng:-21.9190, z:16,
+      {name:"Perlan", zh:"珍珠樓", lat:64.1290, lng:-21.9190, z:16,
        q:"Perlan Reykjavik", type:"culture",
        desc:"四座熱水儲槽上蓋玻璃穹頂改成的展館。館內有一條 100 公尺長的人造冰洞（真冰，約 −10°C）、火山與冰川展，還有天文館形式的極光劇場；頂樓 360 度觀景台可以俯瞰整個雷克雅維克與海灣。",
        dwell:150, fee:"展覽套票成人約 ISK 6,500；只上觀景台約 ISK 2,500",
        may:"全年營運"},
-      {name:"Laugavegur", zh:"市區主街", opt:true, lat:64.1440, lng:-21.9270, z:16,
+      {name:"Laugavegur", zh:"市區主街", lat:64.1440, lng:-21.9270, z:16,
        q:"Laugavegur Reykjavik", type:"town",
        desc:"雷克雅維克主要購物街，咖啡店、書店與紀念品店集中在此，是補給乾糧與羊毛衣（lopapeysa）的地方。Bæjarins Beztu 熱狗攤、Brauð & Co 的肉桂捲都在步行範圍內。",
        highlights:[
@@ -1582,7 +1580,7 @@ const DAYS = [
        ],
        dwell:40, walk:"木棧道，有緩坡",
        may:"露天步道，官方頁面未列封閉或季節限制；Reykjanes 的噴發消息要先查 safetravel.is"},
-      {name:"Brimketill", zh:"布林克提爾熔岩海蝕池", opt:true, lat:63.81934, lng:-22.60604, z:16,
+      {name:"Brimketill", zh:"布林克提爾熔岩海蝕池", lat:63.81934, lng:-22.60604, z:16,
        q:"Brimketill Iceland", type:"coast",
        desc:"海蝕在熔岩台地上挖出的天然池子，傳說是女巨人 Oddný 的浴缸。浪大時海水整個灌進池裡再翻出來，觀景平台就架在旁邊，看得很清楚。",
        dwell:20, walk:"停車場到觀景平台 3 分鐘", fee:"免費",
@@ -1607,7 +1605,7 @@ const DAYS = [
        desc:"半島西岸的海鳥崖。從 425 號公路旁的停車處沿標示步道走過熔岩沙地到崖邊，看崖壁上繁殖期的海鳥。",
        dwell:70, walk:"停車處走標示步道單程 20–30 分鐘", fee:"免費",
        may:"全天開放，官方頁面未列限制。4–7 月是繁殖期；5 月鳥況與有沒有海鸚都沒有資料，查 visitreykjanes.is"},
-      {name:"Garðskagi", zh:"加爾斯卡吉燈塔海岸", opt:true, wd:"Q3378225", lat:64.08199, lng:-22.68993, z:15,
+      {name:"Garðskagi", zh:"加爾斯卡吉燈塔海岸", wd:"Q3378225", lat:64.08199, lng:-22.68993, z:15,
        q:"Gardskagi lighthouse", type:"wildlife",
        desc:"半島西北角的岬角，新舊兩座燈塔立在海邊。岸邊可以賞鳥，也有機會看到海豹。",
        dwell:40, walk:"燈塔旁平路",
@@ -1737,8 +1735,8 @@ function indexTypes(){
   }));
 }
 
-/* 待決定 = 標為可選，或需要事先預約；已用 fixed 定案的不算（預約仍要訂，但不必再決定） */
-const isTodo = s => Boolean((s.opt || s.book) && !s.fixed);
+/* 待決定 = 需要事先預約；已用 fixed 定案的不算（預約仍要訂，但不必再決定） */
+const isTodo = s => Boolean(s.book && !s.fixed);
 
 const hhmm = m => m < 60 ? `${m} 分`
   : (m % 60 ? `${Math.floor(m/60)} 小時 ${m%60} 分` : `${m/60} 小時`);
@@ -1838,7 +1836,7 @@ function renderDay(day){
     li.dataset.todo = isTodo(s) ? '1' : '0';
     const b = document.createElement('button');
     b.type = 'button';
-    b.className = 'spot' + (s.opt?' opt':'') + (s.kind==='city'?' city':'');
+    b.className = 'spot' + (s.kind==='city'?' city':'');
     b.dataset.id = id;
     const meta = [
       s.type  ? `<span class="chip type">${TYPES[s.type]}</span>` : '',
@@ -1849,7 +1847,7 @@ function renderDay(day){
     b.innerHTML = `
       <span class="dot" aria-hidden="true"></span>
       <span class="spot-txt">
-        <span class="spot-name">${s.name}${s.opt?'<span class="badge">可選</span>':''}${
+        <span class="spot-name">${s.name}${
           draftTag(s) ? `<span class="badge draft">${draftTag(s)}</span>` : ''}</span>
         <span class="spot-zh">${s.zh}</span>
         ${meta ? `<span class="s-meta">${meta}</span>` : ''}
@@ -1924,11 +1922,11 @@ function updateCount(){
   if(searching){
     countEl.textContent = `找到 ${visibleSpotCount()} 個地點` + (filtering ? '（待決定）' : '');
   } else {
-    countEl.textContent = `${todoCount} 個待決定 · 可選行程與需預約`;
+    countEl.textContent = `${todoCount} 個待決定 · 需預約`;
   }
 }
 
-/* ---------- 只看待決定：可選行程 + 需預約 ---------- */
+/* ---------- 只看待決定：需預約 ---------- */
 const onlyTodo  = document.getElementById('onlyTodo');
 let todoCount = 0;
 
@@ -2571,8 +2569,7 @@ function select(id, keepView){
     <div class="i-head rise">
       <h2>${s.name}</h2><span class="i-zh">${s.zh}</span>
       ${s.dwell?`<span class="i-dwell">建議停留 ${hhmm(s.dwell)}</span>`:''}
-      ${s.opt?'<span class="badge">可選行程</span>':''}${
-        s.fixed?'<span class="badge fixed">已確定</span>':''}${seq}
+      ${s.fixed?'<span class="badge fixed">已確定</span>':''}${seq}
       ${gmapLink(s)}
     </div>
     ${s.desc ? `<p class="i-desc rise rise-2">${s.desc}</p>`

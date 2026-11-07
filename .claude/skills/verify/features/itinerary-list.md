@@ -6,7 +6,7 @@ The left column lists every day and spot. A user expands days to read notes and 
 
 - `list-render` shows every day and spot from the active route, with a header count.
 - `list-expand` opens one day, or all days with `#toggleAll`.
-- `list-todo` narrows the list to `opt` or `book` spots that are not `fixed`.
+- `list-todo` narrows the list to `book` spots that are not `fixed`.
 - `list-search` matches planned spots by name, Chinese name or description.
 - `list-search-pool` also finds unplanned candidates and opens them.
 - `list-search-empty` shows a no-results state.
