@@ -69,6 +69,22 @@ surrounding day has them:
 
 The 「只看待決定」 filter is `opt` or `book`, minus `fixed`.
 
+## Writing a day `note`
+
+Two parts, at most 4 lines in the day list at desktop width (about 110 characters):
+
+1. **How the day starts and the first drive**: from where, how long, how far, to which stop.
+  「從雷克雅維克出發，經過約 2.5 小時車程（160 公里）前往 Snæfellsnes 半島。」Start from the
+  night's town when the previous note names one（Akureyri、米湖、Egilsstaðir、Höfn、Skaftafell、
+  Vík、Hveragerði）, otherwise from the previous day's last stop. Take time and distance from
+  OSRM; round time to 5 minutes under an hour, to the quarter hour above it.
+2. **What the day is about**: the area's or the day's character and its highlights
+  （冰川日、瀑布日、全程最長的移動日、刻意留白的半日）, and where the night falls.
+
+Leave out the stop order and a stop-by-stop list (the spot list shows them), the day's total
+km (the header shows it), and anything a spot field already holds: closures and road status
+in `may`／`detour`, reservations in `book`, walking times in `dwell`／`walk`.
+
 ## Writing a `desc`
 
 One paragraph: what the place is, then what you do or see there —「能繞到水簾正後方，從內側
