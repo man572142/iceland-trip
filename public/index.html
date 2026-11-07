@@ -997,7 +997,7 @@
 /* =========================================================
    行程資料
    opt: 可選  |  kind: city/spot
-   q:  維基照片的搜尋關鍵字（Flickr 用座標，不看 q）
+   q:  座標附近找不到照片時，維基條目／Commons 搜尋的關鍵字
    via / viaR: 夾在這個點之前的中途點，把路線壓回一般公路；via 給逆時針、viaR 給順時針
    ========================================================= */
 /* 逆時針（南 → 東 → 北 → 西）：景點資料只寫在這裡，順時針版（下方 DAYS_CW）用名稱重新分天 */
@@ -2776,51 +2776,6 @@ info.addEventListener('click', async e => {
   }
 });
 
-/* ========== 實景照片：Flickr 依座標搜尋（主要來源） ==========
-   景點座標 1 km 內拍的照片，依熱門度排序；不足 4 張再放寬到 4 km。
-   金鑰在 https://www.flickr.com/services/apps/create/apply/ 免費申請（非商業）。
-   空字串就只用下方的維基來源。 */
-const FLICKR_KEY = '';
-const FLICKR = 'https://api.flickr.com/services/rest/';
-
-async function flickrSearch(s, km){
-  const j = await fetchJson(FLICKR + '?' + new URLSearchParams({
-    method:'flickr.photos.search', api_key:FLICKR_KEY, format:'json', nojsoncallback:'1',
-    lat:s.lat, lon:s.lng, radius:km, radius_units:'km',
-    sort:'interestingness-desc', media:'photos', content_types:'0', safe_search:'1',
-    min_upload_date:'1072915200',          // 地理查詢要有時間範圍，否則只回最近 12 小時
-    extras:'url_z,url_l,url_c,owner_name', per_page:'40'
-  }), 9000);
-  if(j?.stat !== 'ok') throw new Error(j?.message || 'Flickr');
-  return j.photos?.photo || [];
-}
-
-async function flickrPhotos(s){
-  let list = await flickrSearch(s, 1);
-  if(list.length < 4) list = list.concat(await flickrSearch(s, 4));
-  const seen = new Set(), perOwner = {};
-  return list
-    .filter(p => p.url_z && !seen.has(p.id) && seen.add(p.id))
-    .filter(p => (perOwner[p.owner] = (perOwner[p.owner] || 0) + 1) <= 2)   // 同一人最多 2 張
-    .slice(0, 6)
-    .map((p, n) => ({
-      thumb : p.url_z,
-      full  : p.url_l || p.url_c || p.url_z,
-      page  : `https://www.flickr.com/photos/${p.owner}/${p.id}`,
-      title : (p.title || '').trim() || s.name,
-      author: (p.ownername || '').slice(0, 40),
-      alt   : `${s.name} 實景照片 ${n+1}`
-    }));
-}
-
-// 照片下方：到 Google 圖片／Flickr 看更多
-const moreLinks = s => `
-  <p class="gal-more">更多照片：
-    <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">Google 圖片${icon('i-ext')}</a>
-    <a href="https://www.flickr.com/search/?${new URLSearchParams({lat:s.lat, lon:s.lng, radius:'1',
-      has_geo:'1', sort:'interestingness-desc', view_all:'1'})}" target="_blank" rel="noopener">Flickr 附近照片${icon('i-ext')}</a>
-  </p>`;
-
 /* ========== 實景照片：維基百科 Action API（免 API key、CORS 開放） ==========
    只用 en.wikipedia.org/w/api.php 這一個端點。
    註：舊版曾用 /api/rest_v1/page/media-list/，該端點已隨 RESTBase 退役，不要再用。
@@ -2958,6 +2913,69 @@ async function searchCommons(q, s){
     .slice(0, 6);
 }
 
+/* ========== 實景照片：Wikimedia Commons 依座標搜尋（主要來源，免金鑰） ==========
+   景點座標 1 km 內有地理標記的照片（多半是旅人拍、從 Flickr 轉存的實景）；
+   不足 4 張再放寬到 5 km。精選／優質圖片排前面，同一位作者最多 2 張。
+   排除地圖、繪畫、版畫等非實景，以及 1990 年前拍攝的老照片。 */
+const NOT_PHOTO = /\b(maps?|drawings?|paintings?|illustrations?|engravings?|lithographs?|diagrams?|logos?|postcards?|historical images|old photographs|charts?)\b/i;
+const strip = h => String(h || '').replace(/<[^>]*>/g, '').trim();
+// 作者欄常夾著授權說明：只取第一段文字
+const firstText = h => String(h || '').replace(/<[^>]*>/g, '\n').split('\n')
+  .map(t => t.replace(/\s+/g, ' ').trim()).find(Boolean) || '';
+
+async function nearbyFiles(s, m){
+  const j = await fetchJson(api(COMMONS, {
+    action:'query', generator:'geosearch', ggscoord:`${s.lat}|${s.lng}`, ggsradius:String(m),
+    ggsnamespace:'6', ggslimit:'50',
+    prop:'imageinfo', iiprop:'url|extmetadata|mime|size', iiurlwidth:'640',
+    iiextmetadatafilter:'Artist|ObjectName|DateTimeOriginal|Categories'
+  }), 9000);
+  return Object.values(j?.query?.pages || {})
+    .sort((a,b) => (a.index||0) - (b.index||0))       // 由近到遠
+    .map(p => ({p, i:p.imageinfo?.[0]}))
+    .filter(({p, i}) => {
+      if(!i || !i.thumburl || !/^image\/(jpeg|png|webp)$/.test(i.mime) || SKIP.test(p.title)) return false;
+      if(Math.max(i.width, i.height) < 800) return false;
+      const m = i.extmetadata || {};
+      if(NOT_PHOTO.test(strip(m.Categories?.value))) return false;
+      const y = Number(strip(m.DateTimeOriginal?.value).match(/\b(1[89]\d\d|20\d\d)\b/)?.[1]);
+      return !(y && y < 1990);
+    });
+}
+
+async function nearbyPhotos(s){
+  let list = await nearbyFiles(s, 1000);
+  if(list.length < 4) list = list.concat(await nearbyFiles(s, 5000));
+  const rank = ({i}) => /Featured pictures/.test(i.extmetadata?.Categories?.value) ? 0
+    : /Quality images|Valued images/.test(i.extmetadata?.Categories?.value) ? 1 : 2;
+  const seen = new Set(), perAuthor = {};
+  return list
+    .map((e, n) => ({...e, n}))
+    .sort((a,b) => rank(a) - rank(b) || a.n - b.n)      // 精選優先，其餘維持由近到遠
+    .filter(({p}) => !seen.has(p.title) && seen.add(p.title))
+    .filter(({i}) => {
+      const who = firstText(i.extmetadata?.Artist?.value) || '?';
+      return (perAuthor[who] = (perAuthor[who] || 0) + 1) <= 2;
+    })
+    .slice(0, 6)
+    .map(({p, i}, n) => ({
+      thumb : i.thumburl,
+      full  : atWidth(i.thumburl, 1600) || i.url,
+      page  : i.descriptionurl,
+      title : strip(i.extmetadata?.ObjectName?.value) || fileLabel(p.title),
+      author: firstText(i.extmetadata?.Artist?.value).slice(0, 40),
+      alt   : `${s.name} 實景照片 ${n+1}`
+    }));
+}
+
+// 照片下方：到 Google 圖片／Flickr 看更多
+const moreLinks = s => `
+  <p class="gal-more">更多照片：
+    <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">Google 圖片${icon('i-ext')}</a>
+    <a href="https://www.flickr.com/search/?${new URLSearchParams({lat:s.lat, lon:s.lng, radius:'1',
+      has_geo:'1', sort:'interestingness-desc', view_all:'1'})}" target="_blank" rel="noopener">Flickr 附近照片${icon('i-ext')}</a>
+  </p>`;
+
 const imgSearchUrl = name =>
   'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(name + ' Iceland');
 
@@ -2967,12 +2985,10 @@ async function loadPhotos(s, token){
   let photos = [];
   netOk = false;
 
-  // 0) Flickr：座標附近的實景
-  if(FLICKR_KEY){
-    try{ photos = await flickrPhotos(s); }catch(e){ /* 換維基 */ }
-    if(token !== reqToken) return;
-    if(photos.length){ PHOTOS = photos; renderGallery(gal, s, photos); return; }
-  }
+  // 0) 座標附近有地理標記的照片
+  try{ photos = await nearbyPhotos(s); }catch(e){ /* 換下一種來源 */ }
+  if(token !== reqToken) return;
+  if(photos.length){ PHOTOS = photos; renderGallery(gal, s, photos); return; }
 
   // 1) 用景點名稱找條目
   let art = null;

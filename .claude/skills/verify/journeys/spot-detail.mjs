@@ -2,24 +2,28 @@ import {mapReady, readDays, infoTitle, openSpot, pickSpot, spotBtn} from './lib.
 
 const OSRM = 'router.project-osrm.org';
 
-// Flickr 的假回應：1 km 只有 2 張（觸發放寬到 4 km），c 一人 4 張（只留 2 張）→ 共 5 張
-const fp = (i, owner) => ({id:String(i), owner, ownername:'Owner '+owner, title:'Stub '+i,
-  url_z:`https://live.staticflickr.com/1/${i}_z.jpg`, url_l:`https://live.staticflickr.com/1/${i}_b.jpg`});
-const flickrCalls = [];
-const flickrApi = url => {
-  flickrCalls.push(url);
-  const list = new URL(url).searchParams.get('radius') === '1' ? [fp(1,'a'), fp(2,'b')]
-    : [fp(2,'b'), fp(3,'c'), fp(4,'c'), fp(5,'c'), fp(6,'c'), fp(7,'d')];
+// Commons 依座標搜尋的假回應。1 km：地圖、1890 年老照片、太小的圖各一張（都該排除）＋ 1 張可用 → 不足 4 張，放寬到 5 km。
+// 5 km：A 一人 4 張（只留 2 張）、一張精選圖（排第一）、B、C 各一張 → 共 1+2+1+1+1 = 6 張
+const nearbyCalls = [];
+const file = (n, {artist = 'X', cats = '', date = '2019-05-01', w = 4000} = {}) => ({
+  title:`File:Stub ${n}.jpg`, index:n,
+  imageinfo:[{mime:'image/jpeg', width:w, height:w*3/4, url:`https://upload.wikimedia.org/x/Stub_${n}.jpg`,
+    thumburl:`https://upload.wikimedia.org/x/thumb/Stub_${n}.jpg/640px-Stub_${n}.jpg`,
+    descriptionurl:`https://commons.wikimedia.org/wiki/File:Stub_${n}.jpg`,
+    extmetadata:{Artist:{value:artist}, ObjectName:{value:`Stub ${n}`}, DateTimeOriginal:{value:date}, Categories:{value:cats}}}]
+});
+const commonsApi = url => {
+  nearbyCalls.push(url);
+  const r = new URL(url).searchParams.get('ggsradius');
+  const pages = r === '1000'
+    ? [file(1, {cats:'Maps of Iceland'}), file(2, {date:'1890'}), file(3, {w:500}), file(4, {artist:'D'})]
+    : [file(5, {artist:'A'}), file(6, {artist:'A'}), file(7, {artist:'A'}), file(8, {artist:'A'}),
+       file(9, {artist:'Q', cats:'Featured pictures|Waterfalls'}), file(10, {artist:'B'}), file(11, {artist:'C'})];
   return {status:200, contentType:'application/json', headers:{'access-control-allow-origin':'*'},
-    body:JSON.stringify({stat:'ok', photos:{photo:list}})};
+    body:JSON.stringify({query:{pages:Object.fromEntries(pages.map((p, i) => [String(i+1), p]))}})};
 };
 const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgaGj4DwAEgwKAeRFmeQAAAABJRU5ErkJggg==', 'base64');
-const flickrImg = () => ({status:200, contentType:'image/png', body:PNG});
-// FLICKR_KEY 留空時頁面不會打 Flickr：攔下首頁，換成測試金鑰
-const withFlickrKey = page => page.route(u => u.pathname === '/', async r => {
-  const res = await r.fetch();
-  await r.fulfill({response:res, body:(await res.text()).replace(/const FLICKR_KEY = '[^']*';/, "const FLICKR_KEY = 'testkey';")});
-});
+const stubImg = () => ({status:200, contentType:'image/png', body:PNG});
 
 export default async function(t){
   let page = await t.newPage({block:[OSRM]});
@@ -44,7 +48,7 @@ export default async function(t){
   });
 
   let shots = 0;
-  await t.step('photos load live (Flickr when FLICKR_KEY is set, otherwise Wikimedia)', async () => {
+  await t.step('photos load live from Wikimedia', async () => {
     // 不是每個景點都找得到照片（那是 .gal-msg 的正常狀態）：往下點到第一個有照片的
     const names = days.flatMap(d => d.spots).filter(s => s.type !== 'transit').map(s => s.name);
     for(const name of names.slice(0, 15)){
@@ -56,7 +60,7 @@ export default async function(t){
     t.check(shots > 0, 'a spot among the first 15 shows photos');
     await page.waitForFunction(() => [...document.querySelectorAll('#gal .shot img')].some(i => i.complete && i.naturalWidth > 0), null, {timeout:30000});
     const src = await page.locator('#gal .shot img').first().getAttribute('src');
-    t.check(/wikimedia\.org|wikipedia\.org|staticflickr\.com/.test(src), 'image comes from Wikimedia or Flickr', src);
+    t.check(/wikimedia\.org|wikipedia\.org/.test(src), 'image comes from Wikimedia', src);
   });
 
   await t.step('lightbox opens, steps, closes with Escape', async () => {
@@ -115,27 +119,24 @@ export default async function(t){
     t.eq(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'no horizontal page scroll');
   });
 
-  await t.step('Flickr (stubbed): photos near the spot, links to more', async () => {
-    page = await t.newPage({block:[OSRM], fulfill:{'api.flickr.com':flickrApi, 'live.staticflickr.com':flickrImg}});
-    await withFlickrKey(page);
+  await t.step('nearby Commons photos (stubbed): filtered, ranked, links to more', async () => {
+    page = await t.newPage({block:[OSRM], fulfill:{'commons.wikimedia.org':commonsApi, 'upload.wikimedia.org':stubImg}});
     await t.open('/');
     await mapReady(page);
     await openSpot(page, spot.name);
     await page.waitForFunction(() => !document.querySelector('#gal .skel'), null, {timeout:30000});
-    t.eq(await page.locator('#gal .shot').count(), 5, 'deduped, at most 2 per photographer');
-    t.eq(flickrCalls.length, 2, 'widens from 1 km to 4 km when short');
-    const q = new URL(flickrCalls[0]).searchParams;
-    const want = await page.evaluate(n => { const s = DAYS.flatMap(d => d.spots).find(x => x.name === n); return [String(s.lat), String(s.lng)]; }, spot.name);
-    t.eq([q.get('lat'), q.get('lon')].join(), want.join(), 'searches at the spot coordinates');
-    t.eq(await page.locator('#gal .cred').first().getAttribute('href'), 'https://www.flickr.com/photos/a/1', 'credit links to the Flickr photo page');
+    const titles = await page.locator('#gal .cred').evaluateAll(as => as.map(a => a.textContent.split(' · ')[0]));
+    t.eq(titles.join(), 'Stub 9,Stub 4,Stub 5,Stub 6,Stub 10,Stub 11', 'featured first, map/old/small dropped, 2 per author');
+    t.eq(nearbyCalls.map(u => new URL(u).searchParams.get('ggsradius')).join(), '1000,5000', 'widens from 1 km to 5 km');
+    const want = await page.evaluate(n => { const s = DAYS.flatMap(d => d.spots).find(x => x.name === n); return `${s.lat}|${s.lng}`; }, spot.name);
+    t.eq(new URL(nearbyCalls[0]).searchParams.get('ggscoord'), want, 'searches at the spot coordinates');
     const more = await page.locator('#gal .gal-more a').evaluateAll(as => as.map(a => a.href));
     t.check(more[0]?.startsWith('https://www.google.com/search?tbm=isch'), 'Google Images link', more[0]);
     t.check(more[1]?.startsWith('https://www.flickr.com/search/?lat='), 'Flickr nearby link', more[1]);
   });
 
   await t.step('every image fails to load: message instead of an empty grid', async () => {
-    page = await t.newPage({block:[OSRM, 'live.staticflickr.com'], fulfill:{'api.flickr.com':flickrApi}});
-    await withFlickrKey(page);
+    page = await t.newPage({block:[OSRM, 'upload.wikimedia.org'], fulfill:{'commons.wikimedia.org':commonsApi}});
     await t.open('/');
     await mapReady(page);
     await openSpot(page, spot.name);
