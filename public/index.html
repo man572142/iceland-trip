@@ -558,6 +558,13 @@
   }
   .gal-msg a:hover{background:var(--aurora-14);border-color:var(--aurora-45)}
   .gal-msg a .ico{--ico:14px;color:inherit;margin:0}
+  .gal-more{
+    grid-column:1/-1;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;
+    font-size:var(--t-sm);color:var(--text-4);
+  }
+  .gal-more a{display:inline-flex;align-items:center;gap:4px;color:var(--aurora-hi);text-decoration:none}
+  .gal-more a:hover{text-decoration:underline}
+  .gal-more .ico{--ico:12px}
 
   /* ---------- Lightbox ---------- */
   .lightbox{
@@ -990,7 +997,7 @@
 /* =========================================================
    行程資料
    opt: 可選  |  kind: city/spot
-   q:  用於 Wikimedia Commons 照片搜尋的關鍵字
+   q:  維基照片的搜尋關鍵字（Flickr 用座標，不看 q）
    via / viaR: 夾在這個點之前的中途點，把路線壓回一般公路；via 給逆時針、viaR 給順時針
    ========================================================= */
 /* 逆時針（南 → 東 → 北 → 西）：景點資料只寫在這裡，順時針版（下方 DAYS_CW）用名稱重新分天 */
@@ -2769,6 +2776,51 @@ info.addEventListener('click', async e => {
   }
 });
 
+/* ========== 實景照片：Flickr 依座標搜尋（主要來源） ==========
+   景點座標 1 km 內拍的照片，依熱門度排序；不足 4 張再放寬到 4 km。
+   金鑰在 https://www.flickr.com/services/apps/create/apply/ 免費申請（非商業）。
+   空字串就只用下方的維基來源。 */
+const FLICKR_KEY = '';
+const FLICKR = 'https://api.flickr.com/services/rest/';
+
+async function flickrSearch(s, km){
+  const j = await fetchJson(FLICKR + '?' + new URLSearchParams({
+    method:'flickr.photos.search', api_key:FLICKR_KEY, format:'json', nojsoncallback:'1',
+    lat:s.lat, lon:s.lng, radius:km, radius_units:'km',
+    sort:'interestingness-desc', media:'photos', content_types:'0', safe_search:'1',
+    min_upload_date:'1072915200',          // 地理查詢要有時間範圍，否則只回最近 12 小時
+    extras:'url_z,url_l,url_c,owner_name', per_page:'40'
+  }), 9000);
+  if(j?.stat !== 'ok') throw new Error(j?.message || 'Flickr');
+  return j.photos?.photo || [];
+}
+
+async function flickrPhotos(s){
+  let list = await flickrSearch(s, 1);
+  if(list.length < 4) list = list.concat(await flickrSearch(s, 4));
+  const seen = new Set(), perOwner = {};
+  return list
+    .filter(p => p.url_z && !seen.has(p.id) && seen.add(p.id))
+    .filter(p => (perOwner[p.owner] = (perOwner[p.owner] || 0) + 1) <= 2)   // 同一人最多 2 張
+    .slice(0, 6)
+    .map((p, n) => ({
+      thumb : p.url_z,
+      full  : p.url_l || p.url_c || p.url_z,
+      page  : `https://www.flickr.com/photos/${p.owner}/${p.id}`,
+      title : (p.title || '').trim() || s.name,
+      author: (p.ownername || '').slice(0, 40),
+      alt   : `${s.name} 實景照片 ${n+1}`
+    }));
+}
+
+// 照片下方：到 Google 圖片／Flickr 看更多
+const moreLinks = s => `
+  <p class="gal-more">更多照片：
+    <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">Google 圖片${icon('i-ext')}</a>
+    <a href="https://www.flickr.com/search/?${new URLSearchParams({lat:s.lat, lon:s.lng, radius:'1',
+      has_geo:'1', sort:'interestingness-desc', view_all:'1'})}" target="_blank" rel="noopener">Flickr 附近照片${icon('i-ext')}</a>
+  </p>`;
+
 /* ========== 實景照片：維基百科 Action API（免 API key、CORS 開放） ==========
    只用 en.wikipedia.org/w/api.php 這一個端點。
    註：舊版曾用 /api/rest_v1/page/media-list/，該端點已隨 RESTBase 退役，不要再用。
@@ -2915,6 +2967,13 @@ async function loadPhotos(s, token){
   let photos = [];
   netOk = false;
 
+  // 0) Flickr：座標附近的實景
+  if(FLICKR_KEY){
+    try{ photos = await flickrPhotos(s); }catch(e){ /* 換維基 */ }
+    if(token !== reqToken) return;
+    if(photos.length){ PHOTOS = photos; renderGallery(gal, s, photos); return; }
+  }
+
   // 1) 用景點名稱找條目
   let art = null;
   for(const t of titleCandidates(s)){
@@ -2959,7 +3018,7 @@ async function loadPhotos(s, token){
 }
 
 function renderGallery(gal, s, photos){
-  gal.innerHTML = photos.map((p, n) => `
+  gal.innerHTML = moreLinks(s) + photos.map((p, n) => `
     <div class="ph">
       <button type="button" class="shot" data-i="${n}" aria-label="放大檢視：${esc(p.alt)}">
         <img src="${esc(p.thumb)}" alt="${esc(p.alt)}" loading="lazy">
@@ -2970,7 +3029,10 @@ function renderGallery(gal, s, photos){
   gal.querySelectorAll('.ph img').forEach(im=>{
     if(im.complete && im.naturalWidth) im.classList.add('ready');
     else im.addEventListener('load', ()=> im.classList.add('ready'), {once:true});
-    im.addEventListener('error', ()=> im.closest('.ph')?.remove());
+    im.addEventListener('error', ()=>{
+      im.closest('.ph')?.remove();
+      if(!gal.querySelector('.ph') && gal.isConnected) fallback(gal, s, false);   // 全部載不出來
+    });
   });
   gal.querySelectorAll('.shot').forEach(btn=>{
     btn.addEventListener('click', ()=> openLb(Number(btn.dataset.i), btn));
@@ -2984,8 +3046,8 @@ function fallback(gal, s, failed){
       <div>
         <b>${failed ? '照片載入失敗' : '找不到這個地點的照片'}</b>
         <p>${failed
-          ? '可能是網路連線不穩，或目前連不到維基百科。稍後重新整理即可再試一次。'
-          : '維基百科上沒有這個地點的圖片，可以直接到 Google 圖片搜尋。'}</p>
+          ? '可能是網路連線不穩，或目前連不到照片來源。稍後重新整理即可再試一次。'
+          : '這個地點附近沒有可顯示的照片，可以直接到 Google 圖片搜尋。'}</p>
         <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">
           在 Google 圖片搜尋「${esc(s.name)}」${icon('i-ext')}
         </a>

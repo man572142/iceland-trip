@@ -171,6 +171,7 @@ async function doctor(){
   const ext = [
     ['Leaflet CDN (all map steps)', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js'],
     ['OSRM (map-route)', 'https://router.project-osrm.org/route/v1/driving/-21.9,64.1;-21.8,64.1?overview=false'],
+    ['Flickr API (spot-detail photos, when FLICKR_KEY is set)', 'https://api.flickr.com/services/rest/?method=flickr.test.echo&format=json&nojsoncallback=1'],
     ['Commons (spot-detail photos)', 'https://commons.wikimedia.org/w/api.php?action=query&meta=siteinfo&format=json&origin=*'],
     ['Wikipedia (edit-draft summaries)', 'https://en.wikipedia.org/w/api.php?action=query&meta=siteinfo&format=json&origin=*']
   ];

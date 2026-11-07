@@ -58,9 +58,18 @@ When it fires:
 
 ## Photos
 
-Fetched live at page view by `loadPhotos()`, never stored in the repo: the Wikimedia Commons API
-(`origin=*` for CORS, no key) searched with the spot's `q`, falling back to a Wikipedia summary
-thumbnail. Relevance is tuned through `q`.
+Fetched live at page view by `loadPhotos()`, never stored in the repo.
+
+1. **Flickr** (when `FLICKR_KEY` is set): `flickr.photos.search` at the spot's `lat`/`lng`, 1 km,
+   widened to 4 km under 4 results, sorted by interestingness, photos only, at most 2 per
+   photographer, 6 in all. Each credit links to the Flickr photo page (Flickr's terms). The key
+   is a free non-commercial one and sits in the page source, which Flickr allows. A wrong
+   coordinate gives wrong photos.
+2. **Wikimedia** (no key, or Flickr fails or finds nothing): the spot's Wikipedia article images,
+   its lead image, then a Commons search with `q`. Relevance is tuned through `q`.
+
+Above the photos, 更多照片 links to Google Images (name + Iceland) and Flickr's nearby search.
+If every image fails to load, the gallery shows the no-photo message instead of an empty grid.
 
 ## Night links
 
