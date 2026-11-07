@@ -245,10 +245,6 @@
 
 # Day 14｜5/13（四）Golden Circle
 
-早上：
-
-- Bónus Hveragerði 採買
-
 上午：
 
 - Kerið Crater
@@ -264,7 +260,7 @@
 - Brúarfoss 藍色秘境瀑布（Hlauptunga 停車場步行約 10 分）
 - Þingvellir National Park
 
-全天約 187 公里、淨車程 3.1 小時。附近還有：Silfra。
+全天約 173 公里、淨車程 2.9 小時。附近還有：Silfra。
 
 ---
 
