@@ -955,8 +955,8 @@
    ========================================================= */
 const DAYS = [
   {
-    n:1, title:"抵達冰島", date:"4/30（五）", km:112, drive:1.9,
-    note:"4/30 15:55 抵達 KEF，約 50 分鐘（49 公里）到雷克雅維克。傍晚在市區散步看教堂、音樂廳與海邊雕塑；5 月上旬日落近 22:00，晚餐後天還亮，這季節看不到極光。",
+    n:1, title:"抵達冰島", date:"4/30（五）", km:118, drive:2.0,
+    note:"4/30 15:55 抵達 KEF，約 50 分鐘（49 公里）到雷克雅維克。傍晚在市區散步看教堂、音樂廳與海邊雕塑，教堂塔頂多半已關，只看外觀；明天 5/1 勞動節多數店家休息，今晚先買食物。",
     spots:[
       {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
        q:"Keflavik International Airport", type:"transit",
@@ -966,8 +966,8 @@ const DAYS = [
       {name:"Hallgrímskirkja", zh:"哈爾格林姆教堂", lat:64.1417, lng:-21.9266, z:16,
        q:"Hallgrimskirkja", type:"culture",
        desc:"雷克雅維克地標，74.5 公尺高的混凝土教堂。塔頂是全市最高的公開視角，整片彩色鐵皮屋頂、法克薩灣與對岸的 Esja 山一次收進來；正面的混凝土柱列做成玄武岩節理的階梯狀，門前是 Leifur Eiríksson 雕像。",
-       dwell:45, walk:"教堂內平路；登塔搭電梯，最後一小段樓梯", fee:"教堂免費；登塔成人約 ISK 1,400",
-       may:"全年開放；5 月起延長營業至傍晚，禮拜與音樂會時段暫停售票，出發前查官網"},
+       dwell:45, walk:"教堂內平路；登塔搭電梯，最後一小段樓梯", fee:"教堂免費；登塔成人 ISK 1,500（2026 年價）",
+       may:"官網：塔頂冬季開到 16:45、夏季開到 19:45，換季日未寫，第三方寫夏季從 5 月起。禮拜與音樂會時段暫停售票，出發前查官網"},
       {name:"Harpa Concert Hall", zh:"哈帕音樂廳", lat:64.1505, lng:-21.9325, z:16,
        q:"Harpa Reykjavik", type:"culture",
        desc:"港邊的玻璃蜂巢建築，立面由 Olafur Eliasson 設計。立面是準晶體結構的玻璃磚，白天中庭整片彩色光斑打在地板與樓梯上，入夜後整面外牆變成低解析度的燈光屏。",
@@ -981,10 +981,10 @@ const DAYS = [
     ]
   },
   {
-    n:2, title:"Snæfellsnes 半島 Day1（南岸 → 西端）", date:"5/1（六）", km:291, drive:4.7,
-    note:"從雷克雅維克出發，約 2 小時（122 公里）到第一站 Hraunfossar。這天是 Snæfellsnes 半島南岸到西端的海岸日：海豹灘、熔岩原上的黑教堂、玄武岩海崖、熔岩洞與黑卵石灘。",
+    n:2, title:"Snæfellsnes 半島 Day1（南岸 → 西端）", date:"5/1（六）", km:296, drive:4.7,
+    note:"從雷克雅維克出發，約 2 小時（134 公里）到第一站 Hraunfossar。這天是 Snæfellsnes 半島南岸到西端的海岸日：海豹灘、熔岩原上的黑教堂、玄武岩海崖、熔岩洞與黑卵石灘。",
     spots:[
-      {name:"Hraunfossar & Barnafoss", zh:"熔岩瀑布與巴納瀑布", wd:"Q427971", lat:64.70279, lng:-20.97985, z:15,
+      {name:"Hraunfossar & Barnafoss", zh:"熔岩瀑布與巴納瀑布", via:[[64.5383,-21.9206]], via:[[64.5383,-21.9206]], wd:"Q427971", lat:64.70279, lng:-20.97985, z:15,
        q:"Hraunfossar waterfall Iceland", type:"waterfall",
        desc:"Hallmundarhraun 熔岩原底下滲出的泉水，沿著長長一段岩壁分成許多細流落入 Hvítá 河。上游的 Barnafoss 是窄谷裡的急流，名字來自兩個孩子從天然石橋落水的傳說。",
        highlights:[
@@ -994,7 +994,7 @@ const DAYS = [
        ],
        dwell:45, walk:"停車場到觀景台短步道", fee:"瀑布免費；停車費各來源不一，以現場公告為準",
        may:"列為全年開放；518 號公路 5 月初路況沒有官方資料，查 road.is",
-       detour:"從 Borgarnes 走 50、518 號單程約 57 km，全程鋪面；順路繞過去多約 100 km、1.5 小時"},
+       detour:"從 Borgarnes 走 50、518 號單程約 57 km，全程鋪面；順路繞過去多約 110 km、1.5 小時"},
       {name:"Ytri-Tunga", zh:"伊特里通加海豹灘", lat:64.80366, lng:-23.08111, z:15,
        q:"Ytri Tunga seal beach Snaefellsnes", type:"wildlife",
        desc:"半島南岸農場旁的金沙海灘，是半島上少見的金色沙灘。近岸礁石是海豹固定上岸的地方，退潮時常有一整群趴在石頭上。",
@@ -1020,7 +1020,7 @@ const DAYS = [
        desc:"8000 年前熔岩流形成的地下熔岩管。戴頭燈沿旋轉鐵梯下到地底 35 公尺，看熔岩流乾涸後留在管壁上的流痕與熔岩鐘乳。全程沒有自然光，關燈那一刻是全黑的。",
        dwell:60, walk:"陡的旋轉鐵梯上下，洞內地面不平", fee:"成人約 ISK 6,500",
        book:"需參加導覽（旺季建議先訂）",
-       may:"全年營運，整點出發；時段依季節調整，查官網"},
+       may:"全年營運。時段來源不一：第三方列 5/15 前約 11:00–15:00、5/15 起 10:00–18:00，向 Summit Adventure Guides 確認"},
       {name:"Djúpalónssandur", zh:"迪尤帕蘿頌黑沙灘", lat:64.75209, lng:-23.90321, z:15,
        q:"Djupalonssandur", type:"coast",
        desc:"半島最西端的黑卵石灘，四周奇岩嶙峋。灘上散著 1948 年觸礁的英國拖網漁船殘骸鐵件，刻意留在原地當紀念；另有四顆傳統試力石，最重 154 公斤 —— 當年漁夫得搬得動其中一顆才有資格上船工作。",
@@ -1065,7 +1065,7 @@ const DAYS = [
        q:"Vatnsnes seals Iceland", type:"wildlife",
        desc:"Vatnsnes 半島西岸的海豹觀察小屋。從停車場沿海岸走到觀察屋，隔著海面看礁石上的斑海豹；能看到幾隻取決於潮汐，帶望遠鏡。",
        dwell:60, walk:"停車場到觀察屋約 800–900 m", fee:"停車約 ISK 1,000（以現場公告為準）",
-       may:"絨鴨築巢期封閉，日期來源互相衝突：海豹中心 2024 年公告 5/6–6/20，Visit Iceland 寫 5、6 月，另有來源寫到 6/29。5 月第一週可能開也可能已封，2027 年日期未定，查 selasetur.is",
+       may:"絨鴨築巢期封閉，日期來源互相衝突：Visit North Iceland 寫每年 5/1–6/20，海豹中心 2024 年公告 5/6–6/20，Visit Iceland 寫 5、6 月，另有來源寫到 6/29。5 月第一週多半已封，2027 年日期未定，查 selasetur.is",
        detour:"從 Hvammstangi 走 711 號礫石路單程約 26 km"},
       {name:"Hvítserkur", zh:"犀牛石", lat:65.6061, lng:-20.6383, z:16,
        q:"Hvitserkur", type:"coast",
@@ -1129,7 +1129,7 @@ const DAYS = [
   },
   {
     n:5, title:"Víti → Lake Mývatn 環湖 → 溫泉 → Hverir", date:"5/4（二）", km:142, drive:2.9,
-    note:"從 Goðafoss 出發，約 1 小時（64 公里）到第一站 Víti。全天在米湖周邊：火山口、熔岩迷宮與偽火山口，14:00 到鳥類博物館，傍晚泡溫泉，再到旁邊的 Hverir 看地熱。",
+    note:"從 Goðafoss 出發，約 1 小時（64 公里）到第一站 Víti。全天在米湖周邊：火山口、熔岩迷宮與偽火山口，傍晚泡溫泉，再到旁邊的 Hverir 看地熱。鳥類博物館 16:00 關，照這個順序要 06:50 前出發。",
     spots:[
       {name:"Víti (Krafla)", zh:"維提火山口", wd:"Q14552532", lat:65.71768, lng:-16.75755, z:14,
        q:"Víti crater Krafla", type:"volcanic",
@@ -1228,7 +1228,7 @@ const DAYS = [
        ],
        dwell:150, walk:"來回 5 km、爬升約 350 m，階梯與碎石坡，約 2.5 小時", fee:"免費",
        may:"5 月初的來源不一致：有的說春季通常無雪，有的說早季泥濘或結冰，帶冰爪。未公布封閉資訊，查 east.is"},
-      {name:"Seyðisfjörður", zh:"塞濟斯菲厴澤", kind:"city", lat:65.2637, lng:-14.0079, z:14,
+      {name:"Seyðisfjörður", zh:"塞濟斯菲厄澤", kind:"city", lat:65.2637, lng:-14.0079, z:14,
        q:"Seydisfjordur blue church", type:"town",
        desc:"藏在峽灣底的彩色小鎮，也是往丹麥渡輪的港口。開下 Fjarðarheiði 山口那一刻整座小鎮攤在眼前。",
        highlights:[
@@ -1252,8 +1252,8 @@ const DAYS = [
     ]
   },
   {
-    n:8, title:"東部峽灣 → Vestrahorn 夕陽 → Höfn", date:"5/7（五）", km:376, drive:5.8,
-    note:"從 Hafnarhólmi 出發，約 2 小時 15 分（149 公里）到第一站 Petra's Stone Collection。東部峽灣一路南下，白天看石頭收藏、跟吉普車團找馴鹿，是全程最滿的一天；傍晚拍 Vestrahorn，晚餐吃 Höfn 龍蝦。",
+    n:8, title:"東部峽灣 → Vestrahorn 夕陽 → Höfn", date:"5/7（五）", km:301, drive:4.6,
+    note:"從 Hafnarhólmi 出發，約 2 小時 15 分（149 公里）到第一站 Petra's Stone Collection。東部峽灣一路南下，白天看石頭收藏、跟吉普車團找馴鹿；傍晚拍 Vestrahorn，晚餐吃 Höfn 龍蝦。等到 21:40 日落再到 Höfn 約 22:00，先確認餐廳時間。",
     spots:[
       {name:"Petra's Stone Collection", zh:"佩特拉石頭博物館", lat:64.83573, lng:-13.88069, z:16,
        via:[[65.2635,-14.3955]],
@@ -1401,8 +1401,8 @@ const DAYS = [
     ]
   },
   {
-    n:13, title:"Skógar → 南岸瀑布 → Eldhestar 騎馬", date:"5/12（三）", km:125, drive:2.1,
-    note:"從 Sólheimajökull 出發，約 15 分鐘（12 公里）到第一站 Kvernufoss。上午是南岸瀑布，其中兩座能走到水簾後方；下午騎冰島馬，09:00 出發才趕得上 14:45 那團。",
+    n:13, title:"Skógar → 南岸瀑布 → Eldhestar 騎馬", date:"5/12（三）", km:135, drive:2.2,
+    note:"從 Sólheimajökull 出發，約 15 分鐘（12 公里）到第一站 Kvernufoss。上午是南岸瀑布，其中兩座能走到水簾後方；下午騎冰島馬，08:00 出發才趕得上 14:45 那團，並留午餐時間。",
     spots:[
       {name:"Kvernufoss", zh:"克維努瀑布", lat:63.5289, lng:-19.4805, z:17,
        q:"Kvernufoss", type:"waterfall",
@@ -1440,7 +1440,7 @@ const DAYS = [
   },
   {
     n:14, title:"Golden Circle", date:"5/13（四）", km:173, drive:2.9,
-    note:"從 Eldhestar 出發，約 20 分鐘（22 公里）到第一站 Kerið。這天是黃金圈：火山口湖、巨瀑、間歇泉與板塊裂谷，中午可在溫室番茄農場用餐，最後回雷克雅維克。",
+    note:"從 Eldhestar 出發，約 20 分鐘（22 公里）到第一站 Kerið。這天是黃金圈：火山口湖、巨瀑、間歇泉與板塊裂谷，中午在溫室番茄農場用餐（訂 12:00 就 10:15 出發），最後回雷克雅維克。",
     spots:[
       {name:"Kerið Crater", zh:"克里德火山口湖", lat:64.0411, lng:-20.8850, z:16,
        q:"Kerid crater", type:"volcanic",
@@ -1452,7 +1452,7 @@ const DAYS = [
        desc:"地熱溫室番茄農場餐廳。在溫室裡吃飯，四周是結果的番茄藤與嗡嗡飛的授粉大黃蜂；招牌是番茄湯配現烤麵包無限續，另有番茄啤酒與 Bloody Mary，同場地還有冰島馬展示場次。",
        dwell:75, fee:"番茄湯自助約 ISK 3,300／人",
        book:"必須事先訂位，午餐時段常滿",
-       may:"全年營業，午餐時段固定"},
+       may:"全年營業；廚房 11:30 或 12:00 開到 16:00（來源不一），查官網"},
       {name:"Gullfoss", zh:"黃金瀑布", lat:64.3260, lng:-20.1280, z:15,
        q:"Gullfoss", type:"waterfall",
        desc:"分兩層落入 32 公尺深峽谷的巨瀑，是這趟水量最大的一座。水轉 90 度衝進裂谷，從上層觀景台看不到谷底的出口，整條河像直接消失在地面的裂縫裡；下層步道能走到緊貼水流的岩台，會被水霧整個蓋住。",
@@ -1481,8 +1481,8 @@ const DAYS = [
     ]
   },
   {
-    n:15, title:"雷克雅維克（緩衝日）", date:"5/14（五）", km:20, drive:null,
-    note:"緩衝日：Thríhnúkagígur 火山口、Perlan 與市區散步，也用來吸收前面的天候延誤；順便補給，為明天啟程做準備。",
+    n:15, title:"雷克雅維克（緩衝日）", date:"5/14（五）", km:85, drive:1.5,
+    note:"從 Þingvellir 出發，約 1 小時（64 公里）到第一站 Thríhnúkagígur。緩衝日：火山口、Perlan 與市區散步，也用來吸收前面的天候延誤；順便補給，為明天啟程做準備。",
     spots:[
       {name:"Thríhnúkagígur", zh:"三峰火山口", lat:63.9983, lng:-21.6989, z:14,
        q:"Thrihnukagigur volcano Iceland", type:"volcanic",
@@ -1568,7 +1568,7 @@ const DAYS = [
       {name:"Viking World", zh:"維京世界博物館", wd:"Q4163674", lat:63.976, lng:-22.5289, type:"culture",
        why:"離 KEF 約 5 km，只查到非官方列表的 10:00–16:00，傍晚多半已關"},
       {name:"Kolaportið", zh:"Kolaportið 跳蚤市場", wd:"Q3481191", lat:64.1489, lng:-21.9386, type:"culture",
-       why:"週末限定，週六 11:00 開；建築可能改作他用，出發前查 kolaportid.is"}
+       why:"週末限定，週六 11:00 開；2025 年換新業者，時段可能調整，出發前查 kolaportid.is"}
     ]
   }
 ];

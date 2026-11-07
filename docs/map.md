@@ -38,7 +38,7 @@ OSRM routes by distance, not season, and will send you over an `F`-road: a highl
 4x4-only and usually shut until June, which is after this trip. So its numbers are
 shortest-path, not plans. Every query asks for `steps` purely to read each step's `ref`; any
 `F`-prefixed one marks the leg 路線僅供參考 in the popup (`LEG_KM.f`). Keep that flag wired to
-anything that shows an OSRM duration. Its text is for travellers, so it speaks without "OSRM" or road numbers.
+anything that shows an OSRM duration. It reads only the prefix, so a highland road numbered without one (550 Kaldidalur) passes silently: read the `ref`s of a new leg yourself. It reads only the prefix, so a highland road numbered without one (550 Kaldidalur) passes silently: read the `ref`s of a new leg yourself. Its text is for travellers, so it speaks without "OSRM" or road numbers.
 
 When it fires:
 

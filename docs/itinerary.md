@@ -5,7 +5,7 @@ The trip's data is `DAYS` in `public/index.html`, clockwise (西 → 北 → 東
 
 ## Steps
 
-1. Read the 「已修正 · 別改回去」 callout at the top of `public/review.html`. Each item is a
+1. Read the 「已修正 · 別改回去」 callout in `public/review.html`. Each item is a
    settled decision; a change that reverses one needs the user's say-so.
 2. Put the spot in its day's `spots`, and update that day's `title`, `note`, `km` and `drive`.
 3. Sync the same change into `iceland_trip_itinerary.md` and the load table in `review.html`.
@@ -28,8 +28,7 @@ Day 15/16 and Kolaportið's weekend are fixed, so they may name theirs.
 
 ## Fields
 
-A day has `n`, `title`, `date`, `note`, `km`, `drive` (net driving hours, `null` on the
-Reykjavík day) and `spots[]`. `km`/`drive` equal the `review.html` load table, whose caption
+A day has `n`, `title`, `date`, `note`, `km`, `drive` (net driving hours) and `spots[]`. `km`/`drive` equal the `review.html` load table, whose caption
 defines how they are measured. It may also have `nearby`; see [Highlights and nearby](#highlights-and-nearby).
 
 A spot needs these, which the checker enforces:
@@ -83,10 +82,10 @@ Two parts, at most 4 lines in the day list at desktop width (about 110 character
    first stop, with time and distance from OSRM（「從雷克雅維克出發，約 2 小時（122 公里）到第一站
    Hraunfossar」）. That is the day's departure drive. Name its start as a stop,
    never as where the night is spent ([Lodging](#lodging)). Round time to 5 minutes under an hour,
-   to the quarter hour above it. Day 1 starts from KEF; Day 15 has no first drive.
+   to the quarter hour above it. Day 1 starts from KEF.
 2. **What the day is about**: its character and highlights（冰河潟湖日、冰川日、全程車程最長的一天）,
    plus a choice that spans several stops（「全去排不下，要取捨」）or a time that sets the day's pace
-   （「09:00 出發才趕得上 14:45 那團」）.
+   （「08:00 出發才趕得上 14:45 那團」）.
 
 Leave out the stop order and a stop-by-stop list (the spot list shows them), the day's total km
 (the header shows it), the longest leg unless it is what the day is about, pointers to other

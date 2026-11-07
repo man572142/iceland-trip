@@ -32,11 +32,11 @@
 
 # Day 2｜5/1（六）Snæfellsnes 半島 Day1（南岸 → 西端）
 
-先繞到 Hraunfossar（從 Borgarnes 來回約 115 公里、1.7 小時，順路繞過去多約 100 公里、1.5 小時）：
+經 Borgarnes 先到 Hraunfossar（從 Borgarnes 來回約 115 公里、1.7 小時，順路繞過去多約 110 公里、1.5 小時；別走 550 號 Kaldidalur，6 月才開）：
 
 - Hraunfossar ＋ Barnafoss（Deildartunguhver 在路上）
 
-沿 1 號公路到半島南岸，雷克雅維克過來前 161 公里是沒有停點的高速段：
+再到半島南岸：
 
 - Ytri-Tunga 海豹灘（海豹最佳期是 6–8 月的退潮時段，5 月初數量沒有資料）
 - Búðakirkja 黑教堂
@@ -45,11 +45,11 @@
 繞到半島西端：
 
 - Lóndrangar 玄武岩塔
-- Vatnshellir Cave（需預約洞穴導覽）
+- Vatnshellir Cave（需預約洞穴導覽；第三方列 5/15 前最後一團約 15:00，向業者確認）
 - Djúpalónssandur 黑沙灘
 - Saxhóll 火山口
 
-全天約 291 公里、淨車程 4.7 小時。附近還有：Gerðuberg、Rauðfeldsgjá、Víðgelmir。
+全天約 296 公里、淨車程 4.7 小時。附近還有：Gerðuberg、Rauðfeldsgjá、Víðgelmir。
 
 ---
 
@@ -66,7 +66,7 @@
 
 一路往東，全天約 357 公里、淨車程 5.5 小時。繞 Vatnsnes 的各站單獨算各多：
 
-- Illugastaðir 海豹觀察點（51 公里，711 號礫石路；絨鴨封閉日期來源互相衝突，5/6–6/20、5–6 月、到 6/29 都有，查 selasetur.is）
+- Illugastaðir 海豹觀察點（51 公里，711 號礫石路；絨鴨封閉日期來源互相衝突，5/1–6/20、5/6–6/20、5–6 月、到 6/29 都有，查 selasetur.is）
 - Hvítserkur 犀牛石（46 公里，與 Illugastaðir 同一圈，一起去也只多約 51 公里）
 - Borgarvirki 玄武岩堡壘（24 公里）
 - Kolugljúfur 峽谷（13 公里）
@@ -105,14 +105,14 @@
 - Dimmuborgir
 - Höfði
 - Skútustaðagígar
-- Sigurgeir's Bird Museum（官網 5 月每天 14:00–16:00；米湖的鴨類還在陸續抵達）
+- Sigurgeir's Bird Museum（官網 5 月每天 14:00–16:00，照這個順序要 06:50 前出發；米湖的鴨類還在陸續抵達）
 
 傍晚：
 
 - Mývatn Nature Baths（官網已改名 Earth Lagoon Mývatn，標示 12:00–22:00，依季節調整；已定案要去，出發前線上訂時段）
 - Hverir ＋ Námafjall（後方山脊，來回約 40 分鐘）
 
-全天約 142 公里、淨車程 2.9 小時；不去 Víti 少約 18 公里、0.3 小時。附近還有：Lofthellir。
+全天約 142 公里、淨車程 2.9 小時；不去 Víti 少約 26 公里、0.5 小時。附近還有：Lofthellir。
 
 ---
 
@@ -131,7 +131,7 @@
 
 - Stuðlagil 峽谷（柱狀玄武岩；春季融雪與水庫溢流可能讓河水轉灰褐色，不保證藍綠色；粉紅腳雁 5/1–6/10 築巢，走標示步道）
 
-全天約 255 公里、淨車程 4.0 小時；不去 Ásbyrgi 少約 77 公里、約 1.2 小時。
+全天約 255 公里、淨車程 4.0 小時；不去 Ásbyrgi 少約 71 公里、約 1.1 小時。
 
 ---
 
@@ -157,7 +157,7 @@
 
 # Day 8｜5/7（五）東部峽灣 → Vestrahorn 夕陽 → Höfn
 
-白天兩站都排，這天合計約 13.7 小時：
+白天兩站都排，這天合計約 12.6 小時：
 
 - Petra's Stone Collection（Stöðvarfjörður）
 - Wild Reindeer Experience（吉普車團 3–4 小時，在 Breiðdalsvík 集合，需預約）
@@ -168,13 +168,13 @@
 
 傍晚：
 
-- Vestrahorn / Stokksnes（日落近 22:00；沙灘上常有海豹，不保證）
+- Vestrahorn / Stokksnes（日落約 21:40，看完到 Höfn 約 22:00；沙灘上常有海豹，不保證）
 
 晚上：
 
 - Höfn 吃龍蝦
 
-全天約 376 公里、淨車程 5.8 小時；Petra 與馴鹿團都不去少約 67 公里、1.0 小時。附近還有：Hallormsstaðaskógur、Fáskrúðsfjörður 法國漁民博物館。
+全天約 301 公里、淨車程 4.6 小時；Petra 與馴鹿團都在 1 號公路上，不去也不省里程，少的是約 4.75 小時停留。附近還有：Hallormsstaðaskógur、Fáskrúðsfjörður 法國漁民博物館。
 
 ---
 
@@ -239,7 +239,7 @@
 
 - Eldhestar 冰島馬騎乘（Hveragerði 旁，1 小時行程官網每天 13:30、14:45，需預約；備案 Íshestar、Safarihestar、Hestasport）
 
-全天約 125 公里、淨車程 2.1 小時；09:00 出發才趕得上 14:45 那團。附近還有：Raufarhólshellir、Stokkseyri。
+全天約 135 公里、淨車程 2.2 小時；08:00 出發才趕得上 14:45 那團，並留午餐時間。附近還有：Raufarhólshellir、Stokkseyri。
 
 ---
 
@@ -251,7 +251,7 @@
 
 中午：
 
-- Friðheimar 番茄農場（午餐）
+- Friðheimar 番茄農場（午餐，訂 12:00 就 10:15 出發）
 
 下午：
 
@@ -266,7 +266,7 @@
 
 # Day 15｜5/14（五）雷克雅維克（緩衝日）
 
-也用來吸收前面的天候延誤：
+全天約 85 公里、淨車程 1.5 小時。全天約 85 公里、淨車程 1.5 小時。也用來吸收前面的天候延誤：
 
 - Thríhnúkagígur 火山口（需事先預約導覽，自駕全程約 4 小時；業者寫每年 5/5–10/30，2027 年場次 2026 年 11 月中開放訂位）
 - Perlan
