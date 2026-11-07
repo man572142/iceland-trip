@@ -50,7 +50,7 @@
 - Djúpalónssandur 黑沙灘
 - Saxhóll 火山口
 
-全天約 231 公里。
+全天約 251 公里。
 
 ---
 
@@ -61,7 +61,7 @@
 - Kirkjufell & Kirkjufellsfoss
 - Stykkishólmur 小鎮
 
-經 Búðardalur 接 1 號公路，一路東行到 Akureyri 一帶（Stykkishólmur 到 Akureyri 約 360 公里）。全天基本約 425 公里、淨車程 6.3 小時，是全程最長的一天。沿途停點都是可選：
+經 Búðardalur 接 1 號公路，一路東行到 Akureyri 一帶（Stykkishólmur 到 Akureyri 約 360 公里）。全天基本約 412 公里、淨車程 6.1 小時，是全程最長的一天。沿途停點都是可選：
 
 - Hvítserkur 犀牛石（多約 25 公里，711 號東岸段是礫石路）
 - Borgarvirki 玄武岩堡壘
