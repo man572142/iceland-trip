@@ -1,11 +1,12 @@
 # Spot detail
 
-Selecting a spot from the list or the map pans the map to it and fills the right panel with its description, decision facts and live Wikimedia photos. On a phone the panel is a bottom sheet.
+Selecting a spot from the list or the map pans the map to it and fills the right panel with its description, decision facts and live Wikimedia photos, found first by the spot's coordinates. On a phone the panel is a bottom sheet.
 
 ## Sub-features
 
 - `spot-select` fills the panel, the stage handle, the active row and the map popup.
 - `spot-photos` loads photos from Wikimedia at view time.
+- `spot-nearby` searches Commons at the spot's coordinates, filters and ranks, and links to Google Images and Flickr.
 - `spot-photos-fail` shows a failure message with an image-search link.
 - `spot-lightbox` opens, steps and closes, and returns focus to the photo.
 - `spot-pin` selects a spot by clicking its map pin.
@@ -28,6 +29,8 @@ Preconditions:
 
 - **Select.** Open a spot with `openSpot`. `#info h2`, `#info .i-zh` and `#stageCur` match it, its `.spot` row has class `active`, `.badge.seq` matches `全程第 N／M`, `.pop-h` names it, and `.i-gmap` links to Google Maps.
 - **Photos.** Open spots in order until `#gal .shot` appears. At least one `img` loads with a non-zero `naturalWidth` from a Wikimedia host.
+- **Nearby (stubbed).** New page with `commons.wikimedia.org` and `upload.wikimedia.org` fulfilled. The `.cred` titles show the featured picture first, drop the map, the 1890 photo and the small image, and keep at most 2 per author. The API is called at 1000 m then 5000 m with the spot's `lat|lng`. `#gal .gal-more` links to Google Images and Flickr.
+- **All images broken.** Same, with `upload.wikimedia.org` blocked. `#gal .gal-msg b` reads `找不到這個地點的照片`.
 - **Lightbox.** Choose the first `.shot`. `#lb` has class `on`. `#lbNext` changes `#lbCap` when there is more than one photo. `Escape` closes it and focus returns to the photo.
 - **Pin.** Choose `全覽`, wait for the fit animation, and choose `.leaflet-marker-icon[title="DAY <n> <last stop>"]`. `#info h2` shows that stop.
 - **Back.** Choose `#btnAll`. `#info h2` reads `全程路線` and no `.spot.active` remains.

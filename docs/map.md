@@ -58,9 +58,17 @@ When it fires:
 
 ## Photos
 
-Fetched live at page view by `loadPhotos()`, never stored in the repo: the Wikimedia Commons API
-(`origin=*` for CORS, no key) searched with the spot's `q`, falling back to a Wikipedia summary
-thumbnail. Relevance is tuned through `q`.
+Fetched live at page view by `loadPhotos()` from Wikimedia (no key), never stored in the repo.
+
+1. **Nearby** (`nearbyPhotos()`): Commons files geotagged within 1 km of the spot's `lat`/`lng`,
+   widened to 5 km under 4 results. Maps, drawings, paintings, pre-1990 photos and images under
+   800 px are dropped; featured and quality images go first, the rest by distance; at most 2 per
+   author, 6 in all. A wrong coordinate gives wrong photos.
+2. **By name** (nothing nearby): the spot's Wikipedia article images, its lead image, then a
+   Commons search with `q`. Relevance is tuned through `q`.
+
+Above the photos, 更多照片 links to Google Images (name + Iceland) and Flickr's nearby search.
+If every image fails to load, the gallery shows the no-photo message instead of an empty grid.
 
 ## Night links
 
