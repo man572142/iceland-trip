@@ -110,7 +110,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ github.token }}
-          claude_args: --allowedTools "Bash,Read,Edit,Write,Glob,Grep,WebFetch"
+          claude_args: --model sonnet --allowedTools "Bash,Read,Edit,Write,Glob,Grep,WebFetch"
           prompt: |
             Issue #${{ github.event.issue.number }} 的行程變更已經由固定腳本套用並推上 main（景點的天數、順序、km／drive 都已定案，不要再動）。
             用 `gh issue view ${{ github.event.issue.number }} --comments` 讀最新那則留言的「待補」清單，只處理清單上的項目：
