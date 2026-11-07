@@ -44,5 +44,5 @@ Preconditions:
 
 - An empty `#routeWarn` with the `hidden` attribute must compute to `display:none`. A `display` rule on `.route-warn` beats the browser's `[hidden]` style and leaves an empty amber box on the overview. That is a product bug, so do not relax this check.
 - The roads cache is written only at the end of a full round. A reload before that refetches everything.
-- A stubbed F-road run proves the warning wiring, not whether the current itinerary touches an `F` road. On a live run, read `#routeWarn` in the overview. When it fires, CLAUDE.md describes the `via` fix.
+- A stubbed F-road run proves the warning wiring, not whether the current itinerary touches an `F` road. On a live run, read `#routeWarn` in the overview. When it fires, `docs/map.md` describes the fix.
 - `fitBounds` animates. Wait for it to finish before clicking by pixel.

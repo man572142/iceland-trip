@@ -4,20 +4,18 @@ This directory is the maintained source for verifying the site's user-facing beh
 
 ## Baseline preconditions
 
-- `driver up` reports `READY`, and `driver doctor` has no `FAIL`. `driver` means `node .claude/skills/verify/driver.mjs`, run from the repo root.
+- `driver up` reports `READY`, and `driver doctor` has no `FAIL`. `driver` is defined in [SKILL.md](../SKILL.md).
 - Drive only an instance started by this checkout's `driver up`.
 - A journey starts from an empty `localStorage`, so a fresh visitor sees the clockwise route and no draft.
 
 ## Driving conventions
 
 - Each feature has one journey with the same name. `driver run <feature>` runs every bullet in that feature's recipe.
-- Run one bullet alone by copying its handles into an ad-hoc journey. SKILL.md shows the shape.
+- Run one bullet alone by copying its handles into an ad-hoc journey ([AUTHORING.md](../journeys/AUTHORING.md)).
 - Journeys block the OSRM host unless the feature is about roads. This keeps load off a public demo server.
-- Handles in the recipes are stable: ids, `data-*` attributes, ARIA state, and UI labels.
 
 ## Proof and skip reporting
 
-- Each step leaves `NN.png`, `NN.aria.txt` and an entry in `report.json` under `evidence/<run-id>/<feature>/`.
 - A journey that a `doctor` `WARN` explains is an external outage. Report it as unverified, with the service name.
 - A check that fails while the app behaves as this map describes is drift in the map. A check that fails while the map is right is a product bug. Report the bug and leave the check as it is.
 

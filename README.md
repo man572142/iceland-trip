@@ -1,6 +1,6 @@
 # iceland-trip
 
-冰島 16 天行程 · 互動地圖 — a single-page, self-contained itinerary map.
+冰島 16 天行程 · 互動地圖 — a self-contained itinerary map, plus a flights page.
 
 [點此前往](https://iceland-trip.man572142.workers.dev/)
 
