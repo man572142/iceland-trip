@@ -955,29 +955,19 @@
    ========================================================= */
 const DAYS = [
   {
-    n:1, title:"抵達冰島", date:"4/30（五）", km:118, drive:2.0,
-    note:"4/30 15:55 抵達 KEF，約 50 分鐘（49 公里）到雷克雅維克。傍晚在市區散步看教堂、音樂廳與海邊雕塑，教堂塔頂多半已關，只看外觀；明天 5/1 勞動節多數店家休息，今晚先買食物。",
+    n:1, title:"抵達冰島", date:"4/30（五）", km:117, drive:1.9,
+    note:"4/30 15:55 抵達 KEF，約 50 分鐘（50 公里）到雷克雅維克，進市區已近 19:00。抵達日不排景點，只採買食物；明天 5/1 勞動節許多店家休息，今晚先把食物買齊。",
     spots:[
       {name:"Keflavík International Airport (KEF)", zh:"凱夫拉維克國際機場", kind:"city", lat:63.9850, lng:-22.6056, z:13,
        q:"Keflavik International Airport", type:"transit",
        desc:"冰島門戶機場，距雷克雅維克約 50 分鐘車程。此行搭 CI067（桃園→布拉格）轉 FI537（布拉格→KEF）。落地後動線都在同一棟航廈：入境 → 領行李 → 租車櫃檯（部分業者要接駁到旁邊的取車場）。",
        dwell:90,
-       may:"15:55 落地，取車後約 18:00–18:30 進市區。5 月上旬日落近 22:00，當天還有充足光線散步"},
-      {name:"Hallgrímskirkja", zh:"哈爾格林姆教堂", lat:64.1417, lng:-21.9266, z:16,
-       q:"Hallgrimskirkja", type:"culture",
-       desc:"雷克雅維克地標，74.5 公尺高的混凝土教堂。塔頂是全市最高的公開視角，整片彩色鐵皮屋頂、法克薩灣與對岸的 Esja 山一次收進來；正面的混凝土柱列做成玄武岩節理的階梯狀，門前是 Leifur Eiríksson 雕像。",
-       dwell:45, walk:"教堂內平路；登塔搭電梯，最後一小段樓梯", fee:"教堂免費；登塔成人 ISK 1,500（2026 年價）",
-       may:"官網：塔頂冬季開到 16:45、夏季開到 19:45，換季日未寫，第三方寫夏季從 5 月起。禮拜與音樂會時段暫停售票，出發前查官網"},
-      {name:"Harpa Concert Hall", zh:"哈帕音樂廳", lat:64.1505, lng:-21.9325, z:16,
-       q:"Harpa Reykjavik", type:"culture",
-       desc:"港邊的玻璃蜂巢建築，立面由 Olafur Eliasson 設計。立面是準晶體結構的玻璃磚，白天中庭整片彩色光斑打在地板與樓梯上，入夜後整面外牆變成低解析度的燈光屏。",
-       dwell:30, fee:"中庭自由參觀（音樂會另購票）",
-       may:"中庭全年開放，通常從上午到晚間"},
-      {name:"Sólfar (Sun Voyager)", zh:"太陽航海者", lat:64.1475, lng:-21.9224, z:17,
-       q:"Sun Voyager Reykjavik", type:"culture",
-       desc:"海邊的鋼製船骨雕塑，Jón Gunnar Árnason 作品。常被當成維京船，作者說它是「夢之船」—— 一艘朝向未知的骨架。面向北方的 Esja 山與法克薩灣，5 月的落日方位偏西北，正好落在這個視野裡。",
-       dwell:20, walk:"從 Harpa 沿海濱步道走 5–10 分鐘", fee:"免費",
-       may:"戶外，全天開放。5 月日落近 22:00"}
+       may:"15:55 落地，入境、領行李、取車後約 19:00 才進市區"},
+      {name:"Reykjavík", zh:"雷克雅維克", kind:"city", wd:"Q1764", lat:64.1475, lng:-21.9350, z:13,
+       q:"Reykjavik Iceland", type:"food",
+       desc:"冰島首都，抵達日只在這裡採買食物。市區的 Bónus、Krónan、Nettó 超市買接下來幾天的早餐、乾糧與飲水；5/1 勞動節許多店家休息，所以今晚把食物買齊。",
+       dwell:60,
+       may:"超市多半 19:00–21:00 打烊，各分店不同，部分開得較晚；出發前查各店官網"}
     ]
   },
   {
@@ -1481,8 +1471,8 @@ const DAYS = [
     ]
   },
   {
-    n:15, title:"雷克雅維克（緩衝日）", date:"5/14（五）", km:85, drive:1.5,
-    note:"從 Þingvellir 出發，約 1 小時（64 公里）到第一站 Thríhnúkagígur。緩衝日：火山口、Perlan 與市區散步，也用來吸收前面的天候延誤；順便補給，為明天啟程做準備。",
+    n:15, title:"雷克雅維克（緩衝日）", date:"5/14（五）", km:88, drive:1.6,
+    note:"從 Þingvellir 出發，約 1 小時（64 公里）到第一站 Thríhnúkagígur。緩衝日：火山口、Perlan，之後市區步行，教堂、主街、音樂廳到海邊雕塑都走得到；也用來吸收前面的天候延誤，順便補給。",
     spots:[
       {name:"Thríhnúkagígur", zh:"三峰火山口", lat:63.9983, lng:-21.6989, z:14,
        q:"Thrihnukagigur volcano Iceland", type:"volcanic",
@@ -1495,6 +1485,11 @@ const DAYS = [
        desc:"四座熱水儲槽上蓋玻璃穹頂改成的展館。館內有一條 100 公尺長的人造冰洞（真冰，約 −10°C）、火山與冰川展，還有天文館形式的極光劇場；頂樓 360 度觀景台可以俯瞰整個雷克雅維克與海灣。",
        dwell:150, fee:"展覽套票成人約 ISK 6,500；只上觀景台約 ISK 2,500",
        may:"全年營運"},
+      {name:"Hallgrímskirkja", zh:"哈爾格林姆教堂", lat:64.1417, lng:-21.9266, z:16,
+       q:"Hallgrimskirkja", type:"culture",
+       desc:"雷克雅維克地標，74.5 公尺高的混凝土教堂。塔頂是全市最高的公開視角，整片彩色鐵皮屋頂、法克薩灣與對岸的 Esja 山一次收進來；正面的混凝土柱列做成玄武岩節理的階梯狀，門前是 Leifur Eiríksson 雕像。",
+       dwell:45, walk:"教堂內平路；登塔搭電梯，最後一小段樓梯", fee:"教堂免費；登塔成人 ISK 1,500（2026 年價）",
+       may:"官網：塔頂冬季開到 16:45、夏季開到 19:45，換季日未寫，第三方寫夏季從 5 月起。禮拜與音樂會時段暫停售票，出發前查官網"},
       {name:"Laugavegur", zh:"市區主街", lat:64.1440, lng:-21.9270, z:16,
        q:"Laugavegur Reykjavik", type:"town",
        desc:"雷克雅維克主要購物街，咖啡店、書店與紀念品店集中在此，是補給乾糧與羊毛衣（lopapeysa）的地方。Bæjarins Beztu 熱狗攤、Brauð & Co 的肉桂捲都在步行範圍內。",
@@ -1503,8 +1498,18 @@ const DAYS = [
          {t:"Tjörnin", d:"市政廳旁的湖，看鴨子與天鵝；相鄰的 Vatnsmýri 保護區孵蛋期部分步道關閉", min:30},
          {t:"Old Harbour", d:"舊港區與 Grandi 的餐廳和美食廳，走路 10–15 分鐘", min:60}
        ],
-       dwell:180, walk:"平路散步", fee:"免費",
-       may:"Kolaportið 只在週末營業（通常六、日 11:00–17:00），這天是 5/14（五）會撲空；要逛的話排 Day 16（5/15 週六）早上，班機 00:50 才起飛"}
+       dwell:90, walk:"平路散步", fee:"免費",
+       may:"Kolaportið 只在週末營業（通常六、日 11:00–17:00），這天是 5/14（五）會撲空；要逛的話排 Day 16（5/15 週六）早上，班機 00:50 才起飛"},
+      {name:"Harpa Concert Hall", zh:"哈帕音樂廳", lat:64.1505, lng:-21.9325, z:16,
+       q:"Harpa Reykjavik", type:"culture",
+       desc:"港邊的玻璃蜂巢建築，立面由 Olafur Eliasson 設計。立面是準晶體結構的玻璃磚，白天中庭整片彩色光斑打在地板與樓梯上，入夜後整面外牆變成低解析度的燈光屏。",
+       dwell:30, fee:"中庭自由參觀（音樂會另購票）",
+       may:"中庭全年開放，通常從上午到晚間"},
+      {name:"Sólfar (Sun Voyager)", zh:"太陽航海者", lat:64.1475, lng:-21.9224, z:17,
+       q:"Sun Voyager Reykjavik", type:"culture",
+       desc:"海邊的鋼製船骨雕塑，Jón Gunnar Árnason 作品。常被當成維京船，作者說它是「夢之船」—— 一艘朝向未知的骨架。面向北方的 Esja 山與法克薩灣，5 月的落日方位偏西北，正好落在這個視野裡。",
+       dwell:20, walk:"從 Harpa 沿海濱步道走 5–10 分鐘", fee:"免費",
+       may:"戶外，全天開放。5 月日落近 22:00"}
     ],
     nearby:[
       {name:"National Museum of Iceland", zh:"冰島國家博物館", wd:"Q626963", lat:64.1419, lng:-21.9481, type:"culture",
@@ -1514,8 +1519,8 @@ const DAYS = [
     ]
   },
   {
-    n:16, title:"Reykjanes 半島 → 返程", date:"5/15（六）", km:124, drive:2.3,
-    note:"從雷克雅維克出發，約 40 分鐘（35 公里）到第一站 Seltún。半島看地熱、海崖、燈塔與板塊橋，最後到 KEF。想逛 Kolaportið 就晚點出發；半島若因火山活動封閉，就留在市區，走 41 號公路到 KEF。",
+    n:16, title:"Reykjanes 半島 → 返程", date:"5/15（六）", km:125, drive:2.3,
+    note:"從雷克雅維克出發，約 40 分鐘（37 公里）到第一站 Seltún。半島看地熱、海崖、燈塔與板塊橋，最後到 KEF。想逛 Kolaportið 就晚點出發；半島若因火山活動封閉，就留在市區，走 41 號公路到 KEF。",
     spots:[
       {name:"Seltún (Krýsuvík)", zh:"塞爾通地熱區", wd:"Q16425194", lat:63.8957, lng:-22.0528, z:15,
        q:"Seltun Krysuvik geothermal", type:"geothermal",
