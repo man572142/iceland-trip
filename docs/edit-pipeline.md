@@ -37,7 +37,7 @@ The method, region by region:
    - `{kind:"skip", why}`: one sentence stating the fact that keeps it out.
    - `{kind:"excluded"}`: ruled out by the owner, with the reason in `excluded`.
 
-`check_itinerary.mjs` guards this. Its constants hold the thresholds. It fails on a multi-source candidate with no decision, an excluded candidate in the plan, a second bath, too few animal stops, or a required `fauna` with no planned candidate. It prints the scenery, animal and culture shares and warns when a day repeats a type.
+`check_itinerary.mjs` guards this. Its constants hold the thresholds. It fails on a multi-source candidate with no decision, an excluded candidate in the plan, a second bath, or a required `fauna` with no planned candidate. It prints the scenery, animal and culture shares and warns when a day repeats a type.
 
 Those are rule failures: the plan itself is wrong, so they stop every path, 更新行程 included. A stale decision is different: the plan moved and the pool has not caught up. `--stale-ok` turns it into a warning for the workflow, `apply_edits.mjs` lists it in the issue report, and the plain check keeps failing until a manual edit resolves it.
 

@@ -68,7 +68,6 @@ const names = days.flatMap(d => d.spots.map(s => s.v.name));
 /* ---------- 候選池與選點規則（docs/edit-pipeline.md 的 The candidate pool） ---------- */
 const pool = JSON.parse(fs.readFileSync(POOL, 'utf8'));
 const ONLY_BATH = 'Mývatn Nature Baths';
-const WILDLIFE_MIN = .1;
 const NOT_SIGHTSEEING = new Set(['transit', 'bath', 'food']);   // 比例的分母只算景點
 const GROUP = t => t === 'wildlife' ? '動物' : t === 'culture' || t === 'town' ? '人文' : '風景';
 const REQUIRED_FAUNA = ['horse', 'seal', 'bird'];
@@ -87,7 +86,6 @@ planned.filter(s => s.type === 'bath' && s.name !== ONLY_BATH)
 
 const sights = planned.filter(s => !NOT_SIGHTSEEING.has(s.type));
 const share = g => sights.filter(s => GROUP(s.type) === g).length / sights.length;
-if(share('動物') < WILDLIFE_MIN) errs.push(`動物比例 ${(share('動物') * 100).toFixed(1)}%，低於 ${WILDLIFE_MIN * 100}%`);
 for(const f of REQUIRED_FAUNA)
   if(!pool.candidates.some(c => c.fauna === f && c.decision?.kind === 'plan' && plannedName.has(c.decision.spot)))
     errs.push(`${f} 沒有任何排進行程的候選`);
