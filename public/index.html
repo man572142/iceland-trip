@@ -1118,8 +1118,8 @@ const DAYS = [
     ]
   },
   {
-    n:5, title:"Víti → Lake Mývatn 環湖 → 溫泉 → Hverir", date:"5/4（二）", km:142, drive:2.9,
-    note:"從 Goðafoss 出發，約 1 小時（64 公里）到第一站 Víti。全天在米湖周邊：火山口、熔岩迷宮與偽火山口，傍晚泡溫泉，再到旁邊的 Hverir 看地熱。鳥類博物館 16:00 關，照這個順序要 06:50 前出發。",
+    n:5, title:"Víti → Lake Mývatn 環湖 → 溫泉 → Hverir", date:"5/4（二）", km:132, drive:2.8,
+    note:"從 Goðafoss 出發，約 1 小時（64 公里）到第一站 Víti。全天在米湖周邊：火山口、熔岩迷宮與偽火山口，傍晚泡溫泉，再到旁邊的 Hverir 看地熱。",
     spots:[
       {name:"Víti (Krafla)", zh:"維提火山口", wd:"Q14552532", lat:65.71768, lng:-16.75755, z:14,
        q:"Víti crater Krafla", type:"volcanic",
@@ -1155,11 +1155,6 @@ const DAYS = [
        desc:"熔岩流過濕地時蒸氣爆炸形成的「偽火山口」群。沒有岩漿從這裡噴出來過，是熔岩把地下水煮成蒸氣後炸出來的環形土丘；走上丘頂，米湖與整群假火山口一次看完。",
        dwell:45, walk:"短環線約 20 分鐘，長環線約 1 小時，平緩", fee:"免費",
        may:"5 月水鳥開始回巢；夏季那種成群的搖蚊此時還沒起來"},
-      {name:"Sigurgeir's Bird Museum", zh:"西古爾蓋爾鳥類博物館", lat:65.62882, lng:-16.995, z:16,
-       q:"Mývatn duck bucephala islandica", type:"wildlife",
-       desc:"米湖西北岸 Ytri-Neslönd 的鳥類標本館，幾乎收齊冰島所有繁殖鳥類，另設望遠鏡看湖面水鳥。米湖的鴨類 4 月底到 5 月初才陸續從西北歐飛回，這時還在抵達中；全年留在湖上的是約 2,000 隻巴羅金眼鴨。",
-       dwell:60, walk:"館內平路", fee:"成人 ISK 2,400（查 fuglasafn.is）",
-       may:"官網：5 月每天只開 14:00–16:00，查 fuglasafn.is"},
       {name:"Mývatn Nature Baths", zh:"米湖溫泉", fixed:true, lat:65.6318, lng:-16.8478, z:16,
        q:"Myvatn Nature Baths", type:"bath",
        desc:"乳藍色鹼性溫泉水約 36–40°C，泡在池裡直接望向米湖與周圍的火山地形，沒有圍牆。官網已改名 Earth Lagoon Mývatn；5 月日落近 22:00，傍晚來光線最長。",
@@ -1174,7 +1169,9 @@ const DAYS = [
     ],
     nearby:[
       {name:"Lofthellir", zh:"Lofthellir 熔岩洞", wd:"Q1867906", lat:65.55507, lng:-16.72208, type:"volcanic",
-       why:"只能預約導覽，車程約 45 分鐘再加洞內約 2.5 小時；這幾天的班表查不到"}
+       why:"只能預約導覽，車程約 45 分鐘再加洞內約 2.5 小時；這幾天的班表查不到"},
+      {name:"Sigurgeir's Bird Museum", zh:"西古爾蓋爾鳥類博物館", wd:"Q16424473", lat:65.62882, lng:-16.995, type:"wildlife",
+       why:"官網 5 月每天只開 14:00–16:00，要配合時間才進得去；可去可不去，當天自行調配"}
     ]
   },
   {
@@ -1242,8 +1239,8 @@ const DAYS = [
     ]
   },
   {
-    n:8, title:"東部峽灣 → Vestrahorn 夕陽 → Höfn", date:"5/7（五）", km:301, drive:4.6,
-    note:"從 Hafnarhólmi 出發，約 2 小時 15 分（149 公里）到第一站 Petra's Stone Collection。東部峽灣一路南下，白天看石頭收藏、跟吉普車團找馴鹿；傍晚拍 Vestrahorn，晚餐吃 Höfn 龍蝦。等到 21:40 日落再到 Höfn 約 22:00，先確認餐廳時間。",
+    n:8, title:"東部峽灣 → Höfn → Vestrahorn 夕陽", date:"5/7（五）", km:311, drive:4.7,
+    note:"從 Hafnarhólmi 出發，約 2 小時 15 分（149 公里）到第一站 Petra's Stone Collection。東部峽灣一路南下，白天看石頭收藏、跟吉普車團找馴鹿；傍晚先到 Höfn 吃龍蝦，再回頭約 20 分鐘到 Vestrahorn 等 21:40 日落。",
     spots:[
       {name:"Petra's Stone Collection", zh:"佩特拉石頭博物館", lat:64.83573, lng:-13.88069, z:16,
        via:[[65.2635,-14.3955]],
@@ -1266,16 +1263,16 @@ const DAYS = [
        ],
        dwell:40, walk:"蛋雕沿碼頭一列，平路 10 分鐘", fee:"免費",
        may:"港邊與蛋雕都在戶外，全年可看"},
+      {name:"Höfn", zh:"霍芬鎮", kind:"city", lat:64.2539, lng:-15.2082, z:14,
+       q:"Hofn Iceland", type:"town",
+       desc:"東南岸漁港小鎮，背景是 Vatnajökull 冰帽。招牌是 humar —— 挪威海螯蝦，menu 上多半寫 lobster，其實是體型小得多、更甜的品種；港邊幾間餐廳整年都在做這道，旺季建議先訂位。",
+       dwell:60, fee:"免費"},
       {name:"Vestrahorn / Stokksnes", zh:"維斯特拉山角", lat:64.2513, lng:-14.9752, z:14,
        q:"Vestrahorn Stokksnes", type:"coast",
        desc:"黑沙灘、沙丘與尖銳山峰同框。454 公尺的鋸齒狀山峰直接立在黑沙灘後方，退潮時濕沙變成一面鏡子把整座山倒映出來；沙丘後面還有一座為電影搭的維京村布景。visitvatnajokull.is 說海豹常聚在沙灘上，不保證。",
        dwell:90, walk:"沙灘與沙丘平路，車可開到灘邊", fee:"入場約 ISK 1,000（私人土地，Viking Café 收費）",
        may:"全年開放；5 月日落近 22:00，黃昏光線最好",
-       detour:"從 1 號公路轉進私人道路，比直開 Höfn 多約 12 km、0.5 小時"},
-      {name:"Höfn", zh:"霍芬鎮", kind:"city", lat:64.2539, lng:-15.2082, z:14,
-       q:"Hofn Iceland", type:"town",
-       desc:"東南岸漁港小鎮，背景是 Vatnajökull 冰帽。招牌是 humar —— 挪威海螯蝦，menu 上多半寫 lobster，其實是體型小得多、更甜的品種；港邊幾間餐廳整年都在做這道，旺季建議先訂位。",
-       dwell:60, fee:"免費"}
+       detour:"從 Höfn 回頭約 16 km、0.3 小時，最後一段是私人道路"}
     ],
     nearby:[
       {name:"Hallormsstaðaskógur", zh:"哈勒姆斯塔達森林", wd:"Q787618", lat:65.0969, lng:-14.7317, type:"hike",
@@ -1285,8 +1282,8 @@ const DAYS = [
     ]
   },
   {
-    n:9, title:"Diamond Beach + 冰河潟湖 + Fjallsárlón", date:"5/8（六）", km:61, drive:1.4,
-    note:"從 Höfn 出發，約 55 分鐘（65 公里）到第一站 Diamond Beach。這天是冰河潟湖日，全天車程很短：冰塊散落的黑沙灘、冰山漂流的 Jökulsárlón，以及冰舌直接垂入湖中的 Fjallsárlón。",
+    n:9, title:"Diamond Beach + 冰河潟湖 + Fjallsárlón", date:"5/8（六）", km:66, drive:1.5,
+    note:"從 Vestrahorn 出發，約 1 小時 10 分（76 公里）到第一站 Diamond Beach。這天是冰河潟湖日，全天車程很短：冰塊散落的黑沙灘、冰山漂流的 Jökulsárlón，以及冰舌直接垂入湖中的 Fjallsárlón。",
     spots:[
       {name:"Diamond Beach", zh:"鑽石沙灘", lat:64.0434, lng:-16.1794, z:15,
        q:"Diamond Beach Iceland", type:"coast",

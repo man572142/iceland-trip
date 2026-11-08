@@ -100,14 +100,13 @@
 - Dimmuborgir
 - Höfði
 - Skútustaðagígar
-- Sigurgeir's Bird Museum（官網 5 月每天 14:00–16:00，照這個順序要 06:50 前出發；米湖的鴨類還在陸續抵達）
 
 傍晚：
 
 - Mývatn Nature Baths（官網已改名 Earth Lagoon Mývatn，標示 12:00–22:00，依季節調整；已定案要去，出發前線上訂時段）
 - Hverir ＋ Námafjall（後方山脊，來回約 40 分鐘）
 
-全天約 142 公里、淨車程 2.9 小時；不去 Víti 少約 26 公里、0.5 小時。附近還有：Lofthellir。
+全天約 132 公里、淨車程 2.8 小時；不去 Víti 少約 26 公里、0.5 小時。附近還有：Lofthellir、Sigurgeir's Bird Museum（5 月只開 14:00–16:00，可去可不去）。
 
 ---
 
@@ -150,9 +149,9 @@
 
 ---
 
-# Day 8｜5/7（五）東部峽灣 → Vestrahorn 夕陽 → Höfn
+# Day 8｜5/7（五）東部峽灣 → Höfn → Vestrahorn 夕陽
 
-白天兩站都排，這天合計約 12.6 小時：
+白天兩站都排，這天合計約 12.7 小時：
 
 - Petra's Stone Collection（Stöðvarfjörður）
 - Wild Reindeer Experience（吉普車團 3–4 小時，在 Breiðdalsvík 集合，需預約）
@@ -163,13 +162,13 @@
 
 傍晚：
 
-- Vestrahorn / Stokksnes（日落約 21:40，看完到 Höfn 約 22:00；沙灘上常有海豹，不保證）
+- Höfn 吃龍蝦
 
 晚上：
 
-- Höfn 吃龍蝦
+- Vestrahorn / Stokksnes（從 Höfn 回頭約 20 分鐘，日落約 21:40；沙灘上常有海豹，不保證）
 
-全天約 301 公里、淨車程 4.6 小時；Petra 與馴鹿團都在 1 號公路上，不去也不省里程，少的是約 4.75 小時停留。附近還有：Hallormsstaðaskógur、Fáskrúðsfjörður 法國漁民博物館。
+全天約 311 公里、淨車程 4.7 小時；Petra 與馴鹿團都在 1 號公路上，不去也不省里程，少的是約 4.75 小時停留。附近還有：Hallormsstaðaskógur、Fáskrúðsfjörður 法國漁民博物館。
 
 ---
 
@@ -180,7 +179,7 @@
 - Fjallsárlón
 - Zodiac Boat Tour（官網寫 5 月到 10 月底，沒有公布首航日；水陸兩用船每日航班可能 5/15 才開，務必先訂）
 
-全天約 61 公里、淨車程 1.4 小時。
+全天約 66 公里、淨車程 1.5 小時。
 
 ---
 
