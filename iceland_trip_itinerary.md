@@ -150,7 +150,7 @@ Seyðisfjörður 與 Hafnarhólmi 都是原路進出。5/6 是耶穌升天日（
 
 # Day 8｜5/7（五）東部峽灣 → Höfn → Vestrahorn 夕陽
 
-白天兩站都排，這天合計約 12.7 小時：
+白天兩站都排，這天合計約 11.9 小時：
 
 - Petra's Stone Collection（Stöðvarfjörður）
 - Wild Reindeer Experience（吉普車團 3–4 小時，在 Breiðdalsvík 集合，需預約）
@@ -167,7 +167,7 @@ Seyðisfjörður 與 Hafnarhólmi 都是原路進出。5/6 是耶穌升天日（
 
 - Vestrahorn / Stokksnes（從 Höfn 回頭約 20 分鐘，日落約 21:40；沙灘上常有海豹，不保證）
 
-全天約 311 公里、淨車程 4.7 小時；Petra 與馴鹿團都在 1 號公路上，不去也不省里程，少的是約 4.75 小時停留。附近還有：Hallormsstaðaskógur、Fáskrúðsfjörður 法國漁民博物館。
+全天約 311 公里、淨車程 4.7 小時；Petra 與馴鹿團都在 1 號公路上，不去也不省里程，少的是約 4.5 小時停留。附近還有：Hallormsstaðaskógur、Fáskrúðsfjörður 法國漁民博物館。
 
 ---
 
@@ -232,7 +232,7 @@ Seyðisfjörður 與 Hafnarhólmi 都是原路進出。5/6 是耶穌升天日（
 
 - Eldhestar 冰島馬騎乘（Hveragerði 旁，1 小時行程官網每天 13:30、14:45，需預約；備案 Íshestar、Safarihestar、Hestasport）
 
-全天約 135 公里、淨車程 2.2 小時；08:00 出發才趕得上 14:45 那團，並留午餐時間。附近還有：Raufarhólshellir、Stokkseyri。
+全天約 135 公里、淨車程 2.2 小時；08:00 出發、午餐約 45 分鐘，才趕得上 14:45 那團。附近還有：Raufarhólshellir、Stokkseyri。
 
 ---
 

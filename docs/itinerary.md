@@ -41,7 +41,7 @@ A spot needs these, which the checker enforces:
 | `q` | Wikimedia search string. Plain city names collide, so qualify with country/region words. See [map.md](map.md#photos) for when it applies. |
 | `desc` | See [Writing a `desc`](#writing-a-desc). |
 | `type` | A key of `TYPES`. Drives the list chip and the 「全程第 N／M 個」 counter that makes homogeneity visible. To add a key, add it to `TYPES`. Type by *experience*: a town you stop at for its pool is `bath`. |
-| `dwell` | Minutes. Feeds the day's `budget` row (net driving + summed `dwell`, on a shared 12 h ruler). |
+| `dwell` | Minutes, set by [Estimating `dwell`](#estimating-dwell). Feeds the day's `budget` row (net driving + summed `dwell`, on a shared 12 h ruler). |
 
 Optional ones render only where present. Add the decision fields (`walk` to `detour`) when the
 surrounding day has them:
@@ -60,6 +60,23 @@ surrounding day has them:
 | `highlights` | Things to see inside the stop. See [Highlights and nearby](#highlights-and-nearby). |
 
 The 「只看待決定」 filter is `book` minus `fixed`.
+
+## Estimating `dwell`
+
+`dwell` is the time from parking to driving off, built from these parts and rounded to 5 minutes:
+
+| Part | Minutes |
+|---|---|
+| Looking and photos, parking-to-viewpoint walk included | 30–60 by how much there is to see; a single roadside object 15–20 |
+| A trail the stop is for (Hengifoss, Skaftafell loop) | Its round-trip time from the trail's source, plus 15 at the end |
+| A guided tour or ride (glacier hike, horse riding, cave) | Tour length plus check-in and kit, usually 30 |
+| A town or village | 10–20, plus each `highlights` item's `min` |
+| A museum or exhibition | At most 30, unless it is large enough to fill more by the operator's own guide |
+| A meal stop or bath | The meal or soak itself: about 60–75 for a meal, 90–120 for a bath |
+
+Reykjavík and Akureyri are exempt from the town rule: nights are likely spent there, so evening time covers them.
+`highlights[].min` of a stop must fit inside its `dwell`. A stop whose source gives no trail or tour time
+uses the low end of its row.
 
 ## Highlights and nearby
 
