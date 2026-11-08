@@ -25,73 +25,68 @@
 
 ---
 
-# Day 2｜5/1（六）Snæfellsnes 半島 Day1（南岸 → 西端）
+# Day 2｜5/1（六）Hraunfossar + Grábrók → Snæfellsnes 南岸
 
 經 Borgarnes 先到 Hraunfossar（從 Borgarnes 來回約 115 公里、1.7 小時，順路繞過去多約 110 公里、1.5 小時；別走 550 號 Kaldidalur，6 月才開）：
 
 - Hraunfossar ＋ Barnafoss（Deildartunguhver 在路上）
+- Grábrók 火山口（Bifröst 旁，約 3,000 年前的火山口）
 
 再到半島南岸：
 
 - Ytri-Tunga 海豹灘（海豹最佳期是 6–8 月的退潮時段，5 月初數量沒有資料）
 - Búðakirkja 黑教堂
+
+全天約 260 公里、淨車程 4.1 小時。附近還有：Gerðuberg、Rauðfeldsgjá、Víðgelmir。
+
+---
+
+# Day 3｜5/2（日）Snæfellsnes 西端 → 北岸 → Stykkishólmur
+
+先到半島西端：
+
 - Arnarstapi—Hellnar 海崖步道（單程 2.5 公里、約 1 小時）
-
-繞到半島西端：
-
 - Lóndrangar 玄武岩塔
 - Vatnshellir Cave（需預約洞穴導覽；第三方列 5/15 前最後一團約 15:00，向業者確認）
 - Djúpalónssandur 黑沙灘
 - Saxhóll 火山口
-
-全天約 296 公里、淨車程 4.7 小時。附近還有：Gerðuberg、Rauðfeldsgjá、Víðgelmir。
-
----
-
-# Day 3｜5/2（日）Snæfellsnes 北岸 → 海豹中心 → 北部
 
 沿北岸往東：
 
 - Kirkjufell & Kirkjufellsfoss
 - Stykkishólmur 小鎮
 
+全天約 207 公里、淨車程 3.2 小時。附近還有：Glaumbær（5/20 前只有平日開，5/2 是週日）、Eiríksstaðir。
+
+---
+
+# Day 4｜5/3（一）海豹中心 + Vatnsnes → Víðimýrarkirkja + Akureyri
+
 經 Búðardalur 接 1 號公路：
 
 - Icelandic Seal Center（Hvammstangi，離 1 號公路約 7 公里）
 
-一路往東，全天約 357 公里、淨車程 5.5 小時。繞 Vatnsnes 的各站單獨算各多：
+繞 Vatnsnes，各站單獨算各多：
 
-- Illugastaðir 海豹觀察點（51 公里，711 號礫石路；絨鴨封閉日期來源互相衝突，5/1–6/20、5/6–6/20、5–6 月、到 6/29 都有，查 selasetur.is）
-- Hvítserkur 犀牛石（46 公里，與 Illugastaðir 同一圈，一起去也只多約 51 公里）
-- Borgarvirki 玄武岩堡壘（24 公里）
-- Kolugljúfur 峽谷（13 公里）
+- Illugastaðir 海豹觀察點（5 公里，711 號礫石路；絨鴨封閉日期來源互相衝突，5/1–6/20、5/6–6/20、5–6 月、到 6/29 都有，查 selasetur.is）
+- Hvítserkur 犀牛石（與 Illugastaðir 同一圈，一起去約多 34 公里）
+- Borgarvirki 玄武岩堡壘（1 公里）
+- Kolugljúfur 峽谷（21 公里）
 
-附近還有：Grábrók、Glaumbær（5/20 前只有平日開，5/2 是週日）、Eiríksstaðir。
-
----
-
-# Day 4｜5/3（一）Víðimýrarkirkja + Akureyri + Goðafoss
-
-早上：
+沿 1 號公路往東：
 
 - Víðimýrarkirkja 草皮教堂（1 號公路旁只多約 2 公里，Varmahlíð 附近；5 月上旬可能未開）
 - Akureyri 市中心（步行逛完；愛心紅綠燈、Akureyrarkirkja 教堂、Hafnarstræti 主街）
 
-沿 1 號公路往東：
-
-- Goðafoss
-
-全天約 207 公里、淨車程 3.2 小時。
-
-附近還有：Lystigarðurinn（植物要到 5 月底以後才長起來）、Húsavík（不搭賞鯨船，從 Goðafoss 繞過去多約 52 公里、0.8 小時）。
+全天約 372 公里、淨車程 5.8 小時。附近還有：Lystigarðurinn（植物要到 5 月底以後才長起來）、Húsavík（不搭賞鯨船，從 Goðafoss 繞過去多約 52 公里、0.8 小時）。
 
 ---
 
-# Day 5｜5/4（二）Víti → Lake Mývatn 環湖 → 溫泉 → Hverir
+# Day 5｜5/4（二）Goðafoss → Lake Mývatn 環湖 → 溫泉
 
-從 1 號公路轉 863 號：
+沿 1 號公路往東：
 
-- Víti ＋ Leirhnjúkur（863 號 5 月初積雪狀況不明，查 road.is）
+- Goðafoss
 
 繞米湖一圈，泡溫泉：
 
@@ -104,18 +99,28 @@
 傍晚：
 
 - Mývatn Nature Baths（官網已改名 Earth Lagoon Mývatn，標示 12:00–22:00，依季節調整；已定案要去，出發前線上訂時段）
-- Hverir ＋ Námafjall（後方山脊，來回約 40 分鐘）
 
-全天約 132 公里、淨車程 2.8 小時；不去 Víti 少約 26 公里、0.5 小時。附近還有：Lofthellir、Sigurgeir's Bird Museum（5 月只開 14:00–16:00，可去可不去）。
+全天約 114 公里、淨車程 2.3 小時。附近還有：Lofthellir、Sigurgeir's Bird Museum（5 月只開 14:00–16:00，可去可不去）。
 
 ---
 
-# Day 6｜5/5（三）Ásbyrgi + Dettifoss → Möðrudalur → Stuðlagil
+# Day 6｜5/5（三）Hverir + Víti → Ásbyrgi + Dettifoss
 
-早上北上，轉 862 號：
+早上在米湖東側：
+
+- Hverir ＋ Námafjall（後方山脊，來回約 40 分鐘）
+- Víti ＋ Leirhnjúkur（863 號 5 月初積雪狀況不明，查 road.is）
+
+轉 862 號北上：
 
 - Ásbyrgi 馬蹄形峽谷（從 Dettifoss 沿 862 號往北來回約 77 公里、約 1.2 小時車程加 1 小時停留）
 - Dettifoss ＋ Selfoss（西岸，沿步道往上游走約 30 分鐘）
+
+全天約 173 公里、淨車程 3.0 小時；不去 Ásbyrgi 少約 67 公里、約 1.0 小時；不去 Víti 少約 18 公里、約 0.3 小時。
+
+---
+
+# Day 7｜5/6（四）Stuðlagil + Hengifoss + Seyðisfjörður + Hafnarhólmi 傍晚海鸚
 
 沿 1 號公路經內陸高地：
 
@@ -125,13 +130,7 @@
 
 - Stuðlagil 峽谷（柱狀玄武岩；春季融雪與水庫溢流可能讓河水轉灰褐色，不保證藍綠色；粉紅腳雁 5/1–6/10 築巢，走標示步道）
 
-全天約 255 公里、淨車程 4.0 小時；不去 Ásbyrgi 少約 71 公里、約 1.1 小時。
-
----
-
-# Day 7｜5/6（四）Hengifoss + Seyðisfjörður + Hafnarhólmi 傍晚海鸚
-
-兩處都是原路進出。5/6 是耶穌升天日（冰島國定假日），店家營業時間未確認。
+Seyðisfjörður 與 Hafnarhólmi 都是原路進出。5/6 是耶穌升天日（冰島國定假日），店家營業時間未確認。
 
 早上：
 
@@ -145,7 +144,7 @@
 
 - Hafnarhólmi 海鸚棲地（Borgarfjörður eystri）—— 18:00–22:00 最活躍，到 Egilsstaðir 單程約 1 小時
 
-全天約 286 公里、淨車程 4.3 小時。附近還有：Klifbrekkufossar。
+全天約 431 公里、淨車程 6.5 小時。附近還有：Klifbrekkufossar。
 
 ---
 
