@@ -34,7 +34,8 @@ Preconditions:
 - **Lightbox.** Choose the first `.shot`. `#lb` has class `on`. `#lbNext` changes `#lbCap` when there is more than one photo. `Escape` closes it and focus returns to the photo.
 - **Pin.** Run `fitAll()`, wait for the fit animation, and choose `.leaflet-marker-icon[title="DAY <n> <last stop>"]`. `#info h2` shows that stop.
 - **Photos fail.** New page with `en.wikipedia.org` and `commons.wikimedia.org` blocked. `#gal .gal-msg b` reads `照片載入失敗` and its link goes to Google Images.
-- **Phone.** New 390×844 page. Open a spot, then choose `#collapseBtn` twice. `body` gains `stage-collapsed` and `#collapseLabel` reads `展開`, then `收合`. The page has no horizontal scroll.
+- **Desktop collapse.** Open a spot, choose `#info .i-collapse`. `.i-desc` hides and the panel gets shorter; choosing it again restores them. `.i-gmap` reads `在 Google 地圖開啟`.
+- **Phone.** New 390×844 page. Open a spot, then choose `#collapseBtn` twice. `body` gains `stage-collapsed` and the label shows `展開`, then `收合`. The page has no horizontal scroll.
 
 ## Gotchas
 

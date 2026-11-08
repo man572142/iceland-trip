@@ -98,6 +98,23 @@ export default async function(t){
     t.check((await msg.locator('a').getAttribute('href')).startsWith('https://www.google.com/search?tbm=isch'), 'Google Images link');
   });
 
+  await t.step('desktop: info panel collapses to its title row and expands', async () => {
+    page = await t.newPage({block:[OSRM]});
+    await t.open('/');
+    await mapReady(page);
+    await openSpot(page, spot.name);
+    const btn = page.locator('#info .i-collapse');
+    t.eq(await page.locator('#info .i-gmap').innerText(), '在 Google 地圖開啟', 'short map link');
+    t.eq(await btn.getAttribute('aria-expanded'), 'true', 'expanded at first');
+    const open = await page.locator('#info').evaluate(e => e.getBoundingClientRect().height);
+    await btn.click();
+    t.check(await page.locator('#info .i-desc').isHidden(), 'description hidden');
+    t.eq(await btn.getAttribute('aria-expanded'), 'false', 'aria-expanded false');
+    t.check(await page.locator('#info').evaluate(e => e.getBoundingClientRect().height) < open, 'panel shorter');
+    await btn.click();
+    t.check(await page.locator('#info .i-desc').isVisible(), 'description back');
+  });
+
   await t.step('phone width: bottom sheet collapses and expands', async () => {
     page = await t.newPage({viewport:{width:390, height:844}, block:[OSRM]});
     await t.open('/');
@@ -106,9 +123,9 @@ export default async function(t){
     t.eq(await page.locator('#stageCur').innerText(), spot.name, 'handle names the spot');
     await page.locator('#collapseBtn').click();
     t.check(await page.locator('body').evaluate(b => b.classList.contains('stage-collapsed')), 'collapsed');
-    t.eq(await page.locator('#collapseLabel').innerText(), '展開', 'label');
+    t.eq(await page.locator('#collapseBtn .lbl-closed').isVisible(), true, 'label 展開');
     await page.locator('#collapseBtn').click();
-    t.eq(await page.locator('#collapseLabel').innerText(), '收合', 'label back');
+    t.eq(await page.locator('#collapseBtn .lbl-open').isVisible(), true, 'label back 收合');
     t.eq(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'no horizontal page scroll');
   });
 

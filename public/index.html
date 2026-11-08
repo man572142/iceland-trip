@@ -153,8 +153,6 @@
     display:inline-flex;align-items:center;gap:4px;flex:none;margin-left:auto;
     align-self:center;white-space:nowrap;font-weight:600;color:var(--aurora-hi);
   }
-  .intro-go .ico{--ico:14px;margin:0;color:inherit}
-  .intro:hover .intro-go .ico{transform:translateX(2px)}
   .intro b{color:var(--aurora-hi);font-weight:600;font-variant-numeric:tabular-nums}
 
   .list-bar{
@@ -486,7 +484,7 @@
   .i-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
   .i-head h2{text-shadow:0 1px 10px rgba(0,0,0,.75);margin:0;font-size:var(--t-xl);font-weight:700;letter-spacing:-.01em;line-height:1.25}
   .i-zh{color:var(--aurora);font-size:var(--t-md);font-weight:500}
-  /* 右上角：Google 地圖的景點頁（遊客照片、評論） */
+  /* 右上角：Google 地圖的景點頁 */
   .i-gmap{
     margin-left:auto;align-self:center;white-space:nowrap;
     display:inline-flex;align-items:center;gap:7px;
@@ -495,8 +493,18 @@
     padding:5px 11px;border-radius:var(--r-sm);transition:background .16s,border-color .16s;
   }
   .i-gmap:hover{background:var(--aurora-14);border-color:var(--aurora-45)}
-  .i-gmap span{color:var(--text-4);font-size:var(--t-xs)}
   .i-gmap .ico{--ico:14px}
+  /* 桌面版收合：只留名稱列，地圖露出來。手機版的收合在 .stage 位移，不在這裡 */
+  .i-collapse{align-self:center}
+  .collapse-btn .lbl-closed{display:none}
+  body.stage-collapsed .collapse-btn .lbl-open{display:none}
+  body.stage-collapsed .collapse-btn .lbl-closed{display:inline}
+  @media (min-width:941px){
+    body.stage-collapsed .info > :not(.i-head){display:none}
+    body.stage-collapsed .i-head{margin-bottom:0}
+    .info .collapse-btn .ico{transition:transform var(--dur) var(--ease)}
+    body.stage-collapsed .info .collapse-btn .ico{transform:rotate(180deg)}
+  }
   .i-desc{
     margin:0 0 14px;padding:11px 14px;
     border-left:2px solid var(--aurora-45);
@@ -693,6 +701,7 @@
     .i-head h2{font-size:var(--t-lg)}
     .i-head{gap:8px}
     .i-gmap{margin-left:0}
+    .i-collapse{display:none}
     .i-desc{padding:10px 12px}
     .i-facts{grid-template-columns:1fr}
     .list-bar{flex-wrap:wrap}
@@ -834,7 +843,6 @@
   <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.6"/><circle cx="18" cy="5" r="2.6"/><path d="M8.6 19h8.9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7h8.9"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10.2c0 5.6-8 11.8-8 11.8s-8-6.2-8-11.8a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.8"/></symbol>
   <symbol id="i-map" viewBox="0 0 24 24"><path d="m9 4-6 2.8v13.1l6-2.8 6 2.8 6-2.8V4l-6 2.8z"/><path d="M9 4v13.1"/><path d="M15 6.8v13.1"/></symbol>
-  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7.5 16.5 16.5 7.5"/><path d="M9.2 7.5h7.3v7.3"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11"/><path d="m17.5 6.5-11 11"/></symbol>
   <symbol id="i-image-off" viewBox="0 0 24 24"><path d="m3 3 18 18"/><path d="M21 15.5V6a2 2 0 0 0-2-2H8.5"/><path d="M3 7.5V18a2 2 0 0 0 2 2h11"/><path d="m3.5 17.5 4.5-4.5 2.5 2.5"/></symbol>
   <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5.5h16l-6.3 7.3v5.5l-3.4 1.9v-7.4z"/></symbol>
@@ -862,7 +870,7 @@
     <a class="intro" href="./flights.html">
       <svg class="ico" aria-hidden="true"><use href="#i-plane"/></svg>
       <span>出發 <b>2027/4/29（四）夜間</b>，4/30 抵達冰島；回程 <b>2027/5/16（日）凌晨</b>飛離。</span>
-      <span class="intro-go">機票方案<svg class="ico" aria-hidden="true"><use href="#i-chev-r"/></svg></span>
+      <span class="intro-go">機票方案</span>
     </a>
 
     <div class="search-bar">
@@ -899,7 +907,7 @@
       <span class="stage-cur empty" id="stageCur">尚未選擇景點</span>
       <button class="ghost-btn collapse-btn" id="collapseBtn" aria-expanded="true">
         <svg class="ico" aria-hidden="true"><use href="#i-chev-d"/></svg>
-        <span id="collapseLabel">收合</span>
+        <span class="lbl-open">收合</span><span class="lbl-closed">展開</span>
       </button>
     </div>
     <div class="map-box">
@@ -918,7 +926,7 @@
       </div>
       <div class="route-map dim" id="route"></div>
       <a class="map-open" id="mapOpen" href="#" target="_blank" rel="noopener">
-        在 Google 地圖開啟<svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg>
+        在 Google 地圖開啟
       </a>
     </div>
     <div class="info" id="info" aria-live="polite">
@@ -2352,7 +2360,9 @@ new ResizeObserver(()=>rmap?.invalidateSize())
 // 面板一開始露出的高度 = 上緣到「名稱＋簡介」底部；其餘要往上捲
 const peekRO = new ResizeObserver(setPeek);
 function setPeek(){
-  const head = info.firstElementChild, next = head?.nextElementSibling;
+  const head = info.firstElementChild;
+  const folded = document.body.classList.contains('stage-collapsed') && matchMedia('(min-width:941px)').matches;
+  const next = folded ? head : head?.nextElementSibling;
   if(!head || !next) return;
   const h = next.getBoundingClientRect().bottom - info.getBoundingClientRect().top;
   stage.style.setProperty('--peek', Math.round(Math.min(h + 14, stage.clientHeight * .5)) + 'px');
@@ -2369,12 +2379,15 @@ function watchPeek(){
 /* ================= 行動版：底部面板收合 ================= */
 const stage = document.querySelector('.stage');
 const stageCur = document.getElementById('stageCur');
-const collapseBtn = document.getElementById('collapseBtn');
-const collapseLabel = document.getElementById('collapseLabel');
-collapseBtn.addEventListener('click', ()=>{
-  const collapsed = document.body.classList.toggle('stage-collapsed');
-  collapseBtn.setAttribute('aria-expanded', String(!collapsed));
-  collapseLabel.textContent = collapsed ? '展開' : '收合';
+// 手機把手與桌面名稱列各有一顆收合鈕，共用 body.stage-collapsed
+function setCollapsed(c){
+  document.body.classList.toggle('stage-collapsed', c);
+  document.querySelectorAll('.collapse-btn').forEach(b=>b.setAttribute('aria-expanded', String(!c)));
+  setPeek();
+}
+document.addEventListener('click', e=>{
+  if(e.target.closest('.collapse-btn'))
+    setCollapsed(!document.body.classList.contains('stage-collapsed'));
 });
 
 /* ================= 選取景點 ================= */
@@ -2396,9 +2409,7 @@ function select(id, keepView){
   stageCur.textContent = s.name;
   stageCur.classList.remove('empty');
   document.body.classList.add('spot-on');
-  document.body.classList.remove('stage-collapsed');
-  collapseBtn.setAttribute('aria-expanded', 'true');
-  collapseLabel.textContent = '收合';
+  setCollapsed(false);
   stage.scrollTo({top:0, behavior:'smooth'});
 
   const token = ++reqToken;
@@ -2420,7 +2431,7 @@ function select(id, keepView){
       <h2>${s.name}</h2><span class="i-zh">${s.zh}</span>
       ${s.dwell?`<span class="i-dwell">建議停留 ${hhmm(s.dwell)}</span>`:''}
       ${s.fixed?'<span class="badge fixed">已確定</span>':''}${seq}
-      ${gmapLink(s)}
+      ${gmapLink(s)}${collapseBtnHtml()}
     </div>
     ${s.desc ? `<p class="i-desc rise rise-2">${s.desc}</p>`
       : '<p class="i-desc wait rise rise-2" id="sumDesc">載入維基百科摘要…</p>'}
@@ -2442,7 +2453,9 @@ function select(id, keepView){
 
 // 維基的照片有限，Google 地圖的景點頁有大量遊客照片與評論
 const gmapLink = s => `<a class="i-gmap" href="https://www.google.com/maps/search/?api=1&query=${
-  encodeURIComponent(placeQuery(s))}" target="_blank" rel="noopener">${icon('i-map')}在 Google 地圖開啟<span>照片・評論</span>${icon('i-ext')}</a>`;
+  encodeURIComponent(placeQuery(s))}" target="_blank" rel="noopener">${icon('i-map')}在 Google 地圖開啟</a>`;
+const collapseBtnHtml = () => `<button type="button" class="ghost-btn collapse-btn i-collapse" aria-expanded="${
+  !document.body.classList.contains('stage-collapsed')}">${icon('i-chev-d')}<span class="lbl-open">收合</span><span class="lbl-closed">展開</span></button>`;
 
 /* ================= 編輯：排入哪一天 =================
    在行程裡的景點：換天、移除；不在的：選一天加入。預設選目前所在的那天，
@@ -2513,9 +2526,7 @@ function showPlace(k, center){
   stageCur.textContent = s.name;
   stageCur.classList.remove('empty');
   document.body.classList.add('spot-on');
-  document.body.classList.remove('stage-collapsed');
-  collapseBtn.setAttribute('aria-expanded', 'true');
-  collapseLabel.textContent = '收合';
+  setCollapsed(false);
   stage.scrollTo({top:0, behavior:'smooth'});
 
   const token = ++reqToken;
@@ -2526,7 +2537,7 @@ function showPlace(k, center){
       <h2>${esc(s.name)}</h2><span class="i-zh">${esc(s.zh)}</span>
       <span class="badge${removed ? ' draft' : ''}">${removed ? '已從行程移除' : '不在行程裡'}</span>
       ${s.type ? `<span class="badge seq">${TYPES[s.type]}</span>` : ''}
-      ${gmapLink(s)}
+      ${gmapLink(s)}${collapseBtnHtml()}
     </div>
     ${s.desc ? `<p class="i-desc rise rise-2">${s.desc}</p>`
       : '<p class="i-desc wait rise rise-2" id="sumDesc">載入維基百科摘要…</p>'}
@@ -2606,7 +2617,7 @@ function editsInfo(){
     <p class="route-note rise rise-2" style="margin-top:0">送出後會開一張 GitHub Issue：先由固定腳本照清單改好站序與車程、推上 main，幾分鐘內網站就更新；新景點的介紹與當天說明再由 Claude Code 補上。</p>
     <ol class="changes rise rise-3">${rows}</ol>
     <div class="send rise rise-3">
-      <a class="plan-go" id="sendIssue" href="${esc(issueUrl())}" target="_blank" rel="noopener">開 GitHub Issue${icon('i-ext')}</a>
+      <a class="plan-go" id="sendIssue" href="${esc(issueUrl())}" target="_blank" rel="noopener">開 GitHub Issue</a>
       <button type="button" class="ghost-btn" id="dropEdits">全部捨棄</button>
       <p class="send-note">需要登入有這個 repo 權限的 GitHub 帳號；開好之後這裡的草稿會保留，等網站更新後自動消失。</p>
     </div>`;
@@ -2659,9 +2670,7 @@ function showEdits(){
   document.querySelectorAll('.spot.active').forEach(x=>x.classList.remove('active'));
   rmap?.closePopup();
   document.body.classList.add('spot-on');
-  document.body.classList.remove('stage-collapsed');
-  collapseBtn.setAttribute('aria-expanded', 'true');
-  collapseLabel.textContent = '收合';
+  setCollapsed(false);
   stageCur.textContent = '更新行程';
   stageCur.classList.remove('empty');
   info.innerHTML = editsInfo();
@@ -2890,9 +2899,9 @@ async function nearbyPhotos(s){
 // 照片下方：到 Google 圖片／Flickr 看更多
 const moreLinks = s => `
   <p class="gal-more">更多照片：
-    <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">Google 圖片${icon('i-ext')}</a>
+    <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">Google 圖片</a>
     <a href="https://www.flickr.com/search/?${new URLSearchParams({lat:s.lat, lon:s.lng, radius:'1',
-      has_geo:'1', sort:'interestingness-desc', view_all:'1'})}" target="_blank" rel="noopener">Flickr 附近照片${icon('i-ext')}</a>
+      has_geo:'1', sort:'interestingness-desc', view_all:'1'})}" target="_blank" rel="noopener">Flickr 附近照片</a>
   </p>`;
 
 const imgSearchUrl = name =>
@@ -2984,7 +2993,7 @@ function fallback(gal, s, failed){
           ? '可能是網路連線不穩，或目前連不到照片來源。稍後重新整理即可再試一次。'
           : '這個地點附近沒有可顯示的照片，可以直接到 Google 圖片搜尋。'}</p>
         <a href="${imgSearchUrl(s.name)}" target="_blank" rel="noopener">
-          在 Google 圖片搜尋「${esc(s.name)}」${icon('i-ext')}
+          在 Google 圖片搜尋「${esc(s.name)}」
         </a>
       </div>
     </div>`;
