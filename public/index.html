@@ -984,7 +984,7 @@ const DAYS = [
     n:2, title:"Snæfellsnes 半島 Day1（南岸 → 西端）", date:"5/1（六）", km:296, drive:4.7,
     note:"從雷克雅維克出發，約 2 小時（134 公里）到第一站 Hraunfossar。這天是 Snæfellsnes 半島南岸到西端的海岸日：海豹灘、熔岩原上的黑教堂、玄武岩海崖、熔岩洞與黑卵石灘。",
     spots:[
-      {name:"Hraunfossar & Barnafoss", zh:"熔岩瀑布與巴納瀑布", via:[[64.5383,-21.9206]], via:[[64.5383,-21.9206]], wd:"Q427971", lat:64.70279, lng:-20.97985, z:15,
+      {name:"Hraunfossar & Barnafoss", zh:"熔岩瀑布與巴納瀑布", via:[[64.5383,-21.9206]], wd:"Q427971", lat:64.70279, lng:-20.97985, z:15,
        q:"Hraunfossar waterfall Iceland", type:"waterfall",
        desc:"Hallmundarhraun 熔岩原底下滲出的泉水，沿著長長一段岩壁分成許多細流落入 Hvítá 河。上游的 Barnafoss 是窄谷裡的急流，名字來自兩個孩子從天然石橋落水的傳說。",
        highlights:[
@@ -2055,8 +2055,9 @@ function segments(){
   const out = [];
   DAYS.forEach((day, i)=>{
     const pts = [], stops = [];   // pts 是 OSRM 吃的 lng,lat；stops：各景點在 pts 裡的位置，用來把逐段里程對回景點
-    day.spots.forEach(sp => {
-      (sp.via || []).forEach(([la, ln]) => pts.push([ln, la]));
+    // 首站的 via 屬於從前一天開過來的虛線段，不進當天實線
+    day.spots.forEach((sp, k) => {
+      if(k) (sp.via || []).forEach(([la, ln]) => pts.push([ln, la]));
       stops.push(pts.length);
       pts.push([sp.lng, sp.lat]);
     });
@@ -2064,7 +2065,8 @@ function segments(){
     const next = DAYS[i+1];
     if(next){
       const a = endOf(day), b = next.spots[0];
-      out.push({key:'gap'+i, i, gap:true, pts:[[a.lng, a.lat], [b.lng, b.lat]]});
+      out.push({key:'gap'+i, i, gap:true,
+        pts:[[a.lng, a.lat], ...(b.via || []).map(([la, ln]) => [ln, la]), [b.lng, b.lat]]});
     }
   });
   return out;
@@ -2258,11 +2260,11 @@ function drawRoute(fit = true){
     if(line.length > 1) LINES['day'+i] =
       L.polyline(line, {color:c, weight:3.5, opacity:.95}).addTo(routeLines);
 
-    // 虛線 = 兩天之間的移動；當晚落腳就在這一段上
+    // 虛線 = 隔天早上的啟程車程，所以用隔天的顏色
     const next = DAYS[i+1];
     if(next) LINES['gap'+i] =
       L.polyline([[end.lat, end.lng], [next.spots[0].lat, next.spots[0].lng]],
-        {color:c, weight:2, opacity:.55, dashArray:'4 7'}).addTo(routeLines);
+        {color:dayColor(i+1), weight:2, opacity:.55, dashArray:'4 7'}).addTo(routeLines);
 
     day.spots.forEach(s=>{
       if(s === end) return;

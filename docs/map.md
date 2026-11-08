@@ -9,7 +9,7 @@ and opens that spot's popup, so the whole route stays on screen. If Leaflet neve
 placeholder message stays. Google Maps appears only as outbound links.
 
 The route lives here because a `maps/dir/` URL caps at 10 stops: one coloured polyline per day,
-a dashed segment for each departure drive (previous day's last stop to this day's first stop), a numbered pin at every day's last stop.
+a dashed segment for each departure drive (previous day's last stop to this day's first stop, driven that morning, so in this day's colour), a numbered pin at every day's last stop.
 
 - Lines sit in their own layer group, so 「路線」 hides them and keeps the pins.
 - With no spot selected the right panel shows the empty prompt and the map fits the whole trip
@@ -38,14 +38,14 @@ OSRM routes by distance, not season, and will send you over an `F`-road: a highl
 4x4-only and usually shut until June, which is after this trip. So its numbers are
 shortest-path, not plans. Every query asks for `steps` purely to read each step's `ref`; any
 `F`-prefixed one marks the leg 路線僅供參考 in the popup (`LEG_KM.f`). Keep that flag wired to
-anything that shows an OSRM duration. It reads only the prefix, so a highland road numbered without one (550 Kaldidalur) passes silently: read the `ref`s of a new leg yourself. It reads only the prefix, so a highland road numbered without one (550 Kaldidalur) passes silently: read the `ref`s of a new leg yourself. Its text is for travellers, so it speaks without "OSRM" or road numbers.
+anything that shows an OSRM duration. It reads only the prefix, so a highland road numbered without one (550 Kaldidalur) passes silently: read the `ref`s of a new leg yourself. Its text is for travellers, so it speaks without "OSRM" or road numbers.
 
 When it fires:
 
 1. Check the coordinate of the stop that ends the leg. A stop off the road network snaps to the
    nearest road, possibly an `F`-road, and no pin can fix that.
 2. Otherwise add `via:[[lat,lng],…]` to that stop. The points are inserted before it in the query
-   (`segments()`), pinning the line to the paved road.
+   (`segments()`), pinning the line to the paved road. On a day's first stop they shape the dashed departure drive instead.
 
 ## Photos
 
