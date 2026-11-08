@@ -27,7 +27,7 @@ Live site: https://iceland-trip.man572142.workers.dev/
   Data in `DAYS`, clockwise (西 → 北 → 東 → 南).
 - `public/flights.html` — confirmed flights and the price archive, linked from the
   itinerary. Data in `OLD_FLIGHTS` / `NEW_FLIGHTS`.
-- `public/review.html` — open issues with the plan; its 「已修正 · 別改回去」
+- `public/review.html` — open issues with the plan; its 「已定案」
   callout lists settled decisions. Styled on its own, not linked from the site.
 - `public/photo-debug.html` — photo source diagnostic.
 - `iceland_trip_itinerary.md` — the written plan, not deployed.
@@ -51,6 +51,10 @@ stylesheet, so a palette change is two edits.
 - **Workers, not Pages:** a static-assets-only Worker, with `assets.directory` in
   `wrangler.jsonc` pointing at `public/`. Configure it through Workers keys;
   `pages_build_output_dir` is ignored.
+- **Pages show the plan as it is, not how it got there.** No edit history, corrections,
+  retracted advice or resolved issues on any page; `review.html` lists only what is still
+  open, and a settled decision is stated in a line with only the facts needed to act on it.
+  Rationale a future edit needs goes in `docs/`.
 - **Write user-facing text in Traditional Chinese** (itinerary notes, spot
   descriptions, UI).
 - **Write concisely** in the itinerary, spot and day text, and these docs. Open with

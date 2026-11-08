@@ -5,8 +5,9 @@ The trip's data is `DAYS` in `public/index.html`, clockwise (西 → 北 → 東
 
 ## Steps
 
-1. Read the 「已修正 · 別改回去」 callout in `public/review.html`. Each item is a
-   settled decision; a change that reverses one needs the user's say-so.
+1. Read the 「已定案」 callout in `public/review.html`. Each item is a
+   settled decision; a change that reverses one needs the user's say-so. Reasons that are not
+   obvious from the data are in [Why settled decisions hold](#why-settled-decisions-hold).
 2. Put the spot in its day's `spots`, and update that day's `title`, `note`, `km` and `drive`.
 3. Sync the same change into `iceland_trip_itinerary.md` and the load table in `review.html`.
 4. Update the place's `decision` in `tools/candidates.json`; adding a place not yet there means adding it with its sources ([edit-pipeline.md](edit-pipeline.md#the-candidate-pool)).
@@ -114,3 +115,14 @@ The trip never assumes where a night is spent, because the group picks lodging i
 overnight towns in titles or notes, and `km`/`drive` count the day's path plus half of each
 adjacent departure drive. The day's last-stop popup links to a live search around it
 ([map.md](map.md#stay-links)).
+
+## Why settled decisions hold
+
+The page states each decision without its reason. These are the reasons an edit would otherwise
+miss:
+
+- No aurora: 4/30–5/15 at 64° N has no astronomical darkness.
+- Only the Mývatn bath: Vök, Blue Lagoon, Sky Lagoon and Reykjadalur are excluded by the user.
+- No Tröllaskagi: about 100 km off Route 1, and its harbour towns repeat one kind of scenery.
+- Dettifoss from the west on 862: the east side's 864 opens in late May.
+- Kolaportið opens only at weekends, so it can only be Day 16 (a Saturday).
